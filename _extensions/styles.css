@@ -1,0 +1,39 @@
+h1.title {
+  font-size: 20pt !important;  /* Title size */
+}
+
+/* Cambia el color del navbar */
+.navbar {
+  background-color: #170C3A !important;
+}
+
+/* Color de los items del navbar */
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
+/* Color de hover */
+.navbar-nav .nav-link:hover {
+  color: #FB9E07 !important;
+}
+
+/* Pestaña activa */
+.navbar-nav .nav-item.active .nav-link {
+  color: white !important;
+  background-color: white;  /* Fondo ligeramente brillante */
+}
+
+/* Menú desplegable */
+.dropdown-menu {
+  background-color: #2a1766 !important;
+}
+/* Cambiar color del texto en dropdown a blanco */
+.navbar .dropdown-menu .dropdown-item {
+  color: white !important;
+}
+
+/* Cambiar color al pasar el mouse */
+.navbar .dropdown-menu .dropdown-item:hover {
+  color: #FB9E07 !important; /* Color oscuro al hover para mejor contraste */
+  background-color: #2a1766 !important; 
+}

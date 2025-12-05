@@ -1,0 +1,100 @@
+/* Para mantener el fondo pero sin afectar el pie de página */
+body::before {
+    content: "";
+    background-image: url('../files/state_space.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.9;
+}
+
+/* Si necesitas excluir específicamente el pie de página */
+footer {
+    /* Restablece cualquier estilo que pudiera heredarse */
+    all: revert;
+}
+.content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 35px;
+    border-radius: 10px;
+}
+/* Solo afecta al contenido principal, excluyendo el pie de página */
+main {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333333;
+}
+
+/* Para los encabezados dentro del contenido principal */
+main h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+}
+
+main h2 {
+    font-size: 2em;
+    color: #34495e;
+}
+
+/* Para párrafos en el contenido principal */
+main p {
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.custom-text-color {
+  color: #FFFFFF;
+}
+
+.quarto-title-meta-heading {
+  color: #f8f9fa;  /* Color para "Published" */
+}
+
+.quarto-title-meta-contents {
+  color: #f8f9fa;  /* Color para la fecha */
+}
+
+
+/* Cambia el color del navbar */
+.navbar {
+  background-color: #170C3A !important;
+}
+
+/* Color de los items del navbar */
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
+/* Color de hover */
+.navbar-nav .nav-link:hover {
+  color: #FB9E07 !important;
+}
+
+/* Pestaña activa */
+.navbar-nav .nav-item.active .nav-link {
+  color: white !important;
+  background-color: white;  /* Fondo ligeramente brillante */
+}
+
+/* Menú desplegable */
+.dropdown-menu {
+  background-color: #2a1766 !important;
+}
+/* Cambiar color del texto en dropdown a blanco */
+.navbar .dropdown-menu .dropdown-item {
+  color: white !important;
+}
+
+/* Cambiar color al pasar el mouse */
+.navbar .dropdown-menu .dropdown-item:hover {
+  color: #FB9E07 !important; /* Color oscuro al hover para mejor contraste */
+  background-color: #2a1766 !important; 
+}
+

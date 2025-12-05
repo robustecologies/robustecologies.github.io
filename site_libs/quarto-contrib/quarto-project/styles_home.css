@@ -1,0 +1,75 @@
+/* Imagen de fondo que ocupa toda la página */
+body {
+    background-image: url('../files/state_space.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #FFFFFF !important;
+    text-align: justify;
+}
+
+/* Asegurarse que todo el texto sea blanco */
+body, p, h1, h2, h3, h4, h5, h6, .quarto-title-block, #quarto-content {
+    color: #FFFFFF !important;
+}
+
+/* Centrar el título principal */
+.title-centered {
+    text-align: center;
+    color: #FFFFFF !important;
+    font-size: 4rem;
+    margin-bottom: 30px;
+}
+
+/* Estilos para el subtítulo */
+.subtitle {
+    font-size: 1.7rem;
+    color: #FFFFFF !important;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el texto principal */
+.main-text {
+    margin-top: 30px;
+    color: #FFFFFF !important;
+}
+
+
+/* Cambia el color del navbar */
+.navbar {
+  background-color: #170C3A !important;
+}
+
+/* Color de los items del navbar */
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
+/* Color de hover */
+.navbar-nav .nav-link:hover {
+  color: #FB9E07 !important;
+}
+
+/* Pestaña activa */
+.navbar-nav .nav-item.active .nav-link {
+  color: white !important;
+  background-color: white;  /* Fondo ligeramente brillante */
+}
+
+/* Menú desplegable */
+.dropdown-menu {
+  background-color: #2a1766 !important;
+}
+/* Cambiar color del texto en dropdown a blanco */
+.navbar .dropdown-menu .dropdown-item {
+  color: white !important;
+}
+
+/* Cambiar color al pasar el mouse */
+.navbar .dropdown-menu .dropdown-item:hover {
+  color: #FB9E07 !important; /* Color oscuro al hover para mejor contraste */
+  background-color: #2a1766 !important; 
+}
+

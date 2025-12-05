@@ -1,0 +1,26 @@
+[
+  {
+    "listing": "/blog/index.html",
+    "items": [
+      "/blog/2025/03/05/diversification-in-the-seaflor/index.html"
+    ]
+  },
+  {
+    "listing": "/research/index.html",
+    "items": [
+      "/research/articles/almaraz-etal-2024/index.html",
+      "/research/articles/almaraz-green-2024/index.html",
+      "/research/articles/almaraz-etal-2022/index.html",
+      "/research/articles/almaraz-2014/index.html",
+      "/research/articles/almaraz-etal-2012/index.html",
+      "/research/articles/almaraz-oro-2011/index.html",
+      "/research/articles/almaraz-amat-2004/index.html"
+    ]
+  },
+  {
+    "listing": "/talks/index.html",
+    "items": [
+      "/talks/2025/06/26/ebd-seminars/index.html"
+    ]
+  }
+]
