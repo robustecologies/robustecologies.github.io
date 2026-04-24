@@ -1,7 +1,9 @@
-# Rotate vector from n-th canonical basis to arbitrary orientation
+# Givens rotation from canonical axis to an arbitrary direction
 
-Rotates a vector \\\hat{x}\\ aligned with the n-th canonical basis
-vector to align with an arbitrary direction \\\hat{\mu}\\.
+Rotates a vector \\\hat{x}\\ aligned with the \\n\\-th canonical basis
+vector \\\hat{e}\_n\\ so that its image is aligned with an arbitrary
+unit direction \\\hat{\mu}\\, in \\O(n)\\ operations using a Givens
+rotation in the plane spanned by \\\hat{e}\_n\\ and \\\hat{\mu}\\.
 
 ## Usage
 
@@ -40,15 +42,28 @@ The matrices are defined as: \$\$P = \[\hat{e}\_n, \frac{\hat{\mu} -
 This rotation costs only O(n) operations, unlike general n-dimensional
 rotations which cost O(n²).
 
+## References
+
+Arun, I., & Venkatapathi, M. (2025). An O(n) algorithm for generating
+uniform random vectors in n-dimensional cones. *Sankhya A*, 87(2),
+327-348.
+[doi:10.1007/s13171-025-00387-9](https://doi.org/10.1007/s13171-025-00387-9)
+
+## See also
+
+[`generate_cone_sample`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_sample.md),
+[`generate_cone_samples`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_samples.md)
+for the cone samplers that compose this rotation with a sampled
+canonical-axis vector;
+[`generate_point_on_sphere`](https://robustecologies.github.io/SolidAngleR/reference/generate_point_on_sphere.md)
+for the uniform-sphere primitive.
+
 ## Examples
 
 ``` r
-# Rotate vector from z-axis to arbitrary direction
-x <- c(0, 0, 1)  # Aligned with 3rd canonical axis
-mu_hat <- c(1, 1, 1) / sqrt(3)  # Target direction
+x <- c(0, 0, 1)
+mu_hat <- c(1, 1, 1) / sqrt(3)
 y <- rotate_from_canonical(x, mu_hat)
-
-# Verify alignment
-sum(y * mu_hat)  # Should be close to 1
+sum(y * mu_hat)             # close to 1: y aligns with mu_hat
 #> [1] 1
 ```

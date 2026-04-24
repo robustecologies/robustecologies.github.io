@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Computing normalized solid angles of polyhedral cones in arbitrary dimensions • SolidAngleR</title>
+<title>SolidAngleR - Computing normalized solid angles of polyhedral cones in arbitrary dimensions • SolidAngleR</title>
 <!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
   window.MathJax = {
     chtml: {
@@ -16,7 +16,7 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Computing normalized solid angles of polyhedral cones in arbitrary dimensions">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="SolidAngleR - Computing normalized solid angles of polyhedral cones in arbitrary dimensions">
 <meta name="description" content="Comprehensive methods for computing normalized solid angles of polyhedral cones in arbitrary dimensions, including closed formulas for low dimensions, hypergeometric series, tridiagonal series, decomposition methods, multivariate normal integration and spanning tree methods for extreme ray computation. Implements advanced Monte Carlo (MC) approaches using rejection sampling for random point assignments to complex cone intersections, and Rcpp-based novel O(n) MC algorithms for generating uniform random vectors using the Box-Muller/Marsaglia method for complete n-dimensional spheres coverage, and the incomplete beta function plus Givens rotation for full coverage within spherical caps.">
 <meta property="og:description" content="Comprehensive methods for computing normalized solid angles of polyhedral cones in arbitrary dimensions, including closed formulas for low dimensions, hypergeometric series, tridiagonal series, decomposition methods, multivariate normal integration and spanning tree methods for extreme ray computation. Implements advanced Monte Carlo (MC) approaches using rejection sampling for random point assignments to complex cone intersections, and Rcpp-based novel O(n) MC algorithms for generating uniform random vectors using the Box-Muller/Marsaglia method for complete n-dimensional spheres coverage, and the incomplete beta function plus Givens rotation for full coverage within spherical caps.">
 <script defer data-domain="robustecologies.github.io/SolidAngleR" src="https://plausible.io/js/plausible.js"></script>
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">SolidAngleR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,28 +38,27 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="active nav-item"><a class="nav-link" href="index.html">Home</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Theory</h6></li>
-    <li><a class="dropdown-item" href="articles/a.theoretical-analysis.html">A mathematical introduction to solid angle methods for polyhedral cones with the SolidAngleR library</a></li>
-    <li><a class="dropdown-item" href="articles/b.fitisone-zhou-methods.html">Hypergeometric and tridiagonal series and decomposition approaches</a></li>
+<li><a class="dropdown-item" href="articles/theoretical-analysis.html">A mathematical introduction to solid angle methods</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Methods</h6></li>
-    <li><a class="dropdown-item" href="articles/c.mazonka-geometric-methods.html">Geometric methods for conical surfaces and intersecting spherical caps</a></li>
-    <li><a class="dropdown-item" href="articles/d.monte-carlo-methods.html">Monte Carlo methods for solid angle computation: convergence, error analysis, and validation</a></li>
-    <li><a class="dropdown-item" href="articles/e.uniform-sphere-sampling.html">Uniform Monte Carlo sampling on n-dimensional spheres and spherical caps</a></li>
-    <li><a class="dropdown-item" href="articles/f.hypergeometric-high-dim.html">Exact analytical solid angles in higher dimensions</a></li>
+    <li><a class="dropdown-item" href="articles/fitisone-zhou-methods.html">Hypergeometric and tridiagonal series methods (Fitisone-Zhou)</a></li>
+    <li><a class="dropdown-item" href="articles/mazonka-geometric-methods.html">Geometric methods for conical surfaces (Mazonka)</a></li>
+    <li><a class="dropdown-item" href="articles/monte-carlo-methods.html">Monte Carlo methods</a></li>
+    <li><a class="dropdown-item" href="articles/hypergeometric-high-dim.html">Hypergeometric series in higher dimensions</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="articles/index.html">More articles...</a></li>
+    <li><a class="dropdown-item" href="articles/uniform-sphere-sampling.html">Uniform sphere and spherical-cap sampling</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="articles/architecture-api.html">Technical architecture and API reference</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="articles/g.architecture-api.html">API</a></li>
-<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
       </ul>
 <ul class="navbar-nav">
+<li class="nav-item"><a class="nav-link" href="articles/architecture-api.html">API</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
@@ -86,7 +85,7 @@
 <div class="section level2">
 <h2 id="computing-normalized-solid-angles-of-polyhedral-cones-in-arbitrary-dimensions">Computing normalized solid angles of polyhedral cones in arbitrary dimensions<a class="anchor" aria-label="anchor" href="#computing-normalized-solid-angles-of-polyhedral-cones-in-arbitrary-dimensions"></a>
 </h2>
-<p><a href="https://github.com/palmaraz/SolidAngleR/actions" class="external-link"><img src="https://img.shields.io/badge/R--CMD--check-passing-brightgreen" alt="R-CMD-check"></a> <a href="https://CRAN.R-project.org/package=SolidAngleR" class="external-link"><img src="https://www.r-pkg.org/badges/version/SolidAngleR" alt="CRAN status"></a> <a href="https://www.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R-%E2%89%A54.1.0-blue.svg" alt="R version"></a></p>
+<p><a href="https://github.com/palmaraz/SolidAngleR/actions" class="external-link"><img src="https://img.shields.io/badge/R--CMD--check-passing-brightgreen" alt="R-CMD-check"></a> <!-- [![CRAN status](https://www.r-pkg.org/badges/version/SolidAngleR)](https://CRAN.R-project.org/package=SolidAngleR) --> <a href="https://www.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R-%E2%89%A54.1.0-blue.svg" alt="R version"></a></p>
 <p><a href="https://cran.r-project.org/package=Rcpp" class="external-link"><img src="https://img.shields.io/cran/v/Rcpp.svg?label=Rcpp%20version" alt="CRAN version"></a> <a href="https://cran.r-project.org/package=RcppArmadillo" class="external-link"><img src="https://img.shields.io/cran/v/RcppArmadillo.svg?label=RcppArmadillo%20version" alt="CRAN version"></a></p>
 <p><a href="https://www.gnu.org/licenses/gpl-3.0" class="external-link"><img src="https://img.shields.io/badge/License-GPLv3-orange.svg" alt="License: GPL v3"></a></p>
 <p><strong>SolidAngleR</strong> provides comprehensive methods for computing normalized solid angles of polyhedral cones in arbitrary dimensions, including closed formulas for low dimensions, hypergeometric series, tridiagonal series, decomposition methods, multivariate normal integration and spanning tree methods for extreme ray computation. Implements advanced Monte Carlo (MC) approaches using rejection sampling for random point assignments to complex cone intersections, and Rcpp-based novel O(n) MC algorithms for generating uniform random vectors using the Box-Muller/Marsaglia method for complete n-dimensional spheres coverage, and the incomplete beta function plus Givens rotation for full coverage within spherical caps.</p>
@@ -108,7 +107,7 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Install from GitHub (development version)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"robustecologies/SolidAngleR"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"robustecologies/SolidAngleR"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Or install locally</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -120,7 +119,7 @@
 </h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="bu">cd</span> /path/to/SolidAngleR</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">R</span> CMD build .</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">R</span> CMD INSTALL SolidAngleR_0.1.0.tar.gz</span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">R</span> CMD INSTALL SolidAngleR_0.6.0.tar.gz</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -411,12 +410,10 @@
 <span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">S</span> <span class="op">*</span> <span class="va">S</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="va">S</span>, <span class="va">S</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">alpha</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span>
 <span></span>
-<span><span class="co"># Compute feasibility domain size</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/omega.html">omega</a></span><span class="op">(</span><span class="va">alpha</span><span class="op">)</span></span>
-<span><span class="va">feas_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  omega <span class="op">=</span> <span class="va">result</span><span class="op">$</span><span class="va">omega</span>,</span>
-<span>  omega_scaled <span class="op">=</span> <span class="va">result</span><span class="op">$</span><span class="va">omega_scaled</span></span>
-<span><span class="op">)</span></span>
+<span><span class="co"># Compute feasibility domain size via the multivariate-normal branch</span></span>
+<span><span class="va">omega_raw</span>    <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_solid_angle.html">compute_solid_angle</a></span><span class="op">(</span><span class="va">alpha</span>, method <span class="op">=</span> <span class="st">"mvn"</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">omega_scaled</span> <span class="op">&lt;-</span> <span class="va">omega_raw</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="va">S</span><span class="op">)</span></span>
+<span><span class="va">feas_table</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>omega <span class="op">=</span> <span class="va">omega_raw</span>, omega_scaled <span class="op">=</span> <span class="va">omega_scaled</span><span class="op">)</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">feas_table</span>, digits <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr>
@@ -428,7 +425,7 @@
 <td align="right">0.197963</td>
 </tr></tbody>
 </table>
-<p><strong>Interpretation:</strong> <code>omega</code> represents the fraction of parameter space where all species can coexist with positive abundances.</p>
+<p><strong>Interpretation:</strong> <code>omega</code> represents the fraction of parameter space where all species can coexist with positive abundances; <code>omega_scaled = omega^(1 / S)</code> is the per-species geometric mean used to compare communities of different sizes.</p>
 </div>
 <div class="section level3">
 <h3 id="workflow-2-computational-geometry">Workflow 2: Computational geometry<a class="anchor" aria-label="anchor" href="#workflow-2-computational-geometry"></a>
@@ -477,17 +474,14 @@
 <code class="sourceCode R"><span><span class="va">V</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Compare different computational approaches</span></span>
-<span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"series"</span>, <span class="st">"decomposition"</span><span class="op">)</span></span>
+<span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"series"</span>, <span class="st">"decomposition"</span>, <span class="st">"mvn"</span><span class="op">)</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">methods</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="reference/compute_solid_angle.html">compute_solid_angle</a></span><span class="op">(</span><span class="va">V</span>, method <span class="op">=</span> <span class="va">m</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ○ Decomposed into 1 cones</span></span>
-<span></span>
-<span><span class="co"># Add omega() method</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">results</span>, omega <span class="op">=</span> <span class="fu"><a href="reference/omega.html">omega</a></span><span class="op">(</span><span class="va">V</span><span class="op">)</span><span class="op">$</span><span class="va">omega</span><span class="op">)</span></span>
 <span><span class="va">method_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>,</span>
-<span>  omega <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
+<span>  method <span class="op">=</span> <span class="va">methods</span>,</span>
+<span>  omega  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">method_table</span>, digits <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -505,7 +499,7 @@
 <td align="right">0.0625</td>
 </tr>
 <tr>
-<td align="left">omega</td>
+<td align="left">mvn</td>
 <td align="right">0.0625</td>
 </tr>
 </tbody>
@@ -517,7 +511,7 @@
 <div class="section level2">
 <h2 id="performance-tips">Performance tips<a class="anchor" aria-label="anchor" href="#performance-tips"></a>
 </h2>
-<p>For optimal performance, consider dimension and cone structure when selecting methods. For low dimensions (<span class="math inline">\(n \le 3\)</span>), use <code>method = "formula"</code> as the fastest option; for positive definite cones, use <code>method = "series"</code> for efficient computation; for tridiagonal structure, use <code>method = "tridiagonal"</code> with optimized algorithms; for any cone type, use <code>method = "decomposition"</code> as a universal approach; for quick estimates, use <code><a href="reference/solid_angle_monte_carlo.html">solid_angle_monte_carlo()</a></code> for approximate results; and for ecological applications, use <code><a href="reference/omega.html">omega()</a></code> as a proven, reliable method.</p>
+<p>For optimal performance, consider dimension and cone structure when selecting methods. For low dimensions (<span class="math inline">\(n \le 3\)</span>), use <code>method = "formula"</code> as the fastest option; for positive definite cones, use <code>method = "series"</code> for efficient computation; for tridiagonal structure, use <code>method = "tridiagonal"</code> with optimized algorithms; for any cone type, use <code>method = "decomposition"</code> as a universal approach; for quick estimates, use <code><a href="reference/solid_angle_monte_carlo.html">solid_angle_monte_carlo()</a></code> for approximate results; and for ecological feasibility-domain applications, use <code>method = "mvn"</code> for the Genz-Bretz quasi-Monte Carlo orthant integral.</p>
 </div>
 <div class="section level2">
 <h2 id="method-selection-guide">Method selection guide<a class="anchor" aria-label="anchor" href="#method-selection-guide"></a>
@@ -567,10 +561,10 @@
 <td><code>method = "decomposition"</code></td>
 </tr>
 <tr>
-<td>Any</td>
-<td>Any</td>
-<td>Multivariate normal</td>
-<td><code><a href="reference/omega.html">omega()</a></code></td>
+<td>Positive definite</td>
+<td>n &lt;= 20</td>
+<td>Multivariate normal QMC</td>
+<td><code>method = "mvn"</code></td>
 </tr>
 <tr>
 <td>Complex geometry</td>
@@ -623,23 +617,22 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="version-010-status">Version 0.1.0 status<a class="anchor" aria-label="anchor" href="#version-010-status"></a>
+<h2 id="version-060-status">Version 0.6.0 status<a class="anchor" aria-label="anchor" href="#version-060-status"></a>
 </h2>
 <div class="section level3">
 <h3 id="whats-working">What’s working<a class="anchor" aria-label="anchor" href="#whats-working"></a>
 </h3>
-<p>All core functionality is operational. The test suite passes locally across all major methods. New features include n-dimensional hypergeometric series (n &gt; 3), C++ (Rcpp) optimization for cone sampling and rotations, and interactive 3D cone visualization with <code><a href="reference/plot_cone_3d.html">plot_cone_3d()</a></code>. The hypergeometric series for n=2,3 uses the correct gamma function formulation, tridiagonal series optimization provides exponential speedup, and decomposition methods handle arbitrary cones. All geometric formulas for circular cones, polyhedral cones, and intersections are implemented, along with multivariate normal integration for feasibility domains and comprehensive documentation across 6 detailed vignettes.</p>
-<p>Critical bugs have been fixed, including gamma function operator precedence (which was causing ~10x errors), geometric function normalization (all functions now return values in [0,1]), names attribute cleanup in return values, and vignette compilation errors.</p>
+<p>All core functionality is operational and the package passes <code>R CMD check --as-cran</code> with zero errors, zero warnings and a single system-level NOTE. The main dispatcher <code><a href="reference/compute_solid_angle.html">compute_solid_angle()</a></code> routes automatically to the cheapest convergent backend and now exposes the multivariate-normal orthant integral as <code>method = "mvn"</code> (the previous standalone <code>omega()</code> was retired); the diagnostic constructor <code><a href="reference/diagnose_cone.html">diagnose_cone()</a></code> is a full S3 object with <code>print</code>, <code>summary</code> and <code>plot</code> methods; the C++ sampling backend via Rcpp and RcppArmadillo delivers O(n) per-sample cost; and the hypergeometric stack covers arbitrary n through <code><a href="reference/hypergeometric_series_nd.html">hypergeometric_series_nd()</a></code>. See <code>NEWS.md</code> for the complete version history.</p>
 </div>
 <div class="section level3">
-<h3 id="known-limitations-planned-for-v020">Known limitations (planned for v0.2.0)<a class="anchor" aria-label="anchor" href="#known-limitations-planned-for-v020"></a>
+<h3 id="known-limitations">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations"></a>
 </h3>
-<p>The decomposition method has a recursion issue where some random cone configurations may trigger stack overflow; this affects <code>method = "auto"</code> with certain non-positive-definite cones, and the workaround is to use <code>method = "series"</code> for known positive-definite cones. Additionally, some non-orthogonal tridiagonal cones may exhibit slow convergence requiring larger <code>max_terms</code> values; results remain correct, but convergence can be slower when consecutive dot products are large.</p>
+<p>The recursive decomposition in <code><a href="reference/decompose_cone.html">decompose_cone()</a></code> can hit R’s call-stack limit on pathological non-positive-definite configurations; the documented workaround is to pass <code>method = "series"</code> when the cone is known to be positive-definite, or to restructure the generators so that the Gram matrix becomes tridiagonal. Some non-orthogonal tridiagonal cones still require <code>max_terms</code> well above the default for the series to meet the convergence criterion; the returned values remain correct but the caller must set <code>max_terms</code> manually in those cases.</p>
 </div>
 <div class="section level3">
 <h3 id="future-enhancements">Future enhancements<a class="anchor" aria-label="anchor" href="#future-enhancements"></a>
 </h3>
-<p>Planned improvements include improved decomposition termination conditions, parallelization for batch computations, extended geometric methods for higher dimensions, and support for non-simplicial polyhedral cones via automatic triangulation.</p>
+<p>A C++ port of the recursive decomposition to eliminate the stack-limit issue, parallelisation of the batch dispatcher <code><a href="reference/compute_solid_angles.html">compute_solid_angles()</a></code>, and an automatic triangulation stage to accept non-simplicial polyhedral cones may be added in a future release.</p>
 </div>
 </div>
 <div class="section level2">
@@ -682,50 +675,8 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"SolidAngleR"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Open specific vignette</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"1.theoretical-analysis"</span>, package <span class="op">=</span> <span class="st">"SolidAngleR"</span><span class="op">)</span></span></code></pre></div>
-<p>Available vignettes:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Theoretical Analysis</strong> (<code>vignette("1.theoretical-analysis", package = "SolidAngleR")</code>)
-<ul>
-<li>Mathematical foundations of solid angles</li>
-<li>Derivations of formulas for 2D and 3D cones</li>
-<li>Overview of computational approaches</li>
-</ul>
-</li>
-<li>
-<strong>Series and Decomposition</strong> (<code>vignette("2.fitisone-zhou-methods", package = "SolidAngleR")</code>)
-<ul>
-<li>Hypergeometric series methods (Ribando)</li>
-<li>Tridiagonal series optimization</li>
-<li>Brion-Vergne decomposition for general cones</li>
-</ul>
-</li>
-<li>
-<strong>Geometric Methods</strong> (<code>vignette("3.mazonka-geometric-methods", package = "SolidAngleR")</code>)
-<ul>
-<li>Closed-form solutions for circular cones and segments</li>
-<li>Analytical intersection of two cones</li>
-<li>Interactive 3D visualizations with plotly</li>
-</ul>
-</li>
-<li>
-<strong>Monte Carlo Methods</strong> (<code>vignette("4.monte-carlo-methods", package = "SolidAngleR")</code>)
-<ul>
-<li>Convergence analysis and error estimation</li>
-<li>Handling complex geometric regions</li>
-<li>Validation against analytical results</li>
-</ul>
-</li>
-<li>
-<strong>Uniform Sphere Sampling</strong> (<code>vignette("5.uniform-sphere-sampling", package = "SolidAngleR")</code>)
-<ul>
-<li>O(n) algorithm for sampling within cones</li>
-<li>Comparison with rejection sampling</li>
-<li>Applications in directional statistics and ray tracing</li>
-</ul>
-</li>
-</ol>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"theoretical-analysis"</span>, package <span class="op">=</span> <span class="st">"SolidAngleR"</span><span class="op">)</span></span></code></pre></div>
+<p>The package ships seven vignettes. The <code>theoretical-analysis</code> vignette covers the mathematical foundations of the normalized solid angle, derivations of the closed forms for 2D and 3D cones, and an overview of the computational approaches. The <code>fitisone-zhou-methods</code> vignette develops the Ribando hypergeometric series, the tridiagonal specialization (Theorem 4.1) and the Brion-Vergne decomposition for non-positive-definite cones. The <code>mazonka-geometric-methods</code> vignette gives the closed forms for circular cones, cone segments and intersecting spherical caps, with interactive plotly renderings. The <code>monte-carlo-methods</code> vignette analyses convergence, error estimation and validation against analytical results. The <code>uniform-sphere-sampling</code> vignette describes the O(n) cone sampler of Arun and Venkatapathi, the comparison with naive rejection sampling and applications in directional statistics. The <code>hypergeometric-high-dim</code> vignette stress-tests the n-dimensional series, and the <code>architecture-api</code> vignette is the technical reference: dispatch logic, S3 contracts, the C++ backend, and the complete API surface with DiagrammeR diagrams.</p>
 </div>
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
@@ -733,8 +684,8 @@
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Function documentation</span></span>
 <span><span class="op">?</span><span class="va">compute_solid_angle</span></span>
-<span><span class="op">?</span><span class="va">omega</span></span>
 <span><span class="op">?</span><span class="va">diagnose_cone</span></span>
+<span><span class="op">?</span><span class="va">generate_cone_samples</span></span>
 <span></span>
 <span><span class="co"># Package overview</span></span>
 <span><span class="op">?</span><span class="va">SolidAngleR</span></span>
@@ -760,7 +711,7 @@
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="dt">title</span> = {SolidAngleR: Computing normalized solid angles of polyhedral cones in arbitrary dimensions},</span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="dt">author</span> = {Pablo Almaraz},</span>
 <span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="dt">year</span> = {2025},</span>
-<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 0.0.0.9000},</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 0.6.0},</span>
 <span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>  <span class="dt">url</span> = {https://github.com/robustecologies/SolidAngleR}</span>
 <span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
@@ -773,7 +724,7 @@
 <div class="section level2">
 <h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
 </h2>
-<p>This package is the original creation of the author in all conceptual, theoretical, and design aspects. Implementation was assisted by Anthropic’s Claude Code v.2 (Opus 4.5) to streamline package development. All original ideas, creativity, and scientific contributions belong to the author, who maintains full responsibility for the package’s correctness and reliability. While all code has been thoroughly reviewed and tested, users are encouraged to report any issues through the package’s issue tracker.</p>
+<p>This package is the original creation of the author in all conceptual, theoretical, and design aspects. Implementation was assisted by Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package development. All original ideas, creativity, and scientific contributions belong to the author, who maintains full responsibility for the package’s correctness and reliability. While all code has been thoroughly reviewed and tested, users are encouraged to report any issues through the package’s issue tracker.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

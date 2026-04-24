@@ -1,8 +1,10 @@
-# Compute solid angle using decomposition method
+# Solid angle of a simplicial cone via signed decomposition
 
-Combines recursive decomposition with hypergeometric series to compute
-solid angle of any simplicial cone, even when the associated Gram matrix
-is not positive-definite.
+Computes the normalized solid angle of a simplicial cone by combining
+the Fitisone-Zhou line-based decomposition with the hypergeometric or
+tridiagonal series on each positive definite sub-cone, then aggregating
+the signed contributions. Handles the general case where the associated
+Gram matrix is not positive definite.
 
 ## Usage
 
@@ -14,67 +16,49 @@ solid_angle_decomposition(V, max_terms = 500, tol = 1e-10)
 
 - V:
 
-  n x n matrix of unit vectors defining the simplicial cone
+  A square \\n \times n\\ numeric matrix whose columns are linearly
+  independent cone generators.
 
 - max_terms:
 
-  Maximum number of terms for hypergeometric series (default: 500)
+  Integer. Maximum number of series terms used on each positive definite
+  sub-cone. Default `500`.
 
 - tol:
 
-  Convergence tolerance for series (default: 1e-10)
+  Numeric. Convergence tolerance for the series backends. Default
+  `1e-10`.
 
 ## Value
 
-The normalized solid angle measure \\\Omega/(4\pi) \in \[0,1\]\\ where
-\\\Omega\\ is the solid angle in steradians
+A single numeric value in \\\[0, 1\]\\: the normalized solid angle of
+the input cone, equal to the sum of signed solid angles of the sub-cones
+returned by
+[`decompose_cone`](https://robustecologies.github.io/SolidAngleR/reference/decompose_cone.md).
 
 ## Details
 
-This function implements the decomposition method based on Theorem 3.3
-and Corollary 3.4 from Ribando (2006). The method handles the general
-case where the Gram matrix \\M = V^T V\\ is not positive-definite.
+The function applies the closed-form formula directly when \\n = 2\\ or
+when \\n = 3\\ with positive definite associated matrix. Otherwise it
+calls
+[`decompose_cone`](https://robustecologies.github.io/SolidAngleR/reference/decompose_cone.md)
+to obtain a signed family \\\\(C_i, s_i)\\\\ and accumulates
+\$\$\Omega(C) = \sum_i s_i \\ \Omega(C_i),\$\$ where each
+\\\Omega(C_i)\\ is computed by the closed-form formula in two or three
+dimensions, by
+[`tridiagonal_series`](https://robustecologies.github.io/SolidAngleR/reference/tridiagonal_series.md)
+when the Gram matrix of \\C_i\\ is tridiagonal, or by
+[`hypergeometric_series`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md)
+otherwise. Sub-cones whose rank falls below \\n\\ contribute zero by
+Theorem 3.3 case (I).
 
-**Algorithm**:
-
-1.  Check if the cone is 2D or 3D with positive-definite Gram matrix. If
-    so, use direct hypergeometric formulas
-
-2.  Otherwise, decompose the cone recursively using Theorem 3.3:
-    \$\$\text{cone}(V) = \text{cone}(V\_{n-1}) \cup \bigcup\_{i=1}^{n-1}
-    (-1)^i \text{cone}(V\_{\[i\]})\$\$ where \\V\_{n-1}\\ is the first
-    \\n-1\\ columns and \\V\_{\[i\]}\\ replaces column \\i\\ with the
-    last column
-
-3.  Compute solid angles for each decomposed cone (with PD matrices)
-    using hypergeometric series:
-    [`solid_angle_2d`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_2d.md)
-    or
-    [`solid_angle_3d`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d.md)
-
-4.  Sum the signed contributions according to inclusion-exclusion
-    principle
-
-**Mathematical background**:
-
-For a simplicial cone in \\\mathbb{R}^n\\ defined by vectors \\V =
-\[v_1, \ldots, v_n\]\\, the solid angle is the measure of the spherical
-region traced on the unit sphere. When the Gram matrix is
-positive-definite, hypergeometric series provide exact computation. When
-not PD, decomposition reduces the problem to PD subcones.
-
-The recursion terminates when all subcones have PD Gram matrices,
-guaranteeing convergence. However, for some random configurations, deep
-recursion may cause stack overflow (see package limitations in NEWS.md).
-
-**When to use**: This method is appropriate when the Gram matrix \\M =
-V^T V\\ is not positive-definite, when other methods fail or are not
-applicable, or when theoretical verification of other methods is
-required.
-
-**Performance**: Computational complexity is \\O(2^n)\\ in worst case
-due to recursive decomposition, but typically much faster for
-well-conditioned cones.
+Computational complexity is at most \\O((n-1)!)\\ sub-cones by Corollary
+3.4, but in practice the count is much smaller for well-conditioned
+cones. Deep recursion can be triggered by adversarial configurations and
+may exhaust the stack; the user-facing dispatcher
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+guards against this by selecting the decomposition route only when the
+associated matrix is genuinely not positive definite.
 
 ## References
 
@@ -87,67 +71,34 @@ cones. arXiv:2304.11102 (math.CO). <https://arxiv.org/abs/2304.11102>
 
 ## See also
 
+[`decompose_cone`](https://robustecologies.github.io/SolidAngleR/reference/decompose_cone.md)
+for the underlying signed decomposition;
+[`hypergeometric_series`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md),
+[`tridiagonal_series`](https://robustecologies.github.io/SolidAngleR/reference/tridiagonal_series.md)
+for the per-sub-cone series backends;
 [`solid_angle_2d`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_2d.md),
-[`solid_angle_3d`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d.md),
-[`compute_associated_matrix`](https://robustecologies.github.io/SolidAngleR/reference/compute_associated_matrix.md),
-[`is_positive_definite`](https://robustecologies.github.io/SolidAngleR/reference/is_positive_definite.md)
+[`solid_angle_3d`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d.md)
+for the closed-form formulas;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 ## Examples
 
 ``` r
-# Example 1: 2D cone (always works directly)
-v1 <- c(1, 0)
-v2 <- c(0.5, sqrt(3)/2)
-V2 <- cbind(v1, v2)
-omega2 <- solid_angle_decomposition(V2)
-cat("2D cone solid angle:", omega2, "\n")
-#> 2D cone solid angle: 0.1666667 
+# 2D cone: closed-form short-circuit
+V2 <- cbind(c(1, 0), c(0.5, sqrt(3) / 2))
+solid_angle_decomposition(V2)
+#> [1] 0.1666667
 
-# Example 2: 3D cone with positive-definite Gram matrix
-V3_pd <- matrix(c(
-  1, 0, 0,
-  0, 1, 0,
-  0, 0, 1
-), nrow = 3, ncol = 3, byrow = TRUE)
-omega3_pd <- solid_angle_decomposition(V3_pd)
-cat("3D orthogonal cone (octant):", omega3_pd, "should be 1/8 =", 1/8, "\n")
-#> 3D orthogonal cone (octant): 0.125 should be 1/8 = 0.125 
-
-# Example 3: 3D cone requiring decomposition (non-PD Gram matrix)
-set.seed(123)
-V3_npd <- matrix(rnorm(9), nrow = 3)
-V3_npd <- normalize_vectors(V3_npd)
-
-M <- compute_associated_matrix(V3_npd)
-cat("Is Gram matrix PD?", is_positive_definite(M), "\n")
-#> Is Gram matrix PD? FALSE 
-
-omega3_npd <- solid_angle_decomposition(V3_npd)
-#> ○ Decomposed into 2 cones
-cat("3D non-PD cone solid angle:", omega3_npd, "\n")
-#> 3D non-PD cone solid angle: 0.0562723 
+# 3D orthogonal cone: 1/8 of the sphere
+V3 <- diag(3)
+solid_angle_decomposition(V3)
+#> [1] 0.125
 
 if (FALSE) { # \dontrun{
-# Example 4: Compare decomposition with direct method
-V <- matrix(c(
-  1, 1, 1,
-  -1, 1, 1,
-  0, 0, 1
-), nrow = 3, byrow = TRUE)
-V <- normalize_vectors(V)
-
-# Check if we can use direct method
-M <- compute_associated_matrix(V)
-if (is_positive_definite(M)) {
-  omega_direct <- solid_angle_3d(V[, 1], V[, 2], V[, 3])
-  omega_decomp <- solid_angle_decomposition(V)
-  cat("Direct method:", omega_direct, "\n")
-  cat("Decomposition:", omega_decomp, "\n")
-  cat("Difference:", abs(omega_direct - omega_decomp), "\n")
-} else {
-  cat("Gram matrix not PD, using decomposition\n")
-  omega_decomp <- solid_angle_decomposition(V)
-  cat("Result:", omega_decomp, "\n")
-}
+# 3D cone requiring decomposition (non-PD associated matrix)
+set.seed(123)
+V3_npd <- normalize_vectors(matrix(rnorm(9), nrow = 3))
+solid_angle_decomposition(V3_npd)
 } # }
 ```

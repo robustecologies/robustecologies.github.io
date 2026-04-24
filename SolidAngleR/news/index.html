@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SolidAngleR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,25 +21,24 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Theory</h6></li>
-    <li><a class="dropdown-item" href="../articles/a.theoretical-analysis.html">A mathematical introduction to solid angle methods for polyhedral cones with the SolidAngleR library</a></li>
-    <li><a class="dropdown-item" href="../articles/b.fitisone-zhou-methods.html">Hypergeometric and tridiagonal series and decomposition approaches</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/theoretical-analysis.html">A mathematical introduction to solid angle methods</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Methods</h6></li>
-    <li><a class="dropdown-item" href="../articles/c.mazonka-geometric-methods.html">Geometric methods for conical surfaces and intersecting spherical caps</a></li>
-    <li><a class="dropdown-item" href="../articles/d.monte-carlo-methods.html">Monte Carlo methods for solid angle computation: convergence, error analysis, and validation</a></li>
-    <li><a class="dropdown-item" href="../articles/e.uniform-sphere-sampling.html">Uniform Monte Carlo sampling on n-dimensional spheres and spherical caps</a></li>
-    <li><a class="dropdown-item" href="../articles/f.hypergeometric-high-dim.html">Exact analytical solid angles in higher dimensions</a></li>
+    <li><a class="dropdown-item" href="../articles/fitisone-zhou-methods.html">Hypergeometric and tridiagonal series methods (Fitisone-Zhou)</a></li>
+    <li><a class="dropdown-item" href="../articles/mazonka-geometric-methods.html">Geometric methods for conical surfaces (Mazonka)</a></li>
+    <li><a class="dropdown-item" href="../articles/monte-carlo-methods.html">Monte Carlo methods</a></li>
+    <li><a class="dropdown-item" href="../articles/hypergeometric-high-dim.html">Hypergeometric series in higher dimensions</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../articles/index.html">More articles...</a></li>
+    <li><a class="dropdown-item" href="../articles/uniform-sphere-sampling.html">Uniform sphere and spherical-cap sampling</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/architecture-api.html">Technical architecture and API reference</a></li>
   </ul></li>
-<li class="nav-item"><a class="nav-link" href="../articles/g.architecture-api.html">API</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../articles/architecture-api.html">API</a></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+<li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/robustecologies/SolidAngleR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
@@ -61,250 +60,103 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.0" id="solidangler-060">SolidAngleR 0.6.0<a class="anchor" aria-label="anchor" href="#solidangler-060"></a></h2>
+<p><br></p>
+<div class="section level3">
+<h3 id="breaking-changes-0-6-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-6-0"></a></h3>
+<ul><li>
+<code>omega()</code> removed. The same multivariate-normal orthant integration is now exposed as the <code>"mvn"</code> branch of the dispatcher; call <code>compute_solid_angle(V, method = "mvn")</code> instead. The new branch returns the scalar normalized solid angle directly; the per-dimension geometric mean previously available as <code>omega(V)$omega_scaled</code> is recovered as <code>compute_solid_angle(V, method = "mvn")^(1 / ncol(V))</code>.</li>
+</ul><p><br></p>
+</div>
+<div class="section level3">
+<h3 id="new-features-0-6-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h3>
+<ul><li>
+<code><a href="../reference/compute_solid_angle.html">compute_solid_angle()</a></code> gains <code>method = "mvn"</code>, dispatching to <code><a href="https://rdrr.io/pkg/mvtnorm/man/pmvnorm.html" class="external-link">mvtnorm::pmvnorm()</a></code> over the positive orthant via the Genz-Bretz quasi-Monte Carlo algorithm. Emits the same condition-number and high-dimension warnings as the deleted <code>omega()</code>.</li>
+</ul><p><br></p>
+</div>
+<div class="section level3">
+<h3 id="documentation-0-6-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-6-0"></a></h3>
+<ul><li>Complete roxygen rewrite across every exported symbol: explicit <code>@title</code> in sentence case, expanded <code>@description</code> and <code>@details</code> with LaTeX equations, verified <code>@references</code> with DOI/ISBN, runnable <code>@examples</code>, and bidirectional <code>@seealso</code> links between the S3 constructor <code><a href="../reference/diagnose_cone.html">diagnose_cone()</a></code> and its <code>print</code>, <code>summary</code>, <code>plot</code> methods.</li>
+<li>Internal helpers consistently marked <code>@noRd</code>; section headers across <code>R/</code> normalised to the canonical triple-line convention.</li>
+<li>
+<code>_pkgdown.yml</code> reference index reorganised into ten functional groups (main interface, low-dimensional formulas, series methods, geometric and decomposition methods, Monte Carlo and sampling, cone diagnostics, cone structure utilities, geometry primitives, visualisation, S3 methods).</li>
+<li>Vignettes: heading-spacing convention enforced across all seven articles; chunk evaluation in vignette <code>a.theoretical-analysis.Rmd</code> set uniformly to <code>eval = FALSE</code>. 2D plots in vignettes <code>b</code>, <code>c</code>, <code>d</code>, <code>f</code>, <code>g</code>, and the histogram, density, validation, performance, vMF and rejection-comparison panels of <code>e</code>, converted to ggplot2 with subtitle and grey caption per the package plot-default rule. Two diagrammatic visualisations in <code>e</code> (Givens rotation arrow plot and Lambertian ray-tracing side view) are intentionally retained in base graphics, where the arrow / normal annotations are clearer than the ggplot equivalent.</li>
+</ul><p><br></p>
+</div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.1" id="solidangler-051">SolidAngleR 0.5.1<a class="anchor" aria-label="anchor" href="#solidangler-051"></a></h2>
+<p><br></p>
+<div class="section level3">
+<h3 id="bug-fixes-0-5-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-1"></a></h3>
+<ul><li>
+<code><a href="../reference/tridiagonal_series.html">tridiagonal_series()</a></code>: default convergence tolerance relaxed from <code>.Machine$double.eps</code> (about 2.2e-16) to <code>1e-10</code>, eliminating spurious non-convergence on well-posed tridiagonal cones whose signed residuals sit at double-precision noise level. Callers that need the previous strict behaviour must pass <code>tol = .Machine$double.eps</code> explicitly.</li>
+<li>Numerical-stability corrections in the closed-form, series and geometric backends (<code>formulas_2d.R</code>, <code>formulas_3d.R</code>, <code>geometric_methods.R</code>, <code>series_hypergeometric.R</code>, <code>series_tridiagonal.R</code>) and in the compiled sampling layer (<code>cone_sampling.cpp</code>, <code>cone_sampling.R</code>), removing silent <code>NaN</code> outputs at near-degenerate configurations.</li>
+</ul><p><br></p>
+</div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.0" id="solidangler-050">SolidAngleR 0.5.0<a class="anchor" aria-label="anchor" href="#solidangler-050"></a></h2>
+<p><br></p>
+<div class="section level3">
+<h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
+<ul><li>Class <code>cone_diagnosis</code> gains its full S3 triad: new methods <code><a href="../reference/summary.cone_diagnosis.html">summary.cone_diagnosis()</a></code>, <code><a href="../reference/print.summary.cone_diagnosis.html">print.summary.cone_diagnosis()</a></code> and <code><a href="../reference/plot.cone_diagnosis.html">plot.cone_diagnosis()</a></code>. <code><a href="../reference/diagnose_cone.html">diagnose_cone()</a></code> returns a first-class diagnostic object with the full print, summary and plot lifecycle.</li>
+<li>
+<code><a href="../reference/compute_solid_angle.html">compute_solid_angle()</a></code> dispatch path extended: when <code>method = "auto"</code> the internal router now consults a <code>cone_diagnosis</code> object instead of recomputing the spectral and tridiagonal tests on every call.</li>
+</ul><p><br></p>
+</div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="solidangler-040">SolidAngleR 0.4.0<a class="anchor" aria-label="anchor" href="#solidangler-040"></a></h2>
+<p><br></p>
+<div class="section level3">
+<h3 id="changes-0-4-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-4-0"></a></h3>
+<ul><li>Package passes <code>R CMD check --as-cran</code> with zero errors, zero warnings and a single system-level NOTE (non-portable compiler flag inherited from the host toolchain).</li>
+<li>Internal utility layer consolidated around the canonical helpers <code>get_colored_symbol()</code>, <code>require_package()</code> and <code>require_packages()</code>; deprecated internal helpers removed. No exported signature has changed.</li>
+</ul><p><br></p>
+</div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="solidangler-030">SolidAngleR 0.3.0<a class="anchor" aria-label="anchor" href="#solidangler-030"></a></h2>
+<p><br></p>
+<div class="section level3">
+<h3 id="new-features-0-3-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-0"></a></h3>
+<ul><li>New export <code><a href="../reference/shinySolidAngleR.html">shinySolidAngleR()</a></code>: launches a <code>shinydashboard</code> front-end in the user’s browser with one tab per computational backend (closed forms, hypergeometric series, tridiagonal series, decomposition, geometric methods, <code>omega()</code> wrapper, cone sampler, diagnostics).</li>
+</ul><p><br></p>
+</div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="solidangler-020">SolidAngleR 0.2.0<a class="anchor" aria-label="anchor" href="#solidangler-020"></a></h2>
+<p><br></p>
+<div class="section level3">
+<h3 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
+<ul><li>New export <code><a href="../reference/hypergeometric_series_nd.html">hypergeometric_series_nd()</a></code>: general Ribando series for arbitrary dimension n greater than or equal to 4, with recursive weak-composition enumeration of the multi-index lattice. Removes the earlier n = 2, 3 restriction of <code><a href="../reference/hypergeometric_series.html">hypergeometric_series()</a></code> and integrates transparently into <code><a href="../reference/compute_solid_angle.html">compute_solid_angle()</a></code>.</li>
+<li>New export <code><a href="../reference/plot_cone_3d.html">plot_cone_3d()</a></code>: interactive plotly rendering of simplicial cones, showing generator rays, triangular faces and the spherical cap cut by the cone.</li>
+<li>
+<code><a href="../reference/generate_cone_samples.html">generate_cone_samples()</a></code> now dispatches to a C++ backend through Rcpp and RcppArmadillo. The O(n) Givens-rotation pipeline replaces the pure-R inner loop and delivers order-of-magnitude speed-ups on batch sampling. The R call signature is unchanged.</li>
+</ul><p><br></p>
+</div>
+<div class="section level3">
+<h3 id="dependencies-0-2-0">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies-0-2-0"></a></h3>
+<ul><li>
+<code>Rcpp</code> and <code>RcppArmadillo</code> promoted from <code>Suggests</code> to <code>Imports</code> and <code>LinkingTo</code>; the package now requires a C++17 toolchain at install time.</li>
+</ul><p><br></p>
+</div>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/hypergeometric_series_nd.html">hypergeometric_series_nd()</a></code>: corrected the multi-index recursion that produced incorrect values for n greater than or equal to 4 at intermediate truncation depths.</li>
+</ul><p><br></p>
+</div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="solidangler-010">SolidAngleR 0.1.0<a class="anchor" aria-label="anchor" href="#solidangler-010"></a></h2>
+<p><br></p>
+<p>First public release. Forty-three exported functions covering the full stack of solid-angle methods for polyhedral cones in arbitrary dimension. The closed forms for n = 2 and n = 3 are exposed through <code><a href="../reference/solid_angle_2d.html">solid_angle_2d()</a></code>, <code><a href="../reference/solid_angle_2d_inner.html">solid_angle_2d_inner()</a></code>, <code><a href="../reference/solid_angle_3d.html">solid_angle_3d()</a></code>, <code><a href="../reference/solid_angle_3d_det.html">solid_angle_3d_det()</a></code>, <code><a href="../reference/solid_angle_3d_from_rays.html">solid_angle_3d_from_rays()</a></code>, <code><a href="../reference/solid_angle_polyhedral.html">solid_angle_polyhedral()</a></code> and <code><a href="../reference/spherical_triangle_area.html">spherical_triangle_area()</a></code>. The Aomoto-Ribando hypergeometric series for positive-definite cones in n = 2, 3 is available as <code><a href="../reference/hypergeometric_series.html">hypergeometric_series()</a></code>, and the Fitisone-Zhou tridiagonal specialisation as <code><a href="../reference/tridiagonal_series.html">tridiagonal_series()</a></code>. The recursive Brion-Vergne decomposition, which lifts the positive-definiteness restriction, is exposed through <code><a href="../reference/decompose_cone.html">decompose_cone()</a></code> and <code><a href="../reference/solid_angle_decomposition.html">solid_angle_decomposition()</a></code>. Mazonka’s geometric formulas for right circular, segmental, surface and intersecting cones are wrapped by <code><a href="../reference/solid_angle_cone.html">solid_angle_cone()</a></code>, <code><a href="../reference/solid_angle_cone_segment.html">solid_angle_cone_segment()</a></code>, <code><a href="../reference/solid_angle_conical_surface.html">solid_angle_conical_surface()</a></code>, <code><a href="../reference/solid_angle_intersecting_cones.html">solid_angle_intersecting_cones()</a></code> and <code><a href="../reference/plotIntersectingCones.html">plotIntersectingCones()</a></code>. Feasibility-domain computations via multivariate-normal integration are delivered by <code>omega()</code>, and the Monte Carlo estimator by <code><a href="../reference/solid_angle_monte_carlo.html">solid_angle_monte_carlo()</a></code>. The pure-R uniform-on-cone sampler stack includes <code><a href="../reference/generate_cone_sample.html">generate_cone_sample()</a></code>, <code><a href="../reference/generate_cone_samples.html">generate_cone_samples()</a></code>, <code><a href="../reference/generate_hollow_cone_sample.html">generate_hollow_cone_sample()</a></code>, <code><a href="../reference/generate_point_on_sphere.html">generate_point_on_sphere()</a></code>, <code><a href="../reference/theta_to_omega.html">theta_to_omega()</a></code>, <code><a href="../reference/omega_to_theta.html">omega_to_theta()</a></code>, <code><a href="../reference/generate_planar_angle_inverse.html">generate_planar_angle_inverse()</a></code>, <code><a href="../reference/generate_planar_angle_rejection.html">generate_planar_angle_rejection()</a></code>, <code><a href="../reference/rotate_from_canonical.html">rotate_from_canonical()</a></code>, <code><a href="../reference/rejection_cost.html">rejection_cost()</a></code> and <code><a href="../reference/verify_cone_uniformity.html">verify_cone_uniformity()</a></code>. Matrix and cone utilities are provided as <code><a href="../reference/compute_associated_matrix.html">compute_associated_matrix()</a></code>, <code><a href="../reference/compute_dot_product_matrix.html">compute_dot_product_matrix()</a></code>, <code><a href="../reference/is_positive_definite.html">is_positive_definite()</a></code>, <code><a href="../reference/is_tridiagonal.html">is_tridiagonal()</a></code>, <code><a href="../reference/is_linearly_independent.html">is_linearly_independent()</a></code>, <code><a href="../reference/normalize_vectors.html">normalize_vectors()</a></code>, <code><a href="../reference/create_tridiagonal_cone.html">create_tridiagonal_cone()</a></code>, <code><a href="../reference/cross_product_3d.html">cross_product_3d()</a></code>, <code><a href="../reference/angle_between.html">angle_between()</a></code> and <code><a href="../reference/lhuilier_angle.html">lhuilier_angle()</a></code>. Extreme-ray extraction is handled by <code><a href="../reference/generate_spanning_trees.html">generate_spanning_trees()</a></code>. The main dispatcher is <code><a href="../reference/compute_solid_angle.html">compute_solid_angle()</a></code>, with batch form <code><a href="../reference/compute_solid_angles.html">compute_solid_angles()</a></code>, and the diagnostic constructor <code><a href="../reference/diagnose_cone.html">diagnose_cone()</a></code> with its <code><a href="../reference/print.cone_diagnosis.html">print.cone_diagnosis()</a></code> method.</p>
+<p><br></p>
 <div class="section level3">
-<h3 id="major-features-0-1-0">Major features<a class="anchor" aria-label="anchor" href="#major-features-0-1-0"></a></h3>
-<div class="section level4">
-<h4 id="implemented-methods-0-1-0">Implemented methods<a class="anchor" aria-label="anchor" href="#implemented-methods-0-1-0"></a></h4>
-<ul><li>
-<strong>Generic n-dimensional hypergeometric series</strong>
-<ul><li>Full implementation for arbitrary dimensions (n &gt; 3)</li>
-<li>Recursive generation of weak compositions for series exponents</li>
-<li>Enables analytical computation for high-dimensional positive-definite cones</li>
-<li>Integrated into <code><a href="../reference/hypergeometric_series.html">hypergeometric_series()</a></code>
-</li>
-</ul></li>
-<li>
-<strong>C++ Optimization (Rcpp)</strong>
-<ul><li>Accelerated <code><a href="../reference/generate_cone_samples.html">generate_cone_samples()</a></code> using RcppArmadillo</li>
-<li>O(n) Givens rotations implemented in C++</li>
-<li>Significant performance boost for Monte Carlo simulations</li>
-<li>Automatic dispatch for inverse transform method</li>
-</ul></li>
-<li>
-<strong>General 3D Cone Visualization</strong>
-<ul><li>New function <code><a href="../reference/plot_cone_3d.html">plot_cone_3d()</a></code> using plotly</li>
-<li>Visualizes arbitrary simplicial cones (rays, faces, spherical triangle)</li>
-<li>Interactive exploration of cone geometry</li>
-</ul></li>
-<li>
-<strong>Hypergeometric series</strong> (Ribando 2006; Fitisone &amp; Zhou 2023)
-<ul><li>Full implementation for n=2, n=3 dimensions with closed-form solutions</li>
-<li>Automatic fallback to decomposition for n≥4 (now supports direct series for PD cones)</li>
-<li>Convergence checking with positive-definite criterion</li>
-</ul></li>
-<li>
-<strong>Tridiagonal series optimization</strong> (Fitisone &amp; Zhou 2023)
-<ul><li>Specialized series for cones with tridiagonal Gram matrices</li>
-<li>Exponential speedup: O(N·n) instead of O(N^(n(n-1)/2))</li>
-<li>Automatic detection and application</li>
-</ul></li>
-<li>
-<strong>Decomposition methods</strong> (Fitisone &amp; Zhou 2023)
-<ul><li>Brion-Vergne decomposition for arbitrary cones</li>
-<li>Ensures universal applicability</li>
-<li>Handles non-positive-definite cases</li>
-</ul></li>
-<li>
-<strong>Geometric methods</strong> (Mazonka 2012)
-<ul><li>Right circular cone formula</li>
-<li>Polyhedral cone solid angles (Van Oosterom-Strackee formula)</li>
-<li>Cone segment calculations</li>
-<li>Intersecting cones computation</li>
-</ul></li>
-<li>
-<strong>Multivariate normal integration</strong> (Genz &amp; Bretz)
-<ul><li>Feasibility domain analysis for ecological interaction matrices</li>
-<li>Monte Carlo estimation fallback</li>
-<li>Both normalized and scaled solid angle measures</li>
-</ul></li>
-</ul></div>
-<div class="section level4">
-<h4 id="uniform-sampling-on-n-dimensional-spheres-and-cones-0-1-0">Uniform sampling on n-dimensional spheres and cones<a class="anchor" aria-label="anchor" href="#uniform-sampling-on-n-dimensional-spheres-and-cones-0-1-0"></a></h4>
-<ul><li>
-<strong>O(n) cone sampling algorithm</strong> (Arun &amp; Venkatapathi, 2025)
-<ul><li>Generates uniform random vectors directly within n-dimensional cones</li>
-<li>Eliminates exponential cost of rejection sampling in high dimensions</li>
-<li>Two methods: inverse transform (default) and one-dimensional rejection (for numerical stability)</li>
-<li>Functions: <code><a href="../reference/generate_cone_sample.html">generate_cone_sample()</a></code>, <code><a href="../reference/generate_cone_samples.html">generate_cone_samples()</a></code>, <code><a href="../reference/generate_hollow_cone_sample.html">generate_hollow_cone_sample()</a></code>
-</li>
-<li>Supporting functions: <code><a href="../reference/theta_to_omega.html">theta_to_omega()</a></code>, <code><a href="../reference/omega_to_theta.html">omega_to_theta()</a></code>, <code><a href="../reference/rotate_from_canonical.html">rotate_from_canonical()</a></code>
-</li>
-<li>Validation function: <code><a href="../reference/verify_cone_uniformity.html">verify_cone_uniformity()</a></code> with KS and chi-squared tests</li>
-</ul></li>
-<li>
-<strong>Comprehensive sampling toolkit</strong>
-<ul><li>Full sphere sampling: <code><a href="../reference/generate_point_on_sphere.html">generate_point_on_sphere()</a></code> (Box-Muller/Marsaglia method)</li>
-<li>Hollow cone sampling for annular regions</li>
-<li>Arbitrary orientations via efficient O(n) Givens rotations</li>
-<li>Planar angle generation: <code><a href="../reference/generate_planar_angle_inverse.html">generate_planar_angle_inverse()</a></code>, <code><a href="../reference/generate_planar_angle_rejection.html">generate_planar_angle_rejection()</a></code>
-</li>
-<li>Cost analysis: <code><a href="../reference/rejection_cost.html">rejection_cost()</a></code> for comparing with naive rejection</li>
-</ul></li>
-<li>
-<strong>New vignette: uniform sphere sampling</strong> (<code>vignettes/5.uniform-sphere-sampling.Rmd</code>)
-<ul><li>Historical development of sphere sampling techniques (1958-2025)</li>
-<li>Mathematical foundations with incomplete beta function theory</li>
-<li>Rigorous statistical validation (KS tests, chi-squared tests)</li>
-<li>Performance analysis and comparison with rejection sampling</li>
-<li>Practical applications: Monte Carlo integration, directional statistics, ray tracing</li>
-<li>Comprehensive examples and visualizations</li>
-</ul></li>
-<li>
-<strong>Relationship to existing Monte Carlo methods</strong>
-<ul><li>NEW cone sampling: Generates samples uniformly WITHIN a cone (no rejection)</li>
-<li>Existing <code><a href="../reference/solid_angle_monte_carlo.html">solid_angle_monte_carlo()</a></code>: Estimates solid angles via rejection sampling</li>
-<li>Methods are COMPLEMENTARY</li>
-</ul></li>
-</ul></div>
-<div class="section level4">
-<h4 id="main-interface-functions-0-1-0">Main interface functions<a class="anchor" aria-label="anchor" href="#main-interface-functions-0-1-0"></a></h4>
-<ul><li>
-<code><a href="../reference/compute_solid_angle.html">compute_solid_angle()</a></code> - Main function with automatic method selection</li>
-<li>
-<code><a href="../reference/compute_solid_angles.html">compute_solid_angles()</a></code> - Batch computation for multiple cones</li>
-<li>
-<code><a href="../reference/diagnose_cone.html">diagnose_cone()</a></code> - Diagnostic tool to suggest optimal method</li>
-<li>
-<code><a href="../reference/omega.html">omega()</a></code> - High-level interface for feasibility domains</li>
-</ul></div>
-<div class="section level4">
-<h4 id="utility-functions-0-1-0">Utility functions<a class="anchor" aria-label="anchor" href="#utility-functions-0-1-0"></a></h4>
-<ul><li>Matrix operations: <code><a href="../reference/compute_associated_matrix.html">compute_associated_matrix()</a></code>, <code><a href="../reference/is_positive_definite.html">is_positive_definite()</a></code>, <code><a href="../reference/is_tridiagonal.html">is_tridiagonal()</a></code>
-</li>
-<li>Vector operations: <code><a href="../reference/normalize_vectors.html">normalize_vectors()</a></code>, <code><a href="../reference/angle_between.html">angle_between()</a></code>, <code><a href="../reference/cross_product_3d.html">cross_product_3d()</a></code>
-</li>
-<li>Geometric helpers: <code><a href="../reference/create_tridiagonal_cone.html">create_tridiagonal_cone()</a></code>, <code><a href="../reference/spherical_triangle_area.html">spherical_triangle_area()</a></code>, <code><a href="../reference/lhuilier_angle.html">lhuilier_angle()</a></code>
-</li>
-</ul></div>
-<div class="section level4">
-<h4 id="documentation-0-1-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-1-0"></a></h4>
-<ul><li>Comprehensive package documentation with mathematical theory</li>
-<li>Five detailed vignettes:
-<ul><li>
-<code>1.theoretical-analysis</code>: Theoretical foundations and validation</li>
-<li>
-<code>2.fitisone-zhou-methods</code>: Decomposition and series methods</li>
-<li>
-<code>3.mazonka-geometric-methods</code>: Geometric approaches with interactive visualizations</li>
-<li>
-<code>4.monte-carlo-methods</code>: Monte Carlo integration and error analysis</li>
-<li>
-<code>5.uniform-sphere-sampling</code>: Comprehensive treatment of uniform sampling on spheres and cones</li>
-</ul></li>
-<li>Complete function documentation with equations, examples, and references</li>
-</ul></div>
-<div class="section level4">
-<h4 id="bug-fixes-from-pre-release-versions-0-1-0">Bug fixes (from pre-release versions)<a class="anchor" aria-label="anchor" href="#bug-fixes-from-pre-release-versions-0-1-0"></a></h4>
-<ul><li>
-<strong>Critical gamma function bug</strong>: Fixed operator precedence error in all hypergeometric series implementations
-<ul><li>Changed <code>gamma(1 + x/2)</code> to <code>gamma((1+x)/2)</code> throughout</li>
-<li>Affected: <code><a href="../reference/hypergeometric_series_2d.html">hypergeometric_series_2d()</a></code>, <code><a href="../reference/hypergeometric_series_3d.html">hypergeometric_series_3d()</a></code>, <code><a href="../reference/tridiagonal_series.html">tridiagonal_series()</a></code>
-</li>
-<li>This bug caused ~10x error in solid angle computations</li>
-</ul></li>
-<li>
-<strong>Geometric function normalization</strong>: All geometric methods now return normalized values [0,1]
-<ul><li>
-<code><a href="../reference/solid_angle_cone.html">solid_angle_cone()</a></code>, <code><a href="../reference/solid_angle_polyhedral.html">solid_angle_polyhedral()</a></code>, <code><a href="../reference/solid_angle_cone_segment.html">solid_angle_cone_segment()</a></code>, <code><a href="../reference/solid_angle_intersecting_cones.html">solid_angle_intersecting_cones()</a></code>
-</li>
-<li>Previously returned steradians, now consistent with series methods</li>
-</ul></li>
-<li>
-<strong>Names attribute cleanup</strong>: Removed unwanted names from return values
-<ul><li>Fixed in <code><a href="../reference/compute_solid_angle.html">compute_solid_angle()</a></code> and <code><a href="../reference/solid_angle_decomposition.html">solid_angle_decomposition()</a></code>
-</li>
-</ul></li>
-<li>
-<strong>Vignette compilation</strong>: Fixed all rendering errors
-<ul><li>Stack overflow prevention (reduced dimension in examples)</li>
-<li>Polyhedral vertex format (rbind vs cbind)</li>
-<li>Function renaming (Omega → omega)</li>
-</ul></li>
-</ul></div>
-</div>
-<div class="section level3">
-<h3 id="known-limitations-0-1-0">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations-0-1-0"></a></h3>
-<div class="section level4">
-<h4 id="for-version-0-1-0">For version 0.2.0<a class="anchor" aria-label="anchor" href="#for-version-0-1-0"></a></h4>
-<ul><li>
-<strong>Decomposition recursion</strong>: Some random cone configurations trigger stack overflow
-<ul><li>Occurs with certain non-positive-definite cone combinations</li>
-<li>Workaround: Use <code>method = "series"</code> for known positive-definite cones</li>
-<li>Will be fixed with improved termination conditions</li>
-</ul></li>
-<li>
-<strong>Cone segment relationship</strong>: Mathematical formula for segment/full cone relationship needs verification
-<ul><li>
-<code><a href="../reference/solid_angle_cone_segment.html">solid_angle_cone_segment()</a></code> computes correctly</li>
-<li>Test relationship <code>omega_segment = omega_full * gamma/(2π)</code> may be oversimplified</li>
-<li>Requires deeper geometric analysis</li>
-</ul></li>
-<li>
-<strong>Tridiagonal convergence</strong>: Some non-orthogonal tridiagonal cones converge slowly
-<ul><li>May require <code>max_terms &gt; 2000</code> for certain configurations</li>
-<li>Results are valid but convergence criterion may not be met</li>
-<li>Performance optimization planned</li>
-</ul></li>
-</ul></div>
-<div class="section level4">
-<h4 id="future-enhancements-0-1-0">Future enhancements<a class="anchor" aria-label="anchor" href="#future-enhancements-0-1-0"></a></h4>
-<ul><li>Optimize decomposition algorithm to prevent stack overflow</li>
-<li>Add parallelization for batch computations</li>
-<li>Extend to non-Euclidean geometries (hyperbolic, spherical)</li>
-<li>Add visualization tools for higher dimensions</li>
-</ul></div>
-</div>
-<div class="section level3">
-<h3 id="test-suite-0-1-0">Test suite<a class="anchor" aria-label="anchor" href="#test-suite-0-1-0"></a></h3>
-<ul><li>
-<strong>Comprehensive test coverage</strong> with all tests passing</li>
-<li>NEW: 40+ tests for cone sampling functions
-<ul><li>Basic functionality (unit vectors, dimensions, input validation)</li>
-<li>Theta-omega mapping and inverse relationships</li>
-<li>Planar angle generation (inverse and rejection methods)</li>
-<li>Givens rotation (norm preservation, alignment, angle preservation)</li>
-<li>Cone sample generation (unit vectors, cone constraints, arbitrary orientations)</li>
-<li>Hollow cone sampling</li>
-<li>Statistical uniformity (KS tests, chi-squared tests)</li>
-<li>Rejection cost analysis</li>
-<li>Edge cases (narrow cones, wide cones, high dimensions, 2D case)</li>
-<li>Consistency with analytical formulas</li>
-</ul></li>
-<li>Existing tests for all other major functionality:
-<ul><li>All analytical formulas (2D, 3D, circular cones)</li>
-<li>Hypergeometric series convergence</li>
-<li>Tridiagonal optimization</li>
-<li>Decomposition methods</li>
-<li>Matrix operations and validations</li>
-<li>Batch processing</li>
-<li>Edge cases and degeneracies</li>
-</ul></li>
-</ul></div>
-<div class="section level3">
-<h3 id="dependencies-0-1-0">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies-0-1-0"></a></h3>
-<ul><li>Base R (≥ 4.1.0)</li>
-<li>Matrix operations: standard <code>stats</code> package</li>
-<li>Multivariate normal integration: <code>mvtnorm</code> package</li>
-<li>Suggested: <code>knitr</code>, <code>rmarkdown</code>, <code>testthat</code>, <code>plotly</code>, <code>viridisLite</code>
-</li>
-</ul></div>
-<div class="section level3">
-<h3 id="references-0-1-0">References<a class="anchor" aria-label="anchor" href="#references-0-1-0"></a></h3>
-<div class="section level4">
-<h4 id="core-solid-angle-methods-0-1-0">Core solid angle methods<a class="anchor" aria-label="anchor" href="#core-solid-angle-methods-0-1-0"></a></h4>
-<ul><li>Ribando, J. M. (2006). “Measuring Solid Angles Beyond Dimension Three.” <em>Discrete &amp; Computational Geometry</em>, 36(3):479-487.</li>
-<li>Fitisone, A., &amp; Zhou, Y. (2023). “Solid angle measure of polyhedral cones.” arXiv:2304.11102 [math.CO].</li>
-<li>Mazonka, O. (2012). “Solid Angle of Conical Surfaces, Polyhedral Cones, and Intersecting Spherical Caps.” arXiv:1205.1396 [math.MG].</li>
-<li>Van Oosterom, A. &amp; Strackee, J. (1983). “The Solid Angle of a Plane Triangle.” <em>IEEE Trans. Biomed. Eng.</em>, BME-30(2):125-126.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="uniform-sphere-sampling-0-1-0">Uniform sphere sampling<a class="anchor" aria-label="anchor" href="#uniform-sphere-sampling-0-1-0"></a></h4>
-<ul><li>Arun, I., &amp; Venkatapathi, M. (2025). “An O(n) algorithm for generating uniform random vectors in n-dimensional cones.” <em>Sankhyā: The Indian Journal of Statistics</em>, 87-A(2), 327-348. DOI: 10.1007/s13171-025-00387-9</li>
-<li>Box, G.E.P. &amp; Muller, M.E. (1958). “A note on the generation of random normal deviates.” <em>Annals of Mathematical Statistics</em>, 29(2), 610-611.</li>
-<li>Marsaglia, G. (1972). “Choosing a point from the surface of a sphere.” <em>Annals of Mathematical Statistics</em>, 43(2), 645-646.</li>
-<li>Arvo, J. (2001). “Stratified sampling of spherical triangles.” <em>Proceedings of ACM SIGGRAPH 2001</em>, 437-438.</li>
-</ul></div>
+<h3 id="pre-release-development-history-0-1-0">Pre-release development history<a class="anchor" aria-label="anchor" href="#pre-release-development-history-0-1-0"></a></h3>
+<p>Three correctness fixes predate the first public commit and are recorded here for provenance. First, the operator-precedence bug <code>gamma(1 + x / 2)</code> was replaced by the correct <code>gamma((1 + x) / 2)</code> throughout <code>hypergeometric_series_2d()</code>, <code>hypergeometric_series_3d()</code> and <code><a href="../reference/tridiagonal_series.html">tridiagonal_series()</a></code>; the incorrect form produced approximately tenfold errors in solid-angle computations. Second, every geometric backend was renormalised to return values in [0, 1]: <code><a href="../reference/solid_angle_cone.html">solid_angle_cone()</a></code>, <code><a href="../reference/solid_angle_polyhedral.html">solid_angle_polyhedral()</a></code>, <code><a href="../reference/solid_angle_cone_segment.html">solid_angle_cone_segment()</a></code> and <code><a href="../reference/solid_angle_intersecting_cones.html">solid_angle_intersecting_cones()</a></code> previously returned steradians and are now consistent with the series and Monte Carlo backends. Third, spurious <code>names</code> attributes were stripped from <code><a href="../reference/compute_solid_angle.html">compute_solid_angle()</a></code> and <code><a href="../reference/solid_angle_decomposition.html">solid_angle_decomposition()</a></code> return values.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

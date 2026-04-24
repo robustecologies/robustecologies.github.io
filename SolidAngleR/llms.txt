@@ -3,8 +3,6 @@
 ## Computing normalized solid angles of polyhedral cones in arbitrary dimensions
 
 [![R-CMD-check](https://img.shields.io/badge/R--CMD--check-passing-brightgreen)](https://github.com/palmaraz/SolidAngleR/actions)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/SolidAngleR)](https://CRAN.R-project.org/package=SolidAngleR)
 [![R
 version](https://img.shields.io/badge/R-%E2%89%A54.1.0-blue.svg)](https://www.r-project.org/)
 
@@ -53,6 +51,7 @@ extensive testing and applications of the functions in the package.
 ## Installation
 
 ``` r
+
 # Check if devtools is already installed. If not, install it.
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
@@ -73,7 +72,7 @@ install.packages("SolidAngleR")
 ``` bash
 cd /path/to/SolidAngleR
 R CMD build .
-R CMD INSTALL SolidAngleR_0.1.0.tar.gz
+R CMD INSTALL SolidAngleR_0.6.0.tar.gz
 ```
 
 ## Mathematical background
@@ -109,6 +108,7 @@ empty cone, \\\tilde{\Omega}\_n(\emptyset) = 0\\.
 ### Solid angle computation
 
 ``` r
+
 library(SolidAngleR)
 
 # Example 1: 3D orthogonal cone (octant)
@@ -150,6 +150,7 @@ print(diag)
 ### Uniform cone sampling optimized with C++
 
 ``` r
+
 # Example 1: Generate uniform samples on 3D spherical cap
 # Now uses fast C++ implementation for massive sampling
 mu_hat <- c(0, 0, 1)  # Cone axis (z-axis)
@@ -170,6 +171,7 @@ knitr::kable(sample_info)
 
 ``` r
 
+
 # Example 2: Verify uniformity
 set.seed(42)
 samples_test <- generate_cone_samples(10000, c(0, 0, 1), pi/3)
@@ -188,6 +190,7 @@ knitr::kable(uniformity_table, digits = c(NA, 4))
 
 ``` r
 
+
 # Example 3: High-dimensional cone (100D with 10-degree half-angle)
 mu_hat_100d <- c(rep(0, 99), 1)
 sample_100d <- generate_cone_sample(mu_hat_100d, pi/18, method = "rejection")
@@ -203,6 +206,7 @@ knitr::kable(norm_table, digits = c(NA, 10))
 | 100D sample norm |     1 |
 
 ``` r
+
 
 # Example 4: Hollow cone (annular region)
 sample_hollow <- generate_hollow_cone_sample(c(1, 0, 0), pi/6, pi/3)
@@ -226,6 +230,7 @@ The
 function automatically selects the best method:
 
 ``` r
+
 V <- diag(4)
 omega <- compute_solid_angle(V, method = "auto")
 #> ✓ Using tridiagonal series method
@@ -241,6 +246,7 @@ tridiagonal cones - `"decomposition"` - Universal method (any cone)
 #### 2D cones
 
 ``` r
+
 # Direct angle computation
 v1 <- c(1, 0)
 v2 <- c(0.8, 0.6)
@@ -252,6 +258,7 @@ omega
 #### 3D cones
 
 ``` r
+
 # Euler-Lagrange formula
 v1 <- c(1, 0, 0)
 v2 <- c(0, 1, 0)
@@ -264,6 +271,7 @@ omega
 #### Geometric shapes
 
 ``` r
+
 # Circular cone
 theta <- pi/3  # Apex half-angle
 omega <- solid_angle_cone(theta)
@@ -284,6 +292,7 @@ unavailable, Monte Carlo integration provides a powerful alternative
 with quantified uncertainty:
 
 ``` r
+
 #### Define a complex region: intersection of two cones                  ####
 complex_region_test <- function(point) {
   #### First cone: axis along z, 60\u00B0 opening                           ####
@@ -333,6 +342,7 @@ validation tool for analytical methods.
 ### Workflow 1: Ecological feasibility domain
 
 ``` r
+
 library(SolidAngleR)
 
 # Community interaction matrix (4 species)
@@ -340,12 +350,10 @@ S <- 4
 alpha <- matrix(runif(S * S, -1, 0), S, S)
 diag(alpha) <- -1
 
-# Compute feasibility domain size
-result <- omega(alpha)
-feas_table <- data.frame(
-  omega = result$omega,
-  omega_scaled = result$omega_scaled
-)
+# Compute feasibility domain size via the multivariate-normal branch
+omega_raw    <- compute_solid_angle(alpha, method = "mvn", normalize = FALSE)
+omega_scaled <- omega_raw^(1 / S)
+feas_table   <- data.frame(omega = omega_raw, omega_scaled = omega_scaled)
 knitr::kable(feas_table, digits = 6)
 ```
 
@@ -354,11 +362,14 @@ knitr::kable(feas_table, digits = 6)
 | 0.001536 |     0.197963 |
 
 **Interpretation:** `omega` represents the fraction of parameter space
-where all species can coexist with positive abundances.
+where all species can coexist with positive abundances;
+`omega_scaled = omega^(1 / S)` is the per-species geometric mean used to
+compare communities of different sizes.
 
 ### Workflow 2: Computational geometry
 
 ``` r
+
 # Define polyhedral cone by generator matrix
 V <- matrix(c(
   1, 0.8, 0.2,
@@ -395,20 +406,18 @@ knitr::kable(geom_table, digits = 6)
 ### Workflow 3: Method comparison
 
 ``` r
+
 V <- diag(4)
 
 # Compare different computational approaches
-methods <- c("series", "decomposition")
+methods <- c("series", "decomposition", "mvn")
 results <- sapply(methods, function(m) {
   compute_solid_angle(V, method = m)
 })
 #> ○ Decomposed into 1 cones
-
-# Add omega() method
-results <- c(results, omega = omega(V)$omega)
 method_table <- data.frame(
-  method = names(results),
-  omega = as.numeric(results)
+  method = methods,
+  omega  = as.numeric(results)
 )
 knitr::kable(method_table, digits = 6)
 ```
@@ -417,9 +426,10 @@ knitr::kable(method_table, digits = 6)
 |:--------------|-------:|
 | series        | 0.0625 |
 | decomposition | 0.0625 |
-| omega         | 0.0625 |
+| mvn           | 0.0625 |
 
 ``` r
+
 # All should be approximately 0.0625 (1/16)
 ```
 
@@ -433,9 +443,9 @@ structure, use `method = "tridiagonal"` with optimized algorithms; for
 any cone type, use `method = "decomposition"` as a universal approach;
 for quick estimates, use
 [`solid_angle_monte_carlo()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_monte_carlo.md)
-for approximate results; and for ecological applications, use
-[`omega()`](https://robustecologies.github.io/SolidAngleR/reference/omega.md)
-as a proven, reliable method.
+for approximate results; and for ecological feasibility-domain
+applications, use `method = "mvn"` for the Genz-Bretz quasi-Monte Carlo
+orthant integral.
 
 ## Method selection guide
 
@@ -446,7 +456,7 @@ as a proven, reliable method.
 | Positive definite | Any | Hypergeometric series | `method = "series"` |
 | Tridiagonal V’V | Any | Tridiagonal series | `method = "tridiagonal"` |
 | Any | Any | Decomposition | `method = "decomposition"` |
-| Any | Any | Multivariate normal | [`omega()`](https://robustecologies.github.io/SolidAngleR/reference/omega.md) |
+| Positive definite | n \<= 20 | Multivariate normal QMC | `method = "mvn"` |
 | Complex geometry | 3 | Monte Carlo | [`solid_angle_monte_carlo()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_monte_carlo.md) |
 
 ## Examples
@@ -454,6 +464,7 @@ as a proven, reliable method.
 ### Example 1: Simple octant
 
 ``` r
+
 # One octant of 3D space
 V <- diag(3)
 omega <- compute_solid_angle(V)
@@ -463,6 +474,7 @@ omega <- compute_solid_angle(V)
 ### Example 2: Tridiagonal cone
 
 ``` r
+
 # Create cone with specified angles (radians) that yield a PD tridiagonal Gram matrix
 angles <- c(1.5, 1.5, 1.5)
 V <- create_tridiagonal_cone(angles)
@@ -472,6 +484,7 @@ omega <- compute_solid_angle(V, method = "tridiagonal")
 ### Example 3: Circular cone
 
 ``` r
+
 # 60-degree cone (half-angle)
 theta <- pi/3
 omega <- solid_angle_cone(theta)
@@ -481,6 +494,7 @@ omega <- solid_angle_cone(theta)
 ### Example 4: High-dimensional orthogonal cone
 
 ``` r
+
 # 5D orthant
 V <- diag(5)
 omega <- compute_solid_angle(V)
@@ -488,44 +502,44 @@ omega <- compute_solid_angle(V)
 # Result: 0.03125 (exactly 1/32)
 ```
 
-## Version 0.1.0 status
+## Version 0.6.0 status
 
 ### What’s working
 
-All core functionality is operational. The test suite passes locally
-across all major methods. New features include n-dimensional
-hypergeometric series (n \> 3), C++ (Rcpp) optimization for cone
-sampling and rotations, and interactive 3D cone visualization with
-[`plot_cone_3d()`](https://robustecologies.github.io/SolidAngleR/reference/plot_cone_3d.md).
-The hypergeometric series for n=2,3 uses the correct gamma function
-formulation, tridiagonal series optimization provides exponential
-speedup, and decomposition methods handle arbitrary cones. All geometric
-formulas for circular cones, polyhedral cones, and intersections are
-implemented, along with multivariate normal integration for feasibility
-domains and comprehensive documentation across 6 detailed vignettes.
+All core functionality is operational and the package passes
+`R CMD check --as-cran` with zero errors, zero warnings and a single
+system-level NOTE. The main dispatcher
+[`compute_solid_angle()`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+routes automatically to the cheapest convergent backend and now exposes
+the multivariate-normal orthant integral as `method = "mvn"` (the
+previous standalone `omega()` was retired); the diagnostic constructor
+[`diagnose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/diagnose_cone.md)
+is a full S3 object with `print`, `summary` and `plot` methods; the C++
+sampling backend via Rcpp and RcppArmadillo delivers O(n) per-sample
+cost; and the hypergeometric stack covers arbitrary n through
+[`hypergeometric_series_nd()`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series_nd.md).
+See `NEWS.md` for the complete version history.
 
-Critical bugs have been fixed, including gamma function operator
-precedence (which was causing ~10x errors), geometric function
-normalization (all functions now return values in \[0,1\]), names
-attribute cleanup in return values, and vignette compilation errors.
+### Known limitations
 
-### Known limitations (planned for v0.2.0)
-
-The decomposition method has a recursion issue where some random cone
-configurations may trigger stack overflow; this affects
-`method = "auto"` with certain non-positive-definite cones, and the
-workaround is to use `method = "series"` for known positive-definite
-cones. Additionally, some non-orthogonal tridiagonal cones may exhibit
-slow convergence requiring larger `max_terms` values; results remain
-correct, but convergence can be slower when consecutive dot products are
-large.
+The recursive decomposition in
+[`decompose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/decompose_cone.md)
+can hit R’s call-stack limit on pathological non-positive-definite
+configurations; the documented workaround is to pass `method = "series"`
+when the cone is known to be positive-definite, or to restructure the
+generators so that the Gram matrix becomes tridiagonal. Some
+non-orthogonal tridiagonal cones still require `max_terms` well above
+the default for the series to meet the convergence criterion; the
+returned values remain correct but the caller must set `max_terms`
+manually in those cases.
 
 ### Future enhancements
 
-Planned improvements include improved decomposition termination
-conditions, parallelization for batch computations, extended geometric
-methods for higher dimensions, and support for non-simplicial polyhedral
-cones via automatic triangulation.
+A C++ port of the recursive decomposition to eliminate the stack-limit
+issue, parallelisation of the batch dispatcher
+[`compute_solid_angles()`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angles.md),
+and an automatic triangulation stage to accept non-simplicial polyhedral
+cones may be added in a future release.
 
 ## Diagnostic tools
 
@@ -534,6 +548,7 @@ The
 function provides detailed cone analysis:
 
 ``` r
+
 V <- matrix(rnorm(9), nrow = 3)
 diag <- diagnose_cone(V)
 print(diag)
@@ -590,48 +605,40 @@ The package includes comprehensive vignettes with mathematical theory
 and working examples. Access them with:
 
 ``` r
+
 # View available vignettes
 vignette(package = "SolidAngleR")
 
 # Open specific vignette
-vignette("1.theoretical-analysis", package = "SolidAngleR")
+vignette("theoretical-analysis", package = "SolidAngleR")
 ```
 
-Available vignettes:
-
-1.  **Theoretical Analysis**
-    (`vignette("1.theoretical-analysis", package = "SolidAngleR")`)
-    - Mathematical foundations of solid angles
-    - Derivations of formulas for 2D and 3D cones
-    - Overview of computational approaches
-2.  **Series and Decomposition**
-    (`vignette("2.fitisone-zhou-methods", package = "SolidAngleR")`)
-    - Hypergeometric series methods (Ribando)
-    - Tridiagonal series optimization
-    - Brion-Vergne decomposition for general cones
-3.  **Geometric Methods**
-    (`vignette("3.mazonka-geometric-methods", package = "SolidAngleR")`)
-    - Closed-form solutions for circular cones and segments
-    - Analytical intersection of two cones
-    - Interactive 3D visualizations with plotly
-4.  **Monte Carlo Methods**
-    (`vignette("4.monte-carlo-methods", package = "SolidAngleR")`)
-    - Convergence analysis and error estimation
-    - Handling complex geometric regions
-    - Validation against analytical results
-5.  **Uniform Sphere Sampling**
-    (`vignette("5.uniform-sphere-sampling", package = "SolidAngleR")`)
-    - O(n) algorithm for sampling within cones
-    - Comparison with rejection sampling
-    - Applications in directional statistics and ray tracing
+The package ships seven vignettes. The `theoretical-analysis` vignette
+covers the mathematical foundations of the normalized solid angle,
+derivations of the closed forms for 2D and 3D cones, and an overview of
+the computational approaches. The `fitisone-zhou-methods` vignette
+develops the Ribando hypergeometric series, the tridiagonal
+specialization (Theorem 4.1) and the Brion-Vergne decomposition for
+non-positive-definite cones. The `mazonka-geometric-methods` vignette
+gives the closed forms for circular cones, cone segments and
+intersecting spherical caps, with interactive plotly renderings. The
+`monte-carlo-methods` vignette analyses convergence, error estimation
+and validation against analytical results. The `uniform-sphere-sampling`
+vignette describes the O(n) cone sampler of Arun and Venkatapathi, the
+comparison with naive rejection sampling and applications in directional
+statistics. The `hypergeometric-high-dim` vignette stress-tests the
+n-dimensional series, and the `architecture-api` vignette is the
+technical reference: dispatch logic, S3 contracts, the C++ backend, and
+the complete API surface with DiagrammeR diagrams.
 
 ## Getting help
 
 ``` r
+
 # Function documentation
 ?compute_solid_angle
-?omega
 ?diagnose_cone
+?generate_cone_samples
 
 # Package overview
 ?SolidAngleR
@@ -659,7 +666,7 @@ If you use **SolidAngleR** in publications, please cite:
   title = {SolidAngleR: Computing normalized solid angles of polyhedral cones in arbitrary dimensions},
   author = {Pablo Almaraz},
   year = {2025},
-  note = {R package version 0.0.0.9000},
+  note = {R package version 0.6.0},
   url = {https://github.com/robustecologies/SolidAngleR}
 }
 ```
@@ -675,7 +682,7 @@ If you use **SolidAngleR** in publications, please cite:
 
 This package is the original creation of the author in all conceptual,
 theoretical, and design aspects. Implementation was assisted by
-Anthropic’s Claude Code v.2 (Opus 4.5) to streamline package
+Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package
 development. All original ideas, creativity, and scientific
 contributions belong to the author, who maintains full responsibility
 for the package’s correctness and reliability. While all code has been
@@ -684,139 +691,213 @@ issues through the package’s issue tracker.
 
 # Package index
 
-## All functions
+## Package overview
+
+Package-level documentation, scope, and entry points.
 
 - [`SolidAngleR`](https://robustecologies.github.io/SolidAngleR/reference/SolidAngleR-package.md)
   [`SolidAngleR-package`](https://robustecologies.github.io/SolidAngleR/reference/SolidAngleR-package.md)
   : SolidAngleR: Computing normalized solid angles of polyhedral cones
-- [`angle_between()`](https://robustecologies.github.io/SolidAngleR/reference/angle_between.md)
-  : Calculate the angle between two 3D vectors
-- [`compute_associated_matrix()`](https://robustecologies.github.io/SolidAngleR/reference/compute_associated_matrix.md)
-  : Compute the associated matrix of a simplicial cone
-- [`compute_dot_product_matrix()`](https://robustecologies.github.io/SolidAngleR/reference/compute_dot_product_matrix.md)
-  : Compute dot product matrix
+
+## Main interface
+
+High-level dispatcher and batch wrapper that select the most appropriate
+method based on dimension, conditioning, and structure of the cone.
+
 - [`compute_solid_angle()`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
-  : Compute normalized solid angle measure of a polyhedral cone
+  : Compute the normalized solid angle of a polyhedral cone
 - [`compute_solid_angles()`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angles.md)
-  : Compute solid angle for multiple cones
-- [`create_tridiagonal_cone()`](https://robustecologies.github.io/SolidAngleR/reference/create_tridiagonal_cone.md)
-  : Create a tridiagonal cone from consecutive angles
-- [`cross_product_3d()`](https://robustecologies.github.io/SolidAngleR/reference/cross_product_3d.md)
-  : Cross product of two 3D vectors
-- [`decompose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/decompose_cone.md)
-  : Decompose simplicial cone
-- [`diagnose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/diagnose_cone.md)
-  : Check if solid angle computation is feasible
-- [`generate_cone_sample()`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_sample.md)
-  : Generate uniform random point on spherical cap
-- [`generate_cone_samples()`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_samples.md)
-  : Generate multiple uniform random samples in cone
-- [`generate_hollow_cone_sample()`](https://robustecologies.github.io/SolidAngleR/reference/generate_hollow_cone_sample.md)
-  : Generate uniform random point in hollow cone
-- [`generate_planar_angle_inverse()`](https://robustecologies.github.io/SolidAngleR/reference/generate_planar_angle_inverse.md)
-  : Generate random planar angle using inverse transform sampling
-- [`generate_planar_angle_rejection()`](https://robustecologies.github.io/SolidAngleR/reference/generate_planar_angle_rejection.md)
-  : Generate random planar angle using one-dimensional rejection
-  sampling
-- [`generate_point_on_sphere()`](https://robustecologies.github.io/SolidAngleR/reference/generate_point_on_sphere.md)
-  : Generate uniform random point on unit sphere
-- [`generate_spanning_trees()`](https://robustecologies.github.io/SolidAngleR/reference/generate_spanning_trees.md)
-  : Generate all spanning trees of a complete digraph
-- [`hypergeometric_series()`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md)
-  : Compute solid angle using Ribando's hypergeometric series
-- [`hypergeometric_series_nd()`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series_nd.md)
-  : General n-dimensional hypergeometric series for solid angle
-- [`is_linearly_independent()`](https://robustecologies.github.io/SolidAngleR/reference/is_linearly_independent.md)
-  : Check if vectors are linearly independent
-- [`is_positive_definite()`](https://robustecologies.github.io/SolidAngleR/reference/is_positive_definite.md)
-  : Check if a matrix is positive definite
-- [`is_tridiagonal()`](https://robustecologies.github.io/SolidAngleR/reference/is_tridiagonal.md)
-  : Check if a matrix is tridiagonal
-- [`lhuilier_angle()`](https://robustecologies.github.io/SolidAngleR/reference/lhuilier_angle.md)
-  : Calculate solid angle of spherical triangle using L'Huilier's
-  theorem
-- [`normalize_vectors()`](https://robustecologies.github.io/SolidAngleR/reference/normalize_vectors.md)
-  : Normalize vectors to unit length
-- [`omega()`](https://robustecologies.github.io/SolidAngleR/reference/omega.md)
-  : Compute normalized solid angle via multivariate normal integration
-- [`omega_to_theta()`](https://robustecologies.github.io/SolidAngleR/reference/omega_to_theta.md)
-  : Map solid angle fraction to planar angle
-- [`plot(`*`<cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/plot.cone_diagnosis.md)
-  : Plot method for cone diagnosis
-- [`plotIntersectingCones()`](https://robustecologies.github.io/SolidAngleR/reference/plotIntersectingCones.md)
-  : Interactive 3D visualization of intersecting cones
-- [`plot_cone_3d()`](https://robustecologies.github.io/SolidAngleR/reference/plot_cone_3d.md)
-  : Interactive 3D visualization of a general cone
-- [`print(`*`<cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/print.cone_diagnosis.md)
-  : Print method for cone diagnosis
-- [`print(`*`<summary.cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/print.summary.cone_diagnosis.md)
-  : Print method for summary.cone_diagnosis
-- [`rejection_cost()`](https://robustecologies.github.io/SolidAngleR/reference/rejection_cost.md)
-  : Compute expected rejection rate for high-dimensional rejection
-  sampling
-- [`rotate_from_canonical()`](https://robustecologies.github.io/SolidAngleR/reference/rotate_from_canonical.md)
-  : Rotate vector from n-th canonical basis to arbitrary orientation
-- [`shinySolidAngleR()`](https://robustecologies.github.io/SolidAngleR/reference/shinySolidAngleR.md)
-  : Launch interactive SolidAngleR Shiny application
+  : Vectorised solid-angle computation over a list of cones
+
+## Low-dimensional analytical formulas
+
+Closed-form computations in two and three dimensions via Van Oosterom-
+Strackee, L’Huilier, and spherical-triangle area formulas.
+
 - [`solid_angle_2d()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_2d.md)
-  : Compute normalized solid angle measure in R^2
+  : Normalized solid angle of a planar cone via signed area
 - [`solid_angle_2d_inner()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_2d_inner.md)
-  : Compute solid angle for a 2D cone using inner product
+  : Normalized solid angle of a planar cone via inner product
 - [`solid_angle_3d()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d.md)
-  : Compute normalized solid angle measure in R^3 using Euler-Lagrange
-  formula
+  : Normalized solid angle of a three-dimensional simplicial cone
 - [`solid_angle_3d_det()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d_det.md)
-  : Compute solid angle in R^3 using alternative parameterization
+  : Normalized solid angle in R^3 from a generator matrix
 - [`solid_angle_3d_from_rays()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d_from_rays.md)
   : Calculate solid angle of a 3D cone from extreme rays
-- [`solid_angle_cone()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone.md)
-  : Compute solid angle of a right circular cone
-- [`solid_angle_cone_segment()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone_segment.md)
-  : Compute solid angle of a cone segment
-- [`solid_angle_conical_surface()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_conical_surface.md)
-  : Compute solid angle of arbitrary conical surface
-- [`solid_angle_decomposition()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_decomposition.md)
-  : Compute solid angle using decomposition method
-- [`solid_angle_intersecting_cones()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_intersecting_cones.md)
-  : Compute solid angle of intersection of two cones
-- [`solid_angle_monte_carlo()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_monte_carlo.md)
-  : Compute solid angle using Monte Carlo integration
-- [`solid_angle_polyhedral()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_polyhedral.md)
-  : Compute solid angle of a polyhedral cone
 - [`spherical_triangle_area()`](https://robustecologies.github.io/SolidAngleR/reference/spherical_triangle_area.md)
-  : Compute solid angle for spherical triangle
-- [`summary(`*`<cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/summary.cone_diagnosis.md)
-  : Summary method for cone diagnosis
-- [`theta_to_omega()`](https://robustecologies.github.io/SolidAngleR/reference/theta_to_omega.md)
-  : Map planar angle to solid angle fraction
+  : Area of the spherical triangle on the unit sphere
+- [`lhuilier_angle()`](https://robustecologies.github.io/SolidAngleR/reference/lhuilier_angle.md)
+  : Spherical excess of a triangle via L'Huilier's theorem
+
+## Series methods
+
+Ribando hypergeometric series for positive-definite cones and the
+Fitisone-Zhou tridiagonal reduction for tridiagonal cones.
+
+- [`hypergeometric_series()`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md)
+  : Solid angle via Ribando's multivariable hypergeometric series
+- [`hypergeometric_series_nd()`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series_nd.md)
+  : General n-dimensional Ribando series for solid angle
 - [`tridiagonal_series()`](https://robustecologies.github.io/SolidAngleR/reference/tridiagonal_series.md)
-  : Compute solid angle using tridiagonal hypergeometric series
+  : Solid angle via the tridiagonal Fitisone-Zhou series
+
+## Geometric and decomposition methods
+
+Mazonka-style geometric algorithms for conical surfaces and spherical-
+cap intersections, plus the general decomposition of arbitrary cones.
+
+- [`solid_angle_cone()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone.md)
+  : Normalized solid angle of a right circular cone
+- [`solid_angle_polyhedral()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_polyhedral.md)
+  : Normalized solid angle of a polyhedral cone via fan triangulation
+- [`solid_angle_cone_segment()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone_segment.md)
+  : Normalized solid angle of a circular cone cut by a plane
+- [`solid_angle_intersecting_cones()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_intersecting_cones.md)
+  : Normalized solid angle of the intersection of two circular cones
+- [`solid_angle_conical_surface()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_conical_surface.md)
+  : Normalized solid angle of a conical surface defined by a curve
+- [`solid_angle_decomposition()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_decomposition.md)
+  : Solid angle of a simplicial cone via signed decomposition
+- [`decompose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/decompose_cone.md)
+  : Signed decomposition of a simplicial cone into PD or low-dimensional
+  pieces
+
+## Monte Carlo and sampling
+
+Rcpp-accelerated uniform sampling on spheres and spherical caps, Monte
+Carlo solid-angle estimation, and rejection-cost diagnostics.
+
+- [`solid_angle_monte_carlo()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_monte_carlo.md)
+  : Generic Monte Carlo estimator of a solid angle
+- [`generate_cone_sample()`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_sample.md)
+  : Uniform random point on a spherical cap
+- [`generate_cone_samples()`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_samples.md)
+  : Vectorised uniform sampling on a spherical cap
+- [`generate_hollow_cone_sample()`](https://robustecologies.github.io/SolidAngleR/reference/generate_hollow_cone_sample.md)
+  : Uniform random point on a hollow spherical cap
+- [`generate_point_on_sphere()`](https://robustecologies.github.io/SolidAngleR/reference/generate_point_on_sphere.md)
+  : Uniform random point on the n-dimensional unit sphere
+- [`generate_planar_angle_inverse()`](https://robustecologies.github.io/SolidAngleR/reference/generate_planar_angle_inverse.md)
+  : Random planar angle by inverse-transform sampling
+- [`generate_planar_angle_rejection()`](https://robustecologies.github.io/SolidAngleR/reference/generate_planar_angle_rejection.md)
+  : Random planar angle by one-dimensional rejection sampling
+- [`rejection_cost()`](https://robustecologies.github.io/SolidAngleR/reference/rejection_cost.md)
+  : Expected sample cost of naive sphere-rejection sampling on a cap
 - [`verify_cone_uniformity()`](https://robustecologies.github.io/SolidAngleR/reference/verify_cone_uniformity.md)
-  : Verify uniformity of cone sampling
+  : Goodness-of-fit tests for cone-sample uniformity
+
+## Cone diagnostics
+
+S3 constructor returning a structured diagnostic object with
+conditioning, stability classification, and method-selection guidance.
+
+- [`diagnose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/diagnose_cone.md)
+  : Diagnose a polyhedral cone and recommend a computation method
+
+## Cone structure utilities
+
+Algebraic predicates and constructors used by the dispatcher to decide
+which method applies to a given cone.
+
+- [`compute_associated_matrix()`](https://robustecologies.github.io/SolidAngleR/reference/compute_associated_matrix.md)
+  : Associated matrix M_n(C) of a simplicial cone
+- [`compute_dot_product_matrix()`](https://robustecologies.github.io/SolidAngleR/reference/compute_dot_product_matrix.md)
+  : Pairwise dot-product matrix V^T V
+- [`is_positive_definite()`](https://robustecologies.github.io/SolidAngleR/reference/is_positive_definite.md)
+  : Test whether a symmetric matrix is positive definite
+- [`is_linearly_independent()`](https://robustecologies.github.io/SolidAngleR/reference/is_linearly_independent.md)
+  : Test whether the columns of a matrix are linearly independent
+- [`is_tridiagonal()`](https://robustecologies.github.io/SolidAngleR/reference/is_tridiagonal.md)
+  : Test whether a matrix has tridiagonal structure
+- [`create_tridiagonal_cone()`](https://robustecologies.github.io/SolidAngleR/reference/create_tridiagonal_cone.md)
+  : Construct a tridiagonal simplicial cone from consecutive angles
+- [`normalize_vectors()`](https://robustecologies.github.io/SolidAngleR/reference/normalize_vectors.md)
+  : Column-wise unit normalisation of a matrix
+
+## Geometry primitives
+
+Low-level vector and angular utilities reused across families.
+
+- [`angle_between()`](https://robustecologies.github.io/SolidAngleR/reference/angle_between.md)
+  : Angle between two vectors via the dot product
+- [`cross_product_3d()`](https://robustecologies.github.io/SolidAngleR/reference/cross_product_3d.md)
+  : Cross product of two three-dimensional vectors
+- [`rotate_from_canonical()`](https://robustecologies.github.io/SolidAngleR/reference/rotate_from_canonical.md)
+  : Givens rotation from canonical axis to an arbitrary direction
+- [`theta_to_omega()`](https://robustecologies.github.io/SolidAngleR/reference/theta_to_omega.md)
+  : Planar angle to solid-angle fraction in n dimensions
+- [`omega_to_theta()`](https://robustecologies.github.io/SolidAngleR/reference/omega_to_theta.md)
+  : Solid-angle fraction to planar angle in n dimensions
+- [`generate_spanning_trees()`](https://robustecologies.github.io/SolidAngleR/reference/generate_spanning_trees.md)
+  : Enumerate all directed spanning trees of a complete digraph
+
+## Visualization and interactive tools
+
+3D plotly visualisations of cones and intersecting spherical caps, plus
+a Shiny dashboard for exploration.
+
+- [`plot_cone_3d()`](https://robustecologies.github.io/SolidAngleR/reference/plot_cone_3d.md)
+  : Interactive 3D plotly visualisation of a simplicial cone
+- [`plotIntersectingCones()`](https://robustecologies.github.io/SolidAngleR/reference/plotIntersectingCones.md)
+  : Interactive 3D visualisation of two intersecting cones
+- [`shinySolidAngleR()`](https://robustecologies.github.io/SolidAngleR/reference/shinySolidAngleR.md)
+  : Launch the SolidAngleR Shiny dashboard
+
+## S3 methods
+
+Print, summary, and plot methods for the cone_diagnosis class. Users
+normally do not call these directly; listed here for completeness and
+cross-reference.
+
+- [`print(`*`<cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/print.cone_diagnosis.md)
+  : Print a cone diagnosis report
+- [`print(`*`<summary.cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/print.summary.cone_diagnosis.md)
+  : Print an extended cone diagnostic summary
+- [`summary(`*`<cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/summary.cone_diagnosis.md)
+  : Extended diagnostic summary for a polyhedral cone
+- [`plot(`*`<cone_diagnosis>`*`)`](https://robustecologies.github.io/SolidAngleR/reference/plot.cone_diagnosis.md)
+  : Plot the eigenvalue spectrum of a diagnosed cone
+- [`plotIntersectingCones()`](https://robustecologies.github.io/SolidAngleR/reference/plotIntersectingCones.md)
+  : Interactive 3D visualisation of two intersecting cones
+- [`plot_cone_3d()`](https://robustecologies.github.io/SolidAngleR/reference/plot_cone_3d.md)
+  : Interactive 3D plotly visualisation of a simplicial cone
 
 # Articles
 
-### Theory and background
+### Getting started
+
+Mathematical introduction to solid angle theory and the SolidAngleR
+package.
 
 - [A mathematical introduction to solid angle methods for polyhedral
   cones with the SolidAngleR
-  library](https://robustecologies.github.io/SolidAngleR/articles/a.theoretical-analysis.md):
+  library](https://robustecologies.github.io/SolidAngleR/articles/theoretical-analysis.md):
+
+### Algorithms by family
+
+One vignette per computational method: analytic series, Mazonka-style
+geometric methods, and Monte Carlo approaches.
+
 - [Hypergeometric and tridiagonal series and decomposition
-  approaches](https://robustecologies.github.io/SolidAngleR/articles/b.fitisone-zhou-methods.md):
-
-### Methods
-
+  approaches](https://robustecologies.github.io/SolidAngleR/articles/fitisone-zhou-methods.md):
 - [Geometric methods for conical surfaces and intersecting spherical
-  caps](https://robustecologies.github.io/SolidAngleR/articles/c.mazonka-geometric-methods.md):
+  caps](https://robustecologies.github.io/SolidAngleR/articles/mazonka-geometric-methods.md):
 - [Monte Carlo methods for solid angle computation: convergence, error
   analysis, and
-  validation](https://robustecologies.github.io/SolidAngleR/articles/d.monte-carlo-methods.md):
-- [Uniform Monte Carlo sampling on n-dimensional spheres and spherical
-  caps](https://robustecologies.github.io/SolidAngleR/articles/e.uniform-sphere-sampling.md):
+  validation](https://robustecologies.github.io/SolidAngleR/articles/monte-carlo-methods.md):
 - [Exact analytical solid angles in higher
-  dimensions](https://robustecologies.github.io/SolidAngleR/articles/f.hypergeometric-high-dim.md):
+  dimensions](https://robustecologies.github.io/SolidAngleR/articles/hypergeometric-high-dim.md):
 
-### Developer
+### Sampling
+
+Uniform sampling on n-dimensional spheres and spherical caps.
+
+- [Uniform Monte Carlo sampling on n-dimensional spheres and spherical
+  caps](https://robustecologies.github.io/SolidAngleR/articles/uniform-sphere-sampling.md):
+
+### Technical reference
+
+Architecture, API design, and dispatcher internals.
 
 - [Technical architecture and API
-  reference](https://robustecologies.github.io/SolidAngleR/articles/g.architecture-api.md):
+  reference](https://robustecologies.github.io/SolidAngleR/articles/architecture-api.md):

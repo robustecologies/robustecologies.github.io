@@ -1,8 +1,9 @@
-# Compute solid angle of intersection of two cones
+# Normalized solid angle of the intersection of two circular cones
 
-Calculates the normalized solid angle of intersection between two cones
-with the same apex by integrating the overlap of spherical caps on the
-unit sphere.
+Computes the normalized solid angle of the spherical region in which two
+circular cones with common apex overlap. The user can pick the integral,
+analytic-special-case, or Monte Carlo backend, with an optional fallback
+when the chosen route fails.
 
 ## Usage
 
@@ -58,6 +59,8 @@ full sphere)
 
 ## Details
 
+Compute solid angle of intersection of two cones
+
 The intersection of two circular cones corresponds to the intersection
 of two spherical caps on the unit sphere. In a coordinate system where
 the first axis is the north pole and the second axis is separated by
@@ -87,9 +90,22 @@ with \\\gamma = \alpha\\.
 ## References
 
 Mazonka, O. (2012). Solid angle of conical surfaces, polyhedral cones,
-and intersecting spherical caps. arXiv:1205.1396v2. Section 4:
-Intersecting cones.
+and intersecting spherical caps. arXiv:1205.1396 (math.MG). Section 4
+(Intersecting cones).
 [doi:10.48550/arXiv.1205.1396](https://doi.org/10.48550/arXiv.1205.1396)
+
+## See also
+
+[`solid_angle_cone`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone.md)
+for a single cone;
+[`solid_angle_cone_segment`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone_segment.md)
+for the special case of one cone being a hemisphere;
+[`solid_angle_monte_carlo`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_monte_carlo.md)
+for the generic Monte Carlo estimator used as a backend;
+[`plotIntersectingCones`](https://robustecologies.github.io/SolidAngleR/reference/plotIntersectingCones.md)
+for the 3D visualisation;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 ## Examples
 

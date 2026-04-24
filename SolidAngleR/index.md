@@ -3,8 +3,6 @@
 ## Computing normalized solid angles of polyhedral cones in arbitrary dimensions
 
 [![R-CMD-check](https://img.shields.io/badge/R--CMD--check-passing-brightgreen)](https://github.com/palmaraz/SolidAngleR/actions)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/SolidAngleR)](https://CRAN.R-project.org/package=SolidAngleR)
 [![R
 version](https://img.shields.io/badge/R-%E2%89%A54.1.0-blue.svg)](https://www.r-project.org/)
 
@@ -53,6 +51,7 @@ extensive testing and applications of the functions in the package.
 ## Installation
 
 ``` r
+
 # Check if devtools is already installed. If not, install it.
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
@@ -73,7 +72,7 @@ install.packages("SolidAngleR")
 ``` bash
 cd /path/to/SolidAngleR
 R CMD build .
-R CMD INSTALL SolidAngleR_0.1.0.tar.gz
+R CMD INSTALL SolidAngleR_0.6.0.tar.gz
 ```
 
 ## Mathematical background
@@ -109,6 +108,7 @@ empty cone, \\\tilde{\Omega}\_n(\emptyset) = 0\\.
 ### Solid angle computation
 
 ``` r
+
 library(SolidAngleR)
 
 # Example 1: 3D orthogonal cone (octant)
@@ -150,6 +150,7 @@ print(diag)
 ### Uniform cone sampling optimized with C++
 
 ``` r
+
 # Example 1: Generate uniform samples on 3D spherical cap
 # Now uses fast C++ implementation for massive sampling
 mu_hat <- c(0, 0, 1)  # Cone axis (z-axis)
@@ -170,6 +171,7 @@ knitr::kable(sample_info)
 
 ``` r
 
+
 # Example 2: Verify uniformity
 set.seed(42)
 samples_test <- generate_cone_samples(10000, c(0, 0, 1), pi/3)
@@ -188,6 +190,7 @@ knitr::kable(uniformity_table, digits = c(NA, 4))
 
 ``` r
 
+
 # Example 3: High-dimensional cone (100D with 10-degree half-angle)
 mu_hat_100d <- c(rep(0, 99), 1)
 sample_100d <- generate_cone_sample(mu_hat_100d, pi/18, method = "rejection")
@@ -203,6 +206,7 @@ knitr::kable(norm_table, digits = c(NA, 10))
 | 100D sample norm |     1 |
 
 ``` r
+
 
 # Example 4: Hollow cone (annular region)
 sample_hollow <- generate_hollow_cone_sample(c(1, 0, 0), pi/6, pi/3)
@@ -226,6 +230,7 @@ The
 function automatically selects the best method:
 
 ``` r
+
 V <- diag(4)
 omega <- compute_solid_angle(V, method = "auto")
 #> ✓ Using tridiagonal series method
@@ -241,6 +246,7 @@ tridiagonal cones - `"decomposition"` - Universal method (any cone)
 #### 2D cones
 
 ``` r
+
 # Direct angle computation
 v1 <- c(1, 0)
 v2 <- c(0.8, 0.6)
@@ -252,6 +258,7 @@ omega
 #### 3D cones
 
 ``` r
+
 # Euler-Lagrange formula
 v1 <- c(1, 0, 0)
 v2 <- c(0, 1, 0)
@@ -264,6 +271,7 @@ omega
 #### Geometric shapes
 
 ``` r
+
 # Circular cone
 theta <- pi/3  # Apex half-angle
 omega <- solid_angle_cone(theta)
@@ -284,6 +292,7 @@ unavailable, Monte Carlo integration provides a powerful alternative
 with quantified uncertainty:
 
 ``` r
+
 #### Define a complex region: intersection of two cones                  ####
 complex_region_test <- function(point) {
   #### First cone: axis along z, 60\u00B0 opening                           ####
@@ -333,6 +342,7 @@ validation tool for analytical methods.
 ### Workflow 1: Ecological feasibility domain
 
 ``` r
+
 library(SolidAngleR)
 
 # Community interaction matrix (4 species)
@@ -340,12 +350,10 @@ S <- 4
 alpha <- matrix(runif(S * S, -1, 0), S, S)
 diag(alpha) <- -1
 
-# Compute feasibility domain size
-result <- omega(alpha)
-feas_table <- data.frame(
-  omega = result$omega,
-  omega_scaled = result$omega_scaled
-)
+# Compute feasibility domain size via the multivariate-normal branch
+omega_raw    <- compute_solid_angle(alpha, method = "mvn", normalize = FALSE)
+omega_scaled <- omega_raw^(1 / S)
+feas_table   <- data.frame(omega = omega_raw, omega_scaled = omega_scaled)
 knitr::kable(feas_table, digits = 6)
 ```
 
@@ -354,11 +362,14 @@ knitr::kable(feas_table, digits = 6)
 | 0.001536 |     0.197963 |
 
 **Interpretation:** `omega` represents the fraction of parameter space
-where all species can coexist with positive abundances.
+where all species can coexist with positive abundances;
+`omega_scaled = omega^(1 / S)` is the per-species geometric mean used to
+compare communities of different sizes.
 
 ### Workflow 2: Computational geometry
 
 ``` r
+
 # Define polyhedral cone by generator matrix
 V <- matrix(c(
   1, 0.8, 0.2,
@@ -395,20 +406,18 @@ knitr::kable(geom_table, digits = 6)
 ### Workflow 3: Method comparison
 
 ``` r
+
 V <- diag(4)
 
 # Compare different computational approaches
-methods <- c("series", "decomposition")
+methods <- c("series", "decomposition", "mvn")
 results <- sapply(methods, function(m) {
   compute_solid_angle(V, method = m)
 })
 #> ○ Decomposed into 1 cones
-
-# Add omega() method
-results <- c(results, omega = omega(V)$omega)
 method_table <- data.frame(
-  method = names(results),
-  omega = as.numeric(results)
+  method = methods,
+  omega  = as.numeric(results)
 )
 knitr::kable(method_table, digits = 6)
 ```
@@ -417,9 +426,10 @@ knitr::kable(method_table, digits = 6)
 |:--------------|-------:|
 | series        | 0.0625 |
 | decomposition | 0.0625 |
-| omega         | 0.0625 |
+| mvn           | 0.0625 |
 
 ``` r
+
 # All should be approximately 0.0625 (1/16)
 ```
 
@@ -433,9 +443,9 @@ structure, use `method = "tridiagonal"` with optimized algorithms; for
 any cone type, use `method = "decomposition"` as a universal approach;
 for quick estimates, use
 [`solid_angle_monte_carlo()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_monte_carlo.md)
-for approximate results; and for ecological applications, use
-[`omega()`](https://robustecologies.github.io/SolidAngleR/reference/omega.md)
-as a proven, reliable method.
+for approximate results; and for ecological feasibility-domain
+applications, use `method = "mvn"` for the Genz-Bretz quasi-Monte Carlo
+orthant integral.
 
 ## Method selection guide
 
@@ -446,7 +456,7 @@ as a proven, reliable method.
 | Positive definite | Any | Hypergeometric series | `method = "series"` |
 | Tridiagonal V’V | Any | Tridiagonal series | `method = "tridiagonal"` |
 | Any | Any | Decomposition | `method = "decomposition"` |
-| Any | Any | Multivariate normal | [`omega()`](https://robustecologies.github.io/SolidAngleR/reference/omega.md) |
+| Positive definite | n \<= 20 | Multivariate normal QMC | `method = "mvn"` |
 | Complex geometry | 3 | Monte Carlo | [`solid_angle_monte_carlo()`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_monte_carlo.md) |
 
 ## Examples
@@ -454,6 +464,7 @@ as a proven, reliable method.
 ### Example 1: Simple octant
 
 ``` r
+
 # One octant of 3D space
 V <- diag(3)
 omega <- compute_solid_angle(V)
@@ -463,6 +474,7 @@ omega <- compute_solid_angle(V)
 ### Example 2: Tridiagonal cone
 
 ``` r
+
 # Create cone with specified angles (radians) that yield a PD tridiagonal Gram matrix
 angles <- c(1.5, 1.5, 1.5)
 V <- create_tridiagonal_cone(angles)
@@ -472,6 +484,7 @@ omega <- compute_solid_angle(V, method = "tridiagonal")
 ### Example 3: Circular cone
 
 ``` r
+
 # 60-degree cone (half-angle)
 theta <- pi/3
 omega <- solid_angle_cone(theta)
@@ -481,6 +494,7 @@ omega <- solid_angle_cone(theta)
 ### Example 4: High-dimensional orthogonal cone
 
 ``` r
+
 # 5D orthant
 V <- diag(5)
 omega <- compute_solid_angle(V)
@@ -488,44 +502,44 @@ omega <- compute_solid_angle(V)
 # Result: 0.03125 (exactly 1/32)
 ```
 
-## Version 0.1.0 status
+## Version 0.6.0 status
 
 ### What’s working
 
-All core functionality is operational. The test suite passes locally
-across all major methods. New features include n-dimensional
-hypergeometric series (n \> 3), C++ (Rcpp) optimization for cone
-sampling and rotations, and interactive 3D cone visualization with
-[`plot_cone_3d()`](https://robustecologies.github.io/SolidAngleR/reference/plot_cone_3d.md).
-The hypergeometric series for n=2,3 uses the correct gamma function
-formulation, tridiagonal series optimization provides exponential
-speedup, and decomposition methods handle arbitrary cones. All geometric
-formulas for circular cones, polyhedral cones, and intersections are
-implemented, along with multivariate normal integration for feasibility
-domains and comprehensive documentation across 6 detailed vignettes.
+All core functionality is operational and the package passes
+`R CMD check --as-cran` with zero errors, zero warnings and a single
+system-level NOTE. The main dispatcher
+[`compute_solid_angle()`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+routes automatically to the cheapest convergent backend and now exposes
+the multivariate-normal orthant integral as `method = "mvn"` (the
+previous standalone `omega()` was retired); the diagnostic constructor
+[`diagnose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/diagnose_cone.md)
+is a full S3 object with `print`, `summary` and `plot` methods; the C++
+sampling backend via Rcpp and RcppArmadillo delivers O(n) per-sample
+cost; and the hypergeometric stack covers arbitrary n through
+[`hypergeometric_series_nd()`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series_nd.md).
+See `NEWS.md` for the complete version history.
 
-Critical bugs have been fixed, including gamma function operator
-precedence (which was causing ~10x errors), geometric function
-normalization (all functions now return values in \[0,1\]), names
-attribute cleanup in return values, and vignette compilation errors.
+### Known limitations
 
-### Known limitations (planned for v0.2.0)
-
-The decomposition method has a recursion issue where some random cone
-configurations may trigger stack overflow; this affects
-`method = "auto"` with certain non-positive-definite cones, and the
-workaround is to use `method = "series"` for known positive-definite
-cones. Additionally, some non-orthogonal tridiagonal cones may exhibit
-slow convergence requiring larger `max_terms` values; results remain
-correct, but convergence can be slower when consecutive dot products are
-large.
+The recursive decomposition in
+[`decompose_cone()`](https://robustecologies.github.io/SolidAngleR/reference/decompose_cone.md)
+can hit R’s call-stack limit on pathological non-positive-definite
+configurations; the documented workaround is to pass `method = "series"`
+when the cone is known to be positive-definite, or to restructure the
+generators so that the Gram matrix becomes tridiagonal. Some
+non-orthogonal tridiagonal cones still require `max_terms` well above
+the default for the series to meet the convergence criterion; the
+returned values remain correct but the caller must set `max_terms`
+manually in those cases.
 
 ### Future enhancements
 
-Planned improvements include improved decomposition termination
-conditions, parallelization for batch computations, extended geometric
-methods for higher dimensions, and support for non-simplicial polyhedral
-cones via automatic triangulation.
+A C++ port of the recursive decomposition to eliminate the stack-limit
+issue, parallelisation of the batch dispatcher
+[`compute_solid_angles()`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angles.md),
+and an automatic triangulation stage to accept non-simplicial polyhedral
+cones may be added in a future release.
 
 ## Diagnostic tools
 
@@ -534,6 +548,7 @@ The
 function provides detailed cone analysis:
 
 ``` r
+
 V <- matrix(rnorm(9), nrow = 3)
 diag <- diagnose_cone(V)
 print(diag)
@@ -590,48 +605,40 @@ The package includes comprehensive vignettes with mathematical theory
 and working examples. Access them with:
 
 ``` r
+
 # View available vignettes
 vignette(package = "SolidAngleR")
 
 # Open specific vignette
-vignette("1.theoretical-analysis", package = "SolidAngleR")
+vignette("theoretical-analysis", package = "SolidAngleR")
 ```
 
-Available vignettes:
-
-1.  **Theoretical Analysis**
-    (`vignette("1.theoretical-analysis", package = "SolidAngleR")`)
-    - Mathematical foundations of solid angles
-    - Derivations of formulas for 2D and 3D cones
-    - Overview of computational approaches
-2.  **Series and Decomposition**
-    (`vignette("2.fitisone-zhou-methods", package = "SolidAngleR")`)
-    - Hypergeometric series methods (Ribando)
-    - Tridiagonal series optimization
-    - Brion-Vergne decomposition for general cones
-3.  **Geometric Methods**
-    (`vignette("3.mazonka-geometric-methods", package = "SolidAngleR")`)
-    - Closed-form solutions for circular cones and segments
-    - Analytical intersection of two cones
-    - Interactive 3D visualizations with plotly
-4.  **Monte Carlo Methods**
-    (`vignette("4.monte-carlo-methods", package = "SolidAngleR")`)
-    - Convergence analysis and error estimation
-    - Handling complex geometric regions
-    - Validation against analytical results
-5.  **Uniform Sphere Sampling**
-    (`vignette("5.uniform-sphere-sampling", package = "SolidAngleR")`)
-    - O(n) algorithm for sampling within cones
-    - Comparison with rejection sampling
-    - Applications in directional statistics and ray tracing
+The package ships seven vignettes. The `theoretical-analysis` vignette
+covers the mathematical foundations of the normalized solid angle,
+derivations of the closed forms for 2D and 3D cones, and an overview of
+the computational approaches. The `fitisone-zhou-methods` vignette
+develops the Ribando hypergeometric series, the tridiagonal
+specialization (Theorem 4.1) and the Brion-Vergne decomposition for
+non-positive-definite cones. The `mazonka-geometric-methods` vignette
+gives the closed forms for circular cones, cone segments and
+intersecting spherical caps, with interactive plotly renderings. The
+`monte-carlo-methods` vignette analyses convergence, error estimation
+and validation against analytical results. The `uniform-sphere-sampling`
+vignette describes the O(n) cone sampler of Arun and Venkatapathi, the
+comparison with naive rejection sampling and applications in directional
+statistics. The `hypergeometric-high-dim` vignette stress-tests the
+n-dimensional series, and the `architecture-api` vignette is the
+technical reference: dispatch logic, S3 contracts, the C++ backend, and
+the complete API surface with DiagrammeR diagrams.
 
 ## Getting help
 
 ``` r
+
 # Function documentation
 ?compute_solid_angle
-?omega
 ?diagnose_cone
+?generate_cone_samples
 
 # Package overview
 ?SolidAngleR
@@ -659,7 +666,7 @@ If you use **SolidAngleR** in publications, please cite:
   title = {SolidAngleR: Computing normalized solid angles of polyhedral cones in arbitrary dimensions},
   author = {Pablo Almaraz},
   year = {2025},
-  note = {R package version 0.0.0.9000},
+  note = {R package version 0.6.0},
   url = {https://github.com/robustecologies/SolidAngleR}
 }
 ```
@@ -675,7 +682,7 @@ If you use **SolidAngleR** in publications, please cite:
 
 This package is the original creation of the author in all conceptual,
 theoretical, and design aspects. Implementation was assisted by
-Anthropic’s Claude Code v.2 (Opus 4.5) to streamline package
+Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package
 development. All original ideas, creativity, and scientific
 contributions belong to the author, who maintains full responsibility
 for the package’s correctness and reliability. While all code has been

@@ -46,28 +46,37 @@ application in DEA. *Journal of the Operational Research Society*,
 69(3), 465-472.
 [doi:10.1057/s41274-017-0265-9](https://doi.org/10.1057/s41274-017-0265-9)
 
+Todhunter, I. (1886). *Spherical Trigonometry*, 5th edition. Macmillan
+and Co., London.
+
+## See also
+
+[`generate_spanning_trees`](https://robustecologies.github.io/SolidAngleR/reference/generate_spanning_trees.md)
+for the enumeration of extreme rays that this function consumes;
+[`lhuilier_angle`](https://robustecologies.github.io/SolidAngleR/reference/lhuilier_angle.md)
+for the per-triangle building block;
+[`angle_between`](https://robustecologies.github.io/SolidAngleR/reference/angle_between.md)
+for the arc-length helper;
+[`solid_angle_polyhedral`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_polyhedral.md)
+for an alternative polyhedral computation;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# --- Example 1: A cone covering one orthant of 3D space ---
-# The rays are the positive axes. The solid angle should be (4*pi)/8 = pi/2.
-orthant_rays <- matrix(c(1, 0, 0,
-                         0, 1, 0,
-                         0, 0, 1), nrow = 3)
-angle <- solid_angle_3d_from_rays(orthant_rays)
-cat("Solid angle of one orthant:", angle, "\n")
-cat("Expected value (pi/2):", pi/2, "\n")
+# Octant in R^3: solid angle should be pi / 2 steradians
+orthant <- matrix(c(1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1), nrow = 3)
+solid_angle_3d_from_rays(orthant)        # ~ 1.5708
 
-# --- Example 2: A wider cone with 4 ordered rays ---
-# Rays form a square base on the sphere's surface.
-ray1 <- c(1, 0.5, 0.5)
-ray2 <- c(1, -0.5, 0.5)
-ray3 <- c(1, -0.5, -0.5)
-ray4 <- c(1, 0.5, -0.5)
-wide_cone_rays <- cbind(ray1, ray2, ray3, ray4)
-
-wide_angle <- solid_angle_3d_from_rays(wide_cone_rays)
-cat("\nSolid angle of a wider 4-ray cone:", wide_angle, "steradians\n")
+# Square-base wider cone with four ordered rays
+rays <- cbind(c(1,  0.5,  0.5),
+              c(1, -0.5,  0.5),
+              c(1, -0.5, -0.5),
+              c(1,  0.5, -0.5))
+solid_angle_3d_from_rays(rays)
 } # }
 ```

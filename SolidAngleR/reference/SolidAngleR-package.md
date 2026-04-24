@@ -158,6 +158,7 @@ for detailed recommendations.
 
 #### Workflow 1: General cone computation
 
+
     library(SolidAngleR)
 
     # Define cone by generator matrix
@@ -168,6 +169,7 @@ for detailed recommendations.
     print(omega)  # 0.0625 (1/16)
 
 #### Workflow 2: Ecological feasibility domain
+
 
     # Community interaction matrix
     S <- 4
@@ -180,6 +182,7 @@ for detailed recommendations.
     print(result$Omega_scaled)  # Per-species measure
 
 #### Workflow 3: Geometric shapes
+
 
     # Circular cone
     theta <- pi/3  # 60-degree apex
@@ -201,6 +204,7 @@ for detailed recommendations.
     fig
 
 #### Workflow 4: Method comparison
+
 
     V <- diag(3)
 
@@ -298,9 +302,9 @@ Vignettes:
 
 - `vignette("mathematical-theory", package = "SolidAngleR")`
 
-- `vignette("fitisone-zhou-methods", package = "SolidAngleR")`
+- [`vignette("fitisone-zhou-methods", package = "SolidAngleR")`](https://robustecologies.github.io/SolidAngleR/articles/fitisone-zhou-methods.md)
 
-- `vignette("mazonka-geometric-methods", package = "SolidAngleR")`
+- [`vignette("mazonka-geometric-methods", package = "SolidAngleR")`](https://robustecologies.github.io/SolidAngleR/articles/mazonka-geometric-methods.md)
 
 - `vignette("spanning-trees-extreme-rays", package = "SolidAngleR")`
 

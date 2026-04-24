@@ -1,7 +1,10 @@
-# Compute solid angle of a cone segment
+# Normalized solid angle of a circular cone cut by a plane
 
-Calculates the normalized solid angle of a cone segment cut by a plane
-at angle gamma using Mazonka's analytical formula.
+Computes the normalized solid angle of the segment obtained by cutting a
+right circular cone with apex half-angle \\\theta\\ by a plane whose
+normal makes angle \\\gamma\\ with the cone axis. Uses the Mazonka
+(2012, equations 35, 39, 41) closed form, with a numerical integration
+fallback when the analytic expression is invalid.
 
 ## Usage
 
@@ -49,9 +52,19 @@ prevent intersection.
 ## References
 
 Mazonka, O. (2012). Solid angle of conical surfaces, polyhedral cones,
-and intersecting spherical caps. arXiv:1205.1396v2. Section 4.1: Cone's
-segment.
+and intersecting spherical caps. arXiv:1205.1396 (math.MG). Section 4.1
+(Cone segment), equations 35, 39, 41.
 [doi:10.48550/arXiv.1205.1396](https://doi.org/10.48550/arXiv.1205.1396)
+
+## See also
+
+[`solid_angle_cone`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone.md)
+for the uncut cone;
+[`solid_angle_intersecting_cones`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_intersecting_cones.md)
+for the related two-cone intersection (the special case \\\theta_2 =
+\pi/2\\ reduces to this function with \\\gamma = \alpha\\);
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 ## Examples
 

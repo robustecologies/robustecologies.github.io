@@ -1,7 +1,10 @@
-# Generate random planar angle using one-dimensional rejection sampling
+# Random planar angle by one-dimensional rejection sampling
 
-Generates a random planar angle \\\theta\\ from the distribution that
-produces uniform sampling on a spherical cap, using rejection sampling.
+Draws a single random planar angle \\\theta \in \[0, \theta_0\]\\ from
+the distribution required to produce uniform sampling on a spherical cap
+of half-angle \\\theta_0\\ in dimension \\n\\, using one-dimensional
+rejection sampling with log-domain comparisons. Numerically stable in
+high dimensions where the inverse-transform variant underflows.
 
 ## Usage
 
@@ -36,16 +39,29 @@ condition is: \$\$\log(U) \< (n-2)\[\log(\sin\theta) -
 The average number of rejections is approximately linear in n,
 maintaining the O(n) complexity of the overall algorithm.
 
+## References
+
+Arun, I., & Venkatapathi, M. (2025). An O(n) algorithm for generating
+uniform random vectors in n-dimensional cones. *Sankhya A*, 87(2),
+327-348.
+[doi:10.1007/s13171-025-00387-9](https://doi.org/10.1007/s13171-025-00387-9)
+
 ## See also
 
 [`generate_planar_angle_inverse`](https://robustecologies.github.io/SolidAngleR/reference/generate_planar_angle_inverse.md)
+for the inverse-transform alternative;
+[`rejection_cost`](https://robustecologies.github.io/SolidAngleR/reference/rejection_cost.md)
+for the expected number of rejections in the rejection-based cone
+sampler;
+[`generate_cone_sample`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_sample.md)
+for the downstream cone sampler.
 
 ## Examples
 
 ``` r
-# Generate angles for narrow cone in high dimensions
-# (more stable than inverse transform method)
-angles <- replicate(1000, generate_planar_angle_rejection(pi/12, 100))
-hist(angles, main = "Distribution of planar angles")
-
+# Narrow cap in dimension 100: rejection variant is preferred
+angles <- replicate(1000, generate_planar_angle_rejection(pi / 12, 100))
+summary(angles)
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>  0.2420  0.2580  0.2599  0.2591  0.2610  0.2618 
 ```

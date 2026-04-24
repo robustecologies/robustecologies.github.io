@@ -1,8 +1,10 @@
-# Compute solid angle of arbitrary conical surface
+# Normalized solid angle of a conical surface defined by a curve
 
-Calculates the solid angle of a conical surface defined by a closed
-parametric curve on the unit sphere. Currently implemented as a
-polyhedral approximation.
+Computes the normalized solid angle of a conical surface bounded by a
+closed curve on the unit sphere. The current implementation is a
+polyhedral approximation that fan-triangulates the curve points; the
+arguments `corner_angles` and `smooth_segments` are accepted for API
+forward-compatibility but are not used by the polyhedral fallback.
 
 ## Usage
 
@@ -32,6 +34,8 @@ Normalized solid angle (0 to 1, where 1 = full sphere)
 
 ## Details
 
+Compute solid angle of arbitrary conical surface
+
 According to Mazonka (2012), the solid angle of a general conical
 surface bounded by a closed curve \\\mathcal{C}\\ on the unit sphere is
 given by Equation 3:
@@ -55,9 +59,19 @@ smooth conical surfaces.
 ## References
 
 Mazonka, O. (2012). Solid angle of conical surfaces, polyhedral cones,
-and intersecting spherical caps. arXiv:1205.1396v2. Section 2: Conical
-surfaces.
+and intersecting spherical caps. arXiv:1205.1396 (math.MG). Section 2
+(Conical surfaces), equation 3.
 [doi:10.48550/arXiv.1205.1396](https://doi.org/10.48550/arXiv.1205.1396)
+
+## See also
+
+[`solid_angle_polyhedral`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_polyhedral.md)
+for the polygonal aggregator that powers the current polyhedral
+approximation;
+[`solid_angle_cone`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone.md)
+for the smooth circular limit;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 ## Examples
 

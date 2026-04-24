@@ -1,8 +1,12 @@
-# Compute solid angle using tridiagonal hypergeometric series
+# Solid angle via the tridiagonal Fitisone-Zhou series
 
-Implements the simplified hypergeometric series formula (equation 23)
-for cones whose associated matrices have tridiagonal structure. This
-reduces the number of coordinates from n(n-1)/2 to n-1.
+Computes the normalized solid angle of a simplicial cone whose Gram
+matrix \\V^\top V\\ is tridiagonal, using the simplified series of
+Fitisone & Zhou (2023, Theorem 4.1, equation 23). The reduction from
+\\\binom{n}{2}\\ to \\n - 1\\ multi-index variables makes this backend
+asymptotically faster than the general
+[`hypergeometric_series`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md)
+when the structure is available.
 
 ## Usage
 
@@ -14,67 +18,96 @@ tridiagonal_series(V, max_terms = 1000, tol = 1e-10)
 
 - V:
 
-  An n x n matrix where columns are unit vectors
+  A square \\n \times n\\ numeric matrix whose columns are the cone
+  generators. Need not be unit-normalized; columns are rescaled
+  internally.
 
 - max_terms:
 
-  Maximum number of terms (default: 1000)
+  Integer. Hard cap on the number of series terms accumulated before
+  truncation. Default `1000`.
 
 - tol:
 
-  Convergence tolerance (default: 1e-10)
+  Numeric. Per-degree convergence tolerance. Default `1e-10`.
 
 ## Value
 
-A list containing:
+A list with components
 
-- `solid_angle`: Normalized solid angle measure
+- solid_angle:
 
-- `n_terms`: Number of terms computed
+  Normalized solid angle in \\\[0, 1\]\\.
 
-- `converged`: Logical indicating convergence
+- n_terms:
 
-- `beta`: Vector of consecutive dot products
+  Total number of terms accumulated.
 
-- `is_tridiagonal`: Whether V^T V is tridiagonal
+- converged:
+
+  Logical, `TRUE` when the per-degree contribution fell below `tol`
+  before `max_terms` was reached.
+
+- beta:
+
+  Numeric vector of length \\n - 1\\ with the consecutive dot products
+  \\\beta_i = v_i \cdot v\_{i+1}\\.
+
+- is_tridiagonal:
+
+  Logical flag, `TRUE` when \\V^\top V\\ passed the tridiagonal test
+  inside the function.
 
 ## Details
 
-The formula (equation 23) for tridiagonal \\V^T V\\ is:
+For tridiagonal \\V^\top V\\ the Ribando series collapses to
+\$\$\Omega(C) = \frac{\|\det V\|}{(4\pi)^{n/2}} \sum\_{b \in
+\mathbb{N}\_0^{n-1}} \frac{(-2)^{\|b\|}}{b!}\\ \Gamma\\\left(\frac{1 +
+b_1}{2}\right) \prod\_{i=2}^{n-1} \Gamma\\\left(\frac{1 + b\_{i-1} +
+b_i}{2}\right) \Gamma\\\left(\frac{1 + b\_{n-1}}{2}\right)\\
+\beta^{b},\$\$ with \\\beta_i = v_i \cdot v\_{i+1}\\. By Theorem 4.1 of
+Fitisone & Zhou (2023), tridiagonality of \\V^\top V\\ implies positive
+definiteness of the associated matrix \\M_n(C)\\, so the series always
+converges absolutely.
 
-\$\$T\_{\beta} = \frac{\|det V\|}{(4\pi)^{n/2}} \sum \left\[
-\frac{(-2)^{\sum b_i}}{\prod b_i!} \Gamma\left(\frac{1+b_1}{2}\right)
-\Gamma\left(\frac{1+b_1+b_2}{2}\right) \cdots
-\Gamma\left(\frac{1+b\_{n-2}+b\_{n-1}}{2}\right)
-\Gamma\left(\frac{1+b\_{n-1}}{2}\right) \right\] \beta^b\$\$
-
-where \\\beta_i = v_i \cdot v\_{i+1}\\ for \\i = 1, \ldots, n-1\\.
-
-By Theorem 4.1, if V^T V is tridiagonal, then the associated matrix is
-automatically positive definite, so the series always converges.
+If the input does not satisfy the tridiagonal test, the function emits a
+warning but still iterates; the result is then a controlled
+approximation rather than the true solid angle and should not be
+trusted.
 
 ## References
 
 Fitisone, A., & Zhou, Y. (2023). Solid angle measure of polyhedral
-cones. arXiv:2304.11102 (math.CO), Theorem 4.1 and equation (23).
+cones. arXiv:2304.11102 (math.CO). Theorem 4.1 and equation (23).
 <https://arxiv.org/abs/2304.11102>
+
+## See also
+
+[`is_tridiagonal`](https://robustecologies.github.io/SolidAngleR/reference/is_tridiagonal.md)
+for the tridiagonal predicate;
+[`create_tridiagonal_cone`](https://robustecologies.github.io/SolidAngleR/reference/create_tridiagonal_cone.md)
+for a constructor of tridiagonal generators from given consecutive
+angles;
+[`hypergeometric_series`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md),
+[`hypergeometric_series_nd`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series_nd.md)
+for the general series;
+[`solid_angle_decomposition`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_decomposition.md)
+for the decomposition route;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 ## Examples
 
 ``` r
-# Create a tridiagonal example
-# Vectors with only consecutive dot products non-zero
+if (FALSE) { # \dontrun{
+# 4D cone with only consecutive dot products non-zero
 v1 <- c(1, 0, 0, 0)
-v2 <- c(0.8, 0.6, 0, 0)  # Only v1 · v2 != 0
-v3 <- c(0, 0.6, 0.8, 0)  # Only v2 · v3 != 0
-v4 <- c(0, 0, 0.7, 0.7) / sqrt(0.98)  # Only v3 · v4 != 0
-
-V <- cbind(v1, v2, v3, v4)
-result <- tridiagonal_series(V, max_terms = 500)
-#> Warning: ⚠ Reached max_terms without convergence
-print(result$solid_angle)
-#>          i 
-#> 0.01231954 
-print(result$is_tridiagonal)  # Should be TRUE
-#> [1] TRUE
+v2 <- c(0.8, 0.6, 0, 0)
+v3 <- c(0, 0.6, 0.8, 0)
+v4 <- c(0, 0, 0.7, 0.7) / sqrt(0.98)
+V  <- cbind(v1, v2, v3, v4)
+res <- tridiagonal_series(V, max_terms = 500)
+res$solid_angle
+res$is_tridiagonal     # TRUE
+} # }
 ```

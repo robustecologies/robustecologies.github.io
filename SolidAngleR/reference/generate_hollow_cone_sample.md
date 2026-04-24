@@ -1,8 +1,8 @@
-# Generate uniform random point in hollow cone
+# Uniform random point on a hollow spherical cap
 
-Generates a random point uniformly distributed on the surface between
-two cones (hollow cone), with central axis \\\hat{\mu}\\ and planar
-angles \\\theta_1\\ and \\\theta_2\\.
+Returns a single point drawn uniformly from the hollow spherical cap of
+axis \\\hat{\mu}\\ and inner / outer planar angles \\\theta_1 \<
+\theta_2\\ in dimension \\n\\.
 
 ## Usage
 
@@ -52,18 +52,28 @@ The algorithm generates a random angle \\\theta\\ from: \$\$\theta =
 \text{Uniform}(0,1)\\, \\\Omega_1 = \Theta(\theta_1)\\, and \\\Omega_2 =
 \Theta(\theta_2)\\.
 
+## References
+
+Arun, I., & Venkatapathi, M. (2025). An O(n) algorithm for generating
+uniform random vectors in n-dimensional cones. *Sankhya A*, 87(2),
+327-348.
+[doi:10.1007/s13171-025-00387-9](https://doi.org/10.1007/s13171-025-00387-9)
+
+## See also
+
+[`generate_cone_sample`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_sample.md)
+for the solid-cap variant;
+[`theta_to_omega`](https://robustecologies.github.io/SolidAngleR/reference/theta_to_omega.md),
+[`omega_to_theta`](https://robustecologies.github.io/SolidAngleR/reference/omega_to_theta.md)
+for the angle/area maps used internally;
+[`verify_cone_uniformity`](https://robustecologies.github.io/SolidAngleR/reference/verify_cone_uniformity.md)
+for sample-level diagnostics.
+
 ## Examples
 
 ``` r
-# Generate points in hollow cone (between 30 and 60 degrees)
 mu_hat <- c(1, 0, 0)
-points <- replicate(1000, 
-  generate_hollow_cone_sample(mu_hat, pi/6, pi/3))
-
-# Verify angles are in correct range
-angles <- acos(points[1, ])
-range(angles)  # Should be approximately [pi/6, pi/3]
+samples <- replicate(1000, generate_hollow_cone_sample(mu_hat, pi / 6, pi / 3))
+range(acos(samples[1, ]))   # angles fall in [pi/6, pi/3]
 #> [1] 0.5261712 1.0466128
-hist(angles, main = "Distribution in hollow cone")
-
 ```

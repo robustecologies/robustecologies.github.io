@@ -1,9 +1,10 @@
-# Interactive 3D visualization of intersecting cones
+# Interactive 3D visualisation of two intersecting cones
 
-Creates an interactive plotly visualization of two intersecting cones on
-a unit sphere, showing their intersection points, circles, arcs, and
-angles. This visualization helps understand the geometry of intersecting
-cones as described in Mazonka (2012).
+Builds an interactive plotly widget showing two cones with common apex
+on the unit sphere, their intersection circle and intersection points,
+the spherical excess region, and the auxiliary angles (\\\alpha, \beta,
+\gamma\\) that appear in the Mazonka (2012) analytic formula for the
+solid angle of the intersection.
 
 ## Usage
 
@@ -68,28 +69,29 @@ cone configuration.
 
 Mazonka, O. (2012). Solid angle of conical surfaces, polyhedral cones,
 and intersecting spherical caps. arXiv:1205.1396 (math.MG).
-<https://arxiv.org/abs/1205.1396>.
+[doi:10.48550/arXiv.1205.1396](https://doi.org/10.48550/arXiv.1205.1396)
+
+Sievert, C. (2020). *Interactive Web-Based Data Visualization with R,
+plotly, and Shiny*. Chapman and Hall/CRC. ISBN 978-1138331457.
+
+## See also
+
+[`solid_angle_intersecting_cones`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_intersecting_cones.md)
+for the closed-form measure of the region shown by the visualisation;
+[`plot_cone_3d`](https://robustecologies.github.io/SolidAngleR/reference/plot_cone_3d.md)
+for the simplicial-cone visualisation;
+[`shinySolidAngleR`](https://robustecologies.github.io/SolidAngleR/reference/shinySolidAngleR.md)
+for the dashboard that embeds these widgets.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# Example 1: Default visualization with semi-transparent cones
-fig1 <- plotIntersectingCones(color_palette = "viridis")
-fig1
+# Default configuration with semi-transparent cones
+plotIntersectingCones(color_palette = "viridis")
 
-# Example 2: Show cone rays with very transparent surfaces
-fig2 <- plotIntersectingCones(show_rays = TRUE, cone_opacity = 0.1,
-                              color_palette = "plasma")
-fig2
-
-# Example 3: More opaque cones without rays
-fig3 <- plotIntersectingCones(cone_opacity = 0.5, color_palette = "inferno")
-fig3
-
-# Example 4: Custom angles and color palette
-fig4 <- plotIntersectingCones(theta1 = pi/4, theta2 = pi/3, phi = pi/5,
-                              color_palette = "magma", cone_opacity = 0.25)
-fig4
+# Custom angles and palette
+plotIntersectingCones(theta1 = pi/4, theta2 = pi/3, phi = pi/5,
+                      color_palette = "magma", cone_opacity = 0.25)
 } # }
 ```

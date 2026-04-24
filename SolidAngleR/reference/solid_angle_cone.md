@@ -1,8 +1,8 @@
-# Compute solid angle of a right circular cone
+# Normalized solid angle of a right circular cone
 
-Calculates the normalized solid angle subtended by a right circular cone
-with given apex half-angle using the analytical formula from Mazonka
-(2012).
+Returns the normalized solid angle of a right circular cone with apex
+half-angle \\\theta\\ via the closed-form Mazonka (2012, Equation 9)
+expression.
 
 ## Usage
 
@@ -38,8 +38,19 @@ solid angle equals 0.5; as \\\theta \to 0\\ (narrow cone), it approaches
 ## References
 
 Mazonka, O. (2012). Solid angle of conical surfaces, polyhedral cones,
-and intersecting spherical caps. arXiv:1205.1396v2.
+and intersecting spherical caps. arXiv:1205.1396 (math.MG). Equation 9.
 [doi:10.48550/arXiv.1205.1396](https://doi.org/10.48550/arXiv.1205.1396)
+
+## See also
+
+[`solid_angle_cone_segment`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone_segment.md)
+for a cone cut by a plane;
+[`solid_angle_intersecting_cones`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_intersecting_cones.md)
+for the intersection of two cones;
+[`solid_angle_polyhedral`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_polyhedral.md)
+for spherical polygon regions;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 ## Examples
 

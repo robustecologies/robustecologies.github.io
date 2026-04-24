@@ -1,8 +1,9 @@
-# Compute solid angle of a polyhedral cone
+# Normalized solid angle of a polyhedral cone via fan triangulation
 
-Calculates the normalized solid angle subtended by a polyhedral cone
-defined by a list of unit vectors using Van Oosterom & Strackee formula
-for spherical triangles.
+Computes the normalized solid angle of a polyhedral cone whose boundary
+is a spherical polygon with vertices given as rows of `vertices`. The
+polygon is fan-triangulated from the first vertex and each spherical
+triangle is summed via the Van Oosterom- Strackee formula.
 
 ## Usage
 
@@ -42,9 +43,20 @@ non-convex cases the interpretation depends on the triangulation order.
 ## References
 
 Van Oosterom, A., & Strackee, J. (1983). The solid angle of a plane
-triangle. *IEEE Transactions on Biomedical Engineering*, BME-30(2),
-125-126.
+triangle. *IEEE Transactions on Biomedical Engineering*, 30(2), 125-126.
 [doi:10.1109/TBME.1983.325207](https://doi.org/10.1109/TBME.1983.325207)
+
+## See also
+
+[`solid_angle_cone`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone.md)
+for a right circular cone;
+[`solid_angle_3d`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d.md),
+[`spherical_triangle_area`](https://robustecologies.github.io/SolidAngleR/reference/spherical_triangle_area.md)
+for the underlying triangle formula;
+[`solid_angle_3d_from_rays`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d_from_rays.md)
+for an alternative L'Huilier-based aggregator;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 Mazonka, O. (2012). Solid angle of conical surfaces, polyhedral cones,
 and intersecting spherical caps. arXiv:1205.1396v2.

@@ -1,8 +1,9 @@
-# Compute solid angle using Monte Carlo integration
+# Generic Monte Carlo estimator of a solid angle
 
-Estimates solid angle by randomly sampling points uniformly on the unit
-sphere and checking if they lie within the specified region. The method
-provides a statistical estimate with quantifiable uncertainty.
+Estimates the unnormalized solid angle (in steradians) of an arbitrary
+region on the unit sphere by uniformly sampling points and counting
+those satisfying the user-supplied membership test. Returns the point
+estimate together with a binomial standard error.
 
 ## Usage
 
@@ -82,8 +83,21 @@ Arvo, J. (2001). Stratified sampling of spherical triangles.
 [doi:10.1145/383259.383300](https://doi.org/10.1145/383259.383300)
 
 Pharr, M., Jakob, W., & Humphreys, G. (2016). *Physically based
-rendering: from theory to implementation* (3rd ed.). Morgan Kaufmann.
-ISBN: 978-0-12-800645-0.
+rendering: from theory to implementation*, 3rd edition. Morgan Kaufmann.
+ISBN 978-0128006450.
+
+## See also
+
+[`solid_angle_cone`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone.md),
+[`solid_angle_cone_segment`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_cone_segment.md),
+[`solid_angle_intersecting_cones`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_intersecting_cones.md)
+for analytic backends that avoid Monte Carlo error;
+[`generate_point_on_sphere`](https://robustecologies.github.io/SolidAngleR/reference/generate_point_on_sphere.md),
+the single-sample analogue of the uniform-sphere sampling step;
+[`verify_cone_uniformity`](https://robustecologies.github.io/SolidAngleR/reference/verify_cone_uniformity.md)
+for goodness-of-fit testing on the samples;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
 
 ## Examples
 
@@ -96,5 +110,5 @@ cone_test <- function(point) {
 }
 result <- solid_angle_monte_carlo(cone_test, n_samples = 10000)
 cat("Estimated solid angle:", result$estimate, "±", result$std_error)
-#> Estimated solid angle: 3.13154 ± 0.05435582
+#> Estimated solid angle: 3.124 ± 0.05431203
 ```

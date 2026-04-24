@@ -1,11 +1,10 @@
-# General n-dimensional hypergeometric series for solid angle
+# General n-dimensional Ribando series for solid angle
 
-Implements Ribando's (2006) hypergeometric series formula for arbitrary
-dimensions \\n \ge 2\\. This function uses a recursive generator to
-iterate over all "weak compositions" of the degree \\d\\ into \\N =
-\binom{n}{2}\\ parts, allowing for the calculation of the solid angle
-measure for any simplicial cone with a positive-definite associated
-matrix.
+Computes the normalized solid angle of a simplicial cone in arbitrary
+dimension by enumerating the multi-indices of the Ribando series via a
+recursive weak-composition generator. This is the engine that powers
+[`hypergeometric_series`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md)
+for \\n \geq 4\\.
 
 ## Usage
 
@@ -17,31 +16,39 @@ hypergeometric_series_nd(V, max_terms = 1000, tol = 1e-10)
 
 - V:
 
-  An n x n matrix where columns are the unit vectors generating the
-  cone.
+  A square \\n \times n\\ numeric matrix whose columns are the cone
+  generators.
 
 - max_terms:
 
-  Maximum number of terms to compute (default: 1000). Note that for
-  higher dimensions, the number of terms for a given degree grows
-  rapidly.
+  Integer. Hard cap on the number of series terms accumulated before
+  truncation. Default `1000`. The number of terms at total degree \\d\\
+  grows as \\\binom{d + N - 1}{N - 1}\\ with \\N = \binom{n}{2}\\, so
+  the cap binds quickly for large \\n\\.
 
 - tol:
 
-  Convergence tolerance (default: 1e-10).
+  Numeric. Per-degree convergence tolerance. Default `1e-10`.
 
 ## Value
 
-A list containing:
+A list with components
 
-- `solid_angle`: The normalized solid angle measure (0 to 1).
+- solid_angle:
 
-- `n_terms`: Total number of terms computed.
+  Normalized solid angle in \\\[0, 1\]\\.
 
-- `converged`: Logical indicating if the series converged within
-  `max_terms`.
+- n_terms:
 
-- `associated_matrix`: The associated matrix \\M_n(C)\\.
+  Total number of terms accumulated.
+
+- converged:
+
+  Logical flag.
+
+- associated_matrix:
+
+  The associated matrix \\M_n(C)\\.
 
 ## Details
 
@@ -79,27 +86,43 @@ positive definite), convergence can be slow and may require many terms
 to achieve high precision; in such cases, Monte Carlo methods might be
 more efficient.
 
+## References
+
+Ribando, J. M. (2006). Measuring solid angles beyond dimension three.
+*Discrete & Computational Geometry*, 36(3), 479-487.
+[doi:10.1007/s00454-006-1253-4](https://doi.org/10.1007/s00454-006-1253-4)
+
+Aomoto, K. (1977). Analytic structure of Schlafli function. *Nagoya
+Mathematical Journal*, 68, 1-16.
+<https://projecteuclid.org/euclid.nmj/1118786429>
+
+## See also
+
+[`hypergeometric_series`](https://robustecologies.github.io/SolidAngleR/reference/hypergeometric_series.md)
+for the dimension-aware dispatcher that calls this function for \\n \geq
+4\\;
+[`tridiagonal_series`](https://robustecologies.github.io/SolidAngleR/reference/tridiagonal_series.md)
+for the simplified \\(n-1)\\-variable series available when \\V^\top V\\
+is tridiagonal;
+[`solid_angle_decomposition`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_decomposition.md)
+for the decomposition route applicable when the associated matrix is not
+positive definite;
+[`compute_solid_angle`](https://robustecologies.github.io/SolidAngleR/reference/compute_solid_angle.md)
+for the dispatcher.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# Example 1: 4D Orthant (Exact value should be 1/16 = 0.0625)
-V4 <- diag(4)
-res4 <- hypergeometric_series_nd(V4)
-print(res4$solid_angle)
+# 4D orthant: should yield 1/16 = 0.0625
+hypergeometric_series_nd(diag(4))$solid_angle
 
-# Example 2: Compare 3D result with closed formula
-# We use a nearly orthogonal cone to ensure fast convergence for demonstration
-V3 <- matrix(c(1, 0.1, 0.1, 0.1, 1, 0.1, 0.1, 0.1, 1), nrow = 3)
-V3 <- normalize_vectors(V3)
-
-# Closed formula
-omega_formula <- solid_angle_3d(V3[,1], V3[,2], V3[,3])
-
-# General series method
-res3 <- hypergeometric_series_nd(V3)
-
-cat(sprintf("Formula: %.6f\nSeries:  %.6f\n",
-            omega_formula, res3$solid_angle))
+# Cross-check the closed-form 3D formula against the general enumerator
+V3 <- normalize_vectors(matrix(c(1, 0.1, 0.1,
+                                 0.1, 1,   0.1,
+                                 0.1, 0.1, 1), nrow = 3))
+omega_formula <- solid_angle_3d(V3[, 1], V3[, 2], V3[, 3])
+omega_series  <- hypergeometric_series_nd(V3)$solid_angle
+c(formula = omega_formula, series = omega_series)
 } # }
 ```

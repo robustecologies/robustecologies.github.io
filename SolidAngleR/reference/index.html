@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SolidAngleR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,25 +21,24 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Theory</h6></li>
-    <li><a class="dropdown-item" href="../articles/a.theoretical-analysis.html">A mathematical introduction to solid angle methods for polyhedral cones with the SolidAngleR library</a></li>
-    <li><a class="dropdown-item" href="../articles/b.fitisone-zhou-methods.html">Hypergeometric and tridiagonal series and decomposition approaches</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/theoretical-analysis.html">A mathematical introduction to solid angle methods</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Methods</h6></li>
-    <li><a class="dropdown-item" href="../articles/c.mazonka-geometric-methods.html">Geometric methods for conical surfaces and intersecting spherical caps</a></li>
-    <li><a class="dropdown-item" href="../articles/d.monte-carlo-methods.html">Monte Carlo methods for solid angle computation: convergence, error analysis, and validation</a></li>
-    <li><a class="dropdown-item" href="../articles/e.uniform-sphere-sampling.html">Uniform Monte Carlo sampling on n-dimensional spheres and spherical caps</a></li>
-    <li><a class="dropdown-item" href="../articles/f.hypergeometric-high-dim.html">Exact analytical solid angles in higher dimensions</a></li>
+    <li><a class="dropdown-item" href="../articles/fitisone-zhou-methods.html">Hypergeometric and tridiagonal series methods (Fitisone-Zhou)</a></li>
+    <li><a class="dropdown-item" href="../articles/mazonka-geometric-methods.html">Geometric methods for conical surfaces (Mazonka)</a></li>
+    <li><a class="dropdown-item" href="../articles/monte-carlo-methods.html">Monte Carlo methods</a></li>
+    <li><a class="dropdown-item" href="../articles/hypergeometric-high-dim.html">Hypergeometric series in higher dimensions</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../articles/index.html">More articles...</a></li>
+    <li><a class="dropdown-item" href="../articles/uniform-sphere-sampling.html">Uniform sphere and spherical-cap sampling</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/architecture-api.html">Technical architecture and API reference</a></li>
   </ul></li>
-<li class="nav-item"><a class="nav-link" href="../articles/g.architecture-api.html">API</a></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../articles/architecture-api.html">API</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+<li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/robustecologies/SolidAngleR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
@@ -60,9 +59,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="package-overview">Package overview<a class="anchor" aria-label="anchor" href="#package-overview"></a></h2>
 
-
+      <div class="section-desc"><p>Package-level documentation, scope, and entry points.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -75,265 +74,66 @@
 
         </dt>
         <dd>SolidAngleR: Computing normalized solid angles of polyhedral cones</dd>
+      </dl></div><div class="section level2">
+      <h2 id="main-interface">Main interface<a class="anchor" aria-label="anchor" href="#main-interface"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>High-level dispatcher and batch wrapper that select the most appropriate method based on dimension, conditioning, and structure of the cone.</p></div>
 
-          <code><a href="angle_between.html">angle_between()</a></code>
+      <dl></dl></div><div class="section level2">
 
-        </dt>
-        <dd>Calculate the angle between two 3D vectors</dd>
 
-        <dt>
 
-          <code><a href="compute_associated_matrix.html">compute_associated_matrix()</a></code>
 
-        </dt>
-        <dd>Compute the associated matrix of a simplicial cone</dd>
-
-        <dt>
-
-          <code><a href="compute_dot_product_matrix.html">compute_dot_product_matrix()</a></code>
-
-        </dt>
-        <dd>Compute dot product matrix</dd>
-
-        <dt>
+      <dl><dt>
 
           <code><a href="compute_solid_angle.html">compute_solid_angle()</a></code>
 
         </dt>
-        <dd>Compute normalized solid angle measure of a polyhedral cone</dd>
+        <dd>Compute the normalized solid angle of a polyhedral cone</dd>
 
         <dt>
 
           <code><a href="compute_solid_angles.html">compute_solid_angles()</a></code>
 
         </dt>
-        <dd>Compute solid angle for multiple cones</dd>
+        <dd>Vectorised solid-angle computation over a list of cones</dd>
+      </dl></div><div class="section level2">
+      <h2 id="low-dimensional-analytical-formulas">Low-dimensional analytical formulas<a class="anchor" aria-label="anchor" href="#low-dimensional-analytical-formulas"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Closed-form computations in two and three dimensions via Van Oosterom- Strackee, L’Huilier, and spherical-triangle area formulas.</p></div>
 
-          <code><a href="create_tridiagonal_cone.html">create_tridiagonal_cone()</a></code>
+      <dl></dl></div><div class="section level2">
 
-        </dt>
-        <dd>Create a tridiagonal cone from consecutive angles</dd>
 
-        <dt>
 
-          <code><a href="cross_product_3d.html">cross_product_3d()</a></code>
 
-        </dt>
-        <dd>Cross product of two 3D vectors</dd>
-
-        <dt>
-
-          <code><a href="decompose_cone.html">decompose_cone()</a></code>
-
-        </dt>
-        <dd>Decompose simplicial cone</dd>
-
-        <dt>
-
-          <code><a href="diagnose_cone.html">diagnose_cone()</a></code>
-
-        </dt>
-        <dd>Check if solid angle computation is feasible</dd>
-
-        <dt>
-
-          <code><a href="generate_cone_sample.html">generate_cone_sample()</a></code>
-
-        </dt>
-        <dd>Generate uniform random point on spherical cap</dd>
-
-        <dt>
-
-          <code><a href="generate_cone_samples.html">generate_cone_samples()</a></code>
-
-        </dt>
-        <dd>Generate multiple uniform random samples in cone</dd>
-
-        <dt>
-
-          <code><a href="generate_hollow_cone_sample.html">generate_hollow_cone_sample()</a></code>
-
-        </dt>
-        <dd>Generate uniform random point in hollow cone</dd>
-
-        <dt>
-
-          <code><a href="generate_planar_angle_inverse.html">generate_planar_angle_inverse()</a></code>
-
-        </dt>
-        <dd>Generate random planar angle using inverse transform sampling</dd>
-
-        <dt>
-
-          <code><a href="generate_planar_angle_rejection.html">generate_planar_angle_rejection()</a></code>
-
-        </dt>
-        <dd>Generate random planar angle using one-dimensional rejection sampling</dd>
-
-        <dt>
-
-          <code><a href="generate_point_on_sphere.html">generate_point_on_sphere()</a></code>
-
-        </dt>
-        <dd>Generate uniform random point on unit sphere</dd>
-
-        <dt>
-
-          <code><a href="generate_spanning_trees.html">generate_spanning_trees()</a></code>
-
-        </dt>
-        <dd>Generate all spanning trees of a complete digraph</dd>
-
-        <dt>
-
-          <code><a href="hypergeometric_series.html">hypergeometric_series()</a></code>
-
-        </dt>
-        <dd>Compute solid angle using Ribando's hypergeometric series</dd>
-
-        <dt>
-
-          <code><a href="hypergeometric_series_nd.html">hypergeometric_series_nd()</a></code>
-
-        </dt>
-        <dd>General n-dimensional hypergeometric series for solid angle</dd>
-
-        <dt>
-
-          <code><a href="is_linearly_independent.html">is_linearly_independent()</a></code>
-
-        </dt>
-        <dd>Check if vectors are linearly independent</dd>
-
-        <dt>
-
-          <code><a href="is_positive_definite.html">is_positive_definite()</a></code>
-
-        </dt>
-        <dd>Check if a matrix is positive definite</dd>
-
-        <dt>
-
-          <code><a href="is_tridiagonal.html">is_tridiagonal()</a></code>
-
-        </dt>
-        <dd>Check if a matrix is tridiagonal</dd>
-
-        <dt>
-
-          <code><a href="lhuilier_angle.html">lhuilier_angle()</a></code>
-
-        </dt>
-        <dd>Calculate solid angle of spherical triangle using L'Huilier's theorem</dd>
-
-        <dt>
-
-          <code><a href="normalize_vectors.html">normalize_vectors()</a></code>
-
-        </dt>
-        <dd>Normalize vectors to unit length</dd>
-
-        <dt>
-
-          <code><a href="omega.html">omega()</a></code>
-
-        </dt>
-        <dd>Compute normalized solid angle via multivariate normal integration</dd>
-
-        <dt>
-
-          <code><a href="omega_to_theta.html">omega_to_theta()</a></code>
-
-        </dt>
-        <dd>Map solid angle fraction to planar angle</dd>
-
-        <dt>
-
-          <code><a href="plot.cone_diagnosis.html">plot(<i>&lt;cone_diagnosis&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Plot method for cone diagnosis</dd>
-
-        <dt>
-
-          <code><a href="plotIntersectingCones.html">plotIntersectingCones()</a></code>
-
-        </dt>
-        <dd>Interactive 3D visualization of intersecting cones</dd>
-
-        <dt>
-
-          <code><a href="plot_cone_3d.html">plot_cone_3d()</a></code>
-
-        </dt>
-        <dd>Interactive 3D visualization of a general cone</dd>
-
-        <dt>
-
-          <code><a href="print.cone_diagnosis.html">print(<i>&lt;cone_diagnosis&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Print method for cone diagnosis</dd>
-
-        <dt>
-
-          <code><a href="print.summary.cone_diagnosis.html">print(<i>&lt;summary.cone_diagnosis&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Print method for summary.cone_diagnosis</dd>
-
-        <dt>
-
-          <code><a href="rejection_cost.html">rejection_cost()</a></code>
-
-        </dt>
-        <dd>Compute expected rejection rate for high-dimensional rejection sampling</dd>
-
-        <dt>
-
-          <code><a href="rotate_from_canonical.html">rotate_from_canonical()</a></code>
-
-        </dt>
-        <dd>Rotate vector from n-th canonical basis to arbitrary orientation</dd>
-
-        <dt>
-
-          <code><a href="shinySolidAngleR.html">shinySolidAngleR()</a></code>
-
-        </dt>
-        <dd>Launch interactive SolidAngleR Shiny application</dd>
-
-        <dt>
+      <dl><dt>
 
           <code><a href="solid_angle_2d.html">solid_angle_2d()</a></code>
 
         </dt>
-        <dd>Compute normalized solid angle measure in R^2</dd>
+        <dd>Normalized solid angle of a planar cone via signed area</dd>
 
         <dt>
 
           <code><a href="solid_angle_2d_inner.html">solid_angle_2d_inner()</a></code>
 
         </dt>
-        <dd>Compute solid angle for a 2D cone using inner product</dd>
+        <dd>Normalized solid angle of a planar cone via inner product</dd>
 
         <dt>
 
           <code><a href="solid_angle_3d.html">solid_angle_3d()</a></code>
 
         </dt>
-        <dd>Compute normalized solid angle measure in R^3 using Euler-Lagrange formula</dd>
+        <dd>Normalized solid angle of a three-dimensional simplicial cone</dd>
 
         <dt>
 
           <code><a href="solid_angle_3d_det.html">solid_angle_3d_det()</a></code>
 
         </dt>
-        <dd>Compute solid angle in R^3 using alternative parameterization</dd>
+        <dd>Normalized solid angle in R^3 from a generator matrix</dd>
 
         <dt>
 
@@ -344,89 +144,386 @@
 
         <dt>
 
-          <code><a href="solid_angle_cone.html">solid_angle_cone()</a></code>
-
-        </dt>
-        <dd>Compute solid angle of a right circular cone</dd>
-
-        <dt>
-
-          <code><a href="solid_angle_cone_segment.html">solid_angle_cone_segment()</a></code>
-
-        </dt>
-        <dd>Compute solid angle of a cone segment</dd>
-
-        <dt>
-
-          <code><a href="solid_angle_conical_surface.html">solid_angle_conical_surface()</a></code>
-
-        </dt>
-        <dd>Compute solid angle of arbitrary conical surface</dd>
-
-        <dt>
-
-          <code><a href="solid_angle_decomposition.html">solid_angle_decomposition()</a></code>
-
-        </dt>
-        <dd>Compute solid angle using decomposition method</dd>
-
-        <dt>
-
-          <code><a href="solid_angle_intersecting_cones.html">solid_angle_intersecting_cones()</a></code>
-
-        </dt>
-        <dd>Compute solid angle of intersection of two cones</dd>
-
-        <dt>
-
-          <code><a href="solid_angle_monte_carlo.html">solid_angle_monte_carlo()</a></code>
-
-        </dt>
-        <dd>Compute solid angle using Monte Carlo integration</dd>
-
-        <dt>
-
-          <code><a href="solid_angle_polyhedral.html">solid_angle_polyhedral()</a></code>
-
-        </dt>
-        <dd>Compute solid angle of a polyhedral cone</dd>
-
-        <dt>
-
           <code><a href="spherical_triangle_area.html">spherical_triangle_area()</a></code>
 
         </dt>
-        <dd>Compute solid angle for spherical triangle</dd>
+        <dd>Area of the spherical triangle on the unit sphere</dd>
 
         <dt>
 
-          <code><a href="summary.cone_diagnosis.html">summary(<i>&lt;cone_diagnosis&gt;</i>)</a></code>
+          <code><a href="lhuilier_angle.html">lhuilier_angle()</a></code>
 
         </dt>
-        <dd>Summary method for cone diagnosis</dd>
+        <dd>Spherical excess of a triangle via L'Huilier's theorem</dd>
+      </dl></div><div class="section level2">
+      <h2 id="series-methods">Series methods<a class="anchor" aria-label="anchor" href="#series-methods"></a></h2>
+
+      <div class="section-desc"><p>Ribando hypergeometric series for positive-definite cones and the Fitisone-Zhou tridiagonal reduction for tridiagonal cones.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="hypergeometric_series.html">hypergeometric_series()</a></code>
+
+        </dt>
+        <dd>Solid angle via Ribando's multivariable hypergeometric series</dd>
 
         <dt>
 
-          <code><a href="theta_to_omega.html">theta_to_omega()</a></code>
+          <code><a href="hypergeometric_series_nd.html">hypergeometric_series_nd()</a></code>
 
         </dt>
-        <dd>Map planar angle to solid angle fraction</dd>
+        <dd>General n-dimensional Ribando series for solid angle</dd>
 
         <dt>
 
           <code><a href="tridiagonal_series.html">tridiagonal_series()</a></code>
 
         </dt>
-        <dd>Compute solid angle using tridiagonal hypergeometric series</dd>
+        <dd>Solid angle via the tridiagonal Fitisone-Zhou series</dd>
+      </dl></div><div class="section level2">
+      <h2 id="geometric-and-decomposition-methods">Geometric and decomposition methods<a class="anchor" aria-label="anchor" href="#geometric-and-decomposition-methods"></a></h2>
+
+      <div class="section-desc"><p>Mazonka-style geometric algorithms for conical surfaces and spherical- cap intersections, plus the general decomposition of arbitrary cones.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="solid_angle_cone.html">solid_angle_cone()</a></code>
+
+        </dt>
+        <dd>Normalized solid angle of a right circular cone</dd>
+
+        <dt>
+
+          <code><a href="solid_angle_polyhedral.html">solid_angle_polyhedral()</a></code>
+
+        </dt>
+        <dd>Normalized solid angle of a polyhedral cone via fan triangulation</dd>
+
+        <dt>
+
+          <code><a href="solid_angle_cone_segment.html">solid_angle_cone_segment()</a></code>
+
+        </dt>
+        <dd>Normalized solid angle of a circular cone cut by a plane</dd>
+
+        <dt>
+
+          <code><a href="solid_angle_intersecting_cones.html">solid_angle_intersecting_cones()</a></code>
+
+        </dt>
+        <dd>Normalized solid angle of the intersection of two circular cones</dd>
+
+        <dt>
+
+          <code><a href="solid_angle_conical_surface.html">solid_angle_conical_surface()</a></code>
+
+        </dt>
+        <dd>Normalized solid angle of a conical surface defined by a curve</dd>
+
+        <dt>
+
+          <code><a href="solid_angle_decomposition.html">solid_angle_decomposition()</a></code>
+
+        </dt>
+        <dd>Solid angle of a simplicial cone via signed decomposition</dd>
+
+        <dt>
+
+          <code><a href="decompose_cone.html">decompose_cone()</a></code>
+
+        </dt>
+        <dd>Signed decomposition of a simplicial cone into PD or low-dimensional pieces</dd>
+      </dl></div><div class="section level2">
+      <h2 id="monte-carlo-and-sampling">Monte Carlo and sampling<a class="anchor" aria-label="anchor" href="#monte-carlo-and-sampling"></a></h2>
+
+      <div class="section-desc"><p>Rcpp-accelerated uniform sampling on spheres and spherical caps, Monte Carlo solid-angle estimation, and rejection-cost diagnostics.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="solid_angle_monte_carlo.html">solid_angle_monte_carlo()</a></code>
+
+        </dt>
+        <dd>Generic Monte Carlo estimator of a solid angle</dd>
+
+        <dt>
+
+          <code><a href="generate_cone_sample.html">generate_cone_sample()</a></code>
+
+        </dt>
+        <dd>Uniform random point on a spherical cap</dd>
+
+        <dt>
+
+          <code><a href="generate_cone_samples.html">generate_cone_samples()</a></code>
+
+        </dt>
+        <dd>Vectorised uniform sampling on a spherical cap</dd>
+
+        <dt>
+
+          <code><a href="generate_hollow_cone_sample.html">generate_hollow_cone_sample()</a></code>
+
+        </dt>
+        <dd>Uniform random point on a hollow spherical cap</dd>
+
+        <dt>
+
+          <code><a href="generate_point_on_sphere.html">generate_point_on_sphere()</a></code>
+
+        </dt>
+        <dd>Uniform random point on the n-dimensional unit sphere</dd>
+
+        <dt>
+
+          <code><a href="generate_planar_angle_inverse.html">generate_planar_angle_inverse()</a></code>
+
+        </dt>
+        <dd>Random planar angle by inverse-transform sampling</dd>
+
+        <dt>
+
+          <code><a href="generate_planar_angle_rejection.html">generate_planar_angle_rejection()</a></code>
+
+        </dt>
+        <dd>Random planar angle by one-dimensional rejection sampling</dd>
+
+        <dt>
+
+          <code><a href="rejection_cost.html">rejection_cost()</a></code>
+
+        </dt>
+        <dd>Expected sample cost of naive sphere-rejection sampling on a cap</dd>
 
         <dt>
 
           <code><a href="verify_cone_uniformity.html">verify_cone_uniformity()</a></code>
 
         </dt>
-        <dd>Verify uniformity of cone sampling</dd>
+        <dd>Goodness-of-fit tests for cone-sample uniformity</dd>
+      </dl></div><div class="section level2">
+      <h2 id="cone-diagnostics">Cone diagnostics<a class="anchor" aria-label="anchor" href="#cone-diagnostics"></a></h2>
+
+      <div class="section-desc"><p>S3 constructor returning a structured diagnostic object with conditioning, stability classification, and method-selection guidance.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="diagnose_cone.html">diagnose_cone()</a></code>
+
+        </dt>
+        <dd>Diagnose a polyhedral cone and recommend a computation method</dd>
+      </dl></div><div class="section level2">
+      <h2 id="cone-structure-utilities">Cone structure utilities<a class="anchor" aria-label="anchor" href="#cone-structure-utilities"></a></h2>
+
+      <div class="section-desc"><p>Algebraic predicates and constructors used by the dispatcher to decide which method applies to a given cone.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="compute_associated_matrix.html">compute_associated_matrix()</a></code>
+
+        </dt>
+        <dd>Associated matrix M_n(C) of a simplicial cone</dd>
+
+        <dt>
+
+          <code><a href="compute_dot_product_matrix.html">compute_dot_product_matrix()</a></code>
+
+        </dt>
+        <dd>Pairwise dot-product matrix V^T V</dd>
+
+        <dt>
+
+          <code><a href="is_positive_definite.html">is_positive_definite()</a></code>
+
+        </dt>
+        <dd>Test whether a symmetric matrix is positive definite</dd>
+
+        <dt>
+
+          <code><a href="is_linearly_independent.html">is_linearly_independent()</a></code>
+
+        </dt>
+        <dd>Test whether the columns of a matrix are linearly independent</dd>
+
+        <dt>
+
+          <code><a href="is_tridiagonal.html">is_tridiagonal()</a></code>
+
+        </dt>
+        <dd>Test whether a matrix has tridiagonal structure</dd>
+
+        <dt>
+
+          <code><a href="create_tridiagonal_cone.html">create_tridiagonal_cone()</a></code>
+
+        </dt>
+        <dd>Construct a tridiagonal simplicial cone from consecutive angles</dd>
+
+        <dt>
+
+          <code><a href="normalize_vectors.html">normalize_vectors()</a></code>
+
+        </dt>
+        <dd>Column-wise unit normalisation of a matrix</dd>
+      </dl></div><div class="section level2">
+      <h2 id="geometry-primitives">Geometry primitives<a class="anchor" aria-label="anchor" href="#geometry-primitives"></a></h2>
+
+      <div class="section-desc"><p>Low-level vector and angular utilities reused across families.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="angle_between.html">angle_between()</a></code>
+
+        </dt>
+        <dd>Angle between two vectors via the dot product</dd>
+
+        <dt>
+
+          <code><a href="cross_product_3d.html">cross_product_3d()</a></code>
+
+        </dt>
+        <dd>Cross product of two three-dimensional vectors</dd>
+
+        <dt>
+
+          <code><a href="rotate_from_canonical.html">rotate_from_canonical()</a></code>
+
+        </dt>
+        <dd>Givens rotation from canonical axis to an arbitrary direction</dd>
+
+        <dt>
+
+          <code><a href="theta_to_omega.html">theta_to_omega()</a></code>
+
+        </dt>
+        <dd>Planar angle to solid-angle fraction in n dimensions</dd>
+
+        <dt>
+
+          <code><a href="omega_to_theta.html">omega_to_theta()</a></code>
+
+        </dt>
+        <dd>Solid-angle fraction to planar angle in n dimensions</dd>
+
+        <dt>
+
+          <code><a href="generate_spanning_trees.html">generate_spanning_trees()</a></code>
+
+        </dt>
+        <dd>Enumerate all directed spanning trees of a complete digraph</dd>
+      </dl></div><div class="section level2">
+      <h2 id="visualization-and-interactive-tools">Visualization and interactive tools<a class="anchor" aria-label="anchor" href="#visualization-and-interactive-tools"></a></h2>
+
+      <div class="section-desc"><p>3D plotly visualisations of cones and intersecting spherical caps, plus a Shiny dashboard for exploration.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="plot_cone_3d.html">plot_cone_3d()</a></code>
+
+        </dt>
+        <dd>Interactive 3D plotly visualisation of a simplicial cone</dd>
+
+        <dt>
+
+          <code><a href="plotIntersectingCones.html">plotIntersectingCones()</a></code>
+
+        </dt>
+        <dd>Interactive 3D visualisation of two intersecting cones</dd>
+
+        <dt>
+
+          <code><a href="shinySolidAngleR.html">shinySolidAngleR()</a></code>
+
+        </dt>
+        <dd>Launch the SolidAngleR Shiny dashboard</dd>
+      </dl></div><div class="section level2">
+      <h2 id="s-methods">S3 methods<a class="anchor" aria-label="anchor" href="#s-methods"></a></h2>
+
+      <div class="section-desc"><p>Print, summary, and plot methods for the cone_diagnosis class. Users normally do not call these directly; listed here for completeness and cross-reference.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="print.cone_diagnosis.html">print(<i>&lt;cone_diagnosis&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Print a cone diagnosis report</dd>
+
+        <dt>
+
+          <code><a href="print.summary.cone_diagnosis.html">print(<i>&lt;summary.cone_diagnosis&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Print an extended cone diagnostic summary</dd>
+
+        <dt>
+
+          <code><a href="summary.cone_diagnosis.html">summary(<i>&lt;cone_diagnosis&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Extended diagnostic summary for a polyhedral cone</dd>
+
+        <dt>
+
+          <code><a href="plot.cone_diagnosis.html">plot(<i>&lt;cone_diagnosis&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Plot the eigenvalue spectrum of a diagnosed cone</dd>
+
+        <dt>
+
+          <code><a href="plotIntersectingCones.html">plotIntersectingCones()</a></code>
+
+        </dt>
+        <dd>Interactive 3D visualisation of two intersecting cones</dd>
+
+        <dt>
+
+          <code><a href="plot_cone_3d.html">plot_cone_3d()</a></code>
+
+        </dt>
+        <dd>Interactive 3D plotly visualisation of a simplicial cone</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

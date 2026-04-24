@@ -1,8 +1,10 @@
-# Map solid angle fraction to planar angle
+# Solid-angle fraction to planar angle in n dimensions
 
-Computes the planar angle \\\theta\\ corresponding to a solid angle
-fraction \\\Omega\\ in n dimensions. This is the inverse of
-[`theta_to_omega`](https://robustecologies.github.io/SolidAngleR/reference/theta_to_omega.md).
+Maps a normalized solid-angle fraction \\\Omega \in \[0, 1\]\\ back to
+the corresponding planar opening angle \\\theta \in \[0, \pi\]\\.
+Inverse of
+[`theta_to_omega`](https://robustecologies.github.io/SolidAngleR/reference/theta_to_omega.md),
+evaluated through the inverse regularized incomplete beta.
 
 ## Usage
 
@@ -33,20 +35,27 @@ The inverse function \\\Theta^{-1}\\ is given by:
 \in (\frac{1}{2}, 1\] \end{cases}\$\$ where \\I^{-1}(y; \alpha, \beta)\\
 is the inverse of the regularized incomplete beta function.
 
+## References
+
+Arun, I., & Venkatapathi, M. (2025). An O(n) algorithm for generating
+uniform random vectors in n-dimensional cones. *Sankhya A*, 87(2),
+327-348.
+[doi:10.1007/s13171-025-00387-9](https://doi.org/10.1007/s13171-025-00387-9)
+
 ## See also
 
 [`theta_to_omega`](https://robustecologies.github.io/SolidAngleR/reference/theta_to_omega.md)
+for the forward map;
+[`generate_planar_angle_inverse`](https://robustecologies.github.io/SolidAngleR/reference/generate_planar_angle_inverse.md)
+for inverse-transform sampling that uses both maps.
 
 ## Examples
 
 ``` r
-# Get angle for half sphere
-omega_to_theta(0.5, 3)  # Should be pi/2
+omega_to_theta(0.5, 3)         # hemisphere -> pi/2
 #> [1] 1.570796
 
-# Verify inverse relationship
-theta <- pi/4
-omega <- theta_to_omega(theta, 3)
-omega_to_theta(omega, 3)  # Should equal theta
+theta <- pi / 4
+omega_to_theta(theta_to_omega(theta, 3), 3)   # round-trip recovers theta
 #> [1] 0.7853982
 ```

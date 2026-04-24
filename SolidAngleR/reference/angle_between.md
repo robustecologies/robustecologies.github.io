@@ -1,8 +1,9 @@
-# Calculate the angle between two 3D vectors
+# Angle between two vectors via the dot product
 
-Computes the angle between two vectors in 3D space using the dot product
-formula. The function is numerically stable and handles edge cases near
-0 and \\\pi\\.
+Computes the angle in \\\[0, \pi\]\\ between two numeric vectors using
+the dot-product/`acos` formula, with the dot product clamped to \\\[-1,
+1\]\\ for numerical stability near colinear and anti-colinear
+configurations.
 
 ## Usage
 
@@ -14,50 +15,47 @@ angle_between(v1, v2)
 
 - v1:
 
-  A numeric vector of length 3 (unit vector recommended).
+  Numeric vector. Unit-normalized inputs are recommended for speed;
+  otherwise the caller is responsible for prescaling.
 
 - v2:
 
-  A numeric vector of length 3 (unit vector recommended).
+  Numeric vector of the same length as `v1`.
 
 ## Value
 
-The angle in radians, in the range \\\[0, \pi\]\\.
+A single numeric value in \\\[0, \pi\]\\: the angle between `v1` and
+`v2` in radians.
 
 ## Details
 
-The angle \\\theta\\ between two vectors \\\mathbf{v}\_1\\ and
-\\\mathbf{v}\_2\\ is computed using the dot product formula:
+For unit vectors the formula is \$\$\theta = \arccos(v_1 \cdot v_2);\$\$
+for general vectors, divide the dot product by the product of the norms
+before applying `acos`. The implementation assumes pre-normalised input
+and only clamps the dot product to the unit interval.
 
-\$\$\theta = \arccos\left(\frac{\mathbf{v}\_1 \cdot
-\mathbf{v}\_2}{\|\mathbf{v}\_1\| \|\mathbf{v}\_2\|}\right)\$\$
+## References
 
-For unit vectors, this simplifies to:
+Strang, G. (2016). *Introduction to Linear Algebra*, 5th edition.
+Wellesley-Cambridge Press. ISBN 978-0980232776.
 
-\$\$\theta = \arccos(\mathbf{v}\_1 \cdot \mathbf{v}\_2)\$\$
+## See also
 
-The function clamps the dot product to \\\[-1, 1\]\\ to prevent
-numerical errors that could result in `acos` receiving values outside
-its domain.
+[`lhuilier_angle`](https://robustecologies.github.io/SolidAngleR/reference/lhuilier_angle.md)
+for the spherical excess of a triangle whose sides are returned by this
+function;
+[`spherical_triangle_area`](https://robustecologies.github.io/SolidAngleR/reference/spherical_triangle_area.md)
+for the Van Oosterom-Strackee form;
+[`cross_product_3d`](https://robustecologies.github.io/SolidAngleR/reference/cross_product_3d.md)
+for the associated 3D vector product.
 
 ## Examples
 
 ``` r
-# Orthogonal vectors (90 degrees)
-v1 <- c(1, 0, 0)
-v2 <- c(0, 1, 0)
-angle_between(v1, v2)  # pi/2 radians
+angle_between(c(1, 0, 0), c(0, 1, 0))                # pi / 2
 #> [1] 1.570796
-
-# Parallel vectors (0 degrees)
-v1 <- c(1, 1, 1) / sqrt(3)
-v2 <- c(2, 2, 2) / sqrt(12)
-angle_between(v1, v2)  # ~0 radians
+angle_between(c(1, 1, 1) / sqrt(3), c(2, 2, 2) / sqrt(12))  # ~ 0
 #> [1] 0
-
-# Opposite vectors (180 degrees)
-v1 <- c(1, 0, 0)
-v2 <- c(-1, 0, 0)
-angle_between(v1, v2)  # pi radians
+angle_between(c(1, 0, 0), c(-1, 0, 0))               # pi
 #> [1] 3.141593
 ```

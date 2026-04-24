@@ -1,15 +1,15 @@
-pandoc: 3.6.3
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
-  a.theoretical-analysis: a.theoretical-analysis.html
-  b.fitisone-zhou-methods: b.fitisone-zhou-methods.html
-  c.mazonka-geometric-methods: c.mazonka-geometric-methods.html
-  d.monte-carlo-methods: d.monte-carlo-methods.html
-  e.uniform-sphere-sampling: e.uniform-sphere-sampling.html
-  f.hypergeometric-high-dim: f.hypergeometric-high-dim.html
-  g.architecture-api: g.architecture-api.html
-last_built: 2026-02-18T18:20Z
+  architecture-api: architecture-api.html
+  fitisone-zhou-methods: fitisone-zhou-methods.html
+  hypergeometric-high-dim: hypergeometric-high-dim.html
+  mazonka-geometric-methods: mazonka-geometric-methods.html
+  monte-carlo-methods: monte-carlo-methods.html
+  theoretical-analysis: theoretical-analysis.html
+  uniform-sphere-sampling: uniform-sphere-sampling.html
+last_built: 2026-04-24T13:56Z
 urls:
   reference: https://robustecologies.github.io/SolidAngleR/reference
   article: https://robustecologies.github.io/SolidAngleR/articles

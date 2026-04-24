@@ -1,7 +1,9 @@
-# Generate uniform random point on unit sphere
+# Uniform random point on the n-dimensional unit sphere
 
-Generates a random point uniformly distributed on the surface of the
-n-dimensional unit sphere using the Box-Muller transform.
+Returns a single point drawn uniformly from the surface of the
+\\n\\-dimensional unit sphere via the Box-Muller / Marsaglia method:
+draw \\n\\ independent standard Gaussians and normalize the resulting
+vector to unit Euclidean norm.
 
 ## Usage
 
@@ -39,13 +41,21 @@ Marsaglia, G. (1972). Choosing a point from the surface of a sphere.
 *Annals of Mathematical Statistics*, 43(2), 645-646.
 [doi:10.1214/aoms/1177692644](https://doi.org/10.1214/aoms/1177692644)
 
+## See also
+
+[`generate_cone_sample`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_sample.md),
+[`generate_cone_samples`](https://robustecologies.github.io/SolidAngleR/reference/generate_cone_samples.md)
+for cone-restricted sampling that builds on this primitive;
+[`rotate_from_canonical`](https://robustecologies.github.io/SolidAngleR/reference/rotate_from_canonical.md)
+for the cheap O(n) rotation used to align cone samples with a target
+axis;
+[`verify_cone_uniformity`](https://robustecologies.github.io/SolidAngleR/reference/verify_cone_uniformity.md)
+for goodness-of-fit testing of generated samples.
+
 ## Examples
 
 ``` r
-# Generate point on 3D sphere
 point <- generate_point_on_sphere(3)
-
-# Verify it's on unit sphere
-sqrt(sum(point^2))  # Should be 1
+sqrt(sum(point^2))   # equals 1 up to floating-point error
 #> [1] 1
 ```

@@ -1,9 +1,10 @@
-# Calculate solid angle of spherical triangle using L'Huilier's theorem
+# Spherical excess of a triangle via L'Huilier's theorem
 
-Computes the solid angle (spherical excess) of a spherical triangle on
-the unit sphere using L'Huilier's theorem. This classical formula from
-spherical trigonometry relates the sides of a spherical triangle to its
-area (solid angle).
+Computes the solid angle (spherical excess, in steradians) of a
+spherical triangle on the unit sphere from its three side arc-lengths
+using L'Huilier's theorem. The formulation is numerically stable for
+both small and near-degenerate triangles where the Girard direct sum
+loses precision.
 
 ## Usage
 
@@ -73,32 +74,36 @@ calculs superieurs*. Berlin.
 Todhunter, I. (1886). *Spherical Trigonometry* (5th ed.). Macmillan.
 
 Van Oosterom, A., & Strackee, J. (1983). The solid angle of a plane
-triangle. *IEEE Transactions on Biomedical Engineering*, BME-30(2),
-125-126.
+triangle. *IEEE Transactions on Biomedical Engineering*, 30(2), 125-126.
 [doi:10.1109/TBME.1983.325207](https://doi.org/10.1109/TBME.1983.325207)
+
+## See also
+
+[`spherical_triangle_area`](https://robustecologies.github.io/SolidAngleR/reference/spherical_triangle_area.md)
+for the Van Oosterom-Strackee form of the same quantity computed from
+vertex vectors;
+[`angle_between`](https://robustecologies.github.io/SolidAngleR/reference/angle_between.md)
+for the side-length helper that feeds this function;
+[`solid_angle_3d_from_rays`](https://robustecologies.github.io/SolidAngleR/reference/solid_angle_3d_from_rays.md)
+for the wrapper that triangulates a polyhedral cone in \\\mathbb{R}^3\\
+into spherical triangles and aggregates their L'Huilier excesses.
 
 ## Examples
 
 ``` r
 # Equilateral spherical triangle with 60-degree sides
-a <- b <- c <- pi/3
-E <- lhuilier_angle(a, b, c)
-print(E)  # ~0.551 steradians
+lhuilier_angle(pi/3, pi/3, pi/3)        # ~ 0.551 steradians
 #> [1] 0.5512856
 
-# Right spherical triangle (90-90-90 degrees on sides)
-a <- b <- c <- pi/2
-E <- lhuilier_angle(a, b, c)
-print(E)  # pi/2 steradians (1/8 of sphere)
+# Right spherical octant: side arcs = pi/2 each
+lhuilier_angle(pi/2, pi/2, pi/2)        # pi/2 (one eighth of the sphere)
 #> [1] 1.570796
 
-# Small triangle (linearization check)
-# For small triangles, E ≈ area in Euclidean geometry
+# Small triangle: spherical excess approaches the Euclidean area
 a <- b <- c <- 0.1
-E <- lhuilier_angle(a, b, c)
-# Compare with Heron's formula for planar triangle
-s_planar <- (a + b + c) / 2
-area_planar <- sqrt(s_planar * (s_planar - a) * (s_planar - b) * (s_planar - c))
-print(c(E, area_planar))  # Should be very close
-#> [1] 0.004335547 0.004330127
+s <- (a + b + c) / 2
+c(spherical = lhuilier_angle(a, b, c),
+  euclidean = sqrt(s * (s - a) * (s - b) * (s - c)))
+#>   spherical   euclidean 
+#> 0.004335547 0.004330127 
 ```
