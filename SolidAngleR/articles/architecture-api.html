@@ -80,14 +80,14 @@
 
 <link href="architecture-api_files/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 <script src="architecture-api_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="architecture-api_files/viz-1.8.2/viz.js"></script><link href="architecture-api_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="architecture-api_files/grViz-binding-1.0.11/grViz.js"></script><div class="row">
+<script src="architecture-api_files/grViz-binding-1.0.12/grViz.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Technical architecture and API reference</h1>
                         <h4 data-toc-skip class="author">Pablo Almaraz,
 RElab</h4>
             
-            <h4 data-toc-skip class="date">2026-04-24</h4>
+            <h4 data-toc-skip class="date">2026-05-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/robustecologies/SolidAngleR/blob/HEAD/vignettes/architecture-api.Rmd" class="external-link"><code>vignettes/architecture-api.Rmd</code></a></small>
       <div class="d-none name"><code>architecture-api.Rmd</code></div>
@@ -214,14 +214,14 @@ solid angle as a power series in the pairwise dot products <span class="math inl
 \omega(C) = \frac{|\det V|}{(4\pi)^{n/2}} \sum_{\mathbf{a} \in
 \mathbb{N}_0^N} \left[ \frac{(-2)^{|\mathbf{a}|}}{\mathbf{a}!}
 \prod_{i=1}^n \Gamma\!\left(\frac{1 + \deg_i(\mathbf{a})}{2}\right)
-\right] \boldsymbol{\alpha}^{\mathbf{a}}
+\right] \mathbf{\alpha}^{\mathbf{a}}
 \]</span></p>
 <p>where <span class="math inline">\(N = \binom{n}{2}\)</span> is the
 number of distinct pairs, <span class="math inline">\(\mathbf{a} =
 (a_{12}, a_{13}, \ldots, a_{n-1,n})\)</span> is a multi-index of
 exponents, <span class="math inline">\(|\mathbf{a}| = \sum
 a_{jk}\)</span> is the total degree, <span class="math inline">\(\mathbf{a}! = \prod a_{jk}!\)</span>, <span class="math inline">\(\deg_i(\mathbf{a}) = \sum_{k \neq i}
-a_{ik}\)</span> is the degree of vertex <span class="math inline">\(i\)</span> in the multigraph defined by <span class="math inline">\(\mathbf{a}\)</span>, and <span class="math inline">\(\boldsymbol{\alpha}^{\mathbf{a}} = \prod
+a_{ik}\)</span> is the degree of vertex <span class="math inline">\(i\)</span> in the multigraph defined by <span class="math inline">\(\mathbf{a}\)</span>, and <span class="math inline">\(\mathbf{\alpha}^{\mathbf{a}} = \prod
 \alpha_{jk}^{a_{jk}}\)</span>.</p>
 <p>The series converges absolutely if and only if <span class="math inline">\(M_n(C)\)</span> is positive definite. Convergence
 speed depends on the eigenvalue spread: nearly orthogonal cones (<span class="math inline">\(\alpha_{ij} \approx 0\)</span>) converge in a few
@@ -265,7 +265,7 @@ from <span class="math inline">\(N = \binom{n}{2}\)</span> variables to
 \Gamma\!\left(\frac{1+b_1}{2}\right) \prod_{i=2}^{n-1}
 \Gamma\!\left(\frac{1+b_{i-1}+b_i}{2}\right)
 \Gamma\!\left(\frac{1+b_{n-1}}{2}\right) \right]
-\boldsymbol{\beta}^{\mathbf{b}}
+\mathbf{\beta}^{\mathbf{b}}
 \]</span></p>
 <p>By Theorem 4.1 of <a href="#ref1">[1]</a>, tridiagonality of <span class="math inline">\(V^T V\)</span> implies that <span class="math inline">\(M_n(C)\)</span> is automatically positive
 definite, so this series always converges. The reduced dimensionality

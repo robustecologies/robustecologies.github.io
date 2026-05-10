@@ -1,0 +1,809 @@
+# VerteTIME
+
+  
+
+## A curated repository of world vertebrate community time series
+
+VerteTIME is a curated repository of world vertebrate community time
+series. The compilation bundles more than 200 per-site multi-species
+annual abundance series (and growing) from terrestrial, freshwater and
+marine systems worldwide, each independently curated from peer-reviewed
+primary literature and grey literature. Each entry preserves the
+multi-species composition required for community-ecology analysis
+(turnover, dominance restructuring, nestedness) and, where the source
+documents them, the per-site environmental covariates measured on the
+same temporal index.
+
+![Positional timeline of biodiversity time-series compilations cited by
+VerteTIME. VerteTIME (orange) is positioned alongside the major
+compilations the field cites; the rows have heterogeneous taxonomic
+scope (vertebrate-only and multi-taxon, see
+vt_compilations()\$taxonomic_scope), and the figure is a comparator,
+never a chain of
+provenance.](reference/figures/README-fig-readme-timeline-1.png)
+
+Positional timeline of biodiversity time-series compilations cited by
+VerteTIME. VerteTIME (orange) is positioned alongside the major
+compilations the field cites; the rows have heterogeneous taxonomic
+scope (vertebrate-only and multi-taxon, see
+vt_compilations()\$taxonomic_scope), and the figure is a comparator,
+never a chain of provenance.
+
+  
+
+## Why VerteTIME
+
+The biodiversity-time-series ecosystem is rich but heterogeneous.
+Population-level compilations such as the Living Planet Database support
+index-style aggregations at large geographic scope; community-level
+products such as BioTIME prioritise breadth over depth; taxon-specific
+compilations (RivFishTIME for riverine fish, PECBMS for European birds)
+optimise within one realm. The plurality is healthy, yet none of these
+designs is a moderately sized, peer-review-anchored, multi-taxon
+community-series compilation emphasising depth and traceable provenance,
+with a community-ecology metrics layer ready for downstream analysis.
+VerteTIME addresses that niche.
+
+The compilation is small by design: every entry is verified from the
+primary reference, every coordinate is transcribed from the source,
+every primary reference is recorded by DOI. The package reduces the
+friction between the curated compilation and a downstream analysis
+workflow to a single function call.
+
+  
+
+## Geographic and taxonomic coverage
+
+![Robinson-projected world map of every site in the compilation. Point
+colour: taxonomic focus. Point size: species
+richness.](reference/figures/README-fig-readme-world-1.png)
+
+Robinson-projected world map of every site in the compilation. Point
+colour: taxonomic focus. Point size: species richness.
+
+![Series and species per GBIF
+class.](reference/figures/README-fig-readme-class-1.png)
+
+Series and species per GBIF class.
+
+![Class -\> Order -\> Family treemap. Rectangle area is proportional to
+distinct-species
+count.](reference/figures/README-fig-readme-treemap-1.png)
+
+Class -\> Order -\> Family treemap. Rectangle area is proportional to
+distinct-species count.
+
+![World richness portrait at 5° grid: distinct species count per
+cell.](reference/figures/README-fig-readme-richness-1.png)
+
+World richness portrait at 5° grid: distinct species count per cell.
+
+  
+
+## Featured community spotlights
+
+A spotlight composes the time series of every species in a community
+against the site’s location on the world map. The four examples below
+are picked dynamically as the most-species-rich representative of each
+focus-realm combination.
+
+![Spotlight: largest terrestrial bird
+community.](reference/figures/README-fig-readme-spot-birds-1.png)
+
+Spotlight: largest terrestrial bird community.
+
+![Spotlight: largest marine fish
+community.](reference/figures/README-fig-readme-spot-fish-1.png)
+
+Spotlight: largest marine fish community.
+
+![Spotlight: largest terrestrial mammal
+community.](reference/figures/README-fig-readme-spot-mammals-1.png)
+
+Spotlight: largest terrestrial mammal community.
+
+  
+
+## Community structure at a glance
+
+![Multi-metric community portrait: density of richness S, Shannon H and
+Pielou J across every (dataset, site, year) triple, faceted by taxonomic
+focus.](reference/figures/README-fig-readme-metric-ridges-1.png)
+
+Multi-metric community portrait: density of richness S, Shannon H and
+Pielou J across every (dataset, site, year) triple, faceted by taxonomic
+focus.
+
+![Temporal flow of taxonomic focus across decades: stacked count of
+active datasets by
+decade.](reference/figures/README-fig-readme-temporal-sankey-1.png)
+
+Temporal flow of taxonomic focus across decades: stacked count of active
+datasets by decade.
+
+![Hill-number profile per dataset across orders 0 to 3 (q = 0 richness,
+q = 1 exp(Shannon), q = 2 inverse
+Simpson).](reference/figures/README-fig-readme-hill-1.png)
+
+Hill-number profile per dataset across orders 0 to 3 (q = 0 richness, q
+= 1 exp(Shannon), q = 2 inverse Simpson).
+
+  
+
+## Installation
+
+``` r
+
+# released versions (after the first Zenodo deposit)
+# install.packages("VerteTIME")
+
+# development version from GitHub
+# install.packages("remotes")
+remotes::install_github("robustecologies/VerteTIME")
+```
+
+System prerequisites: R `>= 4.2`. Optional packages used through
+`Suggests` enable specific features: `arrow` for Parquet IO, `DBI` and
+`RSQLite` for SQLite export, `sf` and `rnaturalearth` for the projected
+world map, `ragg` for high-quality PNG, `betapart` and `vegan` for
+cross-validation against established metric implementations.
+
+  
+
+## Five-minute tour
+
+``` r
+
+library(VerteTIME)
+
+co <- vt_ingest_all()                                       # build the compilation from data-raw/
+print(co); summary(co)
+
+v <- vt_validate(co, level = "compilation")                      # zero rows = clean compilation
+a    <- vt_alpha_diversity(co, indices = c("S","H","q1","q2","Chao1"))
+e    <- vt_evenness(co, kind = "pielou")
+tt   <- vt_temporal_turnover(co, method = "bray", pair = "consecutive")
+bp   <- vt_beta_partition(co)
+nodf <- vt_nestedness(co)
+
+# panel of compilation-wide visualisations
+vt_plot_focus_bars(co)
+vt_plot_top_species(co, n = 25)
+vt_plot_lasagna(co, sample_n = 200)
+vt_plot_active_area(co)
+vt_plot_onset_cumulative(co)
+vt_plot_year_ridges(co, which = "first")
+vt_plot_span_hist(co)
+vt_plot_span_coverage_hex(co)
+vt_plot_focus_span_box(co)
+vt_plot_mean_cv(co)
+vt_plot_alpha_hist(co, index = "H")
+vt_plot_nodf_hist(co)
+
+# publish the public release
+vt_publish(co, here::here("web-export","vertetime-v1.0"), overwrite = TRUE)
+```
+
+The
+[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+call produces a complete public-release tree at
+`web-export/vertetime-v1.0/` that contains the compilation in four
+formats (CSV, Apache Parquet, SQLite, Frictionless Data Package), the
+per-dataset provenance audit table, the licence text, the citation file
+and a SHA-256 checksum manifest.
+
+  
+
+## What the package contains
+
+Click to expand the function index
+
+**Ingestion and registration** -
+[`vt_ingest_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_dataset.md)
+— single-folder ingest from `data-raw/` -
+[`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
+— orchestrator over the full compilation -
+[`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
+— register a new dataset from outside the v1.0 cohort -
+[`vt_validate()`](https://robustecologies.github.io/VerteTIME/reference/vt_validate.md)
+— structural and semantic checks at dataset and compilation level
+
+**Reading and reshaping** -
+[`vt_read_csv()`](https://robustecologies.github.io/VerteTIME/reference/vt_read_csv.md),
+[`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md),
+[`vt_long()`](https://robustecologies.github.io/VerteTIME/reference/vt_long.md),
+[`vt_wide()`](https://robustecologies.github.io/VerteTIME/reference/vt_wide.md),
+[`classify_columns()`](https://robustecologies.github.io/VerteTIME/reference/classify_columns.md) -
+S3 constructors:
+[`vt_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md),
+[`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+
+**Alpha-diversity** -
+[`vt_alpha_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_alpha_diversity.md)
+— richness, Shannon, Simpson, Hill numbers q=0,1,2, Chao1 -
+[`vt_evenness()`](https://robustecologies.github.io/VerteTIME/reference/vt_evenness.md)
+— Pielou, Simpson
+
+**Beta-diversity and turnover** -
+[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md)
+— Bray-Curtis, Jaccard, Hellinger, Whittaker multiplicative -
+[`vt_temporal_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_temporal_turnover.md)
+— pairwise year-by-year dissimilarity -
+[`vt_beta_partition()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_partition.md)
+— Baselga (2010) turnover and nestedness components
+
+**Composition** -
+[`vt_dominance_curve()`](https://robustecologies.github.io/VerteTIME/reference/vt_dominance_curve.md),
+[`vt_rank_abundance()`](https://robustecologies.github.io/VerteTIME/reference/vt_rank_abundance.md),
+[`vt_rarefaction()`](https://robustecologies.github.io/VerteTIME/reference/vt_rarefaction.md),
+[`vt_nestedness()`](https://robustecologies.github.io/VerteTIME/reference/vt_nestedness.md)
+
+**Aggregators and filtering** -
+[`vt_community_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_community_summary.md),
+[`vt_compilation_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation_summary.md),
+[`vt_filter()`](https://robustecologies.github.io/VerteTIME/reference/vt_filter.md),
+[`vt_series_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_series_summary.md)
+
+**Export and publication** -
+[`vt_export()`](https://robustecologies.github.io/VerteTIME/reference/vt_export.md)
+— single-format export (csv, parquet, sqlite, datapackage) -
+[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+— full publish tree with anonymisation, integrity manifest and licences
+
+**Visualisation (plotting theme)** -
+[`vt_theme()`](https://robustecologies.github.io/VerteTIME/reference/vt_theme.md),
+[`vt_palette()`](https://robustecologies.github.io/VerteTIME/reference/vt_palette.md)
+
+**Visualisation (compilation-level descriptive)** -
+[`vt_plot_focus_bars()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_focus_bars.md),
+[`vt_plot_top_species()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_top_species.md),
+[`vt_plot_year_ridges()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_year_ridges.md), -
+[`vt_plot_lasagna()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_lasagna.md),
+[`vt_plot_active_area()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_active_area.md),
+[`vt_plot_onset_cumulative()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_onset_cumulative.md), -
+[`vt_plot_span_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_span_hist.md),
+[`vt_plot_span_coverage_hex()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_span_coverage_hex.md),
+[`vt_plot_focus_span_box()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_focus_span_box.md), -
+[`vt_plot_mean_cv()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_mean_cv.md),
+[`vt_plot_alpha_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_alpha_hist.md),
+[`vt_plot_nodf_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_nodf_hist.md)
+
+**Visualisation (community-level pattern)** -
+[`vt_plot_whittaker()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_whittaker.md),
+[`vt_plot_rac()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_rac.md),
+[`vt_plot_alpha_timeline()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_alpha_timeline.md), -
+[`vt_plot_beta_heatmap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_beta_heatmap.md),
+[`vt_plot_world_map()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_world_map.md), -
+[`vt_plot_database_timeline()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_database_timeline.md)
+— positional comparator across vertebrate compilations
+
+  
+
+## Data model
+
+VerteTIME uses a five-table relational schema with an additional audit
+table:
+
+| Table | Cardinality | Role |
+|----|----|----|
+| `datasets` | one row per dataset (`VT_NNN`) | dataset-level metadata |
+| `sites` | one row per spatially-distinct site within a dataset | site-level metadata, coordinates |
+| `species` | one row per species observed | taxonomic backbone (filled in v1.1 via [`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html)) |
+| `observations` | long, one row per (`site_id`, `species_id`, `year`) | the workhorse |
+| `covariates` | long, one row per (`site_id`, `year`, `covariate`) | environmental covariates |
+| `data_provenance` | one row per dataset | primary-reference DOI, citation, kind |
+
+The schema is materialised identically across CSV, Parquet, SQLite and
+the datapackage manifest. Foreign keys use the `*_id` convention
+consistently.
+
+  
+
+## Public data release
+
+The
+[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+function produces a directory tree at `web-export/vertetime-v1.0/` with:
+
+``` R
+web-export/vertetime-v1.0/
+  csv/                        per-table CSVs + master.csv (long join) + master_wide.csv (LPD-style)
+  parquet/                    same tables as Apache Parquet, plus master.parquet
+  sqlite/vertetime.db         single-file relational database
+  datapackage.json            Frictionless Data Package manifest
+  data_provenance.csv         per-dataset primary references and DOIs
+  README.md                   summary, citation, links, licence, mirror list
+  LICENSE.md                  Creative Commons Attribution 4.0 International
+  CITATION.cff                machine-readable citation
+  CHECKSUMS.sha256            one-line SHA-256 per file
+```
+
+The release is deposited at Zenodo (DOI updated in `CITATION.cff` after
+the deposit), mirrored at iDiv DDM and figshare with a shared
+`CHECKSUMS.sha256` for cross-mirror verification.
+
+  
+
+## Provenance and licensing
+
+VerteTIME’s compilation copyright belongs to the authors. The series in
+v1.0 were curated independently from peer-reviewed primary literature
+and grey literature; we do not redistribute records sourced from any
+secondary biodiversity time-series compilation. Where some VerteTIME
+series partially overlap with series in other compilations, the overlap
+is recorded in `data_provenance$partial_overlap_with` and surfaced as a
+positional comparator in the manuscript timeline figure; it is not a
+chain of provenance.
+
+The package code is licensed under GPL (\>= 3); the harmonised data,
+vignettes, the long-form manuscript and figures are licensed under
+Creative Commons Attribution 4.0 International (CC-BY 4.0).
+
+  
+
+## Citation
+
+Run `citation("VerteTIME")` for the canonical citation string. The
+package also ships `CITATION.cff` for the Citation File Format.
+Per-dataset reuse must additionally cite the primary reference recorded
+in the `data_provenance` table for the dataset in question.
+
+  
+
+## Limitations and mitigations
+
+The compilation is heterogeneous in `unit_class` (counts, densities,
+biomass, indices, CPUE, breeding pairs); cross-series quantitative
+comparison must stratify by `unit_class` or focus on dimensionless
+community-structure metrics. Geographic coverage is presently uneven and
+skews towards Europe, North America and a handful of long-running
+tropical sites; the Robinson world map figure surfaces this skew
+explicitly and the `coord_precision_km` column documents per-site
+coordinate precision. Higher-rank taxonomy (`class`, `order`, `family`)
+is left empty in v1.0 and is filled in v1.1 via
+[`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html);
+the dataset-level `taxonomic_focus` is the operative attribute until
+then. The `species$is_vertebrate` flag is similarly populated in v1.1.
+The package does not impute internal `NA`s; users who need imputed
+series should run
+[`imputeTS::na_kalman`](https://SteffenMoritz.github.io/imputeTS/reference/na_kalman.html)
+or similar packages downstream of
+[`vt_long()`](https://robustecologies.github.io/VerteTIME/reference/vt_long.md).
+The grey-literature subset is opt-in: studies in non-English languages
+are under-represented relative to the body of long-term ecological
+observation actually conducted, and v1.1 will widen the language scope.
+
+The `is_community_metric_eligible` flag
+(`n_species >= 2 AND n_years >= 3`) is a starting point but not a
+substitute for careful per-analysis filtering. We deliberately do not
+apply implicit dataset filters: the compilation is loaded in full, and
+metrics that are mathematically undefined on small communities are
+computed conditionally with explicit `NA`s rather than silent dataset
+exclusion.
+
+  
+
+## Adding a new dataset
+
+[`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
+accepts a freshly extracted dataset. The user copies the source CSV into
+`data-raw/<VT_NNN>/<VT_NNN>.csv`, copies the primary-reference PDF,
+fills `inst/templates/dataset_template.yaml` (saved under
+`data-raw/_yaml/<VT_NNN>.yaml`), runs the function with `dry_run = TRUE`
+to inspect validation, and runs again with `dry_run = FALSE` to commit.
+The vignette `vt-ingestion-workflow` walks through the workflow;
+`inst/templates/register-checklist.md` is a printable pre-flight
+checklist.
+
+  
+
+## Comparison with related compilations
+
+VerteTIME is positioned among the major vertebrate time-series
+compilations as a comparator only. The
+[`vt_plot_database_timeline()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_database_timeline.md)
+function renders the comparison on a calendar axis with explicit
+population-versus-community labelling. Compilations referenced
+(non-exhaustive): GPDD, the Living Planet Database, BioTIME (v1 2018, v2
+2025), RivFishTIME, PREDICTS, the North American BBS, PECBMS, CBC, eBird
+Trends, TEAM and its Wildlife Insights successor. The figure caption is
+explicit that overlap is shown for orientation only, never as a chain of
+provenance.
+
+  
+
+## Authors
+
+- **Sergio Picó** — corresponding author and maintainer. ORCID
+  [0000-0002-4016-4670](https://orcid.org/0000-0002-4016-4670). Email
+  `spicjor@pm.me`.
+- **Pablo Almaraz** — corresponding author and maintainer. ORCID
+  [0000-0003-1416-2695](https://orcid.org/0000-0003-1416-2695). Email
+  `pablo.almaraz@csic.es`.
+
+  
+
+## Disclaimer
+
+This package is the original creation of the author in all conceptual,
+theoretical, and design aspects. Implementation was assisted by
+Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package
+development. All original ideas, creativity, and scientific
+contributions belong to the author, who maintains full responsibility
+for the package’s correctness and reliability. All the code has been
+thoroughly tested, and users are encouraged to report any issues through
+the package’s [issue
+tracker](https://github.com/robustecologies/VerteTIME/issues).
+
+  
+
+## Code of conduct
+
+Please note that this project is released with a code of conduct. By
+participating in this project you agree to abide by its terms.
+
+# Package index
+
+## Ingestion, validation and registration
+
+Build a compilation from data-raw, validate the relational schema and
+register new datasets through the yaml-sidecar workflow.
+
+- [`vt_ingest_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_dataset.md)
+  : Ingest a single dataset folder into the canonical relational schema
+
+- [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
+  :
+
+  Ingest the full compilation from `data-raw/`
+
+- [`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
+  : Register a new dataset into the compilation
+
+- [`vt_validate()`](https://robustecologies.github.io/VerteTIME/reference/vt_validate.md)
+  :
+
+  Validate a `vt_dataset` or `vt_compilation`
+
+- [`enrich_taxonomy()`](https://robustecologies.github.io/VerteTIME/reference/enrich_taxonomy.md)
+  : Enrich the species table with class/order/family from the taxonomy
+  cache
+
+## Reading and reshaping
+
+Low-level CSV IO, long-wide pivot helpers and S3 constructors for
+datasets, compilations and provenance objects.
+
+- [`vt_read_csv()`](https://robustecologies.github.io/VerteTIME/reference/vt_read_csv.md)
+  :
+
+  Read a wide-format community CSV from `data-raw/<id>/<id>.csv`
+
+- [`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md)
+  : Read a VerteTIME dataset
+
+- [`vt_long()`](https://robustecologies.github.io/VerteTIME/reference/vt_long.md)
+  : Pivot the wide observation block of a VerteTIME dataset into long
+  form
+
+- [`vt_wide()`](https://robustecologies.github.io/VerteTIME/reference/vt_wide.md)
+  : Pivot a long-format observation table back to wide
+
+- [`classify_columns()`](https://robustecologies.github.io/VerteTIME/reference/classify_columns.md)
+  : Classify column names into species and covariates
+
+- [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  [`print(`*`<vt_compilation>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  [`summary(`*`<vt_compilation>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  [`plot(`*`<vt_compilation>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  :
+
+  Construct a `vt_compilation` object
+
+- [`vt_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  [`print(`*`<vt_dataset>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  [`summary(`*`<vt_dataset>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  [`plot(`*`<vt_dataset>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  :
+
+  Construct a `vt_dataset` object
+
+- [`vt_provenance()`](https://robustecologies.github.io/VerteTIME/reference/vt_provenance.md)
+  [`print(`*`<vt_provenance>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_provenance.md)
+  :
+
+  Construct a `vt_provenance` object
+
+## Diversity indices
+
+Per-(dataset, site, year) alpha-diversity, Hill numbers and evenness
+measures.
+
+- [`vt_alpha_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_alpha_diversity.md)
+  : Compute alpha-diversity indices per site and year
+
+- [`vt_evenness()`](https://robustecologies.github.io/VerteTIME/reference/vt_evenness.md)
+  : Compute evenness indices per site and year
+
+- [`vt_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  [`print(`*`<vt_diversity>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  [`summary(`*`<vt_diversity>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  [`plot(`*`<vt_diversity>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  :
+
+  Construct a `vt_diversity` object
+
+- [`vt_series_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_series_summary.md)
+  : Per-series temporal-coverage and variability metrics for a long
+  observation table
+
+## Beta diversity and temporal turnover
+
+Pairwise dissimilarity across sites and years, with the Baselga
+turnover-nestedness decomposition.
+
+- [`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md)
+  : Compute beta-diversity matrices across sites within each dataset
+
+- [`vt_temporal_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_temporal_turnover.md)
+  : Compute temporal turnover (year-pair beta) per site
+
+- [`vt_beta_partition()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_partition.md)
+  : Partition Sorensen dissimilarity into turnover and nestedness
+  components
+
+- [`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  [`print(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  [`plot(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  :
+
+  Construct a `vt_turnover` object
+
+## Composition
+
+Rank-abundance, dominance, Hurlbert-Sanders rarefaction and NODF
+nestedness diagnostics.
+
+- [`vt_dominance_curve()`](https://robustecologies.github.io/VerteTIME/reference/vt_dominance_curve.md)
+  : Dominance curves per site and year
+- [`vt_rank_abundance()`](https://robustecologies.github.io/VerteTIME/reference/vt_rank_abundance.md)
+  : Rank-abundance per site and year
+- [`vt_rarefaction()`](https://robustecologies.github.io/VerteTIME/reference/vt_rarefaction.md)
+  : Coverage-based rarefaction per site and year
+- [`vt_nestedness()`](https://robustecologies.github.io/VerteTIME/reference/vt_nestedness.md)
+  : Nestedness based on overlap and decreasing fill (NODF)
+
+## Aggregators and filtering
+
+Per-site-year summaries, compilation-level summaries and tidy-eval
+filtering with FK-cascade integrity.
+
+- [`vt_community_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_community_summary.md)
+  : Per-site-year community summary
+
+- [`vt_compilation_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation_summary.md)
+  : Compilation-level summary table
+
+- [`vt_filter()`](https://robustecologies.github.io/VerteTIME/reference/vt_filter.md)
+  :
+
+  Filter a compilation by a tidy-eval predicate against the `datasets`
+  table
+
+## Export and publication
+
+Single-format export, full publish tree and the LPD-style wide-master
+series table.
+
+- [`vt_export()`](https://robustecologies.github.io/VerteTIME/reference/vt_export.md)
+  : Export a compilation to a single file format
+
+- [`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+  :
+
+  Publish a compilation as a complete `web-export/` tree
+
+- [`vt_wide_master()`](https://robustecologies.github.io/VerteTIME/reference/vt_wide_master.md)
+  : Build the wide-format master series table for the compilation
+
+## Visualisation theme and palettes
+
+Project-wide ggplot theme; six-level focus palette and eleven-level
+GBIF-class palette.
+
+- [`vt_theme()`](https://robustecologies.github.io/VerteTIME/reference/vt_theme.md)
+  : VerteTIME ggplot2 theme
+- [`vt_palette()`](https://robustecologies.github.io/VerteTIME/reference/vt_palette.md)
+  : Six-level taxonomic-focus palette
+- [`vt_class_palette()`](https://robustecologies.github.io/VerteTIME/reference/vt_class_palette.md)
+  : Class-level colour palette aligned with the GBIF backbone classes
+
+## Plots - taxonomic structure
+
+Class, focus, family and species composition of the compilation.
+
+- [`vt_plot_class_bars()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_class_bars.md)
+  : Two-panel bar chart of series and species per GBIF class
+- [`vt_plot_class_treemap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_class_treemap.md)
+  : Hierarchical Class -\> Order -\> Family treemap
+- [`vt_plot_focus_bars()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_focus_bars.md)
+  : Bar charts of dataset count and species count by taxonomic focus
+- [`vt_plot_top_species()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_top_species.md)
+  : Top-N most monitored species across the compilation
+- [`vt_plot_top_genera()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_top_genera.md)
+  : Top-N genera by number of datasets they appear in
+
+## Plots - geographic coverage
+
+World map, hexbin density, latitudinal histogram, country and realm
+breakdowns.
+
+- [`vt_plot_world_map()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_world_map.md)
+  : World map of compilation sites
+- [`vt_plot_world_hex()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_world_hex.md)
+  : Hexbin density of compilation sites on a Robinson world map
+- [`vt_plot_world_richness()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_world_richness.md)
+  : World richness heatmap on a coarse Robinson grid
+- [`vt_plot_lat_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_lat_hist.md)
+  : Latitudinal histogram of compilation sites, faceted by realm
+- [`vt_plot_country_bar()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_country_bar.md)
+  : Top-N countries by number of datasets
+- [`vt_plot_realm_bar()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_realm_bar.md)
+  : Datasets per realm
+- [`vt_plot_focus_realm_heatmap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_focus_realm_heatmap.md)
+  : Count heatmap of taxonomic focus by realm
+- [`vt_plot_alluvial()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_alluvial.md)
+  : Alluvial flow from taxonomic focus through realm to continent
+
+## Plots - temporal coverage and missingness
+
+Lasagna, active area, onset, year ridges, decadal Sankey and missingness
+diagnostics.
+
+- [`vt_plot_lasagna()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_lasagna.md)
+  : Lasagna plot of dataset-by-year presence
+- [`vt_plot_active_area()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_active_area.md)
+  : Stacked-area count of datasets active per calendar year
+- [`vt_plot_onset_cumulative()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_onset_cumulative.md)
+  : Cumulative onset curve
+- [`vt_plot_year_ridges()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_year_ridges.md)
+  : Ridge plot of first-observed year by taxonomic focus
+- [`vt_plot_temporal_sankey()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_temporal_sankey.md)
+  : Temporal sankey of taxonomic focus across decades
+- [`vt_plot_miss_by_year()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_miss_by_year.md)
+  : Missingness rate per year by realm
+- [`vt_plot_miss_class_heatmap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_miss_class_heatmap.md)
+  : Year-by-class missingness heatmap
+- [`vt_plot_span_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_span_hist.md)
+  : Histograms of dataset span and observation count
+- [`vt_plot_focus_span_box()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_focus_span_box.md)
+  : Boxplot of span by taxonomic focus
+- [`vt_plot_span_coverage_hex()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_span_coverage_hex.md)
+  : Span versus coverage scatter (hexbin density)
+- [`vt_plot_mean_cv()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_mean_cv.md)
+  : Mean abundance versus coefficient of variation per species
+
+## Plots - community pattern
+
+Whittaker, rank-abundance, alpha timeline and histogram, beta heatmap,
+NODF distribution, Hill profile and per-community spotlights.
+
+- [`vt_plot_whittaker()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_whittaker.md)
+  : Whittaker rank-abundance plot
+- [`vt_plot_rac()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_rac.md)
+  : Rank-abundance curves with year facets
+- [`vt_plot_alpha_timeline()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_alpha_timeline.md)
+  : Alpha-diversity timeline
+- [`vt_plot_alpha_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_alpha_hist.md)
+  : Distribution of an alpha-diversity index across the compilation
+- [`vt_plot_beta_heatmap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_beta_heatmap.md)
+  : Beta-diversity / temporal-turnover heatmap
+- [`vt_plot_nodf_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_nodf_hist.md)
+  : NODF nestedness across the compilation
+- [`vt_plot_metric_ridges()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_metric_ridges.md)
+  : Multi-metric ridge plot of community diagnostics
+- [`vt_plot_hill_profile()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_hill_profile.md)
+  : Hill-number profile per dataset across orders 0 to 3
+- [`vt_plot_community_series()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_community_series.md)
+  : Plot the abundance trajectory of every species in a community
+- [`vt_plot_community_spotlight()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_community_spotlight.md)
+  : Featured-community panel: time series + world location for one
+  dataset
+
+## Plots - positional comparator
+
+Vertebrate community time-series compilations placed alongside VerteTIME
+for orientation, never as a provenance chain.
+
+- [`vt_plot_database_timeline()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_database_timeline.md)
+  : Positional timeline of biodiversity time-series compilations
+- [`vt_compilations()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilations.md)
+  : Built-in table of biodiversity time-series compilations cited by
+  VerteTIME
+
+## Shipped data objects
+
+Canonical compilation and single-dataset slice loaded by data().
+
+- [`vertetime`](https://robustecologies.github.io/VerteTIME/reference/vertetime.md)
+  : VerteTIME canonical compilation
+- [`vt_demo`](https://robustecologies.github.io/VerteTIME/reference/vt_demo.md)
+  : VerteTIME single-dataset demo compilation
+
+## S3 methods
+
+Print, summary and plot methods attached to the exported S3 classes.
+Users normally do not call these directly; they are listed here for
+completeness and cross-reference.
+
+- [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  [`print(`*`<vt_compilation>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  [`summary(`*`<vt_compilation>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  [`plot(`*`<vt_compilation>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
+  :
+
+  Construct a `vt_compilation` object
+
+- [`vt_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  [`print(`*`<vt_dataset>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  [`summary(`*`<vt_dataset>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  [`plot(`*`<vt_dataset>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
+  :
+
+  Construct a `vt_dataset` object
+
+- [`vt_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  [`print(`*`<vt_diversity>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  [`summary(`*`<vt_diversity>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  [`plot(`*`<vt_diversity>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
+  :
+
+  Construct a `vt_diversity` object
+
+- [`vt_provenance()`](https://robustecologies.github.io/VerteTIME/reference/vt_provenance.md)
+  [`print(`*`<vt_provenance>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_provenance.md)
+  :
+
+  Construct a `vt_provenance` object
+
+- [`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  [`print(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  [`plot(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  :
+
+  Construct a `vt_turnover` object
+
+# Articles
+
+### Getting started
+
+First contact with the data model, the ingestion pipeline and a
+five-minute walkthrough on a single demo compilation.
+
+- [A five-minute tour of
+  VerteTIME](https://robustecologies.github.io/VerteTIME/articles/vt-introduction.md):
+
+### Community ecology workflow
+
+Alpha and beta diversity, temporal turnover, Baselga partition,
+rarefaction and nestedness across the full compilation.
+
+- [Community metrics in
+  VerteTIME](https://robustecologies.github.io/VerteTIME/articles/vt-community-metrics.md):
+
+### Compilation maintenance
+
+How to register a new vertebrate community time series, validate its
+yaml sidecar and merge it into the next release.
+
+- [Adding a new dataset to
+  VerteTIME](https://robustecologies.github.io/VerteTIME/articles/vt-ingestion-workflow.md):
+
+### Reference material
+
+Exhaustive cross-reference of every exported function and S3 method. The
+long-form companion paper is rendered separately in paper/ and surfaced
+from the navbar Articles menu.
+
+- [Technical architecture of the VerteTIME compilation
+  framework](https://robustecologies.github.io/VerteTIME/articles/API.md):

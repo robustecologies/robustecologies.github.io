@@ -1,0 +1,13 @@
+# License
+
+    lucifer Package:
+    YEAR: 2026
+    COPYRIGHT HOLDER: Pablo Almaraz, RElab
+
+    LaplacesDemon Package:
+    YEAR: 2010-2015
+    COPYRIGHT HOLDER: Statisticat, LLC
+
+    TR method in LaplaceApproximation function is derived from trust::trust:
+    YEAR: 2005
+    COPYRIGHT HOLDER: Charles J. Geyer

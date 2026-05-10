@@ -1,0 +1,514 @@
+# chamaeleon [![chamaeleon hex logo](reference/figures/chamaeleon_logo.png)](https://robustecologies.github.io/chamaeleon)
+
+[![R-CMD-check](https://img.shields.io/badge/R--CMD--check-passing-brightgreen)](https://github.com/robustecologies/chamaeleon/actions)
+[![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/robustecologies/chamaeleon)
+[![R
+version](https://img.shields.io/badge/R-%E2%89%A54.1.0-blue.svg)](https://www.r-project.org/)
+[![Exports](https://img.shields.io/badge/exported%20functions-11-informational)](https://robustecologies.github.io/chamaeleon/reference/index.html)
+[![S3
+classes](https://img.shields.io/badge/S3%20classes-8-informational)](https://robustecologies.github.io/chamaeleon/reference/index.html)
+[![CRAN
+version](https://img.shields.io/cran/v/Rcpp.svg?label=Rcpp%20version)](https://cran.r-project.org/package=Rcpp)
+[![Rcpp](https://img.shields.io/badge/Rcpp-OpenMP-green)](https://www.openmp.org/)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+## Multiscale analysis of chameleon behaviour in stochastic strange attractors
+
+**chamaeleon** implements multiscale times-series analysis combining
+Takens embedding, multivariate empirical mode decomposition (MEMD), and
+extreme value theory (EVT) for non-stationary dynamical systems.
+Computes scale-dependent instantaneous dimension and inverse persistence
+to characterise **chameleon attractors**, a class of stochastic strange
+attractors whose geometric and topological properties vary across time
+and scales (Alberti et al. (2023) <doi:10.1016/j.chaos.2023.113195>).
+Provides a novel surrogate-based statistical testing framework for
+formal hypothesis testing of chameleon behaviour against scale-invariant
+null models, including multiple test statistics, effect-size estimation
+and non-stationary analysis.
+
+  
+
+## What is inside
+
+| Layer | Components | Count |
+|----|----|----|
+| Phase-space reconstruction | `takens_embed`, `estimate_embedding_params` | 2 |
+| Scale decomposition (MEMD) | `memd`, `memd_partial_sums` | 2 |
+| Extreme-value metrics | `evt_metrics`, `scale_dependent_metrics` | 2 |
+| Chameleon analysis and testing | `chameleon_analysis`, `chameleon_test`, `chameleon_test_nonstationary`, `generate_surrogates` | 4 |
+| Visualization | `plot_trajectory_3d` | 1 |
+| S3 classes (with print, summary, plot) | `takens_embedding`, `memd`, `evt_metrics`, `scale_metrics`, `chameleon_analysis`, `chameleon_test`, `chameleon_nonstationary` | 7 |
+
+The package ships canonical-validation regression tests
+(`tests/testthat/test-validation-canonical.R`) that pin the EVT
+dimension on Lorenz-63, the MEMD mode count on a synthetic three-mode
+signal, the chameleon-test p-value on a stationary sinusoid, and the
+Takens reconstruction fidelity on Lorenz-63.
+
+See
+[`vignette("theory")`](https://robustecologies.github.io/chamaeleon/articles/theory.md)
+for the mathematical foundations;
+[`vignette("statistical-testing")`](https://robustecologies.github.io/chamaeleon/articles/statistical-testing.md)
+for the surrogate-testing details;
+[`vignette("api")`](https://robustecologies.github.io/chamaeleon/articles/api.md)
+for the architecture map.
+
+## Installation
+
+``` r
+
+# From CRAN (when available)
+install.packages("chamaeleon")
+
+# Development version from GitHub
+remotes::install_github("robustecologies/chamaeleon")
+```
+
+### System requirements
+
+- C++17 compiler with OpenMP support
+- Armadillo library (automatically handled via RcppArmadillo)
+
+## Theoretical background
+
+### Phase-space reconstruction
+
+Given a scalar time series \\\\\Theta(t)\\\\, Takens’ theorem guarantees
+that the dynamics can be reconstructed in an \\m\\-dimensional embedding
+space via delay coordinates:
+
+\\\mathbf{x}(t) = \[\Theta(t), \Theta(t-\tau), \ldots,
+\Theta(t-(m-1)\tau)\]^\top\\
+
+where \\m\\ is the embedding dimension and \\\tau\\ the time delay. The
+package estimates \\m\\ using false nearest neighbors (FNN) and \\\tau\\
+from the autocorrelation function.
+
+### Scale decomposition
+
+MEMD decomposes the multivariate embedded trajectory into \\N\\
+intrinsic mode functions (IMFs) ordered by decreasing frequency:
+
+\\\mathbf{x}\_\mu(t) = \sum\_{k=1}^{N} \mathbf{C}\_{\mu,k}(t) +
+\mathbf{R}\_\mu(t)\\
+
+Partial sums reconstruct the dynamics at frequencies above a cutoff
+\\f^\*\\:
+
+\\\mathbf{x}^f\_\mu(t) = \sum\_{k: f_k \> f^\*} \mathbf{C}\_{\mu,k}(t)\\
+
+### Instantaneous dynamical metrics
+
+For a reference state \\\zeta^\*\\ on the attractor, the statistics of
+close recurrences follow a generalized Pareto distribution. This yields
+two EVT-derived metrics:
+
+- **Local dimension** \\d(\zeta^\*)\\: The number of active degrees of
+  freedom, corresponding to the scaling exponent of the recurrence
+  probability.
+
+- **Inverse persistence** \\\theta(\zeta^\*)\\: The extremal index
+  measuring trajectory stability. Values \\\theta \approx 1\\ indicate
+  stochastic-like behavior; \\\theta \< 1\\ indicates persistent
+  dynamics near \\\zeta^\*\\.
+
+### Chameleon attractors
+
+An attractor exhibits chameleon behavior when \\\langle D \rangle_f\\ or
+\\\langle \theta \rangle_f\\ vary systematically with the frequency
+scale \\f\\. This indicates that the effective dimensionality or
+persistence of the dynamics depends on the observation timescale.
+
+## Quick start
+
+``` r
+
+library(chamaeleon)
+
+# Generate test signal with multiple scales
+set.seed(42)
+t <- seq(0, 100, by = 0.01)
+x <- sin(2*pi*0.05*t) +          # Low frequency
+     0.3*sin(2*pi*2*t) +         # High frequency
+     0.1*rnorm(length(t))        # Noise
+
+# Complete chameleon analysis
+result <- chameleon_analysis(x, verbose = TRUE)
+#> 
+#> ⚙ CHAMELEON ATTRACTOR ANALYSIS
+#>    Time series: n = 10001, dt = 1
+#> -------------------------------------------------- 
+#> ¡ Step 1: No filtering applied
+#> ⏱ Step 2: Estimating embedding parameters
+#>    Estimated: m = 4, tau = 314
+#> ⏱ Step 3: Takens embedding (m = 4, tau = 314)
+#>    Embedded dimensions: 9059 x 4
+#> ⏱ Step 4: MEMD decomposition (64 directions)
+#> ⚙ MEMD decomposition: n=9059, p=4, directions=64
+#> [===>                                    ]   6.7% (1/15) ETA: 1s[=====>                                  ]  13.3% (2/15) ETA: 1s[========>                               ]  20.0% (3/15) ETA: 1s[===========>                            ]  26.7% (4/15) ETA: 1s[=============>                          ]  33.3% (5/15) ETA: 1s[================>                       ]  40.0% (6/15) ETA: 0s[===================>                    ]  46.7% (7/15) ETA: 0s[=====================>                  ]  53.3% (8/15) ETA: 0s[========================>               ]  60.0% (9/15) ETA: 0s
+#> ¡ Residual is monotonic, stopping at IMF 9
+#> [========================================] 100.0% (15/15) ETA: 0s
+#>    Extracted 9 IMFs
+#> ⏱ Step 5: EVT metrics on full attractor (q = 0.980)
+#>    Mean dimension: <d> = 3.180
+#>    Mean persistence: <θ> = 0.029
+#> ⏱ Step 6: Scale-dependent metrics
+#> ⚙ Computing scale-dependent metrics
+#> ⏱ Step 2/2: EVT metrics at 9 frequency scales
+#> [====>                                   ]  11.1% (1/9) ETA: 3s[=========>                              ]  22.2% (2/9) ETA: 3s[=============>                          ]  33.3% (3/9) ETA: 3s[==================>                     ]  44.4% (4/9) ETA: 2s[======================>                 ]  55.6% (5/9) ETA: 2s[===========================>            ]  66.7% (6/9) ETA: 1s[===============================>        ]  77.8% (7/9) ETA: 1s[====================================>   ]  88.9% (8/9) ETA: 0s[========================================] 100.0% (9/9) ETA: 0s
+#> ⏱ Step 7: Detecting chameleon behavior
+#>    Dimension range: 0.195 (CV = 0.020)
+#>    Persistence range: 0.006 (CV = 0.076)
+#>    Dimension transition at f ~ 0.0137 Hz
+#> -------------------------------------------------- 
+#> ✔ Scale-invariant attractor
+print(result)
+#> 
+#> Chameleon Attractor Analysis Results
+#> ======================================== 
+#> 
+#> Input data:
+#>   Original series length: 10001
+#> 
+#> Embedding parameters:
+#>   Dimension: m = 4
+#>   Time delay: tau = 314
+#>   Embedded trajectory: 9059 x 4
+#> 
+#> MEMD decomposition:
+#>   Number of IMFs: 9
+#>   Frequency range: [0.0001, 0.0236] Hz
+#> 
+#> Full attractor metrics:
+#>   Mean dimension: <d> = 3.180 (sd = 0.455)
+#>   Mean persistence: <θ> = 0.029 (sd = 0.004)
+#> 
+#> Chameleon detection:
+#>   Status: Scale-invariant attractor
+
+# Visualize results
+plot(result)
+```
+
+![](reference/figures/README-quick-start-1.png)
+
+## Example: Lorenz system
+
+The Lorenz attractor provides a canonical test case with known
+low-dimensional structure.
+
+``` r
+
+# Simulate Lorenz system (simplified Euler integration)
+set.seed(123)
+n <- 5000
+dt <- 0.01
+x <- y <- z <- numeric(n)
+x[1] <- 1; y[1] <- 1; z[1] <- 1
+sigma <- 10; rho <- 28; beta <- 8/3
+
+for (i in 2:n) {
+  x[i] <- x[i-1] + dt * sigma * (y[i-1] - x[i-1])
+  y[i] <- y[i-1] + dt * (x[i-1] * (rho - z[i-1]) - y[i-1])
+  z[i] <- z[i-1] + dt * (x[i-1] * y[i-1] - beta * z[i-1])
+}
+
+# Add observation noise
+x_obs <- x + 0.5 * rnorm(n)
+
+# Chameleon analysis
+result_lorenz <- chameleon_analysis(x_obs, m = 3, tau = 10, verbose = FALSE)
+print(result_lorenz)
+#> 
+#> Chameleon Attractor Analysis Results
+#> ======================================== 
+#> 
+#> Input data:
+#>   Original series length: 5000
+#> 
+#> Embedding parameters:
+#>   Dimension: m = 3
+#>   Time delay: tau = 10
+#>   Embedded trajectory: 4980 x 3
+#> 
+#> MEMD decomposition:
+#>   Number of IMFs: 9
+#>   Frequency range: [0.0001, 0.2183] Hz
+#> 
+#> Full attractor metrics:
+#>   Mean dimension: <d> = 2.598 (sd = 0.509)
+#>   Mean persistence: <θ> = 0.066 (sd = 0.028)
+#> 
+#> Chameleon detection:
+#>   Status: CHAMELEON BEHAVIOR DETECTED
+#>   Dimension variation: 0.525
+#>   Persistence variation: 0.050
+```
+
+``` r
+
+plot(result_lorenz)
+```
+
+![](reference/figures/README-lorenz-plot-1.png)
+
+## Statistical testing (original contribution)
+
+The
+[`chameleon_test()`](https://robustecologies.github.io/chamaeleon/reference/chameleon_test.md)
+function provides formal hypothesis testing against the null of
+scale-invariant dynamics. This statistical framework is an **original
+contribution** of this package, extending the Alberti et al. methodology
+with rigorous surrogate-based inference:
+
+``` r
+
+# Generate scale metrics for testing
+# (Using a shorter synthetic series for speed)
+set.seed(42)
+test_signal <- arima.sim(n = 20000, model = list(ar = 0.7)) +
+               sin(seq(0, 20*pi, length.out = 20000))
+
+result_test <- chameleon_analysis(as.numeric(test_signal), verbose = FALSE)
+test <- chameleon_test(result_test$scale_metrics, n_surrogates = 999,
+                       verbose = FALSE)
+print(test)
+#> 
+#> Chameleon attractor test
+#> ============================================================ 
+#> Surrogates: 999 (scale_shuffle method)
+#> Multiple testing correction: fisher
+#> 
+#> Test statistics:
+#> ------------------------------------------------------------ 
+#> Statistic         Observed  Null Mean    Null SD    p-value      d
+#> ------------------------------------------------------------ 
+#> D_trend              0.697      0.003      0.336     0.0310   2.07 *
+#> theta_trend         -0.539      0.005      0.330     0.0970  -1.65 
+#> ------------------------------------------------------------ 
+#> Significance: *** p < 0.001, ** p < 0.01, * p < 0.05
+#> 
+#> Combined p-value (fisher): 0.0205
+#> 
+#> ============================================================ 
+#> Conclusion: CHAMELEON ATTRACTOR DETECTED
+#> Confidence: moderate
+#> 
+#> Interpretation:
+#>   - D increases significantly with frequency
+#>   - Effect sizes are large (|d| > 0.8)
+#> 
+#> Warnings:
+#>   ⚠ P-value at lower limit of resolution. Consider increasing n_surrogates.
+```
+
+## Main functions
+
+| Function | Description |
+|----|----|
+| [`chameleon_analysis()`](https://robustecologies.github.io/chamaeleon/reference/chameleon_analysis.md) | Complete analysis workflow |
+| [`takens_embed()`](https://robustecologies.github.io/chamaeleon/reference/takens_embed.md) | Takens time-delay embedding |
+| [`memd()`](https://robustecologies.github.io/chamaeleon/reference/memd.md) | Multivariate empirical mode decomposition |
+| [`evt_metrics()`](https://robustecologies.github.io/chamaeleon/reference/evt_metrics.md) | EVT-based dimension and persistence |
+| [`scale_dependent_metrics()`](https://robustecologies.github.io/chamaeleon/reference/scale_dependent_metrics.md) | Scale-dependent D(t,f) and theta(t,f) |
+| [`estimate_embedding_params()`](https://robustecologies.github.io/chamaeleon/reference/estimate_embedding_params.md) | Automatic m, tau estimation |
+| [`chameleon_test()`](https://robustecologies.github.io/chamaeleon/reference/chameleon_test.md) | Surrogate-based hypothesis testing |
+| [`chameleon_test_nonstationary()`](https://robustecologies.github.io/chamaeleon/reference/chameleon_test_nonstationary.md) | Sliding window analysis for non-stationary series |
+
+## Performance
+
+The C++/Rcpp implementation uses OpenMP parallelization for the most
+expensive steps. Runtime grows roughly O(n^2) with trajectory length, so
+subsampling is recommended for very long series. Key implementation
+features include:
+
+- Automatic CPU core detection for parallel computation
+- Optimized distance calculations and GPD fitting
+
+## References
+
+Alberti T, Daviaud F, Donner RV, Dubrulle B, Faranda D, Lucarini V
+(2023). “Chameleon attractors in turbulent flows.” *Chaos, Solitons and
+Fractals*, 168, 113195. doi:
+[10.1016/j.chaos.2023.113195](https://doi.org/10.1016/j.chaos.2023.113195)
+
+Rehman N, Mandic DP (2010). “Multivariate empirical mode decomposition.”
+*Proceedings of the Royal Society A*, 466(2117), 1291-1302. doi:
+[10.1098/rspa.2009.0502](https://doi.org/10.1098/rspa.2009.0502)
+
+Lucarini V, Faranda D, Wouters J, Kuna T (2014). “Towards a general
+theory of extremes for observables of chaotic dynamical systems.”
+*Journal of Statistical Physics*, 154(3), 723-750. doi:
+[10.1007/s10955-013-0914-6](https://doi.org/10.1007/s10955-013-0914-6)
+
+## License
+
+GPL (\>= 3)
+
+## Author
+
+**Pablo Almaraz**
+[![ORCID](https://img.shields.io/badge/ORCID-0000--0003--1416--2695-green)](https://orcid.org/0000-0003-1416-2695)
+
+[Robust Ecologies Lab](https://robustecologies.github.io)
+
+## Disclaimer
+
+This package is the original creation of the author in all conceptual,
+theoretical, and design aspects. Implementation was assisted by
+Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package
+development. All original ideas, creativity, and scientific
+contributions belong to the author, who maintains full responsibility
+for the package’s correctness and reliability. All the code has been
+thoroughly tested, and users are encouraged to report any issues through
+the package’s issue tracker.
+
+# Package index
+
+## Package overview
+
+Top-level documentation entry.
+
+- [`chamaeleon`](https://robustecologies.github.io/chamaeleon/reference/chamaeleon-package.md)
+  [`chamaeleon-package`](https://robustecologies.github.io/chamaeleon/reference/chamaeleon-package.md)
+  : chamaeleon: Multiscale analysis of chameleon behaviour in stochastic
+  strange attractors
+
+## Phase-space reconstruction
+
+Takens delay embedding and the Cao false-nearest-neighbours dimension
+estimator.
+
+- [`takens_embed()`](https://robustecologies.github.io/chamaeleon/reference/takens_embed.md)
+  : Takens time-delay embedding
+- [`estimate_embedding_params()`](https://robustecologies.github.io/chamaeleon/reference/estimate_embedding_params.md)
+  : Estimate embedding parameters
+
+## Scale decomposition (MEMD)
+
+Multivariate empirical mode decomposition (Rehman & Mandic 2010) and
+partial-sum reconstruction.
+
+- [`memd()`](https://robustecologies.github.io/chamaeleon/reference/memd.md)
+  : Multivariate empirical mode decomposition
+- [`memd_partial_sums()`](https://robustecologies.github.io/chamaeleon/reference/memd_partial_sums.md)
+  : Compute partial sums of MIMFs for scale-dependent analysis
+
+## Extreme-value metrics
+
+Local dimension and extremal index from peaks-over-threshold of the
+recurrence statistic.
+
+- [`evt_metrics()`](https://robustecologies.github.io/chamaeleon/reference/evt_metrics.md)
+  : Compute EVT-based instantaneous dynamical metrics
+- [`scale_dependent_metrics()`](https://robustecologies.github.io/chamaeleon/reference/scale_dependent_metrics.md)
+  : Compute scale-dependent EVT metrics
+
+## Chameleon analysis and testing
+
+End-to-end pipeline plus surrogate-based hypothesis tests.
+
+- [`chameleon_analysis()`](https://robustecologies.github.io/chamaeleon/reference/chameleon_analysis.md)
+  : Complete chameleon attractor analysis
+- [`chameleon_test()`](https://robustecologies.github.io/chamaeleon/reference/chameleon_test.md)
+  : Statistical test for chameleon attractor behavior
+- [`chameleon_test_nonstationary()`](https://robustecologies.github.io/chamaeleon/reference/chameleon_test_nonstationary.md)
+  : Test for non-stationary chameleon behavior
+- [`plot(`*`<chameleon_surrogates>`*`)`](https://robustecologies.github.io/chamaeleon/reference/generate_surrogates.md)
+  [`generate_surrogates()`](https://robustecologies.github.io/chamaeleon/reference/generate_surrogates.md)
+  : Plot method for chameleon_surrogates objects
+
+## Visualization
+
+Dedicated 3D trajectory renderer (plotly).
+
+- [`plot_trajectory_3d()`](https://robustecologies.github.io/chamaeleon/reference/plot_trajectory_3d.md)
+  : Plot 3D attractor trajectory as line
+
+## S3 methods
+
+Print, summary and plot methods for the seven exported S3 classes.
+
+- [`print(`*`<chameleon_analysis>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.chameleon_analysis.md)
+  : Print method for chameleon_analysis objects
+- [`print(`*`<chameleon_nonstationary>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.chameleon_nonstationary.md)
+  : Print method for chameleon_nonstationary objects
+- [`print(`*`<chameleon_surrogates>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.chameleon_surrogates.md)
+  : Print method for chameleon_surrogates objects
+- [`print(`*`<chameleon_test>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.chameleon_test.md)
+  : Print method for chameleon_test objects
+- [`print(`*`<evt_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.evt_metrics.md)
+  : Print method for evt_metrics objects
+- [`print(`*`<memd>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.memd.md)
+  : Print method for memd objects
+- [`print(`*`<scale_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.scale_metrics.md)
+  : Print method for scale_metrics objects
+- [`print(`*`<summary.chameleon_analysis>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.summary.chameleon_analysis.md)
+  : Print method for summary.chameleon_analysis objects
+- [`print(`*`<summary.chameleon_surrogates>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.summary.chameleon_surrogates.md)
+  : Print method for summary.chameleon_surrogates objects
+- [`print(`*`<summary.evt_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.summary.evt_metrics.md)
+  : Print method for summary.evt_metrics objects
+- [`print(`*`<summary.memd>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.summary.memd.md)
+  : Print method for summary.memd objects
+- [`print(`*`<summary.scale_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.summary.scale_metrics.md)
+  : Print method for summary.scale_metrics objects
+- [`print(`*`<summary.takens_embedding>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.summary.takens_embedding.md)
+  : Print method for summary.takens_embedding objects
+- [`print(`*`<takens_embedding>`*`)`](https://robustecologies.github.io/chamaeleon/reference/print.takens_embedding.md)
+  : Print method for takens_embedding objects
+- [`summary(`*`<chameleon_analysis>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.chameleon_analysis.md)
+  : Summary method for chameleon_analysis objects
+- [`summary(`*`<chameleon_nonstationary>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.chameleon_nonstationary.md)
+  : Summary method for chameleon_nonstationary objects
+- [`summary(`*`<chameleon_surrogates>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.chameleon_surrogates.md)
+  : Summary method for chameleon_surrogates objects
+- [`summary(`*`<chameleon_test>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.chameleon_test.md)
+  : Summary method for chameleon_test objects
+- [`summary(`*`<evt_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.evt_metrics.md)
+  : Summary method for evt_metrics objects
+- [`summary(`*`<memd>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.memd.md)
+  : Summary method for memd objects
+- [`summary(`*`<scale_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.scale_metrics.md)
+  : Summary method for scale_metrics objects
+- [`summary(`*`<takens_embedding>`*`)`](https://robustecologies.github.io/chamaeleon/reference/summary.takens_embedding.md)
+  : Summary method for takens_embedding objects
+- [`plot(`*`<chameleon_surrogates>`*`)`](https://robustecologies.github.io/chamaeleon/reference/generate_surrogates.md)
+  [`generate_surrogates()`](https://robustecologies.github.io/chamaeleon/reference/generate_surrogates.md)
+  : Plot method for chameleon_surrogates objects
+- [`plot(`*`<chameleon_analysis>`*`)`](https://robustecologies.github.io/chamaeleon/reference/plot.chameleon_analysis.md)
+  : Plot chameleon analysis summary
+- [`plot(`*`<chameleon_nonstationary>`*`)`](https://robustecologies.github.io/chamaeleon/reference/plot.chameleon_nonstationary.md)
+  : Plot method for chameleon_nonstationary objects
+- [`plot(`*`<chameleon_test>`*`)`](https://robustecologies.github.io/chamaeleon/reference/plot.chameleon_test.md)
+  : Plot method for chameleon_test objects
+- [`plot(`*`<evt_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/plot.evt_metrics.md)
+  : Plot EVT metrics
+- [`plot(`*`<memd>`*`)`](https://robustecologies.github.io/chamaeleon/reference/plot.memd.md)
+  : Plot MEMD decomposition
+- [`plot(`*`<scale_metrics>`*`)`](https://robustecologies.github.io/chamaeleon/reference/plot.scale_metrics.md)
+  : Plot scale-dependent metrics
+- [`plot(`*`<takens_embedding>`*`)`](https://robustecologies.github.io/chamaeleon/reference/plot.takens_embedding.md)
+  : Plot 3D attractor from Takens embedding
+- [`plot_trajectory_3d()`](https://robustecologies.github.io/chamaeleon/reference/plot_trajectory_3d.md)
+  : Plot 3D attractor trajectory as line
+
+# Articles
+
+### Theory and tutorial
+
+Mathematical foundations of chameleon attractors, the Takens-MEMD-EVT
+framework, and worked examples.
+
+- [Chameleon attractors: theory and embedding-EVT-MEMD
+  framework](https://robustecologies.github.io/chamaeleon/articles/theory.md):
+- [Statistical hypothesis testing for chameleon
+  behaviour](https://robustecologies.github.io/chamaeleon/articles/statistical-testing.md):
+
+### Reference material
+
+Architecture, function families and S3 class catalogue.
+
+- [API reference and
+  architecture](https://robustecologies.github.io/chamaeleon/articles/api.md):

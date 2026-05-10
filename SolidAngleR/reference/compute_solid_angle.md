@@ -113,6 +113,19 @@ the `"mvn"` branch issues a warning. For ambient dimension \\n \> 20\\ a
 high-dimension warning is also emitted, since both the series cost and
 the orthant integration accuracy degrade rapidly.
 
+Symmetries of the measure: the normalized solid angle is invariant under
+(i) any orthogonal transformation of the ambient space, \\\Omega(QV) =
+\Omega(V)\\ for \\Q \in O(n)\\, which includes the antipodal symmetry
+\\\Omega(-V) = \Omega(V)\\ as the special case \\Q = -I\\; (ii) positive
+scaling of each column, \\\Omega(V\\\mathrm{diag}(d_1, \ldots, d_n)) =
+\Omega(V)\\ for any \\d_i \> 0\\, since the cone is determined by its
+rays, not by the column lengths; and (iii) permutation of columns, which
+only relabels generators. These invariances are exact and hold for every
+backend; in the `"mvn"` route they follow at once from the fact that \\V
+\mapsto -V\\ and column scaling leave \\V^\top V\\ invariant (after
+normalization), so the integrand and the integration region of the
+Genz-Bretz orthant probability are unchanged.
+
 ## References
 
 Fitisone, A., & Zhou, Y. (2023). Solid angle measure of polyhedral

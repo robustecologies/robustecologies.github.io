@@ -110,14 +110,14 @@ angle as a power series in the pairwise dot products \\\alpha\_{ij} =
 \\ \omega(C) = \frac{\|\det V\|}{(4\pi)^{n/2}} \sum\_{\mathbf{a} \in
 \mathbb{N}\_0^N} \left\[ \frac{(-2)^{\|\mathbf{a}\|}}{\mathbf{a}!}
 \prod\_{i=1}^n \Gamma\\\left(\frac{1 + \deg_i(\mathbf{a})}{2}\right)
-\right\] \boldsymbol{\alpha}^{\mathbf{a}} \\
+\right\] \mathbf{\alpha}^{\mathbf{a}} \\
 
 where \\N = \binom{n}{2}\\ is the number of distinct pairs, \\\mathbf{a}
 = (a\_{12}, a\_{13}, \ldots, a\_{n-1,n})\\ is a multi-index of
 exponents, \\\|\mathbf{a}\| = \sum a\_{jk}\\ is the total degree,
 \\\mathbf{a}! = \prod a\_{jk}!\\, \\\deg_i(\mathbf{a}) = \sum\_{k \neq
 i} a\_{ik}\\ is the degree of vertex \\i\\ in the multigraph defined by
-\\\mathbf{a}\\, and \\\boldsymbol{\alpha}^{\mathbf{a}} = \prod
+\\\mathbf{a}\\, and \\\mathbf{\alpha}^{\mathbf{a}} = \prod
 \alpha\_{jk}^{a\_{jk}}\\.
 
 The series converges absolutely if and only if \\M_n(C)\\ is positive
@@ -163,7 +163,7 @@ variables to \\n - 1\\ consecutive dot products \\\beta_i = \hat{v}\_i
 \Gamma\\\left(\frac{1+b_1}{2}\right) \prod\_{i=2}^{n-1}
 \Gamma\\\left(\frac{1+b\_{i-1}+b_i}{2}\right)
 \Gamma\\\left(\frac{1+b\_{n-1}}{2}\right) \right\]
-\boldsymbol{\beta}^{\mathbf{b}} \\
+\mathbf{\beta}^{\mathbf{b}} \\
 
 By Theorem 4.1 of [\[1\]](#ref1), tridiagonality of \\V^T V\\ implies
 that \\M_n(C)\\ is automatically positive definite, so this series

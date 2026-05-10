@@ -1,7 +1,5 @@
 # SolidAngleR [![SolidAngleR hex logo](reference/figures/SolidAngleR_hex.png)](https://robustecologies.github.io/SolidAngleR)
 
-## Computing normalized solid angles of polyhedral cones in arbitrary dimensions
-
 [![R-CMD-check](https://img.shields.io/badge/R--CMD--check-passing-brightgreen)](https://github.com/palmaraz/SolidAngleR/actions)
 [![R
 version](https://img.shields.io/badge/R-%E2%89%A54.1.0-blue.svg)](https://www.r-project.org/)
@@ -13,6 +11,8 @@ version](https://img.shields.io/cran/v/RcppArmadillo.svg?label=RcppArmadillo%20v
 
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+## Computing normalized solid angles of polyhedral cones in arbitrary dimensions
 
 **SolidAngleR** provides comprehensive methods for computing normalized
 solid angles of polyhedral cones in arbitrary dimensions, including

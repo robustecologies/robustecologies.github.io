@@ -819,8 +819,8 @@ knitr::kable(
 
 | method  | mean (ns) | median (ns) |
 |:--------|----------:|------------:|
-| formula |      3.38 |       3.110 |
-| series  |     78.34 |      72.626 |
+| formula |     3.480 |       3.197 |
+| series  |    80.931 |      76.274 |
 
 ``` r
 
@@ -860,10 +860,10 @@ knitr::kable(
 
 | n samples | mean time (ms) | rel. error (%) |
 |----------:|---------------:|---------------:|
-|     1e+03 |           0.74 |         4.0000 |
-|     1e+04 |           7.52 |         1.0400 |
-|     1e+05 |          75.75 |         0.1760 |
-|     1e+06 |         830.92 |         0.6568 |
+|     1e+03 |           0.80 |         4.0000 |
+|     1e+04 |           8.06 |         1.0400 |
+|     1e+05 |          81.72 |         0.1760 |
+|     1e+06 |         861.29 |         0.6568 |
 
 ``` r
 
@@ -1470,7 +1470,7 @@ Kaufmann. ISBN: 978-0-12-800645-0
 ``` r
 
 sessionInfo()
-#> R version 4.5.3 (2026-03-11)
+#> R version 4.6.0 (2026-04-24)
 #> Platform: x86_64-pc-linux-gnu
 #> Running under: Ubuntu 24.04.4 LTS
 #> 
@@ -1498,18 +1498,18 @@ sessionInfo()
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] sandwich_3.1-1     sass_0.4.10        generics_0.1.4     lattice_0.22-9    
-#>  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.5.3        
+#>  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.6.0        
 #>  [9] RColorBrewer_1.1-3 mvtnorm_1.3-7      fastmap_1.2.0      jsonlite_2.0.0    
 #> [13] Matrix_1.7-5       survival_3.8-6     multcomp_1.4-30    scales_1.4.0      
 #> [17] TH.data_1.1-5      codetools_0.2-20   textshaping_1.0.5  jquerylib_0.1.4   
-#> [21] cli_3.6.6          rlang_1.2.0        splines_4.5.3      withr_3.0.2       
-#> [25] cachem_1.1.0       yaml_2.3.12        otel_0.2.0         tools_4.5.3       
+#> [21] cli_3.6.6          rlang_1.2.0        splines_4.6.0      withr_3.0.2       
+#> [25] cachem_1.1.0       yaml_2.3.12        otel_0.2.0         tools_4.6.0       
 #> [29] dplyr_1.2.1        vctrs_0.7.3        R6_2.6.1           zoo_1.8-15        
 #> [33] lifecycle_1.0.5    fs_2.1.0           htmlwidgets_1.6.4  MASS_7.3-65       
 #> [37] ragg_1.5.2         pkgconfig_2.0.3    desc_1.4.3         pkgdown_2.2.0     
 #> [41] pillar_1.11.1      bslib_0.10.0       gtable_0.3.6       glue_1.8.1        
-#> [45] Rcpp_1.1.1-1       systemfonts_1.3.2  xfun_0.57          tibble_3.3.1      
+#> [45] Rcpp_1.1.1-1.1     systemfonts_1.3.2  xfun_0.57          tibble_3.3.1      
 #> [49] tidyselect_1.2.1   rstudioapi_0.18.0  knitr_1.51         farver_2.1.2      
-#> [53] htmltools_0.5.9    rmarkdown_2.31     labeling_0.4.3     compiler_4.5.3    
+#> [53] htmltools_0.5.9    rmarkdown_2.31     labeling_0.4.3     compiler_4.6.0    
 #> [57] S7_0.2.2
 ```
