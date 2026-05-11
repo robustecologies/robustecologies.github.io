@@ -7,23 +7,21 @@
   };
 </script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Built-in table of biodiversity time-series compilations cited by VerteTIME — vt_compilations"><meta name="description" content="Returns a curated tibble listing the major biodiversity time-series
 compilations cited in the manuscript timeline figure. The list mixes
-compilations of different taxonomic scope: vertebrate-only products (LPD,
-RivFishTIME, BBS, PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights),
+compilations of different taxonomic scope: vertebrate-only products
+(LPI, RivFishTIME, BBS, PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights),
 multi-taxon products that include vertebrates among other groups (GPDD,
-BioTIME, PREDICTS) and VerteTIME itself. The taxonomic scope of every
-entry is recorded explicitly in the taxonomic_scope column; the figure
-is positional only and never asserts that all listed compilations are
-vertebrate-restricted. Inclusion here is comparative only; it is not a
-statement of provenance."><meta property="og:description" content="Returns a curated tibble listing the major biodiversity time-series
+BioTIME, PREDICTS), and VerteTIME itself. The taxonomic scope of every
+entry is recorded explicitly in taxonomic_scope; the figure is positional
+only and never asserts that all listed compilations are vertebrate-restricted.
+Inclusion here is comparative only; it is not a statement of provenance."><meta property="og:description" content="Returns a curated tibble listing the major biodiversity time-series
 compilations cited in the manuscript timeline figure. The list mixes
-compilations of different taxonomic scope: vertebrate-only products (LPD,
-RivFishTIME, BBS, PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights),
+compilations of different taxonomic scope: vertebrate-only products
+(LPI, RivFishTIME, BBS, PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights),
 multi-taxon products that include vertebrates among other groups (GPDD,
-BioTIME, PREDICTS) and VerteTIME itself. The taxonomic scope of every
-entry is recorded explicitly in the taxonomic_scope column; the figure
-is positional only and never asserts that all listed compilations are
-vertebrate-restricted. Inclusion here is comparative only; it is not a
-statement of provenance."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
+BioTIME, PREDICTS), and VerteTIME itself. The taxonomic scope of every
+entry is recorded explicitly in taxonomic_scope; the figure is positional
+only and never asserts that all listed compilations are vertebrate-restricted.
+Inclusion here is comparative only; it is not a statement of provenance."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +29,7 @@ statement of provenance."><script defer data-domain="robustecologies.github.io/V
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,14 +74,13 @@ statement of provenance."><script defer data-domain="robustecologies.github.io/V
     <div class="ref-description section level2">
     <p>Returns a curated <code>tibble</code> listing the major biodiversity time-series
 compilations cited in the manuscript timeline figure. The list mixes
-compilations of different taxonomic scope: vertebrate-only products (LPD,
-RivFishTIME, BBS, PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights),
+compilations of different taxonomic scope: vertebrate-only products
+(LPI, RivFishTIME, BBS, PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights),
 multi-taxon products that include vertebrates among other groups (GPDD,
-BioTIME, PREDICTS) and VerteTIME itself. The taxonomic scope of every
-entry is recorded explicitly in the <code>taxonomic_scope</code> column; the figure
-is positional only and never asserts that all listed compilations are
-vertebrate-restricted. Inclusion here is comparative only; it is not a
-statement of provenance.</p>
+BioTIME, PREDICTS), and VerteTIME itself. The taxonomic scope of every
+entry is recorded explicitly in <code>taxonomic_scope</code>; the figure is positional
+only and never asserts that all listed compilations are vertebrate-restricted.
+Inclusion here is comparative only; it is not a statement of provenance.</p>
     </div>
 
     <div class="section level2">
@@ -93,24 +90,57 @@ statement of provenance.</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>tibble</code> with one row per compilation and columns <code>compilation</code>,
-<code>first_release_year</code>, <code>latest_release_year</code>, <code>community_data</code> (logical;
-does the compilation publish multi-species community structure or is it
-strictly population-level?), <code>geographic_scope</code>, <code>taxonomic_scope</code>,
-<code>release_kind</code>, <code>notes</code>.</p>
+    <p>A <code>tibble</code> with one row per compilation and the following columns:
+<code>compilation</code> (display label), <code>publication_year</code> (integer year of first
+citable public release of the database), <code>citation_key</code> (Author et al.
+YYYY rendered italic in the figure tab), <code>n_series</code> (numeric scale as
+reported in the cited publication), <code>n_series_unit</code> (unit of the count:
+<code>populations</code>, <code>studies</code>, <code>time series</code>, <code>species</code>, <code>circles</code>,
+<code>site-species time series</code> or <code>images</code>), <code>data_year_min</code> and
+<code>data_year_max</code> (first and last calendar year of any observation in the
+compilation), <code>community_data</code> (logical: does the compilation publish
+multi-species community structure or is it strictly population-level?),
+<code>geographic_scope</code>, <code>taxonomic_scope</code>, <code>licence</code> (human-readable string),
+<code>notes</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The list is intentionally non-exhaustive; users can extend it via the
-<code>extra</code> argument of <code><a href="vt_plot_database_timeline.html">vt_plot_database_timeline()</a></code>.</p>
+    <p>Each row's numeric and licence cells are anchored to a primary source
+(peer-reviewed paper or official institutional release) cited in
+<code>@references</code>. Where a project has an annual rolling release,
+<code>publication_year</code> points to the most-cited paper anchor and
+<code>data_year_max</code> carries the latest data-year. The list is intentionally
+non-exhaustive; users can extend it via the <code>extra</code> argument of
+<code><a href="vt_plot_database_timeline.html">vt_plot_database_timeline()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Hudson, L. N., et al. (2017). <em>PREDICTS database</em>. Ecology and Evolution,
-7(1), 145-188. <a href="https://doi.org/10.1002/ece3.2579" class="external-link">doi:10.1002/ece3.2579</a>
+    <p>Dornelas, M., et al. (2018). <em>BioTIME: a database of biodiversity time
+series for the Anthropocene</em>. Global Ecology and Biogeography, 27(7),
+760-786. <a href="https://doi.org/10.1111/geb.12729" class="external-link">doi:10.1111/geb.12729</a>
 .</p>
-<p>Dornelas, M., et al. (2018). <em>BioTIME</em>. Global Ecology and Biogeography,
-27(7), 760-786. <a href="https://doi.org/10.1111/geb.12729" class="external-link">doi:10.1111/geb.12729</a>
+<p>Dornelas, M., et al. (2025). <em>BioTIME 2.0: Expanding and Improving a
+Database of Biodiversity Time Series</em>. Global Ecology and Biogeography,
+34(5), e70003. <a href="https://doi.org/10.1111/geb.70003" class="external-link">doi:10.1111/geb.70003</a>
+.</p>
+<p>Comte, L., et al. (2021). <em>RivFishTIME: A global database of fish
+time-series to study global change ecology in riverine systems</em>. Global
+Ecology and Biogeography, 30(1), 38-50. <a href="https://doi.org/10.1111/geb.13210" class="external-link">doi:10.1111/geb.13210</a>
+.</p>
+<p>Hudson, L. N., et al. (2017). <em>The database of the PREDICTS project</em>.
+Ecology and Evolution, 7(1), 145-188. <a href="https://doi.org/10.1002/ece3.2579" class="external-link">doi:10.1002/ece3.2579</a>
+.</p>
+<p>McRae, L., Deinet, S., &amp; Freeman, R. (2017). <em>The Diversity-Weighted Living
+Planet Index: Controlling for Taxonomic Bias in a Global Biodiversity
+Indicator</em>. PLoS ONE, 12(1), e0169156. <a href="https://doi.org/10.1371/journal.pone.0169156" class="external-link">doi:10.1371/journal.pone.0169156</a>
+.</p>
+<p>Almond, R. E. A., Grooten, M., Juffe Bignoli, D., &amp; Petersen, T. (Eds.)
+(2024). <em>Living Planet Report 2024: A System in Peril</em>. WWF International,
+Gland, Switzerland.
+<a href="https://livingplanet.panda.org/" class="external-link">https://livingplanet.panda.org/</a>.</p>
+<p>Brlík, V., et al. (2021). <em>Long-term and large-scale multispecies dataset
+tracking population changes of common European breeding birds</em>. Scientific
+Data, 8, 21. <a href="https://doi.org/10.1038/s41597-021-00804-2" class="external-link">doi:10.1038/s41597-021-00804-2</a>
 .</p>
     </div>
     <div class="section level2">
@@ -121,23 +151,25 @@ strictly population-level?), <code>geographic_scope</code>, <code>taxonomic_scop
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">vt_compilations</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    compilation             first_release_year latest_release_year community_data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> GPDD                                  <span style="text-decoration: underline;">1</span>994                <span style="text-decoration: underline;">2</span>010 FALSE         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Christmas Bird Count                  <span style="text-decoration: underline;">1</span>900                <span style="text-decoration: underline;">2</span>025 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> North American BBS                    <span style="text-decoration: underline;">1</span>966                <span style="text-decoration: underline;">2</span>024 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> PECBMS                                <span style="text-decoration: underline;">1</span>980                <span style="text-decoration: underline;">2</span>024 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> TEAM / Wildlife Insigh…               <span style="text-decoration: underline;">2</span>010                <span style="text-decoration: underline;">2</span>024 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> LPD                                   <span style="text-decoration: underline;">2</span>013                <span style="text-decoration: underline;">2</span>024 FALSE         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> BioTIME v1                            <span style="text-decoration: underline;">2</span>018                <span style="text-decoration: underline;">2</span>018 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> BioTIME v2                            <span style="text-decoration: underline;">2</span>025                <span style="text-decoration: underline;">2</span>025 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> RivFishTIME                           <span style="text-decoration: underline;">2</span>021                <span style="text-decoration: underline;">2</span>021 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> eBird Trends                          <span style="text-decoration: underline;">2</span>018                <span style="text-decoration: underline;">2</span>025 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> PREDICTS                              <span style="text-decoration: underline;">2</span>014                <span style="text-decoration: underline;">2</span>024 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> VerteTIME                             <span style="text-decoration: underline;">2</span>026                <span style="text-decoration: underline;">2</span>026 TRUE          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: geographic_scope &lt;chr&gt;, taxonomic_scope &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   release_kind &lt;chr&gt;, notes &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 12</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    compilation              publication_year citation_key n_series n_series_unit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> GPDD                                 <span style="text-decoration: underline;">1</span>999 Inchausti &amp;…     <span style="text-decoration: underline;">4</span>975 populations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> LPI v1                               <span style="text-decoration: underline;">2</span>017 McRae et al…    <span style="text-decoration: underline;">14</span>152 populations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> LPI v2                               <span style="text-decoration: underline;">2</span>024 Almond et a…    <span style="text-decoration: underline;">34</span>836 populations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> BioTIME v1                           <span style="text-decoration: underline;">2</span>018 Dornelas et…      361 studies      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> BioTIME v2                           <span style="text-decoration: underline;">2</span>025 Dornelas et…      708 studies      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> RivFishTIME                          <span style="text-decoration: underline;">2</span>021 Comte et al…    <span style="text-decoration: underline;">11</span>386 time series  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> PREDICTS                             <span style="text-decoration: underline;">2</span>017 Hudson et a…      666 studies      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> BBS                                  <span style="text-decoration: underline;">2</span>017 Sauer et al…      544 species      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> PECBMS                               <span style="text-decoration: underline;">2</span>021 Brlik et al…      170 species      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> CBC                                  <span style="text-decoration: underline;">2</span>017 LeBaron 2017     <span style="text-decoration: underline;">2</span>500 circles      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> eBird Trends                         <span style="text-decoration: underline;">2</span>023 Fink et al.…     <span style="text-decoration: underline;">2</span>974 species      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TEAM / Wildlife Insights             <span style="text-decoration: underline;">2</span>020 Ahumada et …     <span style="text-decoration: underline;">2</span>000 camera deplo…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> VerteTIME                            <span style="text-decoration: underline;">2</span>026 Pico &amp; Alma…     <span style="text-decoration: underline;">1</span>802 site-species…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 7 more variables: data_year_min &lt;int&gt;, data_year_max &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   community_data &lt;lgl&gt;, geographic_scope &lt;chr&gt;, taxonomic_scope &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   licence &lt;chr&gt;, notes &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

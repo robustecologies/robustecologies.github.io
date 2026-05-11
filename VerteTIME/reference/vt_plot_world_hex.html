@@ -5,7 +5,13 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Hexbin density of compilation sites on a Robinson world map — vt_plot_world_hex"><meta name="description" content="Hexbin density of compilation sites on a Robinson world map"><meta property="og:description" content="Hexbin density of compilation sites on a Robinson world map"><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Hexbin density of compilation sites on a Robinson world map — vt_plot_world_hex"><meta name="description" content="Hexagonal binning of compilation site coordinates on a Robinson projection
+world map, coloured by site count per cell with the magma palette. Falls
+back to a Cartesian rectangle when sf or rnaturalearth are not
+installed."><meta property="og:description" content="Hexagonal binning of compilation site coordinates on a Robinson projection
+world map, coloured by site count per cell with the magma palette. Falls
+back to a Cartesian rectangle when sf or rnaturalearth are not
+installed."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +19,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +62,10 @@
     </div>
 
     <div class="ref-description section level2">
-    <p>Hexbin density of compilation sites on a Robinson world map</p>
+    <p>Hexagonal binning of compilation site coordinates on a Robinson projection
+world map, coloured by site count per cell with the magma palette. Falls
+back to a Cartesian rectangle when <code>sf</code> or <code>rnaturalearth</code> are not
+installed.</p>
     </div>
 
     <div class="section level2">
@@ -74,20 +83,26 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>ggplot</code>. Falls back to a Cartesian rectangle when <code>sf</code>/<code>rnaturalearth</code> are missing.</p>
+    <p>A <code>ggplot</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Pebesma (2018).</p>
+    <p>Pebesma, E. (2018). <em>Simple Features for R: Standardized Support for
+Spatial Vector Data</em>. The R Journal, 10(1), 439-446.
+<a href="https://doi.org/10.32614/RJ-2018-009" class="external-link">doi:10.32614/RJ-2018-009</a>
+.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="vt_plot_world_map.html">vt_plot_world_map()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="vt_plot_world_map.html">vt_plot_world_map()</a></code>, <code><a href="vt_plot_lat_hist.html">vt_plot_lat_hist()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="fu">vt_plot_world_hex</span><span class="op">(</span><span class="fu"><a href="vt_ingest_all.html">vt_ingest_all</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>  <span class="co"># \dontrun{}</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vt_plot_world_hex</span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

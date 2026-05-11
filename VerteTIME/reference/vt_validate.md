@@ -69,7 +69,7 @@ management*. Bulletin of the Ecological Society of America, 90(2),
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 v  <- vt_validate(co, level = "compilation")
 if (nrow(v)) print(v) else message("Compilation validation passed.")
 } # }

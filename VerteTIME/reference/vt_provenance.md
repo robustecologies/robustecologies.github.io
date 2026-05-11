@@ -36,14 +36,15 @@ scientific data management and stewardship*. Scientific Data, 3, 160018.
 ## See also
 
 [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md),
-[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md),
+[vertetime](https://robustecologies.github.io/VerteTIME/reference/vertetime.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-p  <- vt_provenance(co$data_provenance)
+data(vertetime)
+p <- vt_provenance(vertetime$data_provenance)
 print(p)
 } # }
 ```

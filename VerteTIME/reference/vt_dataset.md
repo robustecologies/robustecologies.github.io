@@ -3,7 +3,7 @@
 Container for a single VerteTIME dataset comprising one or more sites,
 the species observed at those sites, the year-by-year abundance values,
 and any environmental covariates that share the same temporal index. The
-object is the unit of ingestion (one folder of `data-raw/` produces one
+object is the unit of ingestion (one source dataset produces one
 `vt_dataset`) and is the building block of
 [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md).
 
@@ -28,7 +28,8 @@ summary(object, ...)
 # S3 method for class 'vt_dataset'
 plot(
   x,
-  kind = c("whittaker", "rac", "alpha_timeline", "community_summary"),
+  type = c("whittaker", "rac", "alpha_timeline", "community_summary"),
+  kind = NULL,
   ...
 )
 ```
@@ -73,10 +74,14 @@ plot(
 
   A `vt_dataset`.
 
-- kind:
+- type:
 
   One of `"whittaker"`, `"rac"`, `"alpha_timeline"`,
-  `"community_summary"`.
+  `"community_summary"`. Selects the dispatched plotter.
+
+- kind:
+
+  Deprecated alias of `type`. Retained for back compatibility.
 
 ## Value
 
@@ -108,15 +113,15 @@ Sons. ISBN 9780632056330.
 [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md),
 `print.vt_dataset()`, `summary.vt_dataset()`, `plot.vt_dataset()`,
 [`vt_alpha_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_alpha_diversity.md),
-[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md)
+[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md),
+[`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-co$datasets$dataset_id[1]
-d <- vt_filter(co, dataset_id == "VT_001")
-print(d); summary(d); plot(d, kind = "whittaker")
+data(vertetime)
+d <- vt_read(vertetime$datasets$dataset_id[1])
+print(d); summary(d); plot(d, type = "whittaker")
 } # }
 ```

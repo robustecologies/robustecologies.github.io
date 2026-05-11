@@ -48,14 +48,15 @@ through time*. Trends in Ecology & Evolution, 25(10), 574-582.
 
 [`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md),
 [`vt_beta_partition()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_partition.md),
-[`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+[`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md),
+[`summary.vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-tt <- vt_temporal_turnover(co, method = "bray", pair = "consecutive")
-summary(tt$value)
+data(vertetime)
+tt <- vt_temporal_turnover(vertetime, method = "bray", pair = "consecutive")
+summary(tt)
 } # }
 ```

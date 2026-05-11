@@ -6,7 +6,8 @@ roughly five minutes against a synthetic mid-sized compilation that
 exercises every plot family. The deeper community-ecology metrics tour
 is in
 [`vignette("vt-community-metrics")`](https://robustecologies.github.io/VerteTIME/articles/vt-community-metrics.md);
-the future-dataset workflow is in
+the dataset-registration workflow for users who extend the compilation
+with private series is in
 [`vignette("vt-ingestion-workflow")`](https://robustecologies.github.io/VerteTIME/articles/vt-ingestion-workflow.md).
 
   
@@ -20,10 +21,8 @@ compilation is loaded with a single `data(vertetime)` call once the
 package is installed; the synthetic builder below is purely a
 self-contained worked example built with the
 [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md)
-constructor. Maintainers who need to regenerate the shipped object run
-`Rscript data-raw/build-data.R` from the source repository, which calls
-[`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
-under the hood and persists the result to `data/vertetime.rda`.
+constructor. Maintainers regenerate the shipped object from a private
+ingestion tree; end users obtain the result through `data(vertetime)`.
 
 ``` r
 
@@ -310,16 +309,24 @@ NODF nestedness across the compilation.
 vt_plot_database_timeline(co)
 ```
 
-![Positional comparator across biodiversity time-series compilations
-cited by VerteTIME. Taxonomic scope varies across rows: LPD,
-RivFishTIME, BBS, PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights
-are vertebrate-only, whereas GPDD, BioTIME and PREDICTS are
+![Two-panel positional comparator across biodiversity time-series
+compilations cited by VerteTIME. Top panel: publication-event milestones
+(citation, series count and licence on each tab); LPI v1/v2 and BioTIME
+v1/v2 appear as adjacent rows to document the growth of those databases
+between successive releases. Bottom panel: calendar-year span of the
+underlying data. Taxonomic scope varies across rows: LPI, RivFishTIME,
+BBS, PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights are
+vertebrate-only; GPDD, BioTIME and PREDICTS are
 multi-taxon.](vt-introduction_files/figure-html/timeline-1.png)
 
-Positional comparator across biodiversity time-series compilations cited
-by VerteTIME. Taxonomic scope varies across rows: LPD, RivFishTIME, BBS,
-PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights are
-vertebrate-only, whereas GPDD, BioTIME and PREDICTS are multi-taxon.
+Two-panel positional comparator across biodiversity time-series
+compilations cited by VerteTIME. Top panel: publication-event milestones
+(citation, series count and licence on each tab); LPI v1/v2 and BioTIME
+v1/v2 appear as adjacent rows to document the growth of those databases
+between successive releases. Bottom panel: calendar-year span of the
+underlying data. Taxonomic scope varies across rows: LPI, RivFishTIME,
+BBS, PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights are
+vertebrate-only; GPDD, BioTIME and PREDICTS are multi-taxon.
 
   
 
@@ -330,9 +337,8 @@ heavy tails, long gaps and unit-class heterogeneity of the real
 compilation. Use this vignette to learn the function calls; consult the
 long-form manuscript for diagnostics on the real 145-dataset
 compilation. The world-map figure depends on coordinates being
-transcribed from each dataset’s primary reference (filled in
-`data-raw/_yaml/<id>.yaml`); when those values are placeholders, the
-plot collapses to a single overlapping cluster. Cross-series
-quantitative comparisons of abundance must stratify by `unit_class`;
-community-structure metrics (Hill numbers, beta-diversity, NODF) are
-dimensionless and cross-comparable.
+transcribed from each dataset’s primary reference; when those values are
+placeholders, the plot collapses to a single overlapping cluster.
+Cross-series quantitative comparisons of abundance must stratify by
+`unit_class`; community-structure metrics (Hill numbers, beta-diversity,
+NODF) are dimensionless and cross-comparable.

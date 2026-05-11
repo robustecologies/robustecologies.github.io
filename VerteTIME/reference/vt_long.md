@@ -68,7 +68,8 @@ Wickham, H. (2014). *Tidy Data*. Journal of Statistical Software,
 
 ``` r
 if (FALSE) { # \dontrun{
-x <- vt_read_csv(here::here("data-raw","VT_001","VT_001.csv"))
+x <- vt_read_csv(system.file("extdata", "fixture_corpus_wide.csv",
+                             package = "VerteTIME"))
 lo <- vt_long(x, dataset_id = "VT_001", site_id = "VT_001")
 attr(lo, "covariates")
 } # }

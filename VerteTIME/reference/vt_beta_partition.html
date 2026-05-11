@@ -19,7 +19,7 @@ year within each site."><script defer data-domain="robustecologies.github.io/Ver
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,10 +95,10 @@ year within each site.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>For two presence-absence vectors with <code>a</code> shared species, <code>b</code> species
-unique to the first and <code>c</code> species unique to the second:</p><ul><li><p>\(\\beta_{SOR} = (b + c) / (2a + b + c)\) — total Sorensen
-dissimilarity;</p></li>
-<li><p>\(\\beta_{SIM} = \\min(b, c) / (a + \\min(b, c))\) — Simpson turnover;</p></li>
-<li><p>\(\\beta_{NES} = \\beta_{SOR} - \\beta_{SIM}\) — nestedness-resultant.</p></li>
+unique to the first and <code>c</code> species unique to the second:</p><ul><li><p>\(\\beta_{SOR} = (b + c) / (2a + b + c)\) (total Sorensen
+dissimilarity);</p></li>
+<li><p>\(\\beta_{SIM} = \\min(b, c) / (a + \\min(b, c))\) (Simpson turnover);</p></li>
+<li><p>\(\\beta_{NES} = \\beta_{SOR} - \\beta_{SIM}\) (nestedness-resultant).</p></li>
 </ul><p>Pairs with <code>a + b + c == 0</code> (both years empty) return <code>NA</code> triplets.</p>
     </div>
     <div class="section level2">
@@ -110,15 +110,16 @@ beta diversity</em>. Global Ecology and Biogeography, 19(1), 134-143.
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="vt_temporal_turnover.html">vt_temporal_turnover()</a></code>, <code><a href="vt_beta_diversity.html">vt_beta_diversity()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="vt_temporal_turnover.html">vt_temporal_turnover()</a></code>, <code><a href="vt_beta_diversity.html">vt_beta_diversity()</a></code>, <code><a href="vt_turnover.html">vt_turnover()</a></code>,
+<code><a href="vt_turnover.html">summary.vt_turnover()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">co</span> <span class="op">&lt;-</span> <span class="fu"><a href="vt_ingest_all.html">vt_ingest_all</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="fu">vt_beta_partition</span><span class="op">(</span><span class="va">co</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="fu">vt_beta_partition</span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bp</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

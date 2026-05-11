@@ -1,6 +1,9 @@
 # Histograms of dataset span and observation count
 
-Histograms of dataset span and observation count
+Two side-by-side histograms summarising the per-dataset temporal span
+(number of observed years) and species richness, coloured by
+`taxonomic_focus`. The figure is the canonical coverage diagnostic at
+compilation scope.
 
 ## Usage
 
@@ -35,6 +38,7 @@ research and monitoring*. Trends in Ecology & Evolution, 25(10),
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_span_hist(vt_ingest_all())
+data(vertetime)
+vt_plot_span_hist(vertetime)
 } # }
 ```

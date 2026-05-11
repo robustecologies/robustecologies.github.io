@@ -17,6 +17,9 @@ vt_turnover(values, call_args = list())
 print(x, ...)
 
 # S3 method for class 'vt_turnover'
+summary(object, ...)
+
+# S3 method for class 'vt_turnover'
 plot(x, ...)
 ```
 
@@ -39,9 +42,22 @@ plot(x, ...)
   Forwarded to
   [`vt_plot_beta_heatmap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_beta_heatmap.md).
 
+- object:
+
+  A `vt_turnover`.
+
 ## Value
 
 Object of class `vt_turnover`.
+
+For `summary`, a `tibble` with one row per turnover metric and the
+columns `metric`, `n`, `median`, `q25`, `q75`, `mean`, `sd`. The metric
+column reflects the columns present in the object: `beta_sor`,
+`beta_sim`, `beta_nes` for a Baselga partition, or the value of the
+`metric` column when the object comes from
+[`vt_temporal_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_temporal_turnover.md).
+
+A `ggplot` object (invisibly returned, drawn as side effect).
 
 ## References
 
@@ -54,14 +70,15 @@ of beta diversity*. Global Ecology and Biogeography, 19(1), 134-143.
 
 [`vt_temporal_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_temporal_turnover.md),
 [`vt_beta_partition()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_partition.md),
-[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md)
+[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md),
+`print.vt_turnover()`, `summary.vt_turnover()`, `plot.vt_turnover()`
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-tt <- vt_temporal_turnover(co, pair = "consecutive")
-print(tt); plot(tt)
+data(vertetime)
+tt <- vt_temporal_turnover(vertetime, pair = "consecutive")
+print(tt); summary(tt); plot(tt)
 } # }
 ```

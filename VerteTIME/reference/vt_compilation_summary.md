@@ -34,7 +34,7 @@ series for the Anthropocene. *Global Ecology and Biogeography*, 27(7),
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 s <- vt_compilation_summary(co)
 } # }
 ```

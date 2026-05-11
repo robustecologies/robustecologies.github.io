@@ -35,14 +35,14 @@ component.
 For two presence-absence vectors with `a` shared species, `b` species
 unique to the first and `c` species unique to the second:
 
-- \\\\beta\_{SOR} = (b + c) / (2a + b + c)\\ — total Sorensen
-  dissimilarity;
+- \\\\beta\_{SOR} = (b + c) / (2a + b + c)\\ (total Sorensen
+  dissimilarity);
 
-- \\\\beta\_{SIM} = \\min(b, c) / (a + \\min(b, c))\\ — Simpson
-  turnover;
+- \\\\beta\_{SIM} = \\min(b, c) / (a + \\min(b, c))\\ (Simpson
+  turnover);
 
-- \\\\beta\_{NES} = \\beta\_{SOR} - \\beta\_{SIM}\\ —
-  nestedness-resultant.
+- \\\\beta\_{NES} = \\beta\_{SOR} - \\beta\_{SIM}\\
+  (nestedness-resultant).
 
 Pairs with `a + b + c == 0` (both years empty) return `NA` triplets.
 
@@ -56,14 +56,16 @@ of beta diversity*. Global Ecology and Biogeography, 19(1), 134-143.
 ## See also
 
 [`vt_temporal_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_temporal_turnover.md),
-[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md)
+[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md),
+[`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md),
+[`summary.vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-bp <- vt_beta_partition(co)
-head(bp)
+data(vertetime)
+bp <- vt_beta_partition(vertetime)
+summary(bp)
 } # }
 ```

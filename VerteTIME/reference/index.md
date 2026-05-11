@@ -2,24 +2,26 @@
 
 ## Ingestion, validation and registration
 
-Build a compilation from data-raw, validate the relational schema and
-register new datasets through the yaml-sidecar workflow.
+Build a compilation from a maintainer-private ingestion tree, validate
+the relational schema, scaffold a user-side YAML sidecar, and run the
+installed-package self-test.
 
 - [`vt_ingest_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_dataset.md)
   : Ingest a single dataset folder into the canonical relational schema
 
 - [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
-  :
-
-  Ingest the full compilation from `data-raw/`
+  : Ingest the full compilation from a maintainer-side ingestion tree
 
 - [`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
-  : Register a new dataset into the compilation
+  : Register a new dataset in a private VerteTIME extension tree
 
 - [`vt_validate()`](https://robustecologies.github.io/VerteTIME/reference/vt_validate.md)
   :
 
   Validate a `vt_dataset` or `vt_compilation`
+
+- [`vt_check()`](https://robustecologies.github.io/VerteTIME/reference/vt_check.md)
+  : One-call smoke test of the installed VerteTIME package
 
 - [`enrich_taxonomy()`](https://robustecologies.github.io/VerteTIME/reference/enrich_taxonomy.md)
   : Enrich the species table with class/order/family from the taxonomy
@@ -31,9 +33,7 @@ Low-level CSV IO, long-wide pivot helpers and S3 constructors for
 datasets, compilations and provenance objects.
 
 - [`vt_read_csv()`](https://robustecologies.github.io/VerteTIME/reference/vt_read_csv.md)
-  :
-
-  Read a wide-format community CSV from `data-raw/<id>/<id>.csv`
+  : Read a wide-format community CSV
 
 - [`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md)
   : Read a VerteTIME dataset
@@ -110,6 +110,7 @@ turnover-nestedness decomposition.
 
 - [`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
   [`print(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  [`summary(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
   [`plot(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
   :
 
@@ -233,7 +234,7 @@ diagnostics.
 - [`vt_plot_span_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_span_hist.md)
   : Histograms of dataset span and observation count
 - [`vt_plot_focus_span_box()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_focus_span_box.md)
-  : Boxplot of span by taxonomic focus
+  : Boxplot of dataset span by taxonomic focus
 - [`vt_plot_span_coverage_hex()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_span_coverage_hex.md)
   : Span versus coverage scatter (hexbin density)
 - [`vt_plot_mean_cv()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_mean_cv.md)
@@ -324,6 +325,7 @@ completeness and cross-reference.
 
 - [`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
   [`print(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+  [`summary(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
   [`plot(`*`<vt_turnover>`*`)`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
   :
 

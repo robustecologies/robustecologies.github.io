@@ -62,14 +62,15 @@ transformations for ordination of species data*. Oecologia, 129(2),
 
 [`vt_temporal_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_temporal_turnover.md),
 [`vt_beta_partition()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_partition.md),
-[`vt_alpha_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_alpha_diversity.md)
+[`vt_alpha_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_alpha_diversity.md),
+[`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-b  <- vt_beta_diversity(co, method = c("bray","whittaker"))
+data(vertetime)
+b <- vt_beta_diversity(vertetime, method = c("bray", "whittaker"))
 head(b)
 } # }
 ```

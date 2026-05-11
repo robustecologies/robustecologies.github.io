@@ -42,10 +42,12 @@ A `ggplot` object.
 
 ## References
 
-Magurran, A. E., et al. (2019). *Long-term datasets reveal hidden
-patterns of biodiversity change*. Nature Ecology & Evolution, 3,
-1391-1394.
-[doi:10.1038/s41559-019-0967-2](https://doi.org/10.1038/s41559-019-0967-2)
+Magurran, A. E., Baillie, S. R., Buckland, S. T., Dick, J. McP., Elston,
+D. A., Scott, E. M., Smith, R. I., Somerfield, P. J., & Watt, A. D.
+(2010). *Long-term datasets in biodiversity research and monitoring:
+assessing change in ecological communities through time*. Trends in
+Ecology & Evolution, 25(10), 574-582.
+[doi:10.1016/j.tree.2010.06.016](https://doi.org/10.1016/j.tree.2010.06.016)
 .
 
 ## See also
@@ -57,7 +59,7 @@ patterns of biodiversity change*. Nature Ecology & Evolution, 3,
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 vt_plot_alpha_timeline(co, index = "H")
 } # }
 ```

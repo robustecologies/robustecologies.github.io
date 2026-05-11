@@ -1,10 +1,10 @@
-# VerteTIME
+# VerteTIME [![VerteTIME hex logo](reference/figures/logo_vertetime.png)](https://robustecologies.github.io/VerteTIME)
 
   
 
 ## A curated repository of world vertebrate community time series
 
-VerteTIME is a curated repository of world vertebrate community time
+**VerteTIME** is a curated repository of world vertebrate community time
 series. The compilation bundles more than 200 per-site multi-species
 annual abundance series (and growing) from terrestrial, freshwater and
 marine systems worldwide, each independently curated from peer-reviewed
@@ -14,20 +14,25 @@ multi-species composition required for community-ecology analysis
 documents them, the per-site environmental covariates measured on the
 same temporal index.
 
-![Positional timeline of biodiversity time-series compilations cited by
-VerteTIME. VerteTIME (orange) is positioned alongside the major
-compilations the field cites; the rows have heterogeneous taxonomic
-scope (vertebrate-only and multi-taxon, see
-vt_compilations()\$taxonomic_scope), and the figure is a comparator,
-never a chain of
-provenance.](reference/figures/README-fig-readme-timeline-1.png)
+  
 
-Positional timeline of biodiversity time-series compilations cited by
-VerteTIME. VerteTIME (orange) is positioned alongside the major
-compilations the field cites; the rows have heterogeneous taxonomic
-scope (vertebrate-only and multi-taxon, see
-vt_compilations()\$taxonomic_scope), and the figure is a comparator,
-never a chain of provenance.
+## Installation
+
+``` r
+
+# released versions (after the first Zenodo deposit)
+# install.packages("VerteTIME")
+
+# development version from GitHub
+# install.packages("remotes")
+remotes::install_github("robustecologies/VerteTIME")
+```
+
+System prerequisites: R `>= 4.2`. Optional packages used through
+`Suggests` enable specific features: `arrow` for Parquet IO, `DBI` and
+`RSQLite` for SQLite export, `sf` and `rnaturalearth` for the projected
+world map, `ragg` for high-quality PNG, `betapart` and `vegan` for
+cross-validation against established metric implementations.
 
   
 
@@ -52,7 +57,42 @@ workflow to a single function call.
 
   
 
+## Evolution of the landscape of biodiversity time-series compilations
+
+  
+
+![Two-panel positional comparator of biodiversity time-series
+compilations cited by VerteTIME. Top panel: publication-event milestones
+at the year of each compilation's first citable public release; each tab
+carries the compilation name, citation, series count and licence. The
+two LPI rows (LPI v1 in 2017 and LPI v2 in 2024) document the growth of
+the Living Planet Database from 14,152 to 34,836 populations. Bottom
+panel: calendar-year span of the underlying data (first observed to last
+observed year) per compilation. Rows have heterogeneous taxonomic scope
+(vertebrate-only and multi-taxon, see
+vt_compilations()\$taxonomic_scope). The figure is positional only,
+never a chain of provenance; every numeric cell is anchored to the
+primary publication cited in the corresponding
+row.](reference/figures/README-fig-readme-timeline-1.png)
+
+Two-panel positional comparator of biodiversity time-series compilations
+cited by VerteTIME. Top panel: publication-event milestones at the year
+of each compilation’s first citable public release; each tab carries the
+compilation name, citation, series count and licence. The two LPI rows
+(LPI v1 in 2017 and LPI v2 in 2024) document the growth of the Living
+Planet Database from 14,152 to 34,836 populations. Bottom panel:
+calendar-year span of the underlying data (first observed to last
+observed year) per compilation. Rows have heterogeneous taxonomic scope
+(vertebrate-only and multi-taxon, see
+vt_compilations()\$taxonomic_scope). The figure is positional only,
+never a chain of provenance; every numeric cell is anchored to the
+primary publication cited in the corresponding row.
+
+  
+
 ## Geographic and taxonomic coverage
+
+  
 
 ![Robinson-projected world map of every site in the compilation. Point
 colour: taxonomic focus. Point size: species
@@ -61,10 +101,14 @@ richness.](reference/figures/README-fig-readme-world-1.png)
 Robinson-projected world map of every site in the compilation. Point
 colour: taxonomic focus. Point size: species richness.
 
+  
+
 ![Series and species per GBIF
 class.](reference/figures/README-fig-readme-class-1.png)
 
 Series and species per GBIF class.
+
+  
 
 ![Class -\> Order -\> Family treemap. Rectangle area is proportional to
 distinct-species
@@ -72,6 +116,8 @@ count.](reference/figures/README-fig-readme-treemap-1.png)
 
 Class -\> Order -\> Family treemap. Rectangle area is proportional to
 distinct-species count.
+
+  
 
 ![World richness portrait at 5° grid: distinct species count per
 cell.](reference/figures/README-fig-readme-richness-1.png)
@@ -92,10 +138,14 @@ community.](reference/figures/README-fig-readme-spot-birds-1.png)
 
 Spotlight: largest terrestrial bird community.
 
+  
+
 ![Spotlight: largest marine fish
 community.](reference/figures/README-fig-readme-spot-fish-1.png)
 
 Spotlight: largest marine fish community.
+
+  
 
 ![Spotlight: largest terrestrial mammal
 community.](reference/figures/README-fig-readme-spot-mammals-1.png)
@@ -114,12 +164,16 @@ Multi-metric community portrait: density of richness S, Shannon H and
 Pielou J across every (dataset, site, year) triple, faceted by taxonomic
 focus.
 
+  
+
 ![Temporal flow of taxonomic focus across decades: stacked count of
 active datasets by
 decade.](reference/figures/README-fig-readme-temporal-sankey-1.png)
 
 Temporal flow of taxonomic focus across decades: stacked count of active
 datasets by decade.
+
+  
 
 ![Hill-number profile per dataset across orders 0 to 3 (q = 0 richness,
 q = 1 exp(Shannon), q = 2 inverse
@@ -130,37 +184,20 @@ Hill-number profile per dataset across orders 0 to 3 (q = 0 richness, q
 
   
 
-## Installation
-
-``` r
-
-# released versions (after the first Zenodo deposit)
-# install.packages("VerteTIME")
-
-# development version from GitHub
-# install.packages("remotes")
-remotes::install_github("robustecologies/VerteTIME")
-```
-
-System prerequisites: R `>= 4.2`. Optional packages used through
-`Suggests` enable specific features: `arrow` for Parquet IO, `DBI` and
-`RSQLite` for SQLite export, `sf` and `rnaturalearth` for the projected
-world map, `ragg` for high-quality PNG, `betapart` and `vegan` for
-cross-validation against established metric implementations.
-
-  
-
 ## Five-minute tour
 
 ``` r
 
 library(VerteTIME)
 
-co <- vt_ingest_all()                                       # build the compilation from data-raw/
+data(vertetime)                                              # load the shipped compilation
+co <- vertetime
 print(co); summary(co)
 
-v <- vt_validate(co, level = "compilation")                      # zero rows = clean compilation
-a    <- vt_alpha_diversity(co, indices = c("S","H","q1","q2","Chao1"))
+vt_check()                                                   # one-call smoke test
+
+v    <- vt_validate(co, level = "compilation")               # zero rows = clean compilation
+a    <- vt_alpha_diversity(co, indices = c("S", "H", "q1", "q2", "Chao1"))
 e    <- vt_evenness(co, kind = "pielou")
 tt   <- vt_temporal_turnover(co, method = "bray", pair = "consecutive")
 bp   <- vt_beta_partition(co)
@@ -180,17 +217,17 @@ vt_plot_mean_cv(co)
 vt_plot_alpha_hist(co, index = "H")
 vt_plot_nodf_hist(co)
 
-# publish the public release
-vt_publish(co, here::here("web-export","vertetime-v1.0"), overwrite = TRUE)
+# publish the public release into a user-supplied directory
+vt_publish(co, root = file.path(tempdir(), "vertetime-release"), overwrite = TRUE)
 ```
 
 The
 [`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
-call produces a complete public-release tree at
-`web-export/vertetime-v1.0/` that contains the compilation in four
-formats (CSV, Apache Parquet, SQLite, Frictionless Data Package), the
-per-dataset provenance audit table, the licence text, the citation file
-and a SHA-256 checksum manifest.
+call produces a complete public-release tree at the user-supplied `root`
+that contains the compilation in four formats (CSV, Apache Parquet,
+SQLite, Frictionless Data Package), the per-dataset provenance audit
+table, the licence text, the citation file and a SHA-256 checksum
+manifest.
 
   
 
@@ -200,13 +237,17 @@ Click to expand the function index
 
 **Ingestion and registration** -
 [`vt_ingest_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_dataset.md)
-— single-folder ingest from `data-raw/` -
+— maintainer-side single-folder ingest from a private ingestion tree -
 [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
-— orchestrator over the full compilation -
+— maintainer-side orchestrator over the full compilation -
 [`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
-— register a new dataset from outside the v1.0 cohort -
+— user-facing scaffolder for adding a private dataset to a user-supplied
+tree -
 [`vt_validate()`](https://robustecologies.github.io/VerteTIME/reference/vt_validate.md)
-— structural and semantic checks at dataset and compilation level
+— structural and semantic checks at dataset and compilation level -
+[`vt_check()`](https://robustecologies.github.io/VerteTIME/reference/vt_check.md)
+— one-call smoke test that exercises every analytical family against the
+shipped `vt_demo`
 
 **Reading and reshaping** -
 [`vt_read_csv()`](https://robustecologies.github.io/VerteTIME/reference/vt_read_csv.md),
@@ -275,7 +316,8 @@ S3 constructors:
 [`vt_plot_beta_heatmap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_beta_heatmap.md),
 [`vt_plot_world_map()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_world_map.md), -
 [`vt_plot_database_timeline()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_database_timeline.md)
-— positional comparator across vertebrate compilations
+— two-panel positional comparator (publication events plus data spans)
+across biodiversity compilations
 
   
 
@@ -288,7 +330,7 @@ table:
 |----|----|----|
 | `datasets` | one row per dataset (`VT_NNN`) | dataset-level metadata |
 | `sites` | one row per spatially-distinct site within a dataset | site-level metadata, coordinates |
-| `species` | one row per species observed | taxonomic backbone (filled in v1.1 via [`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html)) |
+| `species` | one row per species observed | taxonomic backbone (filled in v1.1 via `rgbif::name_backbone`) |
 | `observations` | long, one row per (`site_id`, `species_id`, `year`) | the workhorse |
 | `covariates` | long, one row per (`site_id`, `year`, `covariate`) | environmental covariates |
 | `data_provenance` | one row per dataset | primary-reference DOI, citation, kind |
@@ -303,10 +345,11 @@ consistently.
 
 The
 [`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
-function produces a directory tree at `web-export/vertetime-v1.0/` with:
+function produces a user-supplied directory tree (the `root` argument)
+with:
 
 ``` R
-web-export/vertetime-v1.0/
+<root>/
   csv/                        per-table CSVs + master.csv (long join) + master_wide.csv (LPD-style)
   parquet/                    same tables as Apache Parquet, plus master.parquet
   sqlite/vertetime.db         single-file relational database
@@ -360,8 +403,7 @@ skews towards Europe, North America and a handful of long-running
 tropical sites; the Robinson world map figure surfaces this skew
 explicitly and the `coord_precision_km` column documents per-site
 coordinate precision. Higher-rank taxonomy (`class`, `order`, `family`)
-is left empty in v1.0 and is filled in v1.1 via
-[`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html);
+is left empty in v1.0 and is filled in v1.1 via `rgbif::name_backbone`;
 the dataset-level `taxonomic_focus` is the operative attribute until
 then. The `species$is_vertebrate` flag is similarly populated in v1.1.
 The package does not impute internal `NA`s; users who need imputed
@@ -385,30 +427,39 @@ exclusion.
 
 ## Adding a new dataset
 
-[`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
-accepts a freshly extracted dataset. The user copies the source CSV into
-`data-raw/<VT_NNN>/<VT_NNN>.csv`, copies the primary-reference PDF,
-fills `inst/templates/dataset_template.yaml` (saved under
-`data-raw/_yaml/<VT_NNN>.yaml`), runs the function with `dry_run = TRUE`
-to inspect validation, and runs again with `dry_run = FALSE` to commit.
-The vignette `vt-ingestion-workflow` walks through the workflow;
-`inst/templates/register-checklist.md` is a printable pre-flight
-checklist.
+`vt_register_dataset(id, data_raw, dry_run)` is a user-facing
+scaffolder. The user picks any folder for `data_raw` (their private
+extension tree), runs
+`vt_register_dataset(id, data_raw, dry_run = TRUE)` to scaffold the YAML
+sidecar from
+`system.file("templates", "dataset_template.yaml", package = "VerteTIME")`,
+drops the wide-format CSV at `<data_raw>/<id>/<id>.csv`, re-runs with
+`dry_run = TRUE` to inspect validation, and finally runs with
+`dry_run = FALSE` to commit. The vignette `vt-ingestion-workflow` walks
+through the workflow;
+`system.file("templates", "register-checklist.md", package = "VerteTIME")`
+is a printable pre-flight checklist.
 
   
 
 ## Comparison with related compilations
 
-VerteTIME is positioned among the major vertebrate time-series
-compilations as a comparator only. The
+VerteTIME is positioned among the major biodiversity time-series
+compilations of the field as a comparator only. The
 [`vt_plot_database_timeline()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_database_timeline.md)
-function renders the comparison on a calendar axis with explicit
-population-versus-community labelling. Compilations referenced
-(non-exhaustive): GPDD, the Living Planet Database, BioTIME (v1 2018, v2
-2025), RivFishTIME, PREDICTS, the North American BBS, PECBMS, CBC, eBird
-Trends, TEAM and its Wildlife Insights successor. The figure caption is
-explicit that overlap is shown for orientation only, never as a chain of
-provenance.
+function renders the comparison in two panels: a milestone timeline of
+publication events (one marker per compilation at its first citable
+release, with a labelled tab carrying citation, series count and
+licence) and a Gantt of the calendar-year span of the underlying data
+per compilation. Compilations referenced (non-exhaustive): GPDD, the
+Living Planet Database (LPI), BioTIME (v1 2018, v2 2025), RivFishTIME,
+PREDICTS, the North American BBS, PECBMS, CBC, eBird Trends, TEAM and
+its Wildlife Insights successor. The taxonomic scope of each entry is
+heterogeneous (vertebrate-only and multi-taxon, see
+`vt_compilations()$taxonomic_scope`); the figure caption is explicit
+that overlap is shown for orientation only, never as a chain of
+provenance. Every numeric cell is anchored to the primary publication
+cited in the corresponding row.
 
   
 

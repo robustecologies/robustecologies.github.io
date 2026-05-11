@@ -38,7 +38,7 @@ communities*. Science, 147(3655), 250-260.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 dom <- vt_dominance_curve(co)
 } # }
 ```

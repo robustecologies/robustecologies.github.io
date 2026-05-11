@@ -25,7 +25,7 @@ print(x, ...)
 summary(object, ...)
 
 # S3 method for class 'vt_compilation'
-plot(x, kind = c("world", "timeline", "alpha", "beta"), ...)
+plot(x, type = c("world", "timeline", "alpha", "beta"), kind = NULL, ...)
 ```
 
 ## Arguments
@@ -66,9 +66,14 @@ plot(x, kind = c("world", "timeline", "alpha", "beta"), ...)
 
   A `vt_compilation`.
 
+- type:
+
+  One of `"world"`, `"timeline"`, `"alpha"`, `"beta"`. Selects the
+  dispatched plotter.
+
 - kind:
 
-  One of `"world"`, `"timeline"`, `"alpha"`, `"beta"`.
+  Deprecated alias of `type`. Retained for back compatibility.
 
 ## Value
 
@@ -89,11 +94,11 @@ to subset by predicate; the filter cascades referential integrity.
 
 ## References
 
-Tedersoo, L., et al. (2021). Data sharing practices and data
-availability upon request differ across scientific disciplines.
-*Scientific Data*, 8, 192.
-[doi:10.1038/s41597-021-00981-0](https://doi.org/10.1038/s41597-021-00981-0)
-.
+Wilkinson, M. D., Dumontier, M., Aalbersberg, IJ. J., Appleton, G.,
+Axton, M., Baak, A., Blomberg, N., Boiten, J.-W., et al. (2016). The
+FAIR Guiding Principles for scientific data management and stewardship.
+*Scientific Data*, 3, 160018.
+[doi:10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18) .
 
 ## See also
 
@@ -101,13 +106,14 @@ availability upon request differ across scientific disciplines.
 [`vt_filter()`](https://robustecologies.github.io/VerteTIME/reference/vt_filter.md),
 `print.vt_compilation()`, `summary.vt_compilation()`,
 `plot.vt_compilation()`,
-[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md),
+[vertetime](https://robustecologies.github.io/VerteTIME/reference/vertetime.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-print(co); summary(co); plot(co, kind = "world")
+data(vertetime)
+print(vertetime); summary(vertetime); plot(vertetime, type = "world")
 } # }
 ```

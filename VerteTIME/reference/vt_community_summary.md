@@ -40,7 +40,7 @@ Sons. ISBN 9780632056330.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 s <- vt_community_summary(co)
 } # }
 ```

@@ -35,5 +35,5 @@ Hill (1973); Chao et al. (2014).
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_hill_profile(vt_ingest_all())  # \dontrun{}
+if (FALSE)  data(vertetime); vt_plot_hill_profile(vertetime)  # \dontrun{}
 ```

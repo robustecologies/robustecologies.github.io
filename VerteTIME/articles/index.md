@@ -21,7 +21,7 @@ rarefaction and nestedness across the full compilation.
 How to register a new vertebrate community time series, validate its
 yaml sidecar and merge it into the next release.
 
-- [Adding a new dataset to
+- [Registering a private dataset against
   VerteTIME](https://robustecologies.github.io/VerteTIME/articles/vt-ingestion-workflow.md):
 
 ### Reference material

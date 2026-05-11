@@ -25,9 +25,11 @@ A `ggplot` object.
 
 ## References
 
-Joly, F.-X., et al. (2024). *Cohort effects in biodiversity time
-series*. Methods in Ecology and Evolution, 15(2), 312-326.
-[doi:10.1111/2041-210X.14245](https://doi.org/10.1111/2041-210X.14245) .
+Dornelas, M., Gotelli, N. J., McGill, B., Shimadzu, H., Moyes, F.,
+Sievers, C., & Magurran, A. E. (2014). *Assemblage time series reveal
+biodiversity change but not systematic loss*. Science, 344(6181),
+296-299.
+[doi:10.1126/science.1248484](https://doi.org/10.1126/science.1248484) .
 
 ## See also
 
@@ -38,6 +40,6 @@ series*. Methods in Ecology and Evolution, 15(2), 312-326.
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_year_ridges(vt_ingest_all(), which = "first")
+data(vertetime); vt_plot_year_ridges(vertetime, which = "first")
 } # }
 ```

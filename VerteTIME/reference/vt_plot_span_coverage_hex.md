@@ -33,6 +33,6 @@ Applications in R*. Chapman and Hall/CRC. ISBN 9781032538044.
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_span_coverage_hex(vt_ingest_all())
+data(vertetime); vt_plot_span_coverage_hex(vertetime)
 } # }
 ```

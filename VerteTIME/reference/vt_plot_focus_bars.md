@@ -36,7 +36,7 @@ Sons. ISBN 9780632056330.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 vt_plot_focus_bars(co)
 } # }
 ```

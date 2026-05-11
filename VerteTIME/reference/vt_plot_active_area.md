@@ -34,6 +34,6 @@ change but not systematic loss*. Science, 344(6181), 296-299.
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_active_area(vt_ingest_all())
+data(vertetime); vt_plot_active_area(vertetime)
 } # }
 ```

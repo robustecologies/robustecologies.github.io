@@ -44,7 +44,7 @@ Springer-Verlag.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 vt_plot_community_spotlight(co, "VT_001")
 } # }
 ```

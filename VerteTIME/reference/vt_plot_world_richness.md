@@ -36,5 +36,5 @@ Pebesma (2018).
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_world_richness(vt_ingest_all())  # \dontrun{}
+if (FALSE)  data(vertetime); vt_plot_world_richness(vertetime)  # \dontrun{}
 ```

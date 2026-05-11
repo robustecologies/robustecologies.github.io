@@ -42,8 +42,9 @@ Dowle, M., & Srinivasan, A. (2024). *data.table: Extension of
 
 ``` r
 if (FALSE) { # \dontrun{
-lo <- vt_long(vt_read_csv(here::here("data-raw","VT_001","VT_001.csv")),
-              dataset_id = "VT_001")
+x  <- vt_read_csv(system.file("extdata", "fixture_corpus_wide.csv",
+                              package = "VerteTIME"))
+lo <- vt_long(x, dataset_id = "VT_001")
 wd <- vt_wide(lo, covariates = attr(lo, "covariates"))
 } # }
 ```

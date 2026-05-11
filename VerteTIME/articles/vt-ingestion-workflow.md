@@ -1,108 +1,110 @@
-# Adding a new dataset to VerteTIME
+# Registering a private dataset against VerteTIME
 
-This vignette walks through the workflow for registering a new community
-time-series dataset into the VerteTIME compilation. Treat it as the
-canonical companion of `inst/templates/dataset_template.yaml` and
-`inst/templates/register-checklist.md`.
+This vignette is for users who want to extend the shipped `vertetime`
+compilation with one or more private datasets of their own and run the
+full VerteTIME analysis surface against the combined corpus. The
+workflow is fully end-user-callable; nothing here depends on the
+maintainer-side build tree. The canonical schema and the printable
+checklist ship inside the installed package and are reached through
+`system.file("templates", "dataset_template.yaml", package = "VerteTIME")`
+and
+`system.file("templates", "register-checklist.md", package = "VerteTIME")`.
 
-  
-
-## Where this vignette sits in the package
-
-VerteTIME has a three-layer architecture. The first layer is the
-**end-user workflow**, in which an analyst loads the shipped compilation
-with `data(vertetime)` and runs the diversity, turnover and
-visualisation functions on it. The second layer is the **audit and fork
-workflow**, in which a third party clones the source repository, opens
-the source tree at `data-raw/`, and re-executes
-[`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
-to reproduce the compilation from the primary references. The third
-layer, documented here, is the **maintainer workflow**, in which Sergio
-Pico and Pablo Almaraz add a new dataset to the source tree and rebuild
-the shipped objects via `Rscript data-raw/build-data.R`.
-
-The source `data-raw/` tree is excluded from the package build
-(`.Rbuildignore`); an installed copy of VerteTIME does not carry it.
-[`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
-is exported for completeness and audit, but the function aborts with an
-explanatory error when it cannot find the source tree, and it never
-emits the internal source-folder names to the console: progress is
-reported as aggregate counts, and the canonical `VT_NNN` namespace is
-the only namespace that ever leaves the build script.
+If you only consume the shipped compilation, you do not need this
+vignette; `data(vertetime)` and `vt_read(id)` cover the analytical
+workflow without writing anywhere.
 
   
 
-## Step 1. Identify the primary reference
+## When to use the scaffolder
 
-VerteTIME is a compilation of independent re-curations from
-peer-reviewed primary literature and grey literature. Before adding a
-dataset to the compilation, locate the original peer-reviewed paper,
-monograph, technical report or grey-literature source that publishes the
-multi-species annual abundance time series, read it in full, and confirm
-that the data are either published openly or that you have written
-authorisation to redistribute them under CC-BY 4.0.
+[`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
+is the user-facing scaffolder. It does two things. First, when the YAML
+sidecar for a new identifier is absent, it copies the package template
+into the user’s private tree so the user can edit it. Second, when both
+the sidecar and the wide-format CSV are present, it runs the same
+ingestion-and-validation pipeline that produced the shipped `vertetime`
+compilation and returns a `vt_dataset` that the user can pass to every
+analytical and visualisation function.
 
-If the candidate dataset is also present in a secondary biodiversity
-time-series compilation (LPI, BioTIME, GPDD, RivFishTIME, PREDICTS, BBS,
-PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights), do not extract from
-that compilation. Go to the primary reference and re-extract. The fact
-of the partial overlap is recorded comparatively in the dataset’s
-`partial_overlap_with` field; it is never used to derive provenance.
-
-  
-
-## Step 2. Place the source files
-
-Adopt a new dataset identifier of the form `VT_NNN`, where `NNN` is the
-next available sequential number above the current compilation maximum.
-Create the folder and place the CSV plus the primary-reference PDF:
-
-    data-raw/VT_001/VT_001.csv
-    data-raw/VT_001/<primary-reference>.pdf
-
-The CSV is wide format: column 1 is `year` (integer); subsequent columns
-are species in `Genus_species` form (hyphenated epithets allowed) and
-any environmental covariates. The field separator is `;` and the
-encoding is UTF-8.
+The function refuses to touch the maintainer-side ingestion tree; it
+operates exclusively against the user-supplied `data_raw` argument. The
+package writes inside that path only; it never writes inside the
+installed library.
 
   
 
-## Step 3. Fill the YAML sidecar
+## Step 1. Pick a private ingestion path
 
-Copy the template:
+Choose any folder on your machine to host the private extension tree.
+The folder is created on demand:
 
 ``` r
 
-file.copy(
-  from = system.file("templates", "dataset_template.yaml", package = "VerteTIME"),
-  to   = here::here("data-raw","_yaml","VT_001.yaml")
-)
+tree <- file.path(Sys.getenv("HOME"), "vertetime-extension")
 ```
 
-Open the copy and edit the required fields (marked `[REQUIRED]` in the
-template). The minimum complete set is `dataset_id`,
-`primary_reference_citation`, `primary_reference_doi`,
-`primary_reference_kind`, the `sites:` block with at least one site
-(with non-placeholder coordinates), and `year_min` and `year_max`.
-Optional fields can be left empty.
+Pick a fresh dataset identifier of the form `VT_NNN` where `NNN` is
+unique within your private tree. The canonical `VT_NNN` namespace of the
+shipped compilation occupies a contiguous range; your private
+identifiers can collide neither with that range nor with each other.
+
+  
+
+## Step 2. Scaffold the YAML sidecar
+
+The first call writes the YAML template into the right location:
+
+``` r
+
+library(VerteTIME)
+res <- vt_register_dataset("VT_999", data_raw = tree, dry_run = TRUE)
+res$scaffold       # <tree>/_yaml/VT_999.yaml
+res$csv_dir        # <tree>/VT_999/
+res$message
+```
+
+The function returns a list naming the YAML path it wrote and the
+per-dataset folder where you should place the CSV. Open the YAML in an
+editor and fill in the required fields (marked `[REQUIRED]` in the
+template): `dataset_id`, `primary_reference_citation`,
+`primary_reference_doi`, `primary_reference_kind`, the `sites:` block
+with at least one site (with non-placeholder coordinates), `year_min`
+and `year_max`. The optional fields can stay empty.
+
+  
+
+## Step 3. Drop the wide-format CSV in place
+
+VerteTIME’s wide CSV format is one row per calendar year. Column 1 is
+`year` (integer); subsequent columns are species in `Genus_species` form
+(hyphenated epithets allowed) and any environmental covariates. The
+field separator is `;` and the encoding is UTF-8. Place the file at
+`<tree>/VT_999/VT_999.csv`. Multi-site studies use the suffix convention
+`VT_999-1.csv`, `VT_999-2.csv`, etc.
+
+If your column names do not follow the underscore-binomial convention,
+set `taxa_columns:` and `covariate_columns:` in the YAML to override the
+regex classifier.
 
   
 
 ## Step 4. Dry-run the registration
 
+Once both the YAML and the CSV are populated, repeat the dry run to
+validate without writing the audit log:
+
 ``` r
 
-res <- vt_register_dataset("VT_001", dry_run = TRUE)
+res <- vt_register_dataset("VT_999", data_raw = tree, dry_run = TRUE)
 res$validation
 ```
 
-`dry_run = TRUE` runs the ingestion and validation pipeline without
-writing anything. The returned `validation` tibble has zero rows on a
-clean dataset; otherwise each row identifies a specific check that
-failed (year out of range, negative abundance, duplicate
-`(site, species, year)`, coordinate out of range, species name not
-matching the regex). Address every issue before running with
-`dry_run = FALSE`.
+The returned `validation` tibble has zero rows on a clean dataset;
+otherwise each row identifies a specific check that failed (year out of
+range, negative abundance, duplicate `(site, species, year)`, coordinate
+out of range, species name not matching the regex). Address every issue
+before running with `dry_run = FALSE`.
 
   
 
@@ -110,49 +112,45 @@ matching the regex). Address every issue before running with
 
 ``` r
 
-d <- vt_register_dataset("VT_001")
+d <- vt_register_dataset("VT_999", data_raw = tree)
 summary(d)
+plot(d, type = "whittaker")
 ```
 
 When validation succeeds, the function appends one row to
-`data-raw/_yaml/_register_log.csv` with a timestamp, the dataset’s row
+`<tree>/_yaml/_register_log.csv` with a timestamp, the dataset’s row
 counts, and a SHA-256 of the YAML sidecar, and returns the freshly built
-`vt_dataset` ready for inclusion in the compilation.
+`vt_dataset` ready for analysis. You can call every analytical function
+on `d` directly (`vt_alpha_diversity(d)`, `vt_temporal_turnover(d)`,
+`vt_plot_community_spotlight(d)`, etc.).
 
   
 
-## Step 6. Rebuild the shipped data objects and re-publish
+## Step 6. Combine with the shipped compilation
 
-The build script is the single legitimate entry point that ingests the
-source tree and writes the two shipped data objects (`vertetime` and
-`vt_demo`) to `data/*.rda`. The internal source-folder identifiers are
-translated to the canonical `VT_NNN` namespace inside the script and
-never persisted. The `vertetime` object holds the full canonical
-compilation (its `$datasets` slot is the dataset-level metadata and its
-`$data_provenance` slot is the audit table; neither is shipped as a
-separate data object).
-
-``` r
-
-source(here::here("data-raw", "build-data.R"))
-```
-
-After the build, regenerate the multi-format public release:
+To analyse your private datasets jointly with `vertetime`, concatenate
+the relational tables of the new `vt_dataset` with the shipped
+compilation:
 
 ``` r
 
 data(vertetime)
-vt_publish(vertetime, here::here("web-export","vertetime-v1.0"),
-           overwrite = TRUE)
+co <- vt_compilation(
+  datasets        = rbind(vertetime$datasets,        d$datasets,        fill = TRUE),
+  sites           = rbind(vertetime$sites,           d$sites,           fill = TRUE),
+  species         = unique(rbind(vertetime$species,  d$species,         fill = TRUE),
+                           by = "species_id"),
+  observations    = rbind(vertetime$observations,    d$observations,    fill = TRUE),
+  covariates      = rbind(vertetime$covariates,      d$covariates,      fill = TRUE),
+  data_provenance = rbind(vertetime$data_provenance, d$data_provenance, fill = TRUE)
+)
+summary(co)
 ```
 
-[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
-regenerates the four-format public release (CSV, Parquet, SQLite,
-datapackage) plus the `README.md`, `LICENSE.md`, `CITATION.cff`,
-`data_provenance.csv` and `CHECKSUMS.sha256` files at the root. The
-Zenodo deposit step is manual: upload the new
-`web-export/vertetime-v1.0` tree to a new Zenodo version, copy the
-resulting DOI back into `CITATION.cff`, and re-render the manuscript.
+The merged `vt_compilation` carries both namespaces side by side and
+every plot or metric works against it without further ceremony. The
+shipped object is not modified; the combined `co` lives in the current R
+session only.
 
   
 
@@ -166,8 +164,9 @@ Human-in-the-loop: taxonomic-backbone confirmation (some hyphenated
 epithets and old combinations need manual mapping), coordinate
 transcription from the primary reference, primary-reference verification
 (open the DOI, confirm authors and year), and the licensing decision
-when the source carries non-default terms. The pre-flight checklist in
-`inst/templates/register-checklist.md` lists these explicitly.
+when the source carries non-default terms. The pre-flight checklist at
+`system.file("templates", "register-checklist.md", package = "VerteTIME")`
+lists these explicitly.
 
   
 
@@ -180,3 +179,19 @@ populate `taxa_columns` and `covariate_columns` explicitly in the YAML.
 The validation pipeline does not check whether the values *should* be
 counts versus densities versus indices; that is recorded in `unit_class`
 and is the user’s responsibility.
+
+The GBIF backbone enrichment used by the shipped compilation is not
+reproducible on a private tree without a cached taxonomy TSV.
+[`enrich_taxonomy()`](https://robustecologies.github.io/VerteTIME/reference/enrich_taxonomy.md)
+is offered as a no-op when the cache is absent, so the `class`, `order`
+and `family` columns for private species stay `NA`. Joining against the
+shipped `vertetime$species` table covers the species already in the
+canonical compilation; the rest can be enriched manually or left
+unresolved with no impact on the abundance-based metrics.
+
+If you want to contribute the dataset back to VerteTIME proper, open an
+issue or pull request at the project’s GitHub repository with the YAML,
+the CSV and the primary-reference DOI. The maintainers run the same
+[`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
+workflow on their side, against the maintainer-private ingestion tree
+that produces the next shipped release.

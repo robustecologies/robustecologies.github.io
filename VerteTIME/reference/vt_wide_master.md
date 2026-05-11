@@ -67,7 +67,7 @@ framework*. Ecology Letters, 10(10), 995-1015.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 wm <- vt_wide_master(co)
 dim(wm)                 # ~556 rows; ~150 columns
 names(wm)[1:25]

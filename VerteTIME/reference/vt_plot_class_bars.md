@@ -35,5 +35,5 @@ Magurran (2013).
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_class_bars(vt_ingest_all())  # \dontrun{}
+if (FALSE)  data(vertetime); vt_plot_class_bars(vertetime)  # \dontrun{}
 ```

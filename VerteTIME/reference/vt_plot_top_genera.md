@@ -1,6 +1,10 @@
 # Top-N genera by number of datasets they appear in
 
-Top-N genera by number of datasets they appear in
+Horizontal bar chart of the `n` genera (the leading token before the
+underscore in `species_id`) appearing in the largest number of distinct
+datasets, coloured by GBIF class. Complements
+[`vt_plot_top_species()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_top_species.md)
+at coarser taxonomic resolution.
 
 ## Usage
 
@@ -24,14 +28,19 @@ A `ggplot`.
 
 ## References
 
-Magurran (2013).
+Magurran, A. E. (2013). *Measuring Biological Diversity*. John Wiley &
+Sons. ISBN 9780632056330.
 
 ## See also
 
-[`vt_plot_top_species()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_top_species.md)
+[`vt_plot_top_species()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_top_species.md),
+[`vt_plot_class_bars()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_class_bars.md)
 
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_top_genera(vt_ingest_all())  # \dontrun{}
+if (FALSE) { # \dontrun{
+data(vertetime)
+vt_plot_top_genera(vertetime)
+} # }
 ```

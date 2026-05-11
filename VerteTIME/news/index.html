@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,24 +60,27 @@
 <div class="section level3">
 <h3 id="new-features-1-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0-0"></a></h3>
 <ul><li>Ingestion pipeline: <code><a href="../reference/vt_ingest_dataset.html">vt_ingest_dataset()</a></code>, <code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code>, <code><a href="../reference/vt_validate.html">vt_validate()</a></code>.</li>
-<li>Future-dataset registration: <code><a href="../reference/vt_register_dataset.html">vt_register_dataset()</a></code> reading a per-dataset YAML sidecar.</li>
-<li>Reading and reshaping: <code><a href="../reference/vt_read.html">vt_read()</a></code>, <code><a href="../reference/vt_long.html">vt_long()</a></code>, <code><a href="../reference/vt_wide.html">vt_wide()</a></code>, <code><a href="../reference/vt_compilation.html">vt_compilation()</a></code>.</li>
+<li>User-facing dataset scaffolder: <code>vt_register_dataset(id, data_raw, dry_run)</code> copies the package YAML template into a user-supplied private tree, runs the same ingestion-and-validation pipeline that produced the shipped compilation against the user’s tree, and returns the freshly built <code>vt_dataset</code> together with the validation tibble. The function operates exclusively against the user-supplied <code>data_raw</code> argument and never touches the maintainer-side build tree.</li>
+<li>Reading and reshaping: <code><a href="../reference/vt_read.html">vt_read()</a></code>, <code><a href="../reference/vt_long.html">vt_long()</a></code>, <code><a href="../reference/vt_wide.html">vt_wide()</a></code>, <code><a href="../reference/vt_compilation.html">vt_compilation()</a></code>. <code>vt_read("VT_NNN")</code> reconstructs a <code>vt_dataset</code> from the shipped <code>vertetime</code> compilation when no maintainer-side ingestion tree is supplied, so end users can interrogate a single dataset slice with one call.</li>
 <li>Alpha-diversity metrics: <code><a href="../reference/vt_alpha_diversity.html">vt_alpha_diversity()</a></code> (richness, Shannon, Simpson, Hill numbers q=0,1,2, Chao1) and <code><a href="../reference/vt_evenness.html">vt_evenness()</a></code> (Pielou, Simpson).</li>
 <li>Beta-diversity and turnover: <code><a href="../reference/vt_beta_diversity.html">vt_beta_diversity()</a></code> (Bray-Curtis, Jaccard, Hellinger, Whittaker multiplicative), <code><a href="../reference/vt_temporal_turnover.html">vt_temporal_turnover()</a></code>, <code><a href="../reference/vt_beta_partition.html">vt_beta_partition()</a></code> (Baselga 2010 turnover/nestedness components).</li>
 <li>Composition: <code><a href="../reference/vt_dominance_curve.html">vt_dominance_curve()</a></code>, <code><a href="../reference/vt_rank_abundance.html">vt_rank_abundance()</a></code>, <code><a href="../reference/vt_rarefaction.html">vt_rarefaction()</a></code>, <code><a href="../reference/vt_nestedness.html">vt_nestedness()</a></code> (NODF).</li>
 <li>Aggregators and filters: <code><a href="../reference/vt_community_summary.html">vt_community_summary()</a></code>, <code><a href="../reference/vt_compilation_summary.html">vt_compilation_summary()</a></code>, <code><a href="../reference/vt_filter.html">vt_filter()</a></code>.</li>
-<li>Multi-format export: <code><a href="../reference/vt_export.html">vt_export()</a></code> writing CSV, Apache Parquet, SQLite single-file, and a Frictionless Data Package; <code><a href="../reference/vt_publish.html">vt_publish()</a></code> orchestrator producing the full <code>web-export/vertetime-v1.0/</code> tree.</li>
-<li>Visualisation: <code><a href="../reference/vt_plot_whittaker.html">vt_plot_whittaker()</a></code>, <code><a href="../reference/vt_plot_rac.html">vt_plot_rac()</a></code>, <code><a href="../reference/vt_plot_alpha_timeline.html">vt_plot_alpha_timeline()</a></code>, <code><a href="../reference/vt_plot_beta_heatmap.html">vt_plot_beta_heatmap()</a></code>, <code><a href="../reference/vt_plot_world_map.html">vt_plot_world_map()</a></code> (Robinson projection), and <code><a href="../reference/vt_plot_database_timeline.html">vt_plot_database_timeline()</a></code> (positional comparator across vertebrate time-series compilations).</li>
-<li>S3 classes with bidirectional <code>print</code> / <code>summary</code> / <code>plot</code>: <code>vt_dataset</code>, <code>vt_compilation</code>, <code>vt_diversity</code>, <code>vt_turnover</code>, <code>vt_provenance</code>.</li>
+<li>Multi-format export: <code><a href="../reference/vt_export.html">vt_export()</a></code> writing CSV, Apache Parquet, SQLite single-file, and a Frictionless Data Package; <code><a href="../reference/vt_publish.html">vt_publish()</a></code> orchestrator producing the full public-release tree into a user-supplied directory.</li>
+<li>Visualisation: <code><a href="../reference/vt_plot_whittaker.html">vt_plot_whittaker()</a></code>, <code><a href="../reference/vt_plot_rac.html">vt_plot_rac()</a></code>, <code><a href="../reference/vt_plot_alpha_timeline.html">vt_plot_alpha_timeline()</a></code>, <code><a href="../reference/vt_plot_beta_heatmap.html">vt_plot_beta_heatmap()</a></code>, <code><a href="../reference/vt_plot_world_map.html">vt_plot_world_map()</a></code> (Robinson projection), and <code><a href="../reference/vt_plot_database_timeline.html">vt_plot_database_timeline()</a></code> (positional comparator across vertebrate time-series compilations). The two compilation-level plot methods accept a <code>type =</code> argument that names the dispatched plotter; the <code>kind =</code> alias is retained indefinitely as a back-compatible synonym.</li>
+<li>S3 classes with bidirectional <code>print</code> / <code>summary</code> / <code>plot</code>: <code>vt_dataset</code>, <code>vt_compilation</code>, <code>vt_diversity</code>, <code>vt_turnover</code>, <code>vt_provenance</code>. <code><a href="../reference/vt_turnover.html">summary.vt_turnover()</a></code> dispatches on the columns of the object (Baselga partition components or <code>metric</code>/<code>value</code> long form) and returns a tidy tibble keyed by metric with <code>n</code>, <code>median</code>, <code>q25</code>, <code>q75</code>, <code>mean</code>, <code>sd</code>.</li>
+<li>Installed-package self-test: <code>vt_check(verbose, plots)</code> loads <code>vt_demo</code> into a private environment, exercises one representative call per analytical family, runs every S3 <code>print</code> / <code>summary</code> / <code>plot</code> lifecycle method, exercises <code><a href="../reference/vt_publish.html">vt_publish()</a></code> and <code><a href="../reference/vt_export.html">vt_export()</a></code> against <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile()</a></code> paths, and returns a tibble whose <code>status</code> column is <code>"ok"</code> for every row when the package is healthy.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="vignettes-1-0-0">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes-1-0-0"></a></h3>
 <ul><li>
-<code>vt-introduction</code>: a five-minute tour using a small iconic community.</li>
+<code>vt-introduction</code>: a five-minute tour using a synthetic mid-sized compilation.</li>
 <li>
 <code>vt-community-metrics</code>: alpha/beta/turnover/nestedness deep dive.</li>
 <li>
-<code>vt-ingestion-workflow</code>: how to add a new dataset to the compilation.</li>
+<code>vt-ingestion-workflow</code>: how to register a private dataset against the shipped compilation through <code><a href="../reference/vt_register_dataset.html">vt_register_dataset()</a></code>.</li>
+<li>
+<code>API</code>: technical architecture document covering the five-table relational schema, the ingestion pipeline, the diversity catalogue, the visualisation engine and the publication subsystem.</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

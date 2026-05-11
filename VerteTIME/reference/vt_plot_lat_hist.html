@@ -5,7 +5,11 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Latitudinal histogram of compilation sites, faceted by realm — vt_plot_lat_hist"><meta name="description" content="Latitudinal histogram of compilation sites, faceted by realm"><meta property="og:description" content="Latitudinal histogram of compilation sites, faceted by realm"><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Latitudinal histogram of compilation sites, faceted by realm — vt_plot_lat_hist"><meta name="description" content="Histogram of compilation site latitudes binned by bin_width degrees,
+faceted vertically by realm. Useful for diagnosing latitudinal sampling
+gaps and confirming the tropical-temperate balance of the compilation."><meta property="og:description" content="Histogram of compilation site latitudes binned by bin_width degrees,
+faceted vertically by realm. Useful for diagnosing latitudinal sampling
+gaps and confirming the tropical-temperate balance of the compilation."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +17,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +60,9 @@
     </div>
 
     <div class="ref-description section level2">
-    <p>Latitudinal histogram of compilation sites, faceted by realm</p>
+    <p>Histogram of compilation site latitudes binned by <code>bin_width</code> degrees,
+faceted vertically by realm. Useful for diagnosing latitudinal sampling
+gaps and confirming the tropical-temperate balance of the compilation.</p>
     </div>
 
     <div class="section level2">
@@ -82,16 +88,20 @@
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Magurran (2013).</p>
+    <p>Magurran, A. E. (2013). <em>Measuring Biological Diversity</em>. John Wiley
+&amp; Sons. ISBN 9780632056330.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="vt_plot_world_map.html">vt_plot_world_map()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="vt_plot_world_map.html">vt_plot_world_map()</a></code>, <code><a href="vt_plot_world_hex.html">vt_plot_world_hex()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="fu">vt_plot_lat_hist</span><span class="op">(</span><span class="fu"><a href="vt_ingest_all.html">vt_ingest_all</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>  <span class="co"># \dontrun{}</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vt_plot_lat_hist</span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

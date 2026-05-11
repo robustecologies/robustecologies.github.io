@@ -52,7 +52,7 @@ ecological systems: reconciling concept and measurement*. Oikos, 117(8),
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 n <- vt_nestedness(co)
 } # }
 ```

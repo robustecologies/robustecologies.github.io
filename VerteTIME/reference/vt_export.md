@@ -61,7 +61,7 @@ Foundation. <https://specs.frictionlessdata.io/data-package/>.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 vt_export(co, "csv",         here::here("web-export","vertetime-v1.0","csv"))
 vt_export(co, "parquet",     here::here("web-export","vertetime-v1.0","parquet"))
 vt_export(co, "sqlite",      here::here("web-export","vertetime-v1.0","sqlite","vertetime.db"))

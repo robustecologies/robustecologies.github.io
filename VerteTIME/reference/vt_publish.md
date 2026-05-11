@@ -61,7 +61,7 @@ project*. Ecology and Evolution, 7(1), 145-188.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 vt_publish(co, here::here("web-export","vertetime-v1.0"), overwrite = TRUE)
 } # }
 ```

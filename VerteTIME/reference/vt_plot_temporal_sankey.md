@@ -33,5 +33,5 @@ Brunson (2024).
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_temporal_sankey(vt_ingest_all())  # \dontrun{}
+if (FALSE)  data(vertetime); vt_plot_temporal_sankey(vertetime)  # \dontrun{}
 ```

@@ -42,7 +42,7 @@ Spatial Vector Data*. The R Journal, 10(1), 439-446.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 vt_plot_world_map(co)
 } # }
 ```

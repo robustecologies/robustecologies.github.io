@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,7 @@
     <div class="section level2">
       <h2 id="ingestion-validation-and-registration">Ingestion, validation and registration<a class="anchor" aria-label="anchor" href="#ingestion-validation-and-registration"></a></h2>
 
-      <div class="section-desc"><p>Build a compilation from data-raw, validate the relational schema and register new datasets through the yaml-sidecar workflow.</p></div>
+      <div class="section-desc"><p>Build a compilation from a maintainer-private ingestion tree, validate the relational schema, scaffold a user-side YAML sidecar, and run the installed-package self-test.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -75,14 +75,14 @@
           <code><a href="vt_ingest_all.html">vt_ingest_all()</a></code>
 
         </dt>
-        <dd>Ingest the full compilation from <code>data-raw/</code></dd>
+        <dd>Ingest the full compilation from a maintainer-side ingestion tree</dd>
 
         <dt>
 
           <code><a href="vt_register_dataset.html">vt_register_dataset()</a></code>
 
         </dt>
-        <dd>Register a new dataset into the compilation</dd>
+        <dd>Register a new dataset in a private VerteTIME extension tree</dd>
 
         <dt>
 
@@ -90,6 +90,13 @@
 
         </dt>
         <dd>Validate a <code>vt_dataset</code> or <code>vt_compilation</code></dd>
+
+        <dt>
+
+          <code><a href="vt_check.html">vt_check()</a></code>
+
+        </dt>
+        <dd>One-call smoke test of the installed VerteTIME package</dd>
 
         <dt>
 
@@ -112,7 +119,7 @@
           <code><a href="vt_read_csv.html">vt_read_csv()</a></code>
 
         </dt>
-        <dd>Read a wide-format community CSV from <code>data-raw/&lt;id&gt;/&lt;id&gt;.csv</code></dd>
+        <dd>Read a wide-format community CSV</dd>
 
         <dt>
 
@@ -232,7 +239,7 @@
 
         <dt>
 
-          <code><a href="vt_turnover.html">vt_turnover()</a></code> <code><a href="vt_turnover.html">print(<i>&lt;vt_turnover&gt;</i>)</a></code> <code><a href="vt_turnover.html">plot(<i>&lt;vt_turnover&gt;</i>)</a></code>
+          <code><a href="vt_turnover.html">vt_turnover()</a></code> <code><a href="vt_turnover.html">print(<i>&lt;vt_turnover&gt;</i>)</a></code> <code><a href="vt_turnover.html">summary(<i>&lt;vt_turnover&gt;</i>)</a></code> <code><a href="vt_turnover.html">plot(<i>&lt;vt_turnover&gt;</i>)</a></code>
 
         </dt>
         <dd>Construct a <code>vt_turnover</code> object</dd>
@@ -543,7 +550,7 @@
           <code><a href="vt_plot_focus_span_box.html">vt_plot_focus_span_box()</a></code>
 
         </dt>
-        <dd>Boxplot of span by taxonomic focus</dd>
+        <dd>Boxplot of dataset span by taxonomic focus</dd>
 
         <dt>
 
@@ -723,7 +730,7 @@
 
         <dt>
 
-          <code><a href="vt_turnover.html">vt_turnover()</a></code> <code><a href="vt_turnover.html">print(<i>&lt;vt_turnover&gt;</i>)</a></code> <code><a href="vt_turnover.html">plot(<i>&lt;vt_turnover&gt;</i>)</a></code>
+          <code><a href="vt_turnover.html">vt_turnover()</a></code> <code><a href="vt_turnover.html">print(<i>&lt;vt_turnover&gt;</i>)</a></code> <code><a href="vt_turnover.html">summary(<i>&lt;vt_turnover&gt;</i>)</a></code> <code><a href="vt_turnover.html">plot(<i>&lt;vt_turnover&gt;</i>)</a></code>
 
         </dt>
         <dd>Construct a <code>vt_turnover</code> object</dd>

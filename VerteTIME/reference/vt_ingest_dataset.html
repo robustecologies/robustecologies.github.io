@@ -5,27 +5,33 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Ingest a single dataset folder into the canonical relational schema — vt_ingest_dataset"><meta name="description" content="Maintainer-side build tool. Reads data-raw/&amp;lt;id&amp;gt;/&amp;lt;id&amp;gt;.csv (or every
-&amp;lt;id&amp;gt;*.csv for multi-site studies) and the per-dataset YAML sidecar at
-data-raw/_yaml/&amp;lt;id&amp;gt;.yaml, classifies columns into species and covariates
-with classify_columns(), pivots to long form with vt_long(), assembles
-the five canonical relational tables, and returns a vt_dataset() object.
-The YAML sidecar is the single source of truth for site coordinates, units,
-taxonomic focus and primary-reference citation.
-This function is a build-time tool used by data-raw/build-data.R to
-assemble the shipped vt_compilation object. End users do not call it; the
-public-facing entry point is data(vertetime). The function is
-exported for forks and audits, not for the regular analytical workflow."><meta property="og:description" content="Maintainer-side build tool. Reads data-raw/&amp;lt;id&amp;gt;/&amp;lt;id&amp;gt;.csv (or every
-&amp;lt;id&amp;gt;*.csv for multi-site studies) and the per-dataset YAML sidecar at
-data-raw/_yaml/&amp;lt;id&amp;gt;.yaml, classifies columns into species and covariates
-with classify_columns(), pivots to long form with vt_long(), assembles
-the five canonical relational tables, and returns a vt_dataset() object.
-The YAML sidecar is the single source of truth for site coordinates, units,
-taxonomic focus and primary-reference citation.
-This function is a build-time tool used by data-raw/build-data.R to
-assemble the shipped vt_compilation object. End users do not call it; the
-public-facing entry point is data(vertetime). The function is
-exported for forks and audits, not for the regular analytical workflow."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Ingest a single dataset folder into the canonical relational schema — vt_ingest_dataset"><meta name="description" content="Maintainer-side build tool. Reads the wide community CSV under
+&amp;lt;data_raw&amp;gt;/&amp;lt;id&amp;gt;/&amp;lt;id&amp;gt;.csv (or every &amp;lt;id&amp;gt;*.csv for multi-site studies) and
+the per-dataset YAML sidecar under &amp;lt;data_raw&amp;gt;/_yaml/&amp;lt;id&amp;gt;.yaml, classifies
+columns into species and covariates with classify_columns(), pivots to
+long form with vt_long(), assembles the five canonical relational tables,
+and returns a vt_dataset() object. The YAML sidecar is the single source
+of truth for site coordinates, units, taxonomic focus and the primary
+reference citation.
+This function operates on a maintainer-side ingestion tree that is excluded
+from the package build. End users never call it; the public-facing entry
+point is data(vertetime) followed by vt_read() for single-dataset
+access. The function is exported for forks and audits, not for the regular
+analytical workflow, and aborts with a coherent message when data_raw
+does not exist on disk."><meta property="og:description" content="Maintainer-side build tool. Reads the wide community CSV under
+&amp;lt;data_raw&amp;gt;/&amp;lt;id&amp;gt;/&amp;lt;id&amp;gt;.csv (or every &amp;lt;id&amp;gt;*.csv for multi-site studies) and
+the per-dataset YAML sidecar under &amp;lt;data_raw&amp;gt;/_yaml/&amp;lt;id&amp;gt;.yaml, classifies
+columns into species and covariates with classify_columns(), pivots to
+long form with vt_long(), assembles the five canonical relational tables,
+and returns a vt_dataset() object. The YAML sidecar is the single source
+of truth for site coordinates, units, taxonomic focus and the primary
+reference citation.
+This function operates on a maintainer-side ingestion tree that is excluded
+from the package build. End users never call it; the public-facing entry
+point is data(vertetime) followed by vt_read() for single-dataset
+access. The function is exported for forks and audits, not for the regular
+analytical workflow, and aborts with a coherent message when data_raw
+does not exist on disk."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -33,7 +39,7 @@ exported for forks and audits, not for the regular analytical workflow."><script
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,27 +82,25 @@ exported for forks and audits, not for the regular analytical workflow."><script
     </div>
 
     <div class="ref-description section level2">
-    <p>Maintainer-side build tool. Reads <code>data-raw/&lt;id&gt;/&lt;id&gt;.csv</code> (or every
-<code>&lt;id&gt;*.csv</code> for multi-site studies) and the per-dataset YAML sidecar at
-<code>data-raw/_yaml/&lt;id&gt;.yaml</code>, classifies columns into species and covariates
-with <code><a href="classify_columns.html">classify_columns()</a></code>, pivots to long form with <code><a href="vt_long.html">vt_long()</a></code>, assembles
-the five canonical relational tables, and returns a <code><a href="vt_dataset.html">vt_dataset()</a></code> object.
-The YAML sidecar is the single source of truth for site coordinates, units,
-taxonomic focus and primary-reference citation.</p>
-<p>This function is a build-time tool used by <code>data-raw/build-data.R</code> to
-assemble the shipped <code>vt_compilation</code> object. End users do not call it; the
-public-facing entry point is <code>data(vertetime)</code>. The function is
-exported for forks and audits, not for the regular analytical workflow.</p>
+    <p>Maintainer-side build tool. Reads the wide community CSV under
+<code>&lt;data_raw&gt;/&lt;id&gt;/&lt;id&gt;.csv</code> (or every <code>&lt;id&gt;*.csv</code> for multi-site studies) and
+the per-dataset YAML sidecar under <code>&lt;data_raw&gt;/_yaml/&lt;id&gt;.yaml</code>, classifies
+columns into species and covariates with <code><a href="classify_columns.html">classify_columns()</a></code>, pivots to
+long form with <code><a href="vt_long.html">vt_long()</a></code>, assembles the five canonical relational tables,
+and returns a <code><a href="vt_dataset.html">vt_dataset()</a></code> object. The YAML sidecar is the single source
+of truth for site coordinates, units, taxonomic focus and the primary
+reference citation.</p>
+<p>This function operates on a maintainer-side ingestion tree that is excluded
+from the package build. End users never call it; the public-facing entry
+point is <code>data(vertetime)</code> followed by <code><a href="vt_read.html">vt_read()</a></code> for single-dataset
+access. The function is exported for forks and audits, not for the regular
+analytical workflow, and aborts with a coherent message when <code>data_raw</code>
+does not exist on disk.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vt_ingest_dataset</span><span class="op">(</span></span>
-<span>  <span class="va">id</span>,</span>
-<span>  data_raw <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span><span class="op">)</span>,</span>
-<span>  yaml <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  require_yaml <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vt_ingest_dataset</span><span class="op">(</span><span class="va">id</span>, data_raw <span class="op">=</span> <span class="cn">NULL</span>, yaml <span class="op">=</span> <span class="cn">NULL</span>, require_yaml <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -109,13 +113,13 @@ exported for forks and audits, not for the regular analytical workflow.</p>
 
 
 <dt id="arg-data-raw">data_raw<a class="anchor" aria-label="anchor" href="#arg-data-raw"></a></dt>
-<dd><p>Root of the source <code>data-raw/</code> directory. Defaults to
-<code>here::here("data-raw")</code>.</p></dd>
+<dd><p>Path to a maintainer-side ingestion tree. Absent in the
+installed package; the function aborts when the directory does not exist.</p></dd>
 
 
 <dt id="arg-yaml">yaml<a class="anchor" aria-label="anchor" href="#arg-yaml"></a></dt>
 <dd><p>Optional path to a YAML sidecar; defaults to
-<code>data-raw/_yaml/&lt;id&gt;.yaml</code>.</p></dd>
+<code>&lt;data_raw&gt;/_yaml/&lt;id&gt;.yaml</code>.</p></dd>
 
 
 <dt id="arg-require-yaml">require_yaml<a class="anchor" aria-label="anchor" href="#arg-require-yaml"></a></dt>
@@ -135,7 +139,8 @@ site per CSV; the sidecar YAML lists the per-site coordinates and habitat
 under the <code>sites:</code> block. Coordinate plausibility is checked at this stage.
 The <code>is_community_metric_eligible</code> flag is set to <code>TRUE</code> when the dataset
 has at least <code>vt.community_min_spp</code> species and <code>vt.community_min_yrs</code>
-observed years.</p>
+observed years. The YAML schema is documented in
+<code>system.file("templates", "dataset_template.yaml", package = "VerteTIME")</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -154,7 +159,8 @@ framework</em>. Ecology Letters, 10(10), 995-1015.
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">vt_ingest_dataset</span><span class="op">(</span><span class="st">"VT_001"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Maintainer-side, from a private ingestion tree:</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">vt_ingest_dataset</span><span class="op">(</span><span class="st">"VT_001"</span>, data_raw <span class="op">=</span> <span class="st">"&lt;path-to-ingestion-tree&gt;"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

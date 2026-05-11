@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
                         <h4 data-toc-skip class="author">Sergio Picó,
 Pablo Almaraz</h4>
             
-            <h4 data-toc-skip class="date">2026-05-10</h4>
+            <h4 data-toc-skip class="date">2026-05-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/robustecologies/VerteTIME/blob/HEAD/vignettes/API.Rmd" class="external-link"><code>vignettes/API.Rmd</code></a></small>
       <div class="d-none name"><code>API.Rmd</code></div>
@@ -122,17 +122,17 @@ compared on a fixed compilation without rewriting anything.</p>
 <div class="section level3">
 <h3 id="public-vs-internal-separation">Public vs internal separation<a class="anchor" aria-label="anchor" href="#public-vs-internal-separation"></a>
 </h3>
-<p>The folder under <code>data-raw/</code> is private. It carries the
-source CSVs, the per-dataset PDFs and the YAML sidecars that record
-coordinates, primary-reference DOI and unit class. Everything that any
-downstream user touches is materialised through the public namespace
-<code>VT_NNN</code>, an opaque sequential identifier the package assigns
-at ingestion time. The translation is invisible:
-<code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code> returns a compilation already in the public
-namespace, and the <code>MEMORY/id_map.tsv</code> private mapping is for
-maintainer reference only. The same separation keeps the manuscript, the
-vignettes, the manual, the published <code>web-export/</code> tree, the
-SQLite database and the Frictionless Data Package consistent: every
+<p>The maintainer-private ingestion tree is excluded from the package
+build. It carries the source CSVs, the per-dataset PDFs and the YAML
+sidecars that record coordinates, primary-reference DOI and unit class.
+Everything that any downstream user touches is materialised through the
+public namespace <code>VT_NNN</code>, an opaque sequential identifier
+the package assigns at ingestion time. The translation is invisible: the
+build-time orchestrator returns a compilation already in the public
+namespace, and the internal-to-canonical mapping is a private maintainer
+artefact that never reaches the package build. The same separation keeps
+the manuscript, the vignettes, the manual, the published export tree,
+the SQLite database and the Frictionless Data Package consistent: every
 public artefact reads from the same canonical surface.</p>
 </div>
 <div class="section level3">
@@ -169,7 +169,7 @@ byte-identical SHA-256 hashes are guaranteed modulo file modification
 times.</p>
 <div class="figure">
 <div class="grViz html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:806.4px;height:729.6px;"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"\ndigraph layers {\n    graph [rankdir=TB, fontname=\"Helvetica\", bgcolor=\"transparent\",\n           nodesep=0.30, ranksep=0.55]\n    node [fontname=\"Helvetica\", fontsize=9, style=\"filled\",\n          shape=box, margin=\"0.10,0.05\"]\n    edge [arrowsize=0.6, color=\"#7F8C8D\"]\n\n    subgraph cluster_priv {\n        label=\"Private inputs (data-raw/, never public)\"\n        style=dashed; color=\"#7F8C8D\"; fontcolor=\"#7F8C8D\"; fontsize=10\n        node [fillcolor=\"#ECEFF1\"]\n        csv  [label=\"<id>.csv\\nwide-format community\"]\n        pdf  [label=\"<id>.pdf\\nprimary-reference metadata\"]\n        yml  [label=\"_yaml/<id>.yaml\\ncoords, DOI, units, focus\"]\n        tax  [label=\"_taxonomy.tsv\\nGBIF backbone cache\"]\n    }\n\n    subgraph cluster_ingest {\n        label=\"Ingestion and validation\"\n        style=dashed; color=\"#27AE60\"; fontcolor=\"#27AE60\"; fontsize=10\n        node [fillcolor=\"#D5F5E3\"]\n        rd   [label=\"vt_read_csv()\\nBOM, sep, fread quirks\"]\n        cl   [label=\"classify_columns()\\nspecies vs covariate regex\"]\n        in1  [label=\"vt_ingest_dataset()\\nper-folder ingest, multi-site\"]\n        inA  [label=\"vt_ingest_all()\\norchestrator\"]\n        et   [label=\"enrich_taxonomy()\\nmerge GBIF backbone\"]\n        as   [label=\".assign_canonical_ids()\\ninternal -> VT_NNN (private)\"]\n        vv   [label=\"vt_validate()\\ndataset / compilation checks\"]\n        rg   [label=\"vt_register_dataset()\\nfuture-dataset workflow\"]\n    }\n\n    subgraph cluster_obj {\n        label=\"Compilation contract\"\n        style=dashed; color=\"#4A90D9\"; fontcolor=\"#4A90D9\"; fontsize=10\n        node [fillcolor=\"#D6EAF8\"]\n        co   [label=\"vt_compilation S3\\ndatasets / sites / species\\nobservations / covariates\\ndata_provenance\"]\n        ds   [label=\"vt_dataset S3\"]\n        long [label=\"long observation table\\nworkhorse of every metric\"]\n        wide [label=\"vt_wide_master()\\nLPD-style wide table\"]\n    }\n\n    subgraph cluster_metrics {\n        label=\"Analysis surface\"\n        style=dashed; color=\"#8E44AD\"; fontcolor=\"#8E44AD\"; fontsize=10\n        node [fillcolor=\"#E8DAEF\"]\n        alpha [label=\"alpha\\nrichness / Shannon / Simpson\\nHill numbers / Chao1\\nPielou / Simpson evenness\"]\n        beta  [label=\"beta\\nBray-Curtis / Jaccard\\nHellinger / Whittaker\\nBaselga partition\"]\n        comp  [label=\"composition\\nrank-abundance / dominance\\nrarefaction / NODF\"]\n        agg   [label=\"aggregators\\ncommunity_summary\\ncompilation_summary\"]\n    }\n\n    subgraph cluster_plot {\n        label=\"Visualisation\"\n        style=dashed; color=\"#E67E22\"; fontcolor=\"#E67E22\"; fontsize=10\n        node [fillcolor=\"#FDEBD0\"]\n        thm  [label=\"vt_theme() / vt_palette()\\nvt_class_palette()\"]\n        des  [label=\"descriptive\\nclass / focus / span / coverage\\ntop species / treemap\"]\n        spat [label=\"spatial\\nworld map / hexbin / richness grid\\nlatitudinal histogram\"]\n        temp [label=\"temporal\\nlasagna / active area / onset\\nyear ridges / sankey\"]\n        pat  [label=\"community pattern\\nWhittaker / RAC / alpha-time\\nbeta-heatmap / metric-ridges\\nHill profile / spotlight\"]\n        meta [label=\"positional comparator\\ndatabase timeline\"]\n    }\n\n    subgraph cluster_pub {\n        label=\"Publication\"\n        style=dashed; color=\"#C0392B\"; fontcolor=\"#C0392B\"; fontsize=10\n        node [fillcolor=\"#FADBD8\"]\n        ex   [label=\"vt_export()\\ncsv / parquet / sqlite / datapackage\"]\n        pb   [label=\"vt_publish()\\nfull web-export tree\"]\n        chk  [label=\"CHECKSUMS.sha256\\ncross-format integrity\"]\n        zen  [label=\"Zenodo deposit\\n(manual)\"]\n    }\n\n    csv -> rd -> cl -> in1\n    yml -> in1\n    pdf -> yml [style=dotted, label=\"manual/auto\"]\n    in1 -> inA\n    inA -> et\n    tax -> et\n    et  -> as\n    as  -> co\n    co  -> ds [style=dashed]\n    co  -> long\n    co  -> wide\n    co  -> vv\n    rg  -> in1 [style=dotted, label=\"dry_run\"]\n\n    long -> alpha\n    long -> beta\n    long -> comp\n    long -> agg\n\n    co -> thm [style=dotted]\n    thm -> des\n    thm -> spat\n    thm -> temp\n    thm -> pat\n    thm -> meta\n    long -> pat\n    long -> temp\n\n    co -> ex\n    co -> pb\n    pb -> ex [style=dashed]\n    pb -> chk\n    pb -> zen [style=dotted]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"\ndigraph layers {\n    graph [rankdir=TB, fontname=\"Helvetica\", bgcolor=\"transparent\",\n           nodesep=0.30, ranksep=0.55]\n    node [fontname=\"Helvetica\", fontsize=9, style=\"filled\",\n          shape=box, margin=\"0.10,0.05\"]\n    edge [arrowsize=0.6, color=\"#7F8C8D\"]\n\n    subgraph cluster_priv {\n        label=\"Private inputs (maintainer-only, never shipped)\"\n        style=dashed; color=\"#7F8C8D\"; fontcolor=\"#7F8C8D\"; fontsize=10\n        node [fillcolor=\"#ECEFF1\"]\n        csv  [label=\"wide-format community CSV\"]\n        pdf  [label=\"primary-reference metadata\"]\n        yml  [label=\"YAML sidecar\\ncoords, DOI, units, focus\"]\n        tax  [label=\"GBIF backbone cache\"]\n    }\n\n    subgraph cluster_ingest {\n        label=\"Ingestion and validation\"\n        style=dashed; color=\"#27AE60\"; fontcolor=\"#27AE60\"; fontsize=10\n        node [fillcolor=\"#D5F5E3\"]\n        rd   [label=\"vt_read_csv()\\nBOM, sep, fread quirks\"]\n        cl   [label=\"classify_columns()\\nspecies vs covariate regex\"]\n        in1  [label=\"vt_ingest_dataset()\\nper-folder ingest, multi-site\"]\n        inA  [label=\"vt_ingest_all()\\norchestrator\"]\n        et   [label=\"enrich_taxonomy()\\nmerge GBIF backbone\"]\n        as   [label=\".assign_canonical_ids()\\ninternal -> VT_NNN (private)\"]\n        vv   [label=\"vt_validate()\\ndataset / compilation checks\"]\n        rg   [label=\"vt_register_dataset()\\nuser-side scaffolder\"]\n    }\n\n    subgraph cluster_obj {\n        label=\"Compilation contract\"\n        style=dashed; color=\"#4A90D9\"; fontcolor=\"#4A90D9\"; fontsize=10\n        node [fillcolor=\"#D6EAF8\"]\n        co   [label=\"vt_compilation S3\\ndatasets / sites / species\\nobservations / covariates\\ndata_provenance\"]\n        ds   [label=\"vt_dataset S3\"]\n        long [label=\"long observation table\\nworkhorse of every metric\"]\n        wide [label=\"vt_wide_master()\\nLPD-style wide table\"]\n    }\n\n    subgraph cluster_metrics {\n        label=\"Analysis surface\"\n        style=dashed; color=\"#8E44AD\"; fontcolor=\"#8E44AD\"; fontsize=10\n        node [fillcolor=\"#E8DAEF\"]\n        alpha [label=\"alpha\\nrichness / Shannon / Simpson\\nHill numbers / Chao1\\nPielou / Simpson evenness\"]\n        beta  [label=\"beta\\nBray-Curtis / Jaccard\\nHellinger / Whittaker\\nBaselga partition\"]\n        comp  [label=\"composition\\nrank-abundance / dominance\\nrarefaction / NODF\"]\n        agg   [label=\"aggregators\\ncommunity_summary\\ncompilation_summary\"]\n    }\n\n    subgraph cluster_plot {\n        label=\"Visualisation\"\n        style=dashed; color=\"#E67E22\"; fontcolor=\"#E67E22\"; fontsize=10\n        node [fillcolor=\"#FDEBD0\"]\n        thm  [label=\"vt_theme() / vt_palette()\\nvt_class_palette()\"]\n        des  [label=\"descriptive\\nclass / focus / span / coverage\\ntop species / treemap\"]\n        spat [label=\"spatial\\nworld map / hexbin / richness grid\\nlatitudinal histogram\"]\n        temp [label=\"temporal\\nlasagna / active area / onset\\nyear ridges / sankey\"]\n        pat  [label=\"community pattern\\nWhittaker / RAC / alpha-time\\nbeta-heatmap / metric-ridges\\nHill profile / spotlight\"]\n        meta [label=\"positional comparator\\ndatabase timeline\"]\n    }\n\n    subgraph cluster_pub {\n        label=\"Publication\"\n        style=dashed; color=\"#C0392B\"; fontcolor=\"#C0392B\"; fontsize=10\n        node [fillcolor=\"#FADBD8\"]\n        ex   [label=\"vt_export()\\ncsv / parquet / sqlite / datapackage\"]\n        pb   [label=\"vt_publish()\\nfull export tree\"]\n        chk  [label=\"CHECKSUMS.sha256\\ncross-format integrity\"]\n        zen  [label=\"Zenodo deposit\\n(manual)\"]\n    }\n\n    csv -> rd -> cl -> in1\n    yml -> in1\n    pdf -> yml [style=dotted, label=\"manual/auto\"]\n    in1 -> inA\n    inA -> et\n    tax -> et\n    et  -> as\n    as  -> co\n    co  -> ds [style=dashed]\n    co  -> long\n    co  -> wide\n    co  -> vv\n    rg  -> in1 [style=dotted, label=\"dry_run\"]\n\n    long -> alpha\n    long -> beta\n    long -> comp\n    long -> agg\n\n    co -> thm [style=dotted]\n    thm -> des\n    thm -> spat\n    thm -> temp\n    thm -> pat\n    thm -> meta\n    long -> pat\n    long -> temp\n\n    co -> ex\n    co -> pb\n    pb -> ex [style=dashed]\n    pb -> chk\n    pb -> zen [style=dotted]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Layered architecture of the VerteTIME framework. Each row is a
 subsystem; arrows show the data flow from raw sources through the
 ingestion engine and validation layer down to the public artefacts. The
@@ -187,13 +187,14 @@ reads.
 <strong>ingestion layer</strong> (<code><a href="../reference/vt_ingest_dataset.html">vt_ingest_dataset()</a></code>,
 <code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code>, <code><a href="../reference/classify_columns.html">classify_columns()</a></code>,
 <code><a href="../reference/enrich_taxonomy.html">enrich_taxonomy()</a></code>, <code><a href="../reference/vt_register_dataset.html">vt_register_dataset()</a></code>)
-walks the source folders and YAML sidecars, transparently absorbs the
-format quirks of the CSVs (BOM, separator, header-case, NA tokens),
-splits species columns from environmental covariates with a regex
-heuristic, merges the GBIF backbone for higher-rank taxonomy, and writes
-the result into the relational schema. The <strong>validation
-layer</strong> (<code><a href="../reference/vt_validate.html">vt_validate()</a></code>) runs structural and semantic
-checks against the schema and reports failures one row at a time. The
+walks the source folders and YAML sidecars in a maintainer-private
+ingestion tree, transparently absorbs the format quirks of the CSVs
+(BOM, separator, header-case, NA tokens), splits species columns from
+environmental covariates with a regex heuristic, merges the GBIF
+backbone for higher-rank taxonomy, and writes the result into the
+relational schema. The <strong>validation layer</strong>
+(<code><a href="../reference/vt_validate.html">vt_validate()</a></code>) runs structural and semantic checks against
+the schema and reports failures one row at a time. The
 <strong>compilation contract</strong> (<code><a href="../reference/vt_compilation.html">vt_compilation()</a></code>,
 <code><a href="../reference/vt_dataset.html">vt_dataset()</a></code>, <code><a href="../reference/vt_wide_master.html">vt_wide_master()</a></code>) is the typed
 surface every other tool reads. The <strong>analysis toolkit</strong>
@@ -268,8 +269,8 @@ across CSV, Parquet, SQLite and the Frictionless Data Package manifest.
 <code><a href="../reference/vt_ingest_dataset.html">vt_ingest_dataset()</a></code>, <code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code>,
 <code><a href="../reference/vt_register_dataset.html">vt_register_dataset()</a></code>
 </td>
-<td>Build a compilation from <code>data-raw/</code>; absorb format
-quirks; merge taxonomy</td>
+<td>Build a compilation from a maintainer-private ingestion tree; absorb
+format quirks; merge taxonomy</td>
 </tr>
 <tr class="even">
 <td>Reading</td>
@@ -351,6 +352,13 @@ functions</td>
 <td>Single-format and full-tree publication; LPD-style wide master
 series table</td>
 </tr>
+<tr class="odd">
+<td>Self-test</td>
+<td><code><a href="../reference/vt_check.html">vt_check()</a></code></td>
+<td>One-call smoke test that exercises every S3 family against the
+shipped <code>vt_demo</code>
+</td>
+</tr>
 </tbody>
 </table>
 <p><br></p>
@@ -374,11 +382,18 @@ drop-in for any downstream tool that expects the LPD wide layout.</p>
 <div class="section level2">
 <h2 id="the-ingestion-pipeline">The ingestion pipeline<a class="anchor" aria-label="anchor" href="#the-ingestion-pipeline"></a>
 </h2>
+<p>The ingestion pipeline operates on a maintainer-private tree that the
+package build excludes. End users never run it on the shipped package;
+the public-facing entry point is <code>data(vertetime)</code> followed
+by <code>vt_read(id)</code> for any single-dataset slice. Users who
+maintain a private fork of the schema can drive the same pipeline
+through <code><a href="../reference/vt_register_dataset.html">vt_register_dataset()</a></code> (see the registration
+vignette).</p>
 <div class="section level3">
 <h3 id="file-discovery">File discovery<a class="anchor" aria-label="anchor" href="#file-discovery"></a>
 </h3>
-<p><code>vt_ingest_dataset(id)</code> walks
-<code>data-raw/&lt;id&gt;/</code> and discovers CSVs that match
+<p><code>vt_ingest_dataset(id, data_raw)</code> walks the per-dataset
+subfolder of <code>data_raw</code> and discovers CSVs that match
 <code>^&lt;id&gt;(-[0-9]+)?\\.csv$</code>. A folder with a single
 <code>&lt;id&gt;.csv</code> is treated as a single-site study; folders
 with <code>&lt;id&gt;-1.csv</code>, <code>&lt;id&gt;-2.csv</code>, … are
@@ -393,11 +408,10 @@ the CSV pattern.</p>
 <div class="section level3">
 <h3 id="yaml-sidecar-contract">YAML sidecar contract<a class="anchor" aria-label="anchor" href="#yaml-sidecar-contract"></a>
 </h3>
-<p>Each dataset has a YAML sidecar at
-<code>data-raw/_yaml/&lt;id&gt;.yaml</code> that carries the
-human-curated metadata: <code>dataset_id</code>,
-<code>country_iso3</code>, <code>realm</code>, <code>biome</code>,
-<code>ecoregion</code>, <code>primary_reference_citation</code>,
+<p>Each dataset has a YAML sidecar that carries the human-curated
+metadata: <code>dataset_id</code>, <code>country_iso3</code>,
+<code>realm</code>, <code>biome</code>, <code>ecoregion</code>,
+<code>primary_reference_citation</code>,
 <code>primary_reference_doi</code>, <code>primary_reference_kind</code>,
 <code>re_curation_date</code>, <code>inherited_constraints</code>,
 <code>partial_overlap_with</code>, <code>units</code>,
@@ -408,10 +422,11 @@ a <code>sites:</code> block with at least one site (each with
 <code>longitude_dd</code>, <code>coord_precision_km</code>, optional
 <code>habitat</code> and <code>elevation_m</code>),
 <code>year_min</code>, <code>year_max</code>, and free-text
-<code>notes</code>. The template
-<code>inst/templates/dataset_template.yaml</code> is the canonical
-schema; the printable pre-flight checklist lives at
-<code>inst/templates/register-checklist.md</code>.</p>
+<code>notes</code>. The canonical schema ships inside the installed
+package and is reachable through
+<code>system.file("templates", "dataset_template.yaml", package = "VerteTIME")</code>;
+a printable pre-flight checklist sits next to it at
+<code>system.file("templates", "register-checklist.md", package = "VerteTIME")</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="column-classification">Column classification<a class="anchor" aria-label="anchor" href="#column-classification"></a>
@@ -430,10 +445,8 @@ The split is deterministic and re-evaluated on every ingest.</p>
 <div class="section level3">
 <h3 id="taxonomy-enrichment">Taxonomy enrichment<a class="anchor" aria-label="anchor" href="#taxonomy-enrichment"></a>
 </h3>
-<p><code><a href="../reference/enrich_taxonomy.html">enrich_taxonomy()</a></code> merges the GBIF backbone (cached at
-<code>data-raw/_yaml/_taxonomy.tsv</code>, regenerated by
-<code>data-raw/fetch-taxonomy.R</code> and
-<code>data-raw/backfill-taxonomy.R</code>) into the species table. Every
+<p><code><a href="../reference/enrich_taxonomy.html">enrich_taxonomy()</a></code> merges the GBIF backbone (cached in
+the maintainer-private ingestion tree) into the species table. Every
 species name resolves to a <code>class</code>, <code>order</code>,
 <code>family</code> and an <code>is_vertebrate</code> flag.
 Non-vertebrate species (insects, gastropods, plants and algae that some
@@ -452,18 +465,18 @@ canonical <code>VT_NNN</code> namespace. The translation is a sorted
 alphabetical mapping over the source-folder names and is stable across
 re-ingestions of the same compilation. The translation is invisible to
 user code: <code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code> returns a compilation that
-already carries <code>VT_NNN</code> identifiers; the maintainer-only
-mapping lives at <code>MEMORY/id_map.tsv</code>. Every public artefact
-(the package’s shipped <code>vertetime</code> and <code>vt_demo</code>
-data objects under <code>data/*.rda</code>, the manuscript appendix, the
-published <code>web-export/</code> tree, the SQLite database, the
+already carries <code>VT_NNN</code> identifiers; the
+internal-to-canonical mapping is a private maintainer artefact outside
+the package build. Every public artefact (the package’s shipped
+<code>vertetime</code> and <code>vt_demo</code> data objects, the
+manuscript appendix, the published export tree, the SQLite database, the
 Frictionless Data Package, the pkgdown website) reads exclusively the
 <code>VT_NNN</code> namespace.</p>
 <div class="figure">
 <div class="grViz html-widget html-fill-item" id="htmlwidget-36aa3d2a04d42bbc2145" style="width:806.4px;height:518.4px;"></div>
-<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"diagram":"\ndigraph pipeline {\n    graph [rankdir=LR, fontname=\"Helvetica\", bgcolor=\"transparent\",\n           nodesep=0.30, ranksep=0.45]\n    node [fontname=\"Helvetica\", fontsize=9, style=\"filled\",\n          shape=box, margin=\"0.10,0.05\"]\n    edge [arrowsize=0.6, color=\"#7F8C8D\"]\n\n    csv  [label=\"<id>.csv\\nwide format\", fillcolor=\"#FCF3CF\"]\n    pdf  [label=\"<id>.pdf\", fillcolor=\"#FCF3CF\"]\n    yml  [label=\"<id>.yaml\", fillcolor=\"#FCF3CF\"]\n    rd   [label=\"vt_read_csv()\", fillcolor=\"#D5F5E3\"]\n    cl   [label=\"classify_columns()\", fillcolor=\"#D5F5E3\"]\n    pv   [label=\"data.table::melt\\nlong pivot\", fillcolor=\"#D5F5E3\"]\n    et   [label=\"enrich_taxonomy()\\nGBIF backbone\", fillcolor=\"#D5F5E3\"]\n    fv   [label=\"filter is_vertebrate\", fillcolor=\"#D5F5E3\"]\n    as   [label=\".assign_canonical_ids()\\ninternal -> VT_NNN\", fillcolor=\"#D5F5E3\"]\n    co   [label=\"vt_compilation\\nfive tables + audit\", fillcolor=\"#D6EAF8\"]\n    vv   [label=\"vt_validate()\\nrows of failed checks\", fillcolor=\"#D6EAF8\"]\n\n    csv -> rd -> cl -> pv\n    yml -> cl [style=dashed, label=\"overrides\"]\n    pdf -> yml [style=dotted, label=\"extract-metadata.R\"]\n    pv -> et -> fv -> as -> co\n    co -> vv\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
-End-to-end ingestion pipeline. Yellow nodes are user-facing inputs;
-green nodes are private operations; blue nodes are the public surface.
+<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"diagram":"\ndigraph pipeline {\n    graph [rankdir=LR, fontname=\"Helvetica\", bgcolor=\"transparent\",\n           nodesep=0.30, ranksep=0.45]\n    node [fontname=\"Helvetica\", fontsize=9, style=\"filled\",\n          shape=box, margin=\"0.10,0.05\"]\n    edge [arrowsize=0.6, color=\"#7F8C8D\"]\n\n    csv  [label=\"wide-format CSV\", fillcolor=\"#FCF3CF\"]\n    pdf  [label=\"primary-reference PDF\", fillcolor=\"#FCF3CF\"]\n    yml  [label=\"YAML sidecar\", fillcolor=\"#FCF3CF\"]\n    rd   [label=\"vt_read_csv()\", fillcolor=\"#D5F5E3\"]\n    cl   [label=\"classify_columns()\", fillcolor=\"#D5F5E3\"]\n    pv   [label=\"data.table::melt\\nlong pivot\", fillcolor=\"#D5F5E3\"]\n    et   [label=\"enrich_taxonomy()\\nGBIF backbone\", fillcolor=\"#D5F5E3\"]\n    fv   [label=\"filter is_vertebrate\", fillcolor=\"#D5F5E3\"]\n    as   [label=\".assign_canonical_ids()\\ninternal -> VT_NNN\", fillcolor=\"#D5F5E3\"]\n    co   [label=\"vt_compilation\\nfive tables + audit\", fillcolor=\"#D6EAF8\"]\n    vv   [label=\"vt_validate()\\nrows of failed checks\", fillcolor=\"#D6EAF8\"]\n\n    csv -> rd -> cl -> pv\n    yml -> cl [style=dashed, label=\"overrides\"]\n    pdf -> yml [style=dotted, label=\"metadata extraction\"]\n    pv -> et -> fv -> as -> co\n    co -> vv\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+End-to-end ingestion pipeline. Yellow nodes are private inputs; green
+nodes are private operations; blue nodes are the public surface.
 </p>
 </div>
 <p><br></p>
@@ -510,7 +523,11 @@ every other year), or <code>all_pairs</code> (every distinct
 (2010) decomposition of pairwise temporal Sorensen dissimilarity into
 the Simpson turnover component and the nestedness-resultant component.
 The identity <code>beta_sor = beta_sim + beta_nes</code> holds to
-numerical precision across the compilation.</p>
+numerical precision across the compilation. The <code>vt_turnover</code>
+S3 output carries <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> and
+<code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods; <code><a href="../reference/vt_turnover.html">summary.vt_turnover()</a></code>
+dispatches on the columns present and emits a tidy tibble keyed by
+metric.</p>
 </div>
 <div class="section level3">
 <h3 id="composition">Composition<a class="anchor" aria-label="anchor" href="#composition"></a>
@@ -615,6 +632,12 @@ community-time-series view (one line per species, viridis-turbo
 contrasted colours, log-y by default) with the Robinson-projected world
 map of the dataset’s site(s) using <code>patchwork</code> for
 layout.</p>
+<p>The two S3 plot methods of the compilation contract
+(<code><a href="../reference/vt_dataset.html">plot.vt_dataset()</a></code>, <code><a href="../reference/vt_compilation.html">plot.vt_compilation()</a></code>)
+accept a <code>type =</code> argument that dispatches to the
+corresponding <code>vt_plot_*</code> family member. The legacy
+<code>kind =</code> alias is retained indefinitely; new code should
+prefer <code>type =</code>.</p>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -662,86 +685,29 @@ primary reference across multiple sites), and cross-dataset
 <code>species_id</code> consistency. The function returns a tibble with
 one row per failed check; an empty tibble means a clean bill of
 health.</p>
-<p>The future-dataset workflow is
-<code>vt_register_dataset(id, dry_run)</code>. With
-<code>dry_run = TRUE</code> the function runs ingestion and validation
-without writing anything; with <code>dry_run = FALSE</code> it appends
-the new dataset to the compilation and writes a register-log row.</p>
+<p>The dataset-registration workflow is
+<code>vt_register_dataset(id, data_raw, dry_run)</code>. With
+<code>dry_run = TRUE</code> and an absent sidecar the function scaffolds
+a YAML template into the user’s private tree; with
+<code>dry_run = TRUE</code> and a complete sidecar the function returns
+the would-be <code>vt_dataset</code> and the validation tibble without
+writing anything; with <code>dry_run = FALSE</code> it appends the
+dataset to the user’s private tree and writes a register-log row.</p>
 <p><br></p>
 </div>
 <div class="section level2">
-<h2 id="maintainer-side-tooling">Maintainer-side tooling<a class="anchor" aria-label="anchor" href="#maintainer-side-tooling"></a>
+<h2 id="self-test">Self-test<a class="anchor" aria-label="anchor" href="#self-test"></a>
 </h2>
-<p>The <code>data-raw/</code> folder holds the maintainer scripts that
-keep the compilation healthy:</p>
-<table class="table">
-<colgroup>
-<col width="23%">
-<col width="76%">
-</colgroup>
-<thead><tr class="header">
-<th>Script</th>
-<th>Purpose</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>data-raw/extract-metadata.R</code></td>
-<td>Bulk-parse <code>&lt;id&gt;.pdf</code> (or
-<code>&lt;id&gt;-N.pdf</code> per site) and write the per-dataset YAML
-sidecars</td>
-</tr>
-<tr class="even">
-<td><code>data-raw/fetch-taxonomy.R</code></td>
-<td>Initial pass: query GBIF backbone for every species</td>
-</tr>
-<tr class="odd">
-<td><code>data-raw/refresh-taxonomy.R</code></td>
-<td>Retry pass: re-query unresolved species with permissive
-matchers</td>
-</tr>
-<tr class="even">
-<td><code>data-raw/backfill-taxonomy.R</code></td>
-<td>Order -&gt; class lookup + <code>name_usage(usageKey)</code>
-follow-up to backfill missing class column</td>
-</tr>
-<tr class="odd">
-<td><code>data-raw/audit-fixes.R</code></td>
-<td>Materialise <code>MEMORY/missing_dois.tsv</code> and
-<code>MEMORY/unresolved_species.tsv</code>
-</td>
-</tr>
-<tr class="even">
-<td><code>data-raw/fetch-dois.R</code></td>
-<td>Query CrossRef for every citation with empty DOI; backfill the
-TSV</td>
-</tr>
-<tr class="odd">
-<td><code>data-raw/import-fixes.R</code></td>
-<td>Apply the maintainer-edited TSVs back into the YAML sidecars and the
-taxonomy cache</td>
-</tr>
-<tr class="even">
-<td><code>data-raw/build-data.R</code></td>
-<td>Maintainer-only entry point. Calls <code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code> over
-the source tree, applies the GBIF backbone to drop non-vertebrate
-species, remaps every internal source-folder identifier to
-<code>VT_NNN</code>, and writes the two shipped data objects:
-<code>data/vertetime.rda</code> (full canonical compilation) and
-<code>data/vt_demo.rda</code> (single-dataset slice,
-<code>VT_001</code>).</td>
-</tr>
-</tbody>
-</table>
-<p>The MEMORY companion files (<code>MEMORY/missing_dois.tsv</code>,
-<code>MEMORY/unresolved_species.tsv</code>) are the curator-facing punch
-list; both ship with pre-encoded CrossRef and GBIF search URLs so a
-single click resolves the missing record. The
-<code>import-fixes.R</code> script is idempotent: only non-empty
-filled-in cells are merged back. The MEMORY capsule
-(<code>README.md</code>, <code>architecture.md</code>,
-<code>open-items.md</code>, <code>verification-log.md</code>,
-<code>id_map.tsv</code>) is the cold-start recovery payload that lets a
-maintainer pick up the project without re-deriving anything.</p>
+<p><code>vt_check(verbose, plots)</code> is the canonical smoke test for
+the installed package. It loads <code>data(vt_demo)</code> into a
+private environment, exercises one representative call per analytical
+family, exercises every S3 <code>print</code> / <code>summary</code> /
+<code>plot</code> on the resulting objects, exercises
+<code><a href="../reference/vt_publish.html">vt_publish()</a></code> and <code><a href="../reference/vt_export.html">vt_export()</a></code> against a
+<code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile()</a></code>, and returns a tibble whose <code>status</code>
+column is <code>"ok"</code> for every row when the package is healthy.
+The <code>attr(result, "ok")</code> flag is the single boolean a reader
+can branch on.</p>
 <p><br></p>
 </div>
 <div class="section level2">

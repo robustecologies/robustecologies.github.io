@@ -52,6 +52,8 @@ plot(x, ...)
 
 Object of class `vt_diversity` (subclass of `tbl_df`).
 
+A `ggplot` object (invisibly returned, drawn as side effect).
+
 ## References
 
 Hill, M. O. (1973). *Diversity and evenness: a unifying notation and its
@@ -62,14 +64,16 @@ consequences*. Ecology, 54(2), 427-432.
 
 [`vt_alpha_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_alpha_diversity.md),
 [`vt_evenness()`](https://robustecologies.github.io/VerteTIME/reference/vt_evenness.md),
-`print.vt_diversity()`, `plot.vt_diversity()`
+`print.vt_diversity()`, `summary.vt_diversity()`, `plot.vt_diversity()`,
+[`vt_beta_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_diversity.md),
+[`vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
-a  <- vt_alpha_diversity(co, indices = c("S","H","q1"))
+data(vertetime)
+a <- vt_alpha_diversity(vertetime, indices = c("S", "H", "q1"))
 print(a); summary(a); plot(a)
 } # }
 ```

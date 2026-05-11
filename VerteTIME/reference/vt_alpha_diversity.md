@@ -68,7 +68,7 @@ Sons. ISBN 9780632056330.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 a  <- vt_alpha_diversity(co, indices = c("S","H","q1","Chao1"))
 summary(a)
 } # }

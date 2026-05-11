@@ -40,6 +40,6 @@ lasagna plot*. Open Bioinformatics Journal, 5, 89-96.
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_lasagna(vt_ingest_all())
+data(vertetime); vt_plot_lasagna(vertetime)
 } # }
 ```

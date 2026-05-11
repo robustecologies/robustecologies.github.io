@@ -68,18 +68,28 @@ chain.
 
 ## Details
 
-The compilation is rebuilt by the maintainer via
-`Rscript data-raw/build-data.R`, which calls
+The compilation is rebuilt by the maintainer from a private ingestion
+tree that is excluded from the package build:
 [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
-over the source `data-raw/` tree (excluded from the package build),
-drops non-vertebrate species, remaps every internal source identifier to
-the canonical `VT_NNN` namespace, and persists the resulting object
-here. The internal source-folder names are private build metadata and
-never surface in this object.
+is called over that tree, non-vertebrate species are dropped, every
+internal source identifier is remapped to the canonical `VT_NNN`
+namespace, and the resulting object is persisted here. The internal
+source-folder names are private build metadata and never surface in this
+object.
+
+## References
+
+Dornelas, M., et al. (2018). *BioTIME: A database of biodiversity time
+series for the Anthropocene*. Global Ecology and Biogeography, 27(7),
+760-786. [doi:10.1111/geb.12729](https://doi.org/10.1111/geb.12729) .
+
+Living Planet Report (2024). *A System in Peril*. WWF International.
+<https://livingplanet.panda.org>.
 
 ## See also
 
 [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md),
+[`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md),
 [vt_demo](https://robustecologies.github.io/VerteTIME/reference/vt_demo.md)
 
 ## Examples
@@ -87,7 +97,8 @@ never surface in this object.
 ``` r
 if (FALSE) { # \dontrun{
 data(vertetime)
-summary(vertetime)
+print(vertetime); summary(vertetime)
+plot(vertetime, type = "world")
 vt_alpha_diversity(vertetime)
 } # }
 ```

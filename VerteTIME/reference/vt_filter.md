@@ -52,7 +52,7 @@ package. <https://dplyr.tidyverse.org>.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 birds <- vt_filter(co, taxonomic_focus == "birds")
 big   <- vt_filter(co, n_species >= 5, n_years >= 10)
 } # }

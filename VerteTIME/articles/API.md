@@ -30,19 +30,18 @@ compilation without rewriting anything.
 
 ### Public vs internal separation
 
-The folder under `data-raw/` is private. It carries the source CSVs, the
-per-dataset PDFs and the YAML sidecars that record coordinates,
-primary-reference DOI and unit class. Everything that any downstream
-user touches is materialised through the public namespace `VT_NNN`, an
-opaque sequential identifier the package assigns at ingestion time. The
-translation is invisible:
-[`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
-returns a compilation already in the public namespace, and the
-`MEMORY/id_map.tsv` private mapping is for maintainer reference only.
-The same separation keeps the manuscript, the vignettes, the manual, the
-published `web-export/` tree, the SQLite database and the Frictionless
-Data Package consistent: every public artefact reads from the same
-canonical surface.
+The maintainer-private ingestion tree is excluded from the package
+build. It carries the source CSVs, the per-dataset PDFs and the YAML
+sidecars that record coordinates, primary-reference DOI and unit class.
+Everything that any downstream user touches is materialised through the
+public namespace `VT_NNN`, an opaque sequential identifier the package
+assigns at ingestion time. The translation is invisible: the build-time
+orchestrator returns a compilation already in the public namespace, and
+the internal-to-canonical mapping is a private maintainer artefact that
+never reaches the package build. The same separation keeps the
+manuscript, the vignettes, the manual, the published export tree, the
+SQLite database and the Frictionless Data Package consistent: every
+public artefact reads from the same canonical surface.
 
 ### Provenance rule
 
@@ -96,11 +95,12 @@ The package is organised around five subsystems. The **ingestion layer**
 [`classify_columns()`](https://robustecologies.github.io/VerteTIME/reference/classify_columns.md),
 [`enrich_taxonomy()`](https://robustecologies.github.io/VerteTIME/reference/enrich_taxonomy.md),
 [`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md))
-walks the source folders and YAML sidecars, transparently absorbs the
-format quirks of the CSVs (BOM, separator, header-case, NA tokens),
-splits species columns from environmental covariates with a regex
-heuristic, merges the GBIF backbone for higher-rank taxonomy, and writes
-the result into the relational schema. The **validation layer**
+walks the source folders and YAML sidecars in a maintainer-private
+ingestion tree, transparently absorbs the format quirks of the CSVs
+(BOM, separator, header-case, NA tokens), splits species columns from
+environmental covariates with a regex heuristic, merges the GBIF
+backbone for higher-rank taxonomy, and writes the result into the
+relational schema. The **validation layer**
 ([`vt_validate()`](https://robustecologies.github.io/VerteTIME/reference/vt_validate.md))
 runs structural and semantic checks against the schema and reports
 failures one row at a time. The **compilation contract**
@@ -161,7 +161,7 @@ Package manifest.
 
 | Subsystem | Entry points | Purpose |
 |----|----|----|
-| Ingestion | [`vt_ingest_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_dataset.md), [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md), [`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md) | Build a compilation from `data-raw/`; absorb format quirks; merge taxonomy |
+| Ingestion | [`vt_ingest_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_dataset.md), [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md), [`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md) | Build a compilation from a maintainer-private ingestion tree; absorb format quirks; merge taxonomy |
 | Reading | [`vt_read_csv()`](https://robustecologies.github.io/VerteTIME/reference/vt_read_csv.md), [`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md), [`vt_long()`](https://robustecologies.github.io/VerteTIME/reference/vt_long.md), [`vt_wide()`](https://robustecologies.github.io/VerteTIME/reference/vt_wide.md), [`classify_columns()`](https://robustecologies.github.io/VerteTIME/reference/classify_columns.md) | Low-level IO, pivot between wide and long, regex-driven species/covariate split |
 | Validation | [`vt_validate()`](https://robustecologies.github.io/VerteTIME/reference/vt_validate.md), [`enrich_taxonomy()`](https://robustecologies.github.io/VerteTIME/reference/enrich_taxonomy.md) | Structural and semantic checks; GBIF-backbone class/order/family enrichment |
 | Construction | [`vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md), [`vt_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md), [`vt_filter()`](https://robustecologies.github.io/VerteTIME/reference/vt_filter.md) | S3 constructors and tidy-eval filter with cascading FK integrity |
@@ -171,6 +171,7 @@ Package manifest.
 | Aggregators | [`vt_community_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_community_summary.md), [`vt_compilation_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation_summary.md) | Per-site-year community summary; per-dataset summary |
 | Visualisation | [`vt_theme()`](https://robustecologies.github.io/VerteTIME/reference/vt_theme.md), [`vt_palette()`](https://robustecologies.github.io/VerteTIME/reference/vt_palette.md), [`vt_class_palette()`](https://robustecologies.github.io/VerteTIME/reference/vt_class_palette.md), ~33 `vt_plot_*` functions | Project-wide ggplot theme, two palettes, six plot families |
 | Export | [`vt_export()`](https://robustecologies.github.io/VerteTIME/reference/vt_export.md), [`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md), [`vt_wide_master()`](https://robustecologies.github.io/VerteTIME/reference/vt_wide_master.md) | Single-format and full-tree publication; LPD-style wide master series table |
+| Self-test | [`vt_check()`](https://robustecologies.github.io/VerteTIME/reference/vt_check.md) | One-call smoke test that exercises every S3 family against the shipped `vt_demo` |
 
   
 
@@ -192,34 +193,43 @@ is a drop-in for any downstream tool that expects the LPD wide layout.
 
 ## The ingestion pipeline
 
+The ingestion pipeline operates on a maintainer-private tree that the
+package build excludes. End users never run it on the shipped package;
+the public-facing entry point is `data(vertetime)` followed by
+`vt_read(id)` for any single-dataset slice. Users who maintain a private
+fork of the schema can drive the same pipeline through
+[`vt_register_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_register_dataset.md)
+(see the registration vignette).
+
 ### File discovery
 
-`vt_ingest_dataset(id)` walks `data-raw/<id>/` and discovers CSVs that
-match `^<id>(-[0-9]+)?\\.csv$`. A folder with a single `<id>.csv` is
-treated as a single-site study; folders with `<id>-1.csv`, `<id>-2.csv`,
-… are multi-site studies in which each CSV becomes its own site. The
-companion `<id>-N.pdf` (when present) is parsed for per-site
-coordinates; the dataset-level `<id>.pdf` (when present) supplies
-metadata that all sites share. The discovery logic also handles
-auxiliary files (compressed archives, helper scripts, supplementary
-PDFs) gracefully by ignoring anything that does not match the CSV
-pattern.
+`vt_ingest_dataset(id, data_raw)` walks the per-dataset subfolder of
+`data_raw` and discovers CSVs that match `^<id>(-[0-9]+)?\\.csv$`. A
+folder with a single `<id>.csv` is treated as a single-site study;
+folders with `<id>-1.csv`, `<id>-2.csv`, … are multi-site studies in
+which each CSV becomes its own site. The companion `<id>-N.pdf` (when
+present) is parsed for per-site coordinates; the dataset-level
+`<id>.pdf` (when present) supplies metadata that all sites share. The
+discovery logic also handles auxiliary files (compressed archives,
+helper scripts, supplementary PDFs) gracefully by ignoring anything that
+does not match the CSV pattern.
 
 ### YAML sidecar contract
 
-Each dataset has a YAML sidecar at `data-raw/_yaml/<id>.yaml` that
-carries the human-curated metadata: `dataset_id`, `country_iso3`,
-`realm`, `biome`, `ecoregion`, `primary_reference_citation`,
-`primary_reference_doi`, `primary_reference_kind`, `re_curation_date`,
-`inherited_constraints`, `partial_overlap_with`, `units`,
-`taxonomic_focus`, `taxonomy_authority`, optional `taxa_columns` and
-`covariate_columns` overrides, a `sites:` block with at least one site
-(each with `site_id`, `latitude_dd`, `longitude_dd`,
-`coord_precision_km`, optional `habitat` and `elevation_m`), `year_min`,
-`year_max`, and free-text `notes`. The template
-`inst/templates/dataset_template.yaml` is the canonical schema; the
-printable pre-flight checklist lives at
-`inst/templates/register-checklist.md`.
+Each dataset has a YAML sidecar that carries the human-curated metadata:
+`dataset_id`, `country_iso3`, `realm`, `biome`, `ecoregion`,
+`primary_reference_citation`, `primary_reference_doi`,
+`primary_reference_kind`, `re_curation_date`, `inherited_constraints`,
+`partial_overlap_with`, `units`, `taxonomic_focus`,
+`taxonomy_authority`, optional `taxa_columns` and `covariate_columns`
+overrides, a `sites:` block with at least one site (each with `site_id`,
+`latitude_dd`, `longitude_dd`, `coord_precision_km`, optional `habitat`
+and `elevation_m`), `year_min`, `year_max`, and free-text `notes`. The
+canonical schema ships inside the installed package and is reachable
+through
+`system.file("templates", "dataset_template.yaml", package = "VerteTIME")`;
+a printable pre-flight checklist sits next to it at
+`system.file("templates", "register-checklist.md", package = "VerteTIME")`.
 
 ### Column classification
 
@@ -236,13 +246,12 @@ deterministic and re-evaluated on every ingest.
 ### Taxonomy enrichment
 
 [`enrich_taxonomy()`](https://robustecologies.github.io/VerteTIME/reference/enrich_taxonomy.md)
-merges the GBIF backbone (cached at `data-raw/_yaml/_taxonomy.tsv`,
-regenerated by `data-raw/fetch-taxonomy.R` and
-`data-raw/backfill-taxonomy.R`) into the species table. Every species
-name resolves to a `class`, `order`, `family` and an `is_vertebrate`
-flag. Non-vertebrate species (insects, gastropods, plants and algae that
-some primary references include alongside the vertebrate community of
-interest) are filtered out automatically by
+merges the GBIF backbone (cached in the maintainer-private ingestion
+tree) into the species table. Every species name resolves to a `class`,
+`order`, `family` and an `is_vertebrate` flag. Non-vertebrate species
+(insects, gastropods, plants and algae that some primary references
+include alongside the vertebrate community of interest) are filtered out
+automatically by
 [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md);
 datasets that lose all observations after the filter are dropped from
 the compilation with a console message naming them.
@@ -257,14 +266,14 @@ source-folder names and is stable across re-ingestions of the same
 compilation. The translation is invisible to user code:
 [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md)
 returns a compilation that already carries `VT_NNN` identifiers; the
-maintainer-only mapping lives at `MEMORY/id_map.tsv`. Every public
-artefact (the package’s shipped `vertetime` and `vt_demo` data objects
-under `data/*.rda`, the manuscript appendix, the published `web-export/`
-tree, the SQLite database, the Frictionless Data Package, the pkgdown
-website) reads exclusively the `VT_NNN` namespace.
+internal-to-canonical mapping is a private maintainer artefact outside
+the package build. Every public artefact (the package’s shipped
+`vertetime` and `vt_demo` data objects, the manuscript appendix, the
+published export tree, the SQLite database, the Frictionless Data
+Package, the pkgdown website) reads exclusively the `VT_NNN` namespace.
 
-End-to-end ingestion pipeline. Yellow nodes are user-facing inputs;
-green nodes are private operations; blue nodes are the public surface.
+End-to-end ingestion pipeline. Yellow nodes are private inputs; green
+nodes are private operations; blue nodes are the public surface.
 
   
 
@@ -303,7 +312,13 @@ every other year), or `all_pairs` (every distinct `t_a < t_b`).
 decomposition of pairwise temporal Sorensen dissimilarity into the
 Simpson turnover component and the nestedness-resultant component. The
 identity `beta_sor = beta_sim + beta_nes` holds to numerical precision
-across the compilation.
+across the compilation. The `vt_turnover` S3 output carries
+[`print()`](https://rdrr.io/r/base/print.html),
+[`summary()`](https://rdrr.io/r/base/summary.html) and
+[`plot()`](https://rdrr.io/r/graphics/plot.default.html) methods;
+[`summary.vt_turnover()`](https://robustecologies.github.io/VerteTIME/reference/vt_turnover.md)
+dispatches on the columns present and emits a tidy tibble keyed by
+metric.
 
 ### Composition
 
@@ -348,6 +363,13 @@ viridis-turbo contrasted colours, log-y by default) with the
 Robinson-projected world map of the dataset’s site(s) using `patchwork`
 for layout.
 
+The two S3 plot methods of the compilation contract
+([`plot.vt_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md),
+[`plot.vt_compilation()`](https://robustecologies.github.io/VerteTIME/reference/vt_compilation.md))
+accept a `type =` argument that dispatches to the corresponding
+`vt_plot_*` family member. The legacy `kind =` alias is retained
+indefinitely; new code should prefer `type =`.
+
   
 
 ## Publication subsystem
@@ -386,37 +408,29 @@ cross-dataset `species_id` consistency. The function returns a tibble
 with one row per failed check; an empty tibble means a clean bill of
 health.
 
-The future-dataset workflow is `vt_register_dataset(id, dry_run)`. With
-`dry_run = TRUE` the function runs ingestion and validation without
-writing anything; with `dry_run = FALSE` it appends the new dataset to
-the compilation and writes a register-log row.
+The dataset-registration workflow is
+`vt_register_dataset(id, data_raw, dry_run)`. With `dry_run = TRUE` and
+an absent sidecar the function scaffolds a YAML template into the user’s
+private tree; with `dry_run = TRUE` and a complete sidecar the function
+returns the would-be `vt_dataset` and the validation tibble without
+writing anything; with `dry_run = FALSE` it appends the dataset to the
+user’s private tree and writes a register-log row.
 
   
 
-## Maintainer-side tooling
+## Self-test
 
-The `data-raw/` folder holds the maintainer scripts that keep the
-compilation healthy:
-
-| Script | Purpose |
-|----|----|
-| `data-raw/extract-metadata.R` | Bulk-parse `<id>.pdf` (or `<id>-N.pdf` per site) and write the per-dataset YAML sidecars |
-| `data-raw/fetch-taxonomy.R` | Initial pass: query GBIF backbone for every species |
-| `data-raw/refresh-taxonomy.R` | Retry pass: re-query unresolved species with permissive matchers |
-| `data-raw/backfill-taxonomy.R` | Order -\> class lookup + `name_usage(usageKey)` follow-up to backfill missing class column |
-| `data-raw/audit-fixes.R` | Materialise `MEMORY/missing_dois.tsv` and `MEMORY/unresolved_species.tsv` |
-| `data-raw/fetch-dois.R` | Query CrossRef for every citation with empty DOI; backfill the TSV |
-| `data-raw/import-fixes.R` | Apply the maintainer-edited TSVs back into the YAML sidecars and the taxonomy cache |
-| `data-raw/build-data.R` | Maintainer-only entry point. Calls [`vt_ingest_all()`](https://robustecologies.github.io/VerteTIME/reference/vt_ingest_all.md) over the source tree, applies the GBIF backbone to drop non-vertebrate species, remaps every internal source-folder identifier to `VT_NNN`, and writes the two shipped data objects: `data/vertetime.rda` (full canonical compilation) and `data/vt_demo.rda` (single-dataset slice, `VT_001`). |
-
-The MEMORY companion files (`MEMORY/missing_dois.tsv`,
-`MEMORY/unresolved_species.tsv`) are the curator-facing punch list; both
-ship with pre-encoded CrossRef and GBIF search URLs so a single click
-resolves the missing record. The `import-fixes.R` script is idempotent:
-only non-empty filled-in cells are merged back. The MEMORY capsule
-(`README.md`, `architecture.md`, `open-items.md`, `verification-log.md`,
-`id_map.tsv`) is the cold-start recovery payload that lets a maintainer
-pick up the project without re-deriving anything.
+`vt_check(verbose, plots)` is the canonical smoke test for the installed
+package. It loads `data(vt_demo)` into a private environment, exercises
+one representative call per analytical family, exercises every S3
+`print` / `summary` / `plot` on the resulting objects, exercises
+[`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+and
+[`vt_export()`](https://robustecologies.github.io/VerteTIME/reference/vt_export.md)
+against a [`tempfile()`](https://rdrr.io/r/base/tempfile.html), and
+returns a tibble whose `status` column is `"ok"` for every row when the
+package is healthy. The `attr(result, "ok")` flag is the single boolean
+a reader can branch on.
 
   
 

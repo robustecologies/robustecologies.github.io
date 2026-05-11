@@ -8,12 +8,12 @@
 </script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Construct a vt_dataset object — vt_dataset"><meta name="description" content="Container for a single VerteTIME dataset comprising one or more sites, the
 species observed at those sites, the year-by-year abundance values, and any
 environmental covariates that share the same temporal index. The object is
-the unit of ingestion (one folder of data-raw/ produces one vt_dataset)
-and is the building block of vt_compilation()."><meta property="og:description" content="Container for a single VerteTIME dataset comprising one or more sites, the
+the unit of ingestion (one source dataset produces one vt_dataset) and is
+the building block of vt_compilation()."><meta property="og:description" content="Container for a single VerteTIME dataset comprising one or more sites, the
 species observed at those sites, the year-by-year abundance values, and any
 environmental covariates that share the same temporal index. The object is
-the unit of ingestion (one folder of data-raw/ produces one vt_dataset)
-and is the building block of vt_compilation()."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
+the unit of ingestion (one source dataset produces one vt_dataset) and is
+the building block of vt_compilation()."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -21,7 +21,7 @@ and is the building block of vt_compilation()."><script defer data-domain="robus
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,8 +67,8 @@ and is the building block of vt_compilation()."><script defer data-domain="robus
     <p>Container for a single VerteTIME dataset comprising one or more sites, the
 species observed at those sites, the year-by-year abundance values, and any
 environmental covariates that share the same temporal index. The object is
-the unit of ingestion (one folder of <code>data-raw/</code> produces one <code>vt_dataset</code>)
-and is the building block of <code><a href="vt_compilation.html">vt_compilation()</a></code>.</p>
+the unit of ingestion (one source dataset produces one <code>vt_dataset</code>) and is
+the building block of <code><a href="vt_compilation.html">vt_compilation()</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -91,7 +91,8 @@ and is the building block of <code><a href="vt_compilation.html">vt_compilation(
 <span><span class="co"># S3 method for class 'vt_dataset'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  kind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"whittaker"</span>, <span class="st">"rac"</span>, <span class="st">"alpha_timeline"</span>, <span class="st">"community_summary"</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"whittaker"</span>, <span class="st">"rac"</span>, <span class="st">"alpha_timeline"</span>, <span class="st">"community_summary"</span><span class="op">)</span>,</span>
+<span>  kind <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -138,9 +139,13 @@ and is the building block of <code><a href="vt_compilation.html">vt_compilation(
 <dd><p>A <code>vt_dataset</code>.</p></dd>
 
 
-<dt id="arg-kind">kind<a class="anchor" aria-label="anchor" href="#arg-kind"></a></dt>
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>One of <code>"whittaker"</code>, <code>"rac"</code>, <code>"alpha_timeline"</code>,
-<code>"community_summary"</code>.</p></dd>
+<code>"community_summary"</code>. Selects the dispatched plotter.</p></dd>
+
+
+<dt id="arg-kind">kind<a class="anchor" aria-label="anchor" href="#arg-kind"></a></dt>
+<dd><p>Deprecated alias of <code>type</code>. Retained for back compatibility.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -167,16 +172,16 @@ and is the building block of <code><a href="vt_compilation.html">vt_compilation(
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="vt_compilation.html">vt_compilation()</a></code>, <code>print.vt_dataset()</code>, <code>summary.vt_dataset()</code>,
-<code>plot.vt_dataset()</code>, <code><a href="vt_alpha_diversity.html">vt_alpha_diversity()</a></code>, <code><a href="vt_beta_diversity.html">vt_beta_diversity()</a></code></p></div>
+<code>plot.vt_dataset()</code>, <code><a href="vt_alpha_diversity.html">vt_alpha_diversity()</a></code>, <code><a href="vt_beta_diversity.html">vt_beta_diversity()</a></code>,
+<code><a href="vt_read.html">vt_read()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">co</span> <span class="op">&lt;-</span> <span class="fu"><a href="vt_ingest_all.html">vt_ingest_all</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">co</span><span class="op">$</span><span class="va">datasets</span><span class="op">$</span><span class="va">dataset_id</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="vt_filter.html">vt_filter</a></span><span class="op">(</span><span class="va">co</span>, <span class="va">dataset_id</span> <span class="op">==</span> <span class="st">"VT_001"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, kind <span class="op">=</span> <span class="st">"whittaker"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="vt_read.html">vt_read</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">$</span><span class="va">datasets</span><span class="op">$</span><span class="va">dataset_id</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, type <span class="op">=</span> <span class="st">"whittaker"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

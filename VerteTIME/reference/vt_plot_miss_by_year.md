@@ -31,5 +31,5 @@ Magurran et al. (2010).
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_miss_by_year(vt_ingest_all())  # \dontrun{}
+if (FALSE)  data(vertetime); vt_plot_miss_by_year(vertetime)  # \dontrun{}
 ```

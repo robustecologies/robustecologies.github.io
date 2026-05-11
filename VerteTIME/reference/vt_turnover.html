@@ -19,7 +19,7 @@ components when applicable, and a metric label column."><script defer data-domai
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,6 +76,9 @@ components when applicable, and a <code>metric</code> label column.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'vt_turnover'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'vt_turnover'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -98,10 +101,20 @@ components when applicable, and a <code>metric</code> label column.</p>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Forwarded to <code><a href="vt_plot_beta_heatmap.html">vt_plot_beta_heatmap()</a></code>.</p></dd>
 
+
+<dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
+<dd><p>A <code>vt_turnover</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Object of class <code>vt_turnover</code>.</p>
+<p>For <code>summary</code>, a <code>tibble</code> with one row per turnover metric and the
+columns <code>metric</code>, <code>n</code>, <code>median</code>, <code>q25</code>, <code>q75</code>, <code>mean</code>, <code>sd</code>. The metric
+column reflects the columns present in the object: <code>beta_sor</code>, <code>beta_sim</code>,
+<code>beta_nes</code> for a Baselga partition, or the value of the <code>metric</code> column
+when the object comes from <code><a href="vt_temporal_turnover.html">vt_temporal_turnover()</a></code>.</p>
+<p>A <code>ggplot</code> object (invisibly returned, drawn as side effect).</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -112,15 +125,17 @@ beta diversity</em>. Global Ecology and Biogeography, 19(1), 134-143.
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="vt_temporal_turnover.html">vt_temporal_turnover()</a></code>, <code><a href="vt_beta_partition.html">vt_beta_partition()</a></code>, <code><a href="vt_beta_diversity.html">vt_beta_diversity()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="vt_temporal_turnover.html">vt_temporal_turnover()</a></code>, <code><a href="vt_beta_partition.html">vt_beta_partition()</a></code>,
+<code><a href="vt_beta_diversity.html">vt_beta_diversity()</a></code>, <code>print.vt_turnover()</code>, <code>summary.vt_turnover()</code>,
+<code>plot.vt_turnover()</code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">co</span> <span class="op">&lt;-</span> <span class="fu"><a href="vt_ingest_all.html">vt_ingest_all</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="vt_temporal_turnover.html">vt_temporal_turnover</a></span><span class="op">(</span><span class="va">co</span>, pair <span class="op">=</span> <span class="st">"consecutive"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="vt_temporal_turnover.html">vt_temporal_turnover</a></span><span class="op">(</span><span class="va">vertetime</span>, pair <span class="op">=</span> <span class="st">"consecutive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

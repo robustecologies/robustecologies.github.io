@@ -58,7 +58,7 @@ communities*. Science, 147(3655), 250-260.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 p <- vt_plot_whittaker(vt_filter(co, dataset_id == "VT_001"))
 print(p)
 } # }

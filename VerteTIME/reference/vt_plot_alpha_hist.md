@@ -38,6 +38,6 @@ Hill, M. O. (1973). *Diversity and evenness*. Ecology, 54(2), 427-432.
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_alpha_hist(vt_ingest_all(), index = "H")
+data(vertetime); vt_plot_alpha_hist(vertetime, index = "H")
 } # }
 ```

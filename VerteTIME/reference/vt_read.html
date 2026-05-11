@@ -5,13 +5,15 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Read a VerteTIME dataset — vt_read"><meta name="description" content="Polymorphic reader. Accepts a dataset_id (in which case the function looks
-for a staged Parquet file under data-raw/_staging/&amp;lt;id&amp;gt;.parquet and falls
-back to the wide CSV under data-raw/&amp;lt;id&amp;gt;/&amp;lt;id&amp;gt;.csv), or an absolute path to
-a CSV or Parquet file."><meta property="og:description" content="Polymorphic reader. Accepts a dataset_id (in which case the function looks
-for a staged Parquet file under data-raw/_staging/&amp;lt;id&amp;gt;.parquet and falls
-back to the wide CSV under data-raw/&amp;lt;id&amp;gt;/&amp;lt;id&amp;gt;.csv), or an absolute path to
-a CSV or Parquet file."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Read a VerteTIME dataset — vt_read"><meta name="description" content='Polymorphic reader. Accepts a canonical dataset_id (e.g. "VT_001"), in
+which case the function returns a single-dataset slice of the shipped
+vertetime compilation; alternatively accepts an absolute path to a CSV or
+Parquet file, in which case the function delegates to vt_read_csv() or to
+the arrow reader.'><meta property="og:description" content='Polymorphic reader. Accepts a canonical dataset_id (e.g. "VT_001"), in
+which case the function returns a single-dataset slice of the shipped
+vertetime compilation; alternatively accepts an absolute path to a CSV or
+Parquet file, in which case the function delegates to vt_read_csv() or to
+the arrow reader.'><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -19,7 +21,7 @@ a CSV or Parquet file."><script defer data-domain="robustecologies.github.io/Ver
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,15 +64,16 @@ a CSV or Parquet file."><script defer data-domain="robustecologies.github.io/Ver
     </div>
 
     <div class="ref-description section level2">
-    <p>Polymorphic reader. Accepts a <code>dataset_id</code> (in which case the function looks
-for a staged Parquet file under <code>data-raw/_staging/&lt;id&gt;.parquet</code> and falls
-back to the wide CSV under <code>data-raw/&lt;id&gt;/&lt;id&gt;.csv</code>), or an absolute path to
-a CSV or Parquet file.</p>
+    <p>Polymorphic reader. Accepts a canonical <code>dataset_id</code> (e.g. <code>"VT_001"</code>), in
+which case the function returns a single-dataset slice of the shipped
+<code>vertetime</code> compilation; alternatively accepts an absolute path to a CSV or
+Parquet file, in which case the function delegates to <code><a href="vt_read_csv.html">vt_read_csv()</a></code> or to
+the <code>arrow</code> reader.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vt_read</span><span class="op">(</span><span class="va">x</span>, data_raw <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vt_read</span><span class="op">(</span><span class="va">x</span>, data_raw <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -78,27 +81,34 @@ a CSV or Parquet file.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>Either a <code>dataset_id</code> like <code>"VT_001"</code>, or a path to a CSV or
-Parquet file.</p></dd>
+<dd><p>Either a <code>dataset_id</code> (matching the canonical pattern
+<code>^[A-Z]+_[A-Za-z0-9]+$</code>) or a path to a CSV or Parquet file.</p></dd>
 
 
 <dt id="arg-data-raw">data_raw<a class="anchor" aria-label="anchor" href="#arg-data-raw"></a></dt>
-<dd><p>Root of the source <code>data-raw/</code> directory. Defaults to
-<code>here::here("data-raw")</code>.</p></dd>
+<dd><p>Optional path to a maintainer-side ingestion tree. When
+non-<code>NULL</code> and the directory exists, the function prefers a staged Parquet
+under <code>data_raw/_staging/&lt;id&gt;.parquet</code> and falls back to the wide CSV
+under <code>data_raw/&lt;id&gt;/&lt;id&gt;.csv</code>. When <code>NULL</code> (the default), the function
+reconstructs the dataset from the shipped <a href="vertetime.html">vertetime</a> compilation, which
+is the user-facing code path. End users never need to supply <code>data_raw</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>vt_dataset</code> if <code>x</code> is a <code>dataset_id</code>, or a <code>data.table</code> if <code>x</code> is
-a raw file path.</p>
+    <p>A <code><a href="vt_dataset.html">vt_dataset()</a></code> when <code>x</code> resolves to a <code>dataset_id</code>; a
+<code>data.table</code> when <code>x</code> resolves to a raw file path.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function is the user-friendly entry point; for batch ingestion of the
-entire compilation call <code><a href="vt_ingest_all.html">vt_ingest_all()</a></code> directly. The reader prefers the
-staged Parquet over the wide CSV when both are available, since Parquet
-carries the canonical long-format schema and the species/covariate
-classification already resolved.</p>
+    <p>On the installed package, the <code>dataset_id</code> branch loads the shipped
+<code>vertetime</code> compilation into a private environment, filters every relational
+table by <code>dataset_id == x</code>, and rebuilds a <code><a href="vt_dataset.html">vt_dataset()</a></code> from the slice. The
+user's session-level objects are not touched. When the identifier is absent
+from the compilation, the function aborts and prints the first twenty
+available identifiers as a hint. The parquet-and-CSV maintainer path is kept
+for forks that maintain a private ingestion tree, gated by <code>data_raw</code>
+pointing to an existing directory.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -107,14 +117,15 @@ classification already resolved.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="vt_ingest_dataset.html">vt_ingest_dataset()</a></code>, <code><a href="vt_ingest_all.html">vt_ingest_all()</a></code>, <code><a href="vt_long.html">vt_long()</a></code>, <code><a href="vt_wide.html">vt_wide()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="vt_ingest_dataset.html">vt_ingest_dataset()</a></code>, <code><a href="vt_ingest_all.html">vt_ingest_all()</a></code>, <code><a href="vt_long.html">vt_long()</a></code>, <code><a href="vt_wide.html">vt_wide()</a></code>,
+<a href="vertetime.html">vertetime</a></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">vt_read</span><span class="op">(</span><span class="st">"VT_001"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">vt_read</span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>,<span class="st">"VT_001"</span>,<span class="st">"VT_001.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, type <span class="op">=</span> <span class="st">"whittaker"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

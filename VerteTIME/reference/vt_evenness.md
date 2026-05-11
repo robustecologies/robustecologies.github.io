@@ -47,7 +47,7 @@ of biological collections*. Journal of Theoretical Biology, 13, 131-144.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 e  <- vt_evenness(co, kind = "pielou")
 summary(e)
 } # }

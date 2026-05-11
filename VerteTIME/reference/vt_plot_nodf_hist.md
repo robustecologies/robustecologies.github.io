@@ -34,6 +34,6 @@ analysis*. Oikos, 117(8), 1227-1239.
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_nodf_hist(vt_ingest_all())
+data(vertetime); vt_plot_nodf_hist(vertetime)
 } # }
 ```

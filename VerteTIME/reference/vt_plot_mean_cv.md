@@ -35,6 +35,6 @@ McGill (Eds.), *Biological Diversity*, Oxford University Press. ISBN
 
 ``` r
 if (FALSE) { # \dontrun{
-vt_plot_mean_cv(vt_ingest_all())
+data(vertetime); vt_plot_mean_cv(vertetime)
 } # }
 ```

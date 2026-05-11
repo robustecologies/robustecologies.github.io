@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,8 +90,9 @@
 series. This vignette walks through the package’s public surface in
 roughly five minutes against a synthetic mid-sized compilation that
 exercises every plot family. The deeper community-ecology metrics tour
-is in <code><a href="../articles/vt-community-metrics.html">vignette("vt-community-metrics")</a></code>; the future-dataset
-workflow is in <code><a href="../articles/vt-ingestion-workflow.html">vignette("vt-ingestion-workflow")</a></code>.</p>
+is in <code><a href="../articles/vt-community-metrics.html">vignette("vt-community-metrics")</a></code>; the
+dataset-registration workflow for users who extend the compilation with
+private series is in <code><a href="../articles/vt-ingestion-workflow.html">vignette("vt-ingestion-workflow")</a></code>.</p>
 <p><br></p>
 <div class="section level2">
 <h2 id="a-synthetic-mid-sized-compilation">A synthetic mid-sized compilation<a class="anchor" aria-label="anchor" href="#a-synthetic-mid-sized-compilation"></a>
@@ -102,12 +103,9 @@ package gets exercised without depending on the real data files. The
 real compilation is loaded with a single <code>data(vertetime)</code>
 call once the package is installed; the synthetic builder below is
 purely a self-contained worked example built with the
-<code><a href="../reference/vt_compilation.html">vt_compilation()</a></code> constructor. Maintainers who need to
-regenerate the shipped object run
-<code>Rscript data-raw/build-data.R</code> from the source repository,
-which calls <a href="../reference/vt_ingest_all.html"><code>vt_ingest_all()</code></a>
-under the hood and persists the result to
-<code>data/vertetime.rda</code>.</p>
+<code><a href="../reference/vt_compilation.html">vt_compilation()</a></code> constructor. Maintainers regenerate the
+shipped object from a private ingestion tree; end users obtain the
+result through <code>data(vertetime)</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://robustecologies.github.io/VerteTIME">VerteTIME</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
@@ -348,11 +346,15 @@ NODF nestedness across the compilation.
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vt_plot_database_timeline.html">vt_plot_database_timeline</a></span><span class="op">(</span><span class="va">co</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="vt-introduction_files/figure-html/timeline-1.png" class="r-plt" alt="Positional comparator across biodiversity time-series compilations cited by VerteTIME. Taxonomic scope varies across rows: LPD, RivFishTIME, BBS, PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights are vertebrate-only, whereas GPDD, BioTIME and PREDICTS are multi-taxon." width="770"><p class="caption">
-Positional comparator across biodiversity time-series compilations cited
-by VerteTIME. Taxonomic scope varies across rows: LPD, RivFishTIME, BBS,
-PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights are
-vertebrate-only, whereas GPDD, BioTIME and PREDICTS are multi-taxon.
+<img src="vt-introduction_files/figure-html/timeline-1.png" class="r-plt" alt="Two-panel positional comparator across biodiversity time-series compilations cited by VerteTIME. Top panel: publication-event milestones (citation, series count and licence on each tab); LPI v1/v2 and BioTIME v1/v2 appear as adjacent rows to document the growth of those databases between successive releases. Bottom panel: calendar-year span of the underlying data. Taxonomic scope varies across rows: LPI, RivFishTIME, BBS, PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights are vertebrate-only; GPDD, BioTIME and PREDICTS are multi-taxon." width="1430"><p class="caption">
+Two-panel positional comparator across biodiversity time-series
+compilations cited by VerteTIME. Top panel: publication-event milestones
+(citation, series count and licence on each tab); LPI v1/v2 and BioTIME
+v1/v2 appear as adjacent rows to document the growth of those databases
+between successive releases. Bottom panel: calendar-year span of the
+underlying data. Taxonomic scope varies across rows: LPI, RivFishTIME,
+BBS, PECBMS, CBC, eBird Trends and TEAM/Wildlife Insights are
+vertebrate-only; GPDD, BioTIME and PREDICTS are multi-taxon.
 </p>
 </div>
 <p><br></p>
@@ -365,8 +367,7 @@ the heavy tails, long gaps and unit-class heterogeneity of the real
 compilation. Use this vignette to learn the function calls; consult the
 long-form manuscript for diagnostics on the real 145-dataset
 compilation. The world-map figure depends on coordinates being
-transcribed from each dataset’s primary reference (filled in
-<code>data-raw/_yaml/&lt;id&gt;.yaml</code>); when those values are
+transcribed from each dataset’s primary reference; when those values are
 placeholders, the plot collapses to a single overlapping cluster.
 Cross-series quantitative comparisons of abundance must stratify by
 <code>unit_class</code>; community-structure metrics (Hill numbers,

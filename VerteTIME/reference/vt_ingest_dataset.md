@@ -1,31 +1,29 @@
 # Ingest a single dataset folder into the canonical relational schema
 
-Maintainer-side build tool. Reads `data-raw/<id>/<id>.csv` (or every
-`<id>*.csv` for multi-site studies) and the per-dataset YAML sidecar at
-`data-raw/_yaml/<id>.yaml`, classifies columns into species and
-covariates with
+Maintainer-side build tool. Reads the wide community CSV under
+`<data_raw>/<id>/<id>.csv` (or every `<id>*.csv` for multi-site studies)
+and the per-dataset YAML sidecar under `<data_raw>/_yaml/<id>.yaml`,
+classifies columns into species and covariates with
 [`classify_columns()`](https://robustecologies.github.io/VerteTIME/reference/classify_columns.md),
 pivots to long form with
 [`vt_long()`](https://robustecologies.github.io/VerteTIME/reference/vt_long.md),
 assembles the five canonical relational tables, and returns a
 [`vt_dataset()`](https://robustecologies.github.io/VerteTIME/reference/vt_dataset.md)
 object. The YAML sidecar is the single source of truth for site
-coordinates, units, taxonomic focus and primary-reference citation.
+coordinates, units, taxonomic focus and the primary reference citation.
 
-This function is a build-time tool used by `data-raw/build-data.R` to
-assemble the shipped `vt_compilation` object. End users do not call it;
-the public-facing entry point is `data(vertetime)`. The function is
-exported for forks and audits, not for the regular analytical workflow.
+This function operates on a maintainer-side ingestion tree that is
+excluded from the package build. End users never call it; the
+public-facing entry point is `data(vertetime)` followed by
+[`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md)
+for single-dataset access. The function is exported for forks and
+audits, not for the regular analytical workflow, and aborts with a
+coherent message when `data_raw` does not exist on disk.
 
 ## Usage
 
 ``` r
-vt_ingest_dataset(
-  id,
-  data_raw = here::here("data-raw"),
-  yaml = NULL,
-  require_yaml = TRUE
-)
+vt_ingest_dataset(id, data_raw = NULL, yaml = NULL, require_yaml = TRUE)
 ```
 
 ## Arguments
@@ -37,13 +35,13 @@ vt_ingest_dataset(
 
 - data_raw:
 
-  Root of the source `data-raw/` directory. Defaults to
-  `here::here("data-raw")`.
+  Path to a maintainer-side ingestion tree. Absent in the installed
+  package; the function aborts when the directory does not exist.
 
 - yaml:
 
   Optional path to a YAML sidecar; defaults to
-  `data-raw/_yaml/<id>.yaml`.
+  `<data_raw>/_yaml/<id>.yaml`.
 
 - require_yaml:
 
@@ -62,7 +60,8 @@ one site per CSV; the sidecar YAML lists the per-site coordinates and
 habitat under the `sites:` block. Coordinate plausibility is checked at
 this stage. The `is_community_metric_eligible` flag is set to `TRUE`
 when the dataset has at least `vt.community_min_spp` species and
-`vt.community_min_yrs` observed years.
+`vt.community_min_yrs` observed years. The YAML schema is documented in
+`system.file("templates", "dataset_template.yaml", package = "VerteTIME")`.
 
 ## References
 
@@ -84,7 +83,8 @@ framework*. Ecology Letters, 10(10), 995-1015.
 
 ``` r
 if (FALSE) { # \dontrun{
-d <- vt_ingest_dataset("VT_001")
+# Maintainer-side, from a private ingestion tree:
+d <- vt_ingest_dataset("VT_001", data_raw = "<path-to-ingestion-tree>")
 summary(d)
 } # }
 ```

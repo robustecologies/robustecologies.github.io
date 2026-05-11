@@ -55,7 +55,7 @@ and alternative parameters*. Ecology, 52(4), 577-586.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 r <- vt_rarefaction(co, sample = 50)
 } # }
 ```

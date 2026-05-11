@@ -32,5 +32,5 @@ Wilkins (2017). Treemapify.
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_class_treemap(vt_ingest_all())  # \dontrun{}
+if (FALSE)  data(vertetime); vt_plot_class_treemap(vertetime)  # \dontrun{}
 ```

@@ -79,7 +79,7 @@ through time*. Trends in Ecology & Evolution, 25(10), 574-582.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 vt_plot_community_series(co, dataset_id = "VT_001")
 vt_plot_community_series(vt_filter(co, taxonomic_focus == "birds"))
 } # }

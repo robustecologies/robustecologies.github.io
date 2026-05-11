@@ -50,7 +50,7 @@ Letters, 14(1), 19-28.
 
 ``` r
 if (FALSE) { # \dontrun{
-co <- vt_ingest_all()
+data(vertetime); co <- vertetime
 tt <- vt_temporal_turnover(co, pair = "all_pairs")
 vt_plot_beta_heatmap(tt)
 } # }

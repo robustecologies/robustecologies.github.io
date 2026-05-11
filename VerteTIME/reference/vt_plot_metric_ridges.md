@@ -33,5 +33,8 @@ Hill (1973); Pielou (1966).
 ## Examples
 
 ``` r
-if (FALSE)  vt_plot_metric_ridges(vt_ingest_all())  # \dontrun{}
+if (FALSE)  data(vertetime); vt_plot_metric_ridges(vertetime)  # \dontrun{}
+#> Picking joint bandwidth of 0.847
+#> Picking joint bandwidth of 0.117
+#> Picking joint bandwidth of 0.0644
 ```

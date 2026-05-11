@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Adding a new dataset to VerteTIME • VerteTIME</title>
+<title>Registering a private dataset against VerteTIME • VerteTIME</title>
 <!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
   window.MathJax = {
     chtml: {
@@ -16,7 +16,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Adding a new dataset to VerteTIME">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Registering a private dataset against VerteTIME">
 <script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Adding a new dataset to VerteTIME</h1>
+      <h1>Registering a private dataset against VerteTIME</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/robustecologies/VerteTIME/blob/HEAD/vignettes/vt-ingestion-workflow.Rmd" class="external-link"><code>vignettes/vt-ingestion-workflow.Rmd</code></a></small>
@@ -86,144 +86,144 @@
 
     
     
-<p>This vignette walks through the workflow for registering a new
-community time-series dataset into the VerteTIME compilation. Treat it
-as the canonical companion of
-<code>inst/templates/dataset_template.yaml</code> and
-<code>inst/templates/register-checklist.md</code>.</p>
+<p>This vignette is for users who want to extend the shipped
+<code>vertetime</code> compilation with one or more private datasets of
+their own and run the full VerteTIME analysis surface against the
+combined corpus. The workflow is fully end-user-callable; nothing here
+depends on the maintainer-side build tree. The canonical schema and the
+printable checklist ship inside the installed package and are reached
+through
+<code>system.file("templates", "dataset_template.yaml", package = "VerteTIME")</code>
+and
+<code>system.file("templates", "register-checklist.md", package = "VerteTIME")</code>.</p>
+<p>If you only consume the shipped compilation, you do not need this
+vignette; <code>data(vertetime)</code> and <code>vt_read(id)</code>
+cover the analytical workflow without writing anywhere.</p>
 <p><br></p>
 <div class="section level2">
-<h2 id="where-this-vignette-sits-in-the-package">Where this vignette sits in the package<a class="anchor" aria-label="anchor" href="#where-this-vignette-sits-in-the-package"></a>
+<h2 id="when-to-use-the-scaffolder">When to use the scaffolder<a class="anchor" aria-label="anchor" href="#when-to-use-the-scaffolder"></a>
 </h2>
-<p>VerteTIME has a three-layer architecture. The first layer is the
-<strong>end-user workflow</strong>, in which an analyst loads the
-shipped compilation with <code>data(vertetime)</code> and runs the
-diversity, turnover and visualisation functions on it. The second layer
-is the <strong>audit and fork workflow</strong>, in which a third party
-clones the source repository, opens the source tree at
-<code>data-raw/</code>, and re-executes <code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code> to
-reproduce the compilation from the primary references. The third layer,
-documented here, is the <strong>maintainer workflow</strong>, in which
-Sergio Pico and Pablo Almaraz add a new dataset to the source tree and
-rebuild the shipped objects via
-<code>Rscript data-raw/build-data.R</code>.</p>
-<p>The source <code>data-raw/</code> tree is excluded from the package
-build (<code>.Rbuildignore</code>); an installed copy of VerteTIME does
-not carry it. <code><a href="../reference/vt_ingest_all.html">vt_ingest_all()</a></code> is exported for completeness
-and audit, but the function aborts with an explanatory error when it
-cannot find the source tree, and it never emits the internal
-source-folder names to the console: progress is reported as aggregate
-counts, and the canonical <code>VT_NNN</code> namespace is the only
-namespace that ever leaves the build script.</p>
-<p><br></p>
-</div>
-<div class="section level2">
-<h2 id="step-1--identify-the-primary-reference">Step 1. Identify the primary reference<a class="anchor" aria-label="anchor" href="#step-1--identify-the-primary-reference"></a>
-</h2>
-<p>VerteTIME is a compilation of independent re-curations from
-peer-reviewed primary literature and grey literature. Before adding a
-dataset to the compilation, locate the original peer-reviewed paper,
-monograph, technical report or grey-literature source that publishes the
-multi-species annual abundance time series, read it in full, and confirm
-that the data are either published openly or that you have written
-authorisation to redistribute them under CC-BY 4.0.</p>
-<p>If the candidate dataset is also present in a secondary biodiversity
-time-series compilation (LPI, BioTIME, GPDD, RivFishTIME, PREDICTS, BBS,
-PECBMS, CBC, eBird Trends, TEAM/Wildlife Insights), do not extract from
-that compilation. Go to the primary reference and re-extract. The fact
-of the partial overlap is recorded comparatively in the dataset’s
-<code>partial_overlap_with</code> field; it is never used to derive
-provenance.</p>
+<p><code><a href="../reference/vt_register_dataset.html">vt_register_dataset()</a></code> is the user-facing scaffolder. It
+does two things. First, when the YAML sidecar for a new identifier is
+absent, it copies the package template into the user’s private tree so
+the user can edit it. Second, when both the sidecar and the wide-format
+CSV are present, it runs the same ingestion-and-validation pipeline that
+produced the shipped <code>vertetime</code> compilation and returns a
+<code>vt_dataset</code> that the user can pass to every analytical and
+visualisation function.</p>
+<p>The function refuses to touch the maintainer-side ingestion tree; it
+operates exclusively against the user-supplied <code>data_raw</code>
+argument. The package writes inside that path only; it never writes
+inside the installed library.</p>
 <p><br></p>
 </div>
 <div class="section level2">
-<h2 id="step-2--place-the-source-files">Step 2. Place the source files<a class="anchor" aria-label="anchor" href="#step-2--place-the-source-files"></a>
+<h2 id="step-1--pick-a-private-ingestion-path">Step 1. Pick a private ingestion path<a class="anchor" aria-label="anchor" href="#step-1--pick-a-private-ingestion-path"></a>
 </h2>
-<p>Adopt a new dataset identifier of the form <code>VT_NNN</code>, where
-<code>NNN</code> is the next available sequential number above the
-current compilation maximum. Create the folder and place the CSV plus
-the primary-reference PDF:</p>
-<pre><code>data-raw/VT_001/VT_001.csv
-data-raw/VT_001/&lt;primary-reference&gt;.pdf</code></pre>
-<p>The CSV is wide format: column 1 is <code>year</code> (integer);
-subsequent columns are species in <code>Genus_species</code> form
-(hyphenated epithets allowed) and any environmental covariates. The
-field separator is <code>;</code> and the encoding is UTF-8.</p>
+<p>Choose any folder on your machine to host the private extension tree.
+The folder is created on demand:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"HOME"</span><span class="op">)</span>, <span class="st">"vertetime-extension"</span><span class="op">)</span></span></code></pre></div>
+<p>Pick a fresh dataset identifier of the form <code>VT_NNN</code> where
+<code>NNN</code> is unique within your private tree. The canonical
+<code>VT_NNN</code> namespace of the shipped compilation occupies a
+contiguous range; your private identifiers can collide neither with that
+range nor with each other.</p>
 <p><br></p>
 </div>
 <div class="section level2">
-<h2 id="step-3--fill-the-yaml-sidecar">Step 3. Fill the YAML sidecar<a class="anchor" aria-label="anchor" href="#step-3--fill-the-yaml-sidecar"></a>
+<h2 id="step-2--scaffold-the-yaml-sidecar">Step 2. Scaffold the YAML sidecar<a class="anchor" aria-label="anchor" href="#step-2--scaffold-the-yaml-sidecar"></a>
 </h2>
-<p>Copy the template:</p>
+<p>The first call writes the YAML template into the right location:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span></span>
-<span>  from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"templates"</span>, <span class="st">"dataset_template.yaml"</span>, package <span class="op">=</span> <span class="st">"VerteTIME"</span><span class="op">)</span>,</span>
-<span>  to   <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>,<span class="st">"_yaml"</span>,<span class="st">"VT_001.yaml"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>Open the copy and edit the required fields (marked
-<code>[REQUIRED]</code> in the template). The minimum complete set is
-<code>dataset_id</code>, <code>primary_reference_citation</code>,
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://robustecologies.github.io/VerteTIME">VerteTIME</a></span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vt_register_dataset.html">vt_register_dataset</a></span><span class="op">(</span><span class="st">"VT_999"</span>, data_raw <span class="op">=</span> <span class="va">tree</span>, dry_run <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">res</span><span class="op">$</span><span class="va">scaffold</span>       <span class="co"># &lt;tree&gt;/_yaml/VT_999.yaml</span></span>
+<span><span class="va">res</span><span class="op">$</span><span class="va">csv_dir</span>        <span class="co"># &lt;tree&gt;/VT_999/</span></span>
+<span><span class="va">res</span><span class="op">$</span><span class="va">message</span></span></code></pre></div>
+<p>The function returns a list naming the YAML path it wrote and the
+per-dataset folder where you should place the CSV. Open the YAML in an
+editor and fill in the required fields (marked <code>[REQUIRED]</code>
+in the template): <code>dataset_id</code>,
+<code>primary_reference_citation</code>,
 <code>primary_reference_doi</code>, <code>primary_reference_kind</code>,
 the <code>sites:</code> block with at least one site (with
-non-placeholder coordinates), and <code>year_min</code> and
-<code>year_max</code>. Optional fields can be left empty.</p>
+non-placeholder coordinates), <code>year_min</code> and
+<code>year_max</code>. The optional fields can stay empty.</p>
+<p><br></p>
+</div>
+<div class="section level2">
+<h2 id="step-3--drop-the-wide-format-csv-in-place">Step 3. Drop the wide-format CSV in place<a class="anchor" aria-label="anchor" href="#step-3--drop-the-wide-format-csv-in-place"></a>
+</h2>
+<p>VerteTIME’s wide CSV format is one row per calendar year. Column 1 is
+<code>year</code> (integer); subsequent columns are species in
+<code>Genus_species</code> form (hyphenated epithets allowed) and any
+environmental covariates. The field separator is <code>;</code> and the
+encoding is UTF-8. Place the file at
+<code>&lt;tree&gt;/VT_999/VT_999.csv</code>. Multi-site studies use the
+suffix convention <code>VT_999-1.csv</code>, <code>VT_999-2.csv</code>,
+etc.</p>
+<p>If your column names do not follow the underscore-binomial
+convention, set <code>taxa_columns:</code> and
+<code>covariate_columns:</code> in the YAML to override the regex
+classifier.</p>
 <p><br></p>
 </div>
 <div class="section level2">
 <h2 id="step-4--dry-run-the-registration">Step 4. Dry-run the registration<a class="anchor" aria-label="anchor" href="#step-4--dry-run-the-registration"></a>
 </h2>
+<p>Once both the YAML and the CSV are populated, repeat the dry run to
+validate without writing the audit log:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vt_register_dataset.html">vt_register_dataset</a></span><span class="op">(</span><span class="st">"VT_001"</span>, dry_run <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vt_register_dataset.html">vt_register_dataset</a></span><span class="op">(</span><span class="st">"VT_999"</span>, data_raw <span class="op">=</span> <span class="va">tree</span>, dry_run <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">res</span><span class="op">$</span><span class="va">validation</span></span></code></pre></div>
-<p><code>dry_run = TRUE</code> runs the ingestion and validation
-pipeline without writing anything. The returned <code>validation</code>
-tibble has zero rows on a clean dataset; otherwise each row identifies a
-specific check that failed (year out of range, negative abundance,
-duplicate <code>(site, species, year)</code>, coordinate out of range,
-species name not matching the regex). Address every issue before running
-with <code>dry_run = FALSE</code>.</p>
+<p>The returned <code>validation</code> tibble has zero rows on a clean
+dataset; otherwise each row identifies a specific check that failed
+(year out of range, negative abundance, duplicate
+<code>(site, species, year)</code>, coordinate out of range, species
+name not matching the regex). Address every issue before running with
+<code>dry_run = FALSE</code>.</p>
 <p><br></p>
 </div>
 <div class="section level2">
 <h2 id="step-5--register-the-dataset">Step 5. Register the dataset<a class="anchor" aria-label="anchor" href="#step-5--register-the-dataset"></a>
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vt_register_dataset.html">vt_register_dataset</a></span><span class="op">(</span><span class="st">"VT_001"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vt_register_dataset.html">vt_register_dataset</a></span><span class="op">(</span><span class="st">"VT_999"</span>, data_raw <span class="op">=</span> <span class="va">tree</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span>, type <span class="op">=</span> <span class="st">"whittaker"</span><span class="op">)</span></span></code></pre></div>
 <p>When validation succeeds, the function appends one row to
-<code>data-raw/_yaml/_register_log.csv</code> with a timestamp, the
+<code>&lt;tree&gt;/_yaml/_register_log.csv</code> with a timestamp, the
 dataset’s row counts, and a SHA-256 of the YAML sidecar, and returns the
-freshly built <code>vt_dataset</code> ready for inclusion in the
-compilation.</p>
+freshly built <code>vt_dataset</code> ready for analysis. You can call
+every analytical function on <code>d</code> directly
+(<code>vt_alpha_diversity(d)</code>,
+<code>vt_temporal_turnover(d)</code>,
+<code>vt_plot_community_spotlight(d)</code>, etc.).</p>
 <p><br></p>
 </div>
 <div class="section level2">
-<h2 id="step-6--rebuild-the-shipped-data-objects-and-re-publish">Step 6. Rebuild the shipped data objects and re-publish<a class="anchor" aria-label="anchor" href="#step-6--rebuild-the-shipped-data-objects-and-re-publish"></a>
+<h2 id="step-6--combine-with-the-shipped-compilation">Step 6. Combine with the shipped compilation<a class="anchor" aria-label="anchor" href="#step-6--combine-with-the-shipped-compilation"></a>
 </h2>
-<p>The build script is the single legitimate entry point that ingests
-the source tree and writes the two shipped data objects
-(<code>vertetime</code> and <code>vt_demo</code>) to
-<code>data/*.rda</code>. The internal source-folder identifiers are
-translated to the canonical <code>VT_NNN</code> namespace inside the
-script and never persisted. The <code>vertetime</code> object holds the
-full canonical compilation (its <code>$datasets</code> slot is the
-dataset-level metadata and its <code>$data_provenance</code> slot is the
-audit table; neither is shipped as a separate data object).</p>
+<p>To analyse your private datasets jointly with <code>vertetime</code>,
+concatenate the relational tables of the new <code>vt_dataset</code>
+with the shipped compilation:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"build-data.R"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>After the build, regenerate the multi-format public release:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/vt_publish.html">vt_publish</a></span><span class="op">(</span><span class="va">vertetime</span>, <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"web-export"</span>,<span class="st">"vertetime-v1.0"</span><span class="op">)</span>,</span>
-<span>           overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/vt_publish.html">vt_publish()</a></code> regenerates the four-format public release
-(CSV, Parquet, SQLite, datapackage) plus the <code>README.md</code>,
-<code>LICENSE.md</code>, <code>CITATION.cff</code>,
-<code>data_provenance.csv</code> and <code>CHECKSUMS.sha256</code> files
-at the root. The Zenodo deposit step is manual: upload the new
-<code>web-export/vertetime-v1.0</code> tree to a new Zenodo version,
-copy the resulting DOI back into <code>CITATION.cff</code>, and
-re-render the manuscript.</p>
+<span><span class="va">co</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vt_compilation.html">vt_compilation</a></span><span class="op">(</span></span>
+<span>  datasets        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">$</span><span class="va">datasets</span>,        <span class="va">d</span><span class="op">$</span><span class="va">datasets</span>,        fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  sites           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">$</span><span class="va">sites</span>,           <span class="va">d</span><span class="op">$</span><span class="va">sites</span>,           fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  species         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">$</span><span class="va">species</span>,  <span class="va">d</span><span class="op">$</span><span class="va">species</span>,         fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                           by <span class="op">=</span> <span class="st">"species_id"</span><span class="op">)</span>,</span>
+<span>  observations    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">$</span><span class="va">observations</span>,    <span class="va">d</span><span class="op">$</span><span class="va">observations</span>,    fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  covariates      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">$</span><span class="va">covariates</span>,      <span class="va">d</span><span class="op">$</span><span class="va">covariates</span>,      fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  data_provenance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">vertetime</span><span class="op">$</span><span class="va">data_provenance</span>, <span class="va">d</span><span class="op">$</span><span class="va">data_provenance</span>, fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">co</span><span class="op">)</span></span></code></pre></div>
+<p>The merged <code>vt_compilation</code> carries both namespaces side
+by side and every plot or metric works against it without further
+ceremony. The shipped object is not modified; the combined
+<code>co</code> lives in the current R session only.</p>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -237,9 +237,9 @@ non-negative abundance.</p>
 epithets and old combinations need manual mapping), coordinate
 transcription from the primary reference, primary-reference verification
 (open the DOI, confirm authors and year), and the licensing decision
-when the source carries non-default terms. The pre-flight checklist in
-<code>inst/templates/register-checklist.md</code> lists these
-explicitly.</p>
+when the source carries non-default terms. The pre-flight checklist at
+<code>system.file("templates", "register-checklist.md", package = "VerteTIME")</code>
+lists these explicitly.</p>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -253,6 +253,21 @@ abbreviations), populate <code>taxa_columns</code> and
 pipeline does not check whether the values <em>should</em> be counts
 versus densities versus indices; that is recorded in
 <code>unit_class</code> and is the user’s responsibility.</p>
+<p>The GBIF backbone enrichment used by the shipped compilation is not
+reproducible on a private tree without a cached taxonomy TSV.
+<code><a href="../reference/enrich_taxonomy.html">enrich_taxonomy()</a></code> is offered as a no-op when the cache is
+absent, so the <code>class</code>, <code>order</code> and
+<code>family</code> columns for private species stay <code>NA</code>.
+Joining against the shipped <code>vertetime$species</code> table covers
+the species already in the canonical compilation; the rest can be
+enriched manually or left unresolved with no impact on the
+abundance-based metrics.</p>
+<p>If you want to contribute the dataset back to VerteTIME proper, open
+an issue or pull request at the project’s GitHub repository with the
+YAML, the CSV and the primary-reference DOI. The maintainers run the
+same <code><a href="../reference/vt_register_dataset.html">vt_register_dataset()</a></code> workflow on their side, against
+the maintainer-private ingestion tree that produces the next shipped
+release.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
