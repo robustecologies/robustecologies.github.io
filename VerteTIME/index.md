@@ -6,13 +6,12 @@
 
 **VerteTIME** is a curated repository of world vertebrate community time
 series. The compilation bundles more than 200 per-site multi-species
-annual abundance series (and growing) from terrestrial, freshwater and
-marine systems worldwide, each independently curated from peer-reviewed
-primary literature and grey literature. Each entry preserves the
-multi-species composition required for community-ecology analysis
-(turnover, dominance restructuring, nestedness) and, where the source
-documents them, the per-site environmental covariates measured on the
-same temporal index.
+annual abundance series from terrestrial, freshwater and marine systems
+worldwide, each independently curated from peer-reviewed primary
+literature and grey literature. Each entry preserves the multi-species
+composition required for community-ecology analysis (turnover, dominance
+restructuring, nestedness) and, where the source documents them, the
+per-site environmental covariates measured on the same temporal index.
 
   
 
