@@ -1,0 +1,22 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  advanced-dynamics: advanced-dynamics.html
+  API: API.html
+  chaotic-systems: chaotic-systems.html
+  ensemble-simulation: ensemble-simulation.html
+  introduction: introduction.html
+  lyapunov_functions: lyapunov_functions.html
+  neumann_janos: neumann_janos.html
+  qualitative-analysis: qualitative-analysis.html
+  references: references.html
+  sde-noise: sde-noise.html
+  solvers: solvers.html
+  spatial-dynamics: spatial-dynamics.html
+  stiff_ode_toolkit: stiff_ode_toolkit.html
+  stochastic-simulation: stochastic-simulation.html
+last_built: 2026-05-23T17:09Z
+urls:
+  reference: https://robustecologies.github.io/janos/reference
+  article: https://robustecologies.github.io/janos/articles

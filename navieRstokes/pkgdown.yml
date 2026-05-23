@@ -1,0 +1,15 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  advanced-examples: advanced-examples.html
+  api: api.html
+  introduction: introduction.html
+  lid-driven-cavity: lid-driven-cavity.html
+  navier-stokes-history: navier-stokes-history.html
+  navier-stokes-theory: navier-stokes-theory.html
+  vortex-decay: vortex-decay.html
+last_built: 2026-04-27T09:26Z
+urls:
+  reference: https://robustecologies.github.io/navieRstokes/reference
+  article: https://robustecologies.github.io/navieRstokes/articles

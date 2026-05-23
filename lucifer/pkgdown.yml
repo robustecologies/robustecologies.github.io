@@ -1,0 +1,39 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  abc: abc.html
+  API: API.html
+  bayesian_modes: bayesian_modes.html
+  bayesian_quadrature: bayesian_quadrature.html
+  bayesian_workflow: bayesian_workflow.html
+  compiled_models: compiled_models.html
+  coupled_mcmc: coupled_mcmc.html
+  cross_validation: cross_validation.html
+  crucible: crucible.html
+  data_cloning: data_cloning.html
+  distributions: distributions.html
+  Examples: Examples.html
+  frequentist_bridge: frequentist_bridge.html
+  gibbs: gibbs.html
+  interoperability: interoperability.html
+  introduction: introduction.html
+  mcmc-algorithms: mcmc-algorithms.html
+  model_spec: model_spec.html
+  nested_laplace: nested_laplace.html
+  node: node.html
+  phylodynamics: phylodynamics.html
+  ppc: ppc.html
+  prescribe_arena: prescribe_arena.html
+  product_space: product_space.html
+  qmc: qmc.html
+  robust_bayes: robust_bayes.html
+  sbi: sbi.html
+  sde: sde.html
+  smc: smc.html
+  ssm: ssm.html
+  variational_bayes: variational_bayes.html
+last_built: 2026-05-06T19:02Z
+urls:
+  reference: https://robustecologies.github.io/lucifer/reference
+  article: https://robustecologies.github.io/lucifer/articles

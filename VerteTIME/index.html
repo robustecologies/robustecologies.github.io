@@ -13,8 +13,8 @@
     }
   };
 </script><script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="VerteTIME">
 <meta name="description" content="A curated repository of world vertebrate community time series.">
@@ -275,7 +275,7 @@ Click to expand the function index
 <tr>
 <td><code>species</code></td>
 <td>one row per species observed</td>
-<td>taxonomic backbone (filled in v1.1 via <code>rgbif::name_backbone</code>)</td>
+<td>taxonomic backbone (filled in v1.1 via <code><a href="https://docs.ropensci.org/rgbif/reference/name_backbone.html" class="external-link">rgbif::name_backbone</a></code>)</td>
 </tr>
 <tr>
 <td><code>observations</code></td>
@@ -330,7 +330,7 @@ Click to expand the function index
 <div class="section level2">
 <h2 id="limitations-and-mitigations">Limitations and mitigations<a class="anchor" aria-label="anchor" href="#limitations-and-mitigations"></a>
 </h2>
-<p>The compilation is heterogeneous in <code>unit_class</code> (counts, densities, biomass, indices, CPUE, breeding pairs); cross-series quantitative comparison must stratify by <code>unit_class</code> or focus on dimensionless community-structure metrics. Geographic coverage is presently uneven and skews towards Europe, North America and a handful of long-running tropical sites; the Robinson world map figure surfaces this skew explicitly and the <code>coord_precision_km</code> column documents per-site coordinate precision. Higher-rank taxonomy (<code>class</code>, <code>order</code>, <code>family</code>) is left empty in v1.0 and is filled in v1.1 via <code>rgbif::name_backbone</code>; the dataset-level <code>taxonomic_focus</code> is the operative attribute until then. The <code>species$is_vertebrate</code> flag is similarly populated in v1.1. The package does not impute internal <code>NA</code>s; users who need imputed series should run <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/na_kalman.html" class="external-link">imputeTS::na_kalman</a></code> or similar packages downstream of <code><a href="reference/vt_long.html">vt_long()</a></code>. The grey-literature subset is opt-in: studies in non-English languages are under-represented relative to the body of long-term ecological observation actually conducted, and v1.1 will widen the language scope.</p>
+<p>The compilation is heterogeneous in <code>unit_class</code> (counts, densities, biomass, indices, CPUE, breeding pairs); cross-series quantitative comparison must stratify by <code>unit_class</code> or focus on dimensionless community-structure metrics. Geographic coverage is presently uneven and skews towards Europe, North America and a handful of long-running tropical sites; the Robinson world map figure surfaces this skew explicitly and the <code>coord_precision_km</code> column documents per-site coordinate precision. Higher-rank taxonomy (<code>class</code>, <code>order</code>, <code>family</code>) is left empty in v1.0 and is filled in v1.1 via <code><a href="https://docs.ropensci.org/rgbif/reference/name_backbone.html" class="external-link">rgbif::name_backbone</a></code>; the dataset-level <code>taxonomic_focus</code> is the operative attribute until then. The <code>species$is_vertebrate</code> flag is similarly populated in v1.1. The package does not impute internal <code>NA</code>s; users who need imputed series should run <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/na_kalman.html" class="external-link">imputeTS::na_kalman</a></code> or similar packages downstream of <code><a href="reference/vt_long.html">vt_long()</a></code>. The grey-literature subset is opt-in: studies in non-English languages are under-represented relative to the body of long-term ecological observation actually conducted, and v1.1 will widen the language scope.</p>
 <p>The <code>is_community_metric_eligible</code> flag (<code>n_species &gt;= 2 AND n_years &gt;= 3</code>) is a starting point but not a substitute for careful per-analysis filtering. We deliberately do not apply implicit dataset filters: the compilation is loaded in full, and metrics that are mathematically undefined on small communities are computed conditionally with explicit <code>NA</code>s rather than silent dataset exclusion.</p>
 <p><br></p>
 </div>
@@ -360,7 +360,7 @@ Click to expand the function index
 <div class="section level2">
 <h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
 </h2>
-<p>This package is the original creation of the author in all conceptual, theoretical, and design aspects. Implementation was assisted by Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package development. All original ideas, creativity, and scientific contributions belong to the author, who maintains full responsibility for the package’s correctness and reliability. All the code has been thoroughly tested, and users are encouraged to report any issues through the package’s <a href="https://github.com/robustecologies/VerteTIME/issues" class="external-link">issue tracker</a>.</p>
+<p>This package is the original creation of the authors in all conceptual, theoretical, and design aspects. Implementation was assisted by Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package development. All original ideas, creativity, and scientific contributions belong to the authors, who maintain full responsibility for the package’s correctness and reliability. All the code has been thoroughly tested, and users are encouraged to report any issues through the package’s <a href="https://github.com/robustecologies/VerteTIME/issues" class="external-link">issue tracker</a>.</p>
 <p><br></p>
 </div>
 <div class="section level2">

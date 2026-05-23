@@ -1,10 +1,12 @@
-# Comprehensive color palette collection
+# Color palettes (delegated to koloRo)
 
-Returns a comprehensive collection of color palettes from various
-sources including scientific visualization standards, extensive
-colorblind-safe options, chameleon species coloration patterns, artistic
-movements, natural phenomena, authentic Alhambra geometric patterns with
-historical pigments, and contemporary design trends.
+Thin wrapper that exposes the full koloRo palette catalogue (282
+palettes across scientific, colorblind-safe, alhambra, chameleons,
+natural, cultural, artistic, seasonal and monochrome categories)
+directly inside wadaR. When the koloRo package is installed the call is
+forwarded verbatim to
+[`koloRo::palettes()`](https://rdrr.io/pkg/koloRo/man/palettes.html);
+when it is not, only the built-in fallback `"okabe_ito"` is available.
 
 ## Usage
 
@@ -16,92 +18,56 @@ palettes(category = "all", palette = NULL)
 
 - category:
 
-  Character string specifying the palette category. Options include:
-
-  - `"all"` - Returns all available palettes (default)
-
-  - `"scientific"` - Scientific visualization palettes (viridis, plasma,
-    etc.)
-
-  - `"colorblind"` - Extensive colorblind-safe palettes (40+ options)
-
-  - `"alhambra"` - Authentic Alhambra palettes with historical pigments
-    (50+)
-
-  - `"chameleons"` - Chameleon species-based palettes (20+ species)
-
-  - `"natural"` - Nature-inspired palettes (ocean, forest, sunset, etc.)
-
-  - `"cultural"` - Cultural and heritage palettes (Japanese, Persian,
-    etc.)
-
-  - `"artistic"` - Art movement palettes (impressionist, bauhaus, etc.)
-
-  - `"seasonal"` - Seasonal palettes (spring, summer, autumn, winter)
-
-  - `"modern"` - Contemporary design palettes (neon, pastel, cyberpunk,
-    etc.)
-
-  - `"classic"` - Classic color theory palettes
-
-  - `"monochrome"` - Single-hue variations
-
-  - `"food"` - Culinary-inspired palettes
-
-  - `"diverging"` - Diverging palettes for data with neutral midpoint
-
-  - `"qualitative"` - Qualitative palettes for categorical data
-
-  - `"cinema"` - Film-inspired palettes (Dune cinematography)
+  Character. Palette category (forwarded to koloRo). Defaults to
+  `"all"`.
 
 - palette:
 
-  Character string specifying a specific palette name. If provided,
-  returns only that palette. Use
-  [`list_palettes()`](https://robustecologies.github.io/koloRo/reference/list_palettes.md)
-  to see all available names.
+  Character. Specific palette name (forwarded to koloRo). If `NULL`,
+  koloRo returns the full named list for the requested category.
 
 ## Value
 
-A named list of color palettes, where each palette is a character vector
-of hexadecimal color codes.
+A character vector of hexadecimal color codes when `palette` is set, or
+the named list returned by
+[`koloRo::palettes()`](https://rdrr.io/pkg/koloRo/man/palettes.html)
+otherwise.
+
+## Details
+
+The koloRo dependency is declared in `Suggests`, so wadaR remains
+installable on a system without koloRo and the bundled `wada_basins` /
+`wada_straddle_method` / `wada_merging_method` plots continue to work
+because they request only the colorblind-safe `"okabe_ito"` palette,
+which is embedded as a fallback. Any other palette name triggers a
+[`stop()`](https://rdrr.io/r/base/stop.html) with the install
+instruction.
 
 ## References
 
-Itten, J. (1961). *The art of color*. Reinhold Publishing. ISBN
-978-0471289296
-
-CIE (2004). Colorimetry (3rd ed.). CIE Publication 15:2004. Commission
-Internationale de l'Eclairage. ISBN 978-3901906336
-
-Smith, A. R. (1978). Color gamut transform pairs. *ACM SIGGRAPH Computer
-Graphics*, 12(3), 12-19.
-[doi:10.1145/965139.807361](https://doi.org/10.1145/965139.807361)
+Almaraz, P. (2026). *koloRo: a comprehensive color palette collection
+for R*. <https://github.com/robustecologies/koloRo>.
 
 Okabe, M., & Ito, K. (2008). Color universal design (CUD): how to make
 figures and presentations that are friendly to colorblind people.
-*J\*Fly Data Depository for Drosophila Researchers*.
-<https://jfly.uni-koeln.de/color/>
+<https://jfly.uni-koeln.de/color/>.
 
-Wickham, H. (2016). *ggplot2: Elegant graphics for data analysis* (2nd
-ed.). Springer-Verlag.
-[doi:10.1007/978-3-319-24277-4](https://doi.org/10.1007/978-3-319-24277-4)
+## See also
+
+[`palette_ramp`](https://robustecologies.github.io/wadaR/reference/palette_ramp.md)
+for interpolating a palette to N colors.
 
 ## Examples
 
 ``` r
+# Built-in fallback (works without koloRo)
+palettes(palette = "okabe_ito")
+#> [1] "#E69F00" "#56B4E9" "#009E73" "#F0E442" "#0072B2" "#D55E00" "#CC79A7"
+#> [8] "#000000"
+
 if (FALSE) { # \dontrun{
-# Get all colorblind-safe palettes
-cb_palettes <- palettes(category = "colorblind")
-
-# Get authentic Alhambra palettes
-alhambra_palettes <- palettes(category = "alhambra")
-
-# Get a specific palette
-nazari <- palettes(palette = "alhambra_nazari")
-okabe <- palettes(palette = "okabe_ito")
-
-# Create a color ramp
-colors <- colorRampPalette(palettes(palette = "viridis"))(100)
+# Full catalogue (requires koloRo)
+palettes(palette = "alhambra_nazari")
+palettes(category = "scientific")
 } # }
 ```

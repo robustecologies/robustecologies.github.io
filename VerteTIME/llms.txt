@@ -329,7 +329,7 @@ table:
 |----|----|----|
 | `datasets` | one row per dataset (`VT_NNN`) | dataset-level metadata |
 | `sites` | one row per spatially-distinct site within a dataset | site-level metadata, coordinates |
-| `species` | one row per species observed | taxonomic backbone (filled in v1.1 via `rgbif::name_backbone`) |
+| `species` | one row per species observed | taxonomic backbone (filled in v1.1 via [`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html)) |
 | `observations` | long, one row per (`site_id`, `species_id`, `year`) | the workhorse |
 | `covariates` | long, one row per (`site_id`, `year`, `covariate`) | environmental covariates |
 | `data_provenance` | one row per dataset | primary-reference DOI, citation, kind |
@@ -402,7 +402,8 @@ skews towards Europe, North America and a handful of long-running
 tropical sites; the Robinson world map figure surfaces this skew
 explicitly and the `coord_precision_km` column documents per-site
 coordinate precision. Higher-rank taxonomy (`class`, `order`, `family`)
-is left empty in v1.0 and is filled in v1.1 via `rgbif::name_backbone`;
+is left empty in v1.0 and is filled in v1.1 via
+[`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html);
 the dataset-level `taxonomic_focus` is the operative attribute until
 then. The `species$is_vertebrate` flag is similarly populated in v1.1.
 The package does not impute internal `NA`s; users who need imputed
@@ -475,11 +476,11 @@ cited in the corresponding row.
 
 ## Disclaimer
 
-This package is the original creation of the author in all conceptual,
+This package is the original creation of the authors in all conceptual,
 theoretical, and design aspects. Implementation was assisted by
 Anthropic’s Claude Code v.2 (Opus 4.5-4.7) to streamline package
 development. All original ideas, creativity, and scientific
-contributions belong to the author, who maintains full responsibility
+contributions belong to the authors, who maintain full responsibility
 for the package’s correctness and reliability. All the code has been
 thoroughly tested, and users are encouraged to report any issues through
 the package’s [issue
