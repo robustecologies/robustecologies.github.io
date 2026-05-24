@@ -48,7 +48,7 @@ ens <- ensemble_sim(bd, n_replicates = 500, t_max = 20,
 #> ⚙ Ensemble simulation: 500 replicates
 #>   ¡ Backend: openmp (19 threads)
 #>   ¡ Solver: ssa_direct, t_max = 20, seed = 42
-#> ✔ Ensemble completed in 3.44s
+#> ✔ Ensemble completed in 0.02s
 print(ens)
 #> 
 #> Ensemble simulation
@@ -58,7 +58,7 @@ print(ens)
 #> Solver:      ssa_direct
 #> Duration:    20
 #> Backend:     openmp (19 threads)
-#> Elapsed:     3.44s
+#> Elapsed:     0.02s
 #> 
 #> Terminal state statistics:
 #>   N: mean = 13.344, sd = 15.118
@@ -72,7 +72,7 @@ summary(ens)
 #> 
 #> Replicates:  500
 #> Backend:     openmp
-#> Elapsed:     3.44s
+#> Elapsed:     0.02s
 #> 
 #> Terminal state statistics:
 #>  state   mean       sd median q25 q75 min max
@@ -226,7 +226,7 @@ ens_a <- ensemble_sim(bd, n_replicates = 100, t_max = 10,
 #> ⚙ Ensemble simulation: 100 replicates
 #>   ¡ Backend: openmp (19 threads)
 #>   ¡ Solver: ssa_direct, t_max = 10, seed = 123
-#> ✔ Ensemble completed in 0.01s
+#> ✔ Ensemble completed in 0.02s
 ens_b <- ensemble_sim(bd, n_replicates = 100, t_max = 10,
                       solver = solver_ssa_direct(), seed = 123)
 #> ⚙ Ensemble simulation: 100 replicates
@@ -260,7 +260,7 @@ ens_sde <- ensemble_sim(gbm, n_replicates = 500, t_max = 5,
 #> ⚙ Ensemble simulation: 500 replicates
 #>   ¡ Backend: openmp (19 threads)
 #>   ¡ Solver: euler_maruyama, t_max = 5, seed = 42
-#> ✔ Ensemble completed in 6.08s
+#> ✔ Ensemble completed in 1.55s
 plot(ens_sde, type = "fan", title = "GBM ensemble fan chart")
 ```
 
@@ -296,7 +296,7 @@ ens_vary <- ensemble_sim(
 #> ⚙ Ensemble simulation: 200 replicates
 #>   ¡ Backend: mclapply (1 cores)
 #>   ¡ Solver: ssa_direct, t_max = 20, seed = 42
-#> ✔ Ensemble completed in 5.14s
+#> ✔ Ensemble completed in 0.08s
 plot(ens_vary, type = "spaghetti", max_traces = 30,
      title = "Varying initial conditions")
 ```
@@ -329,7 +329,7 @@ ens_sweep <- ensemble_sim(
 #> ⚙ Ensemble simulation: 100 replicates
 #>   ¡ Backend: mclapply (1 cores)
 #>   ¡ Solver: ssa_direct, t_max = 30, seed = 42
-#> ✔ Ensemble completed in 0.08s
+#> ✔ Ensemble completed in 0.05s
 plot(ens_sweep, type = "terminal", title = "Death rate sweep terminal states")
 ```
 
@@ -350,7 +350,7 @@ ens_large <- ensemble_sim(bd, n_replicates = 1000, t_max = 20,
 #> ⚙ Ensemble simulation: 1000 replicates
 #>   ¡ Backend: openmp (19 threads)
 #>   ¡ Solver: ssa_direct, t_max = 20, seed = 42
-#> ✔ Ensemble completed in 0.01s
+#> ✔ Ensemble completed in 0.02s
 print(ens_large)
 #> 
 #> Ensemble simulation
@@ -360,7 +360,7 @@ print(ens_large)
 #> Solver:      ssa_direct
 #> Duration:    20
 #> Backend:     openmp (19 threads)
-#> Elapsed:     0.01s
+#> Elapsed:     0.02s
 #> 
 #> Terminal state statistics:
 #>   N: mean = 13.676, sd = 15.994
@@ -416,7 +416,7 @@ ens_ode <- ensemble_sim(
 #> ⚙ Ensemble simulation: 50 replicates
 #>   ¡ Backend: mclapply (1 cores)
 #>   ¡ Solver: rk45, t_max = 30, seed = 42
-#> ✔ Ensemble completed in 0.22s
+#> ✔ Ensemble completed in 0.17s
 plot(ens_ode, type = "spaghetti",
      title = "Lotka-Volterra varying initial conditions")
 ```
@@ -449,7 +449,7 @@ ens_tau <- ensemble_sim(sir, n_replicates = 300, t_max = 200,
 #> ⚙ Ensemble simulation: 300 replicates
 #>   ¡ Backend: openmp (19 threads)
 #>   ¡ Solver: tau_leap, t_max = 200, seed = 42
-#> ✔ Ensemble completed in 4.61s
+#> ✔ Ensemble completed in 0.17s
 plot(ens_tau, type = "fan", title = "SIR tau-leap ensemble")
 ```
 

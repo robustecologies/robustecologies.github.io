@@ -48,7 +48,7 @@ result_mg <- dyn_sim(mg, t_max = 2000, solver = solver_dde(dt = 0.1),
 #> ⚙ Simulating DDE system (compiled DDE)
 #>   ¡ Integration: RK4, dt = 0.1, τ_max = 17
 #>   ¡ Duration: 2000, discarding 500 transient
-#>   ⏱ Elapsed: 0.05 seconds
+#>   ⏱ Elapsed: 0.02 seconds
 #> ✔ Simulation complete: 20001 time points, 15001 on attractor
 print(result_mg)
 #> 
@@ -118,7 +118,7 @@ result_pdmp <- dyn_sim(bacteria, t_max = 100,
 #>   ¡ dt_ode = 0.01, seed = 42
 #>   ¡ Duration: 100, discarding 0 transient
 #>   ¡ Initial regime: active
-#>   ⏱ Elapsed: 0.04 seconds
+#>   ⏱ Elapsed: 3.44 seconds
 #> ✔ Simulation complete: 1001 time points, 26 regime transitions
 print(result_pdmp)
 #> 
@@ -174,7 +174,7 @@ result_3r <- dyn_sim(three_regime, t_max = 200,
 #>   ¡ dt_ode = 0.01, seed = 7
 #>   ¡ Duration: 200, discarding 0 transient
 #>   ¡ Initial regime: growth
-#>   ⏱ Elapsed: 0.02 seconds
+#>   ⏱ Elapsed: 3.42 seconds
 #> ✔ Simulation complete: 201 time points, 29 regime transitions
 plot(result_3r, title = "Three-regime PDMP")
 ```
@@ -208,7 +208,7 @@ result_log <- dyn_sim(logistic, t_max = 200, solver = solver_map(),
                       discard_transient = 50)
 #> ⚙ Iterating Discrete map (compiled)
 #>   ¡ Iterations: 200, discarding 50 transient
-#>   ⏱ Elapsed: 0.02 seconds
+#>   ⏱ Elapsed: 0.01 seconds
 #> ✔ Simulation complete: 201 iterations stored, 151 on attractor
 print(result_log)
 #> 
@@ -255,7 +255,7 @@ result_henon <- dyn_sim(henon, t_max = 10000, solver = solver_map(),
                         discard_transient = 1000)
 #> ⚙ Iterating Discrete map (compiled)
 #>   ¡ Iterations: 10000, discarding 1000 transient
-#>   ⏱ Elapsed: 0.03 seconds
+#>   ⏱ Elapsed: 0.01 seconds
 #> ✔ Simulation complete: 10001 iterations stored, 9001 on attractor
 plot(result_henon, type = "phase", title = "Henon strange attractor")
 ```
@@ -459,7 +459,7 @@ sens <- adjoint_sensitivity(lv, objective = "terminal", t_max = 10)
 #>   ¡ Forward pass: RK45, t_max = 10
 #>   ¡ Compiling adjoint solver (J^T + df/dp)
 #>   ¡ Backward pass: RK4, 1000 checkpoints
-#>   ⏱ Elapsed: 0.05 seconds
+#>   ⏱ Elapsed: 7.56 seconds
 #> ✔ Sensitivity complete. Top: d = -781.4, b = 109.4, c = 95.84
 print(sens)
 #> 
@@ -475,7 +475,7 @@ print(sens)
 #>    d  =  -781.387  (elasticity:  -2.005 )
 #>    c  =  95.8441  (elasticity:  4.918 )
 #> 
-#> Elapsed:  0.05  seconds
+#> Elapsed:  7.56  seconds
 summary(sens)
 #> 
 #> Adjoint sensitivity analysis (summary)
@@ -501,7 +501,7 @@ summary(sens)
 #>    c :  95.84 
 #>    a :  88.06 
 #> 
-#> Elapsed:  0.05  seconds
+#> Elapsed:  7.56  seconds
 plot(sens)
 ```
 

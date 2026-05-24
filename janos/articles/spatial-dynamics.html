@@ -288,7 +288,7 @@ sufficiently:</p>
 <span><span class="co">#&gt;   ¡ Grid: N = 101, dx = 0.0100, domain = [0, 1]</span></span>
 <span><span class="co">#&gt;   ¡ Integration: MOL (RK4), dt = 1e-05</span></span>
 <span><span class="co">#&gt;   ¡ Duration: 10, discarding 0 transient</span></span>
-<span><span class="co">#&gt;   ⏱ Elapsed: 1.47 seconds</span></span>
+<span><span class="co">#&gt;   ⏱ Elapsed: 1.43 seconds</span></span>
 <span><span class="co">#&gt; ✔ Simulation complete: 100001 time points, 101 grid points, 2 state(s)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">result_brus</span>, title <span class="op">=</span> <span class="st">"1D Brusselator reaction-diffusion"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatial-dynamics_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="672"></p>
@@ -346,7 +346,7 @@ and initial conditions.</p>
 <span><span class="co">#&gt; ⚙ Simulating 2D PDE system (compiled 2D PDE/MOL)</span></span>
 <span><span class="co">#&gt;   ¡ Grid: Nx = 50, Ny = 50, dx = 0.0204, dy = 0.0204</span></span>
 <span><span class="co">#&gt;   ¡ Integration: MOL 2D (RK4), dt = 1e-04</span></span>
-<span><span class="co">#&gt;   ⏱ Elapsed: 12.14 seconds</span></span>
+<span><span class="co">#&gt;   ⏱ Elapsed: 12.12 seconds</span></span>
 <span><span class="co">#&gt; ✔ Simulation complete: 10001 time points, 50x50 grid, 2 state(s)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">result_2d</span>, title <span class="op">=</span> <span class="st">"2D Brusselator Turing patterns"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatial-dynamics_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="672"></p>
@@ -402,7 +402,7 @@ with an added <code>spatial</code> specification containing
 <span><span class="co">#&gt;   ¡ Reactions: 2 (infection, recovery)</span></span>
 <span><span class="co">#&gt;   ¡ BCs: reflecting, seed = 42</span></span>
 <span><span class="co">#&gt;   ¡ Duration: 50, discarding 0 transient</span></span>
-<span><span class="co">#&gt;   ⏱ Elapsed: 0.01 seconds</span></span>
+<span><span class="co">#&gt;   ⏱ Elapsed: 0.02 seconds</span></span>
 <span><span class="co">#&gt; ✔ Simulation complete: 101 time points, 56919 events</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">result_rdme</span>, title <span class="op">=</span> <span class="st">"Spatial SIR epidemic (RDME)"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatial-dynamics_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="672"></p>
@@ -552,7 +552,7 @@ with a layout attribute enables automatic 2D heatmap visualization:</p>
 <span><span class="co">#&gt;   ¡ Reactions: 3 (prey_birth, predation, predator_death)</span></span>
 <span><span class="co">#&gt;   ¡ Seed: 42</span></span>
 <span><span class="co">#&gt;   ¡ Duration: 50, discarding 0 transient</span></span>
-<span><span class="co">#&gt;   ⏱ Elapsed: 0.50 seconds</span></span>
+<span><span class="co">#&gt;   ⏱ Elapsed: 0.51 seconds</span></span>
 <span><span class="co">#&gt; ✔ Simulation complete: 28 time points, 891496 events</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">result_eco</span>, title <span class="op">=</span> <span class="st">"Predator-prey on a 10x10 lattice"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatial-dynamics_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="672"></p>

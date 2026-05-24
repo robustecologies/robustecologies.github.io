@@ -12,7 +12,7 @@ him, before the American anglicisation that later rebranded him as
 *Johnny*.
 
 ![John von Neumann, Los Alamos ID badge photograph (c. 1943). Public
-domain.](figures/von_neumann_losalamos.gif)
+domain.](reference/figures/von_neumann_losalamos.gif)
 
 *John von Neumann, Los Alamos ID badge photograph (c. 1943). Public
 domain; a work of the U.S. federal government.*

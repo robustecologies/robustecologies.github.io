@@ -513,7 +513,7 @@ print(lf_big)
 #>   Residual   : 1.306e-14
 #>   DOA        : global
 #>   Note       : bartels_stewart
-#>   Elapsed    : 0.001s
+#>   Elapsed    : 0.000s
 cat("Condition number of P:", lf_big$params$condition_P, "\n")
 #> Condition number of P: 10.54896
 ```
@@ -741,7 +741,7 @@ print(lf_mac)
 #>   Residual   : -7.341e-05
 #>   DOA        : positive_orthant
 #>   Note       : MacArthur Q-function; symmetric part neg def (lambda_max = -0.7); skew ratio = 0
-#>   Elapsed    : 0.001s
+#>   Elapsed    : 0.000s
 cat("Skew ratio:", lf_mac$params$skew_ratio, "\n")
 #> Skew ratio: 0
 ```
@@ -840,7 +840,7 @@ print(lf_gil)
 #>   Residual   : 0.000e+00
 #>   DOA        : numerical_landscape
 #>   Note       : Gilpin line-integral (1974), T = 5.0, dt = 0.0100, 200 eval points, V_dot = -||f(x)||^2
-#>   Elapsed    : 0.519s
+#>   Elapsed    : 0.511s
 ```
 
 ``` r
@@ -923,7 +923,7 @@ print(lf_sos)
 #>   Residual   : -1.000e-06
 #>   DOA        : collocation_verified
 #>   Note       : RBF wendland kernel, 200 centers, R = 2.26
-#>   Elapsed    : 0.243s
+#>   Elapsed    : 0.227s
 ```
 
 ``` r
@@ -997,7 +997,7 @@ print(lf_rbf)
 #>   Residual   : -1.000e-06
 #>   DOA        : collocation_verified
 #>   Note       : RBF wendland kernel, 150 centers, R = 2.26
-#>   Elapsed    : 0.129s
+#>   Elapsed    : 0.121s
 ```
 
 ``` r
@@ -1075,7 +1075,7 @@ print(lf_mas)
 #>   Residual   : -8.117e-02
 #>   DOA        : numerical
 #>   Note       : Massera converse, T = 10.0, dt = 0.0100, 200 eval points, RBF interpolant
-#>   Elapsed    : 0.531s
+#>   Elapsed    : 0.511s
 ```
 
 ``` r
@@ -1134,7 +1134,7 @@ print(lf_cpa)
 #>   V > 0      : ✘ not certified
 #>   V-dot < 0  : ✘ not certified
 #>   Note       : CPA infeasible: infeasible
-#>   Elapsed    : 28.681s
+#>   Elapsed    : 27.206s
 ```
 
 ``` r
@@ -2171,7 +2171,7 @@ rep_sde
 #>   Residual   : 0.000e+00
 #>   DOA        : mean_square_exp
 #>   Note       : algebraic (additive linear SDE)
-#>   Elapsed    : 3.064s
+#>   Elapsed    : 0.007s
 ```
 
 Three plot types are tailored to stochastic analysis. The
@@ -2292,7 +2292,7 @@ if (requireNamespace("CVXR", quietly = TRUE)) {
 #>   V-dot < 0  : ✔ certified
 #>   DOA        : global_exp_delay_independent
 #>   Note       : algebraic (LMI)
-#>   Elapsed    : 0.183s
+#>   Elapsed    : 0.172s
 ```
 
 Two plot types help diagnose a Krasovskii certificate. The
@@ -2398,7 +2398,7 @@ if (requireNamespace("CVXR", quietly = TRUE)) {
 #>   V-dot < 0  : ✔ certified
 #>   DOA        : global_exp_common_quadratic
 #>   Note       : algebraic (common-quadratic LMI)
-#>   Elapsed    : 0.061s
+#>   Elapsed    : 0.051s
 ```
 
 Two plot types unpack the LMI certificate. The `regime_lmi` plot reports
@@ -2510,7 +2510,7 @@ rep_ctmc
 #>   V-dot < 0  : ✘ not certified
 #>   DOA        : foster_positive_recurrence
 #>   Note       : Foster lift from fluid-limit quadratic; numerical drift check 68.8% negative
-#>   Elapsed    : 3.020s
+#>   Elapsed    : 0.013s
 ```
 
 The `drift_grid` plot scatters \\QV(x)\\ against \\V(x)\\ over a probe

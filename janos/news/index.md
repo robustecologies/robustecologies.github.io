@@ -93,7 +93,7 @@ published source.
   [`system_spec()`](https://robustecologies.github.io/janos/reference/system_spec.md)
   and the S3 class `model_spec` renamed to `system_spec`. The rename
   resolves the long-standing name collision with
-  [`lucifer::model_spec()`](https://rdrr.io/pkg/lucifer/man/model_spec.html)
+  [`lucifer::model_spec()`](https://robustecologies.github.io/lucifer/reference/model_spec.html)
   (a Bayesian model specification) and reflects more accurately what the
   constructor builds: a deterministic or stochastic dynamical system,
   not a statistical model. All S3 methods and helpers follow the rename:

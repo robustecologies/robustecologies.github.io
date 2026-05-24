@@ -209,7 +209,7 @@ result_brus <- dyn_sim(brusselator_1d, t_max = 10,
 #>   ¡ Grid: N = 101, dx = 0.0100, domain = [0, 1]
 #>   ¡ Integration: MOL (RK4), dt = 1e-05
 #>   ¡ Duration: 10, discarding 0 transient
-#>   ⏱ Elapsed: 1.47 seconds
+#>   ⏱ Elapsed: 1.43 seconds
 #> ✔ Simulation complete: 100001 time points, 101 grid points, 2 state(s)
 plot(result_brus, title = "1D Brusselator reaction-diffusion")
 ```
@@ -268,7 +268,7 @@ result_2d <- dyn_sim(brusselator_2d, t_max = 10,
 #> ⚙ Simulating 2D PDE system (compiled 2D PDE/MOL)
 #>   ¡ Grid: Nx = 50, Ny = 50, dx = 0.0204, dy = 0.0204
 #>   ¡ Integration: MOL 2D (RK4), dt = 1e-04
-#>   ⏱ Elapsed: 12.14 seconds
+#>   ⏱ Elapsed: 12.12 seconds
 #> ✔ Simulation complete: 10001 time points, 50x50 grid, 2 state(s)
 plot(result_2d, title = "2D Brusselator Turing patterns")
 ```
@@ -329,7 +329,7 @@ result_rdme <- dyn_sim(rdme_sir, t_max = 50,
 #>   ¡ Reactions: 2 (infection, recovery)
 #>   ¡ BCs: reflecting, seed = 42
 #>   ¡ Duration: 50, discarding 0 transient
-#>   ⏱ Elapsed: 0.01 seconds
+#>   ⏱ Elapsed: 0.02 seconds
 #> ✔ Simulation complete: 101 time points, 56919 events
 plot(result_rdme, title = "Spatial SIR epidemic (RDME)")
 ```
@@ -489,7 +489,7 @@ result_eco <- dyn_sim(pp_lattice, t_max = 50,
 #>   ¡ Reactions: 3 (prey_birth, predation, predator_death)
 #>   ¡ Seed: 42
 #>   ¡ Duration: 50, discarding 0 transient
-#>   ⏱ Elapsed: 0.50 seconds
+#>   ⏱ Elapsed: 0.51 seconds
 #> ✔ Simulation complete: 28 time points, 891496 events
 plot(result_eco, title = "Predator-prey on a 10x10 lattice")
 ```

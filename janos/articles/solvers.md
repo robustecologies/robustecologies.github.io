@@ -1224,7 +1224,7 @@ result <- dyn_sim(spatial_bd, t_max = 30, solver = solver_rdme(seed = 42),
 #>   ¡ Reactions: 2 (birth, death)
 #>   ¡ BCs: reflecting, seed = 42
 #>   ¡ Duration: 30, discarding 0 transient
-#>   ⏱ Elapsed: 0.50 seconds
+#>   ⏱ Elapsed: 0.51 seconds
 #> ✔ Simulation complete: 31 time points, 3844540 events
 plot(result, title = "Spatial birth-death on a 1D lattice")
 ```
