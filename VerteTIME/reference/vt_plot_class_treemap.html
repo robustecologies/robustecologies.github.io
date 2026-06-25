@@ -7,9 +7,11 @@
   };
 </script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Hierarchical Class -&gt; Order -&gt; Family treemap — vt_plot_class_treemap"><meta name="description" content="Treemap with three levels of nested rectangles, area proportional to the
 number of distinct species. Requires treemapify (Suggests) and the
-class/order/family columns populated by enrich_taxonomy()."><meta property="og:description" content="Treemap with three levels of nested rectangles, area proportional to the
+class and family columns populated by enrich_taxonomy(); the
+intermediate order level is used where present."><meta property="og:description" content="Treemap with three levels of nested rectangles, area proportional to the
 number of distinct species. Requires treemapify (Suggests) and the
-class/order/family columns populated by enrich_taxonomy()."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
+class and family columns populated by enrich_taxonomy(); the
+intermediate order level is used where present."><script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -17,7 +19,7 @@ class/order/family columns populated by enrich_taxonomy()."><script defer data-d
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +64,8 @@ class/order/family columns populated by enrich_taxonomy()."><script defer data-d
     <div class="ref-description section level2">
     <p>Treemap with three levels of nested rectangles, area proportional to the
 number of distinct species. Requires <code>treemapify</code> (Suggests) and the
-<code>class</code>/<code>order</code>/<code>family</code> columns populated by <code><a href="enrich_taxonomy.html">enrich_taxonomy()</a></code>.</p>
+<code>class</code> and <code>family</code> columns populated by <code><a href="enrich_taxonomy.html">enrich_taxonomy()</a></code>; the
+intermediate <code>order</code> level is used where present.</p>
     </div>
 
     <div class="section level2">
@@ -81,6 +84,15 @@ number of distinct species. Requires <code>treemapify</code> (Suggests) and the
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>ggplot</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Species are retained when <code>class</code> and <code>family</code> are non-missing. The GBIF
+backbone promotes the historical reptile orders <code>Squamata</code>, <code>Testudines</code>
+and <code>Crocodylia</code> to class rank and returns an empty <code>order</code> for them; a
+non-missing-order filter would therefore drop every reptile species
+silently. The missing <code>order</code> is coalesced to the <code>class</code> so the
+class -&gt; order -&gt; family nesting still renders and no class is omitted.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

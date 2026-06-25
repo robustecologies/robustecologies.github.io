@@ -17,7 +17,7 @@ available through Suggests for the user's own comparisons."><script defer data-d
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,8 +90,8 @@ Defaults to <code>c("S","H","q1")</code>.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code><a href="vt_diversity.html">vt_diversity()</a></code> tibble keyed by <code>(dataset_id, site_id, year)</code>
 with columns <code>index</code> and <code>value</code>. Hill <code>q1</code> equals <code>exp(H)</code>, Hill <code>q2</code>
-equals <code>1 / (1 - D)</code>, Hill <code>q0</code> equals <code>S</code>. Chao1 returns <code>NA</code> when there
-are no singletons.</p>
+equals <code>1 / (1 - D)</code>, Hill <code>q0</code> equals <code>S</code>. Chao1 returns the observed
+richness when there are no singletons.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

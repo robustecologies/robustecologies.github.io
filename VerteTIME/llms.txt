@@ -329,7 +329,7 @@ table:
 |----|----|----|
 | `datasets` | one row per dataset (`VT_NNN`) | dataset-level metadata |
 | `sites` | one row per spatially-distinct site within a dataset | site-level metadata, coordinates |
-| `species` | one row per species observed | taxonomic backbone (filled in v1.1 via [`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html)) |
+| `species` | one row per species observed | taxonomic backbone (filled in v1.1 via `rgbif::name_backbone`) |
 | `observations` | long, one row per (`site_id`, `species_id`, `year`) | the workhorse |
 | `covariates` | long, one row per (`site_id`, `year`, `covariate`) | environmental covariates |
 | `data_provenance` | one row per dataset | primary-reference DOI, citation, kind |
@@ -402,8 +402,7 @@ skews towards Europe, North America and a handful of long-running
 tropical sites; the Robinson world map figure surfaces this skew
 explicitly and the `coord_precision_km` column documents per-site
 coordinate precision. Higher-rank taxonomy (`class`, `order`, `family`)
-is left empty in v1.0 and is filled in v1.1 via
-[`rgbif::name_backbone`](https://docs.ropensci.org/rgbif/reference/name_backbone.html);
+is left empty in v1.0 and is filled in v1.1 via `rgbif::name_backbone`;
 the dataset-level `taxonomic_focus` is the operative attribute until
 then. The `species$is_vertebrate` flag is similarly populated in v1.1.
 The package does not impute internal `NA`s; users who need imputed

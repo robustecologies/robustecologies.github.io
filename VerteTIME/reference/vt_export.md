@@ -40,11 +40,13 @@ Invisibly, the value of `path`.
 All exports preserve the column order and types of the canonical schema.
 A `master.csv` (or `master.parquet`) is a denormalised long-form join of
 `observations` with `datasets`, `sites` and `species` aimed at
-downstream tools that prefer a single table. SQLite output uses
-`WITHOUT ROWID` for the `observations` table when sensible. Datapackage
-output writes a single `datapackage.json` and points it at the CSV files
-alongside; if the CSV export has not been run, this function calls it
-first.
+downstream tools that prefer a single table. SQLite output materialises
+the documented relational schema (`inst/schema/sqlite_schema.sql`):
+primary keys, enforced foreign keys, surrogate auto-increment ids on
+`observations` and `covariates`, and a `value_is_imputed` flag
+defaulting to 0. Datapackage output writes a single `datapackage.json`
+and points it at the CSV files alongside; if the CSV export has not been
+run, this function calls it first.
 
 ## References
 

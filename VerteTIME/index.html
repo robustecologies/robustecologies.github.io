@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">VerteTIME</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -275,7 +275,7 @@ Click to expand the function index
 <tr>
 <td><code>species</code></td>
 <td>one row per species observed</td>
-<td>taxonomic backbone (filled in v1.1 via <code><a href="https://docs.ropensci.org/rgbif/reference/name_backbone.html" class="external-link">rgbif::name_backbone</a></code>)</td>
+<td>taxonomic backbone (filled in v1.1 via <code>rgbif::name_backbone</code>)</td>
 </tr>
 <tr>
 <td><code>observations</code></td>
@@ -330,7 +330,7 @@ Click to expand the function index
 <div class="section level2">
 <h2 id="limitations-and-mitigations">Limitations and mitigations<a class="anchor" aria-label="anchor" href="#limitations-and-mitigations"></a>
 </h2>
-<p>The compilation is heterogeneous in <code>unit_class</code> (counts, densities, biomass, indices, CPUE, breeding pairs); cross-series quantitative comparison must stratify by <code>unit_class</code> or focus on dimensionless community-structure metrics. Geographic coverage is presently uneven and skews towards Europe, North America and a handful of long-running tropical sites; the Robinson world map figure surfaces this skew explicitly and the <code>coord_precision_km</code> column documents per-site coordinate precision. Higher-rank taxonomy (<code>class</code>, <code>order</code>, <code>family</code>) is left empty in v1.0 and is filled in v1.1 via <code><a href="https://docs.ropensci.org/rgbif/reference/name_backbone.html" class="external-link">rgbif::name_backbone</a></code>; the dataset-level <code>taxonomic_focus</code> is the operative attribute until then. The <code>species$is_vertebrate</code> flag is similarly populated in v1.1. The package does not impute internal <code>NA</code>s; users who need imputed series should run <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/na_kalman.html" class="external-link">imputeTS::na_kalman</a></code> or similar packages downstream of <code><a href="reference/vt_long.html">vt_long()</a></code>. The grey-literature subset is opt-in: studies in non-English languages are under-represented relative to the body of long-term ecological observation actually conducted, and v1.1 will widen the language scope.</p>
+<p>The compilation is heterogeneous in <code>unit_class</code> (counts, densities, biomass, indices, CPUE, breeding pairs); cross-series quantitative comparison must stratify by <code>unit_class</code> or focus on dimensionless community-structure metrics. Geographic coverage is presently uneven and skews towards Europe, North America and a handful of long-running tropical sites; the Robinson world map figure surfaces this skew explicitly and the <code>coord_precision_km</code> column documents per-site coordinate precision. Higher-rank taxonomy (<code>class</code>, <code>order</code>, <code>family</code>) is left empty in v1.0 and is filled in v1.1 via <code>rgbif::name_backbone</code>; the dataset-level <code>taxonomic_focus</code> is the operative attribute until then. The <code>species$is_vertebrate</code> flag is similarly populated in v1.1. The package does not impute internal <code>NA</code>s; users who need imputed series should run <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/na_kalman.html" class="external-link">imputeTS::na_kalman</a></code> or similar packages downstream of <code><a href="reference/vt_long.html">vt_long()</a></code>. The grey-literature subset is opt-in: studies in non-English languages are under-represented relative to the body of long-term ecological observation actually conducted, and v1.1 will widen the language scope.</p>
 <p>The <code>is_community_metric_eligible</code> flag (<code>n_species &gt;= 2 AND n_years &gt;= 3</code>) is a starting point but not a substitute for careful per-analysis filtering. We deliberately do not apply implicit dataset filters: the compilation is loaded in full, and metrics that are mathematically undefined on small communities are computed conditionally with explicit <code>NA</code>s rather than silent dataset exclusion.</p>
 <p><br></p>
 </div>

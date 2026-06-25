@@ -18,7 +18,7 @@ vt_read(x, data_raw = NULL)
 - x:
 
   Either a `dataset_id` (matching the canonical pattern
-  `^[A-Z]+_[A-Za-z0-9]+$`) or a path to a CSV or Parquet file.
+  `^[A-Z]+_[A-Za-z0-9_]+$`) or a path to a CSV or Parquet file.
 
 - data_raw:
 

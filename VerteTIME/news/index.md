@@ -1,5 +1,84 @@
 # Changelog
 
+## VerteTIME 1.0.1
+
+### Bug fixes
+
+- [`vt_plot_class_treemap()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_class_treemap.md)
+  now includes reptile taxa. The previous version filtered species on a
+  non-missing `order` field, but the GBIF backbone promotes the
+  historical reptile orders `Squamata`, `Testudines` and `Crocodylia` to
+  class rank and returns an empty `order` for them, so every reptile
+  species was silently dropped from the figure. Species are now retained
+  on `class` and `family`, and the missing `order` is coalesced to the
+  `class` so the class -\> order -\> family nesting still renders.
+- [`vt_rarefaction()`](https://robustecologies.github.io/VerteTIME/reference/vt_rarefaction.md)
+  now returns the rarefied richness in `S_rarefied`; a key-separator
+  mismatch previously left the column `NA` for every row.
+- [`vt_series_summary()`](https://robustecologies.github.io/VerteTIME/reference/vt_series_summary.md)
+  now computes `coverage_pct`, `longest_internal_gap` and
+  `n_internal_gaps`; these were returned as `NA` regardless of the
+  series.
+- `vt_plot_alpha_timeline(colour_by = "realm")` now colours traces by
+  realm instead of rendering every trace grey.
+- [`vt_plot_focus_span_box()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_focus_span_box.md)
+  no longer converts the input compilation’s `taxonomic_focus` column to
+  a factor by reference; the caller’s object is left unchanged.
+- [`vt_plot_lat_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_lat_hist.md)
+  and
+  [`vt_plot_world_richness()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_world_richness.md)
+  no longer drop sites lying exactly on the equator, and
+  [`vt_plot_lat_hist()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_lat_hist.md)
+  retains sites with an unrecorded realm under an `unknown` group
+  instead of discarding them.
+- [`vt_plot_temporal_sankey()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_temporal_sankey.md)
+  now counts a dataset as active in the decade of its final year when
+  that year falls on a decade boundary.
+- [`vt_export()`](https://robustecologies.github.io/VerteTIME/reference/vt_export.md)
+  and
+  [`vt_publish()`](https://robustecologies.github.io/VerteTIME/reference/vt_publish.md)
+  now store `re_curation_date` as ISO text in the SQLite output
+  (previously a numeric days-since-epoch), write relative paths in
+  `CHECKSUMS.sha256` (previously absolute when the root contained regex
+  metacharacters), and list the `master_wide` resource in
+  `datapackage.json`.
+- [`vt_check()`](https://robustecologies.github.io/VerteTIME/reference/vt_check.md)
+  now records an assertion that returns `FALSE` as an error rather than
+  reporting it as `ok`.
+- [`vt_beta_partition()`](https://robustecologies.github.io/VerteTIME/reference/vt_beta_partition.md)
+  no longer errors on a site whose every year-pair is empty.
+- The eligibility flag `is_community_metric_eligible` in the shipped
+  `vertetime` compilation is corrected: it is now recomputed after
+  non-vertebrate species are removed, so a dataset reduced to a single
+  retained species is no longer flagged community-metric eligible.
+- `vt_export(format = "sqlite")` now materialises the documented
+  relational schema: primary keys, enforced foreign keys, surrogate
+  auto-increment ids on `observations` and `covariates`, and a
+  `value_is_imputed` flag. Previously the SQLite tables were
+  unconstrained and lacked these columns.
+- `vt_export(format = "datapackage")` now declares a field schema (with
+  types) for the `data_provenance` resource, so an all-empty
+  `partial_overlap_with` column round-trips as a string rather than
+  being inferred as logical.
+- [`vt_read()`](https://robustecologies.github.io/VerteTIME/reference/vt_read.md)
+  now rejects a non-existent file path with a clear error instead of
+  silently treating it as a dataset_id;
+  [`vt_long()`](https://robustecologies.github.io/VerteTIME/reference/vt_long.md)
+  now errors clearly when the wide table has no `year` column.
+- [`vt_alpha_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_alpha_diversity.md)
+  now warns once when `Chao1` is requested on non-integer abundances,
+  which the estimator floors and which can distort the
+  singleton/doubleton counts.
+- [`vt_plot_span_coverage_hex()`](https://robustecologies.github.io/VerteTIME/reference/vt_plot_span_coverage_hex.md)
+  now averages the per-series coverage proportion within each dataset;
+  the previous form divided per-series observation counts by the
+  dataset-level span, mixing two aggregation scopes.
+- Dataset registration now derives canonical site identifiers by
+  stripping the full internal dataset-id prefix, so source identifiers
+  that themselves contain a hyphen keep the correct site suffix.
+
+  
+
 ## VerteTIME 1.0.0
 
 Initial public release.

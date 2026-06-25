@@ -47,6 +47,12 @@ vt_plot_community_series(
   Integer; number of columns in the small-multiples grid when plotting
   many datasets. Default 3.
 
+- max_species_in_legend:
+
+  Integer; when the dataset carries more species than this, the legend
+  is dropped and species identity becomes a visual property without a
+  key. Default 15.
+
 ## Value
 
 A `ggplot` object.

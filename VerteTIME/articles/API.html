@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
                         <h4 data-toc-skip class="author">Sergio Picó,
 Pablo Almaraz</h4>
             
-            <h4 data-toc-skip class="date">2026-05-20</h4>
+            <h4 data-toc-skip class="date">2026-06-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/robustecologies/VerteTIME/blob/HEAD/vignettes/API.Rmd" class="external-link"><code>vignettes/API.Rmd</code></a></small>
       <div class="d-none name"><code>API.Rmd</code></div>
@@ -651,7 +651,7 @@ byte-identical SHA-256 hashes for every emitted file (modulo file
 modification times).</p>
 <div class="figure">
 <div class="grViz html-widget html-fill-item" id="htmlwidget-febe03efa1a2d8d52a86" style="width:806.4px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-febe03efa1a2d8d52a86">{"x":{"diagram":"\ndigraph publish {\n    graph [rankdir=LR, fontname=\"Helvetica\", bgcolor=\"transparent\",\n           nodesep=0.35, ranksep=0.55]\n    node [fontname=\"Helvetica\", fontsize=9, style=\"filled\",\n          shape=box, margin=\"0.10,0.05\"]\n    edge [arrowsize=0.6, color=\"#7F8C8D\"]\n\n    co  [label=\"vt_compilation\\nin VT_NNN namespace\",\n         fillcolor=\"#D6EAF8\"]\n    pb  [label=\"vt_publish()\",\n         fillcolor=\"#D5F5E3\"]\n\n    csv [label=\"csv/\\n7 tables + master.csv\\n+ master_wide.csv (LPD-style)\",\n         fillcolor=\"#FDEBD0\"]\n    pq  [label=\"parquet/\\nsame tables, Apache Parquet\",\n         fillcolor=\"#FDEBD0\"]\n    sq  [label=\"sqlite/vertetime.db\\nFK-indexed single file\",\n         fillcolor=\"#FDEBD0\"]\n    dp  [label=\"datapackage.json\\nFrictionless DP manifest\",\n         fillcolor=\"#FDEBD0\"]\n    rd  [label=\"README.md\\nLICENSE.md\\nCITATION.cff\\ndata_provenance.csv\",\n         fillcolor=\"#FCF3CF\"]\n    chk [label=\"CHECKSUMS.sha256\",\n         fillcolor=\"#FADBD8\"]\n    zen [label=\"Zenodo deposit\\n(manual upload)\",\n         fillcolor=\"#ECEFF1\"]\n\n    co -> pb\n    pb -> csv -> chk\n    pb -> pq  -> chk\n    pb -> sq  -> chk\n    pb -> dp  -> chk\n    pb -> rd  -> chk\n    chk -> zen [style=dashed, label=\"manual\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<script type="application/json" data-for="htmlwidget-febe03efa1a2d8d52a86">{"x":{"diagram":"\ndigraph publish {\n    graph [rankdir=LR, fontname=\"Helvetica\", bgcolor=\"transparent\",\n           nodesep=0.35, ranksep=0.55]\n    node [fontname=\"Helvetica\", fontsize=9, style=\"filled\",\n          shape=box, margin=\"0.10,0.05\"]\n    edge [arrowsize=0.6, color=\"#7F8C8D\"]\n\n    co  [label=\"vt_compilation\\nin VT_NNN namespace\",\n         fillcolor=\"#D6EAF8\"]\n    pb  [label=\"vt_publish()\",\n         fillcolor=\"#D5F5E3\"]\n\n    csv [label=\"csv/\\n6 tables + master.csv\\n+ master_wide.csv (LPD-style)\",\n         fillcolor=\"#FDEBD0\"]\n    pq  [label=\"parquet/\\nsame tables, Apache Parquet\",\n         fillcolor=\"#FDEBD0\"]\n    sq  [label=\"sqlite/vertetime.db\\nFK-indexed single file\",\n         fillcolor=\"#FDEBD0\"]\n    dp  [label=\"datapackage.json\\nFrictionless DP manifest\",\n         fillcolor=\"#FDEBD0\"]\n    rd  [label=\"README.md\\nLICENSE.md\\nCITATION.cff\\ndata_provenance.csv\",\n         fillcolor=\"#FCF3CF\"]\n    chk [label=\"CHECKSUMS.sha256\",\n         fillcolor=\"#FADBD8\"]\n    zen [label=\"Zenodo deposit\\n(manual upload)\",\n         fillcolor=\"#ECEFF1\"]\n\n    co -> pb\n    pb -> csv -> chk\n    pb -> pq  -> chk\n    pb -> sq  -> chk\n    pb -> dp  -> chk\n    pb -> rd  -> chk\n    chk -> zen [style=dashed, label=\"manual\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Publication subsystem. The same compilation feeds four format writers
 and an integrity manifest. The Zenodo deposit step is manual.
 </p>
@@ -713,10 +713,11 @@ can branch on.</p>
 <div class="section level2">
 <h2 id="changelog">Changelog<a class="anchor" aria-label="anchor" href="#changelog"></a>
 </h2>
-<p>See the <a href="../news/index.html">Changelog</a> for release notes.
-<code>NEWS.md</code> is the canonical user-visible record of every
-public release; per-release entries cover ingestion, validation, metric,
-plot and export changes that downstream users would notice.</p>
+<p>See the <a href="https://robustecologies.github.io/VerteTIME/news/index.html">Changelog</a>
+for release notes. <code>NEWS.md</code> is the canonical user-visible
+record of every public release; per-release entries cover ingestion,
+validation, metric, plot and export changes that downstream users would
+notice.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

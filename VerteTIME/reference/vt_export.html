@@ -21,7 +21,7 @@ table schemas pointing at the CSVs in the same root)."><script defer data-domain
 
     <a class="navbar-brand me-2" href="../index.html">VerteTIME</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,10 +105,12 @@ filename; for <code>"datapackage"</code> it is the directory whose root will hol
     <p>All exports preserve the column order and types of the canonical schema. A
 <code>master.csv</code> (or <code>master.parquet</code>) is a denormalised long-form join of
 <code>observations</code> with <code>datasets</code>, <code>sites</code> and <code>species</code> aimed at downstream
-tools that prefer a single table. SQLite output uses <code>WITHOUT ROWID</code> for
-the <code>observations</code> table when sensible. Datapackage output writes a single
-<code>datapackage.json</code> and points it at the CSV files alongside; if the CSV
-export has not been run, this function calls it first.</p>
+tools that prefer a single table. SQLite output materialises the documented
+relational schema (<code>inst/schema/sqlite_schema.sql</code>): primary keys, enforced
+foreign keys, surrogate auto-increment ids on <code>observations</code> and
+<code>covariates</code>, and a <code>value_is_imputed</code> flag defaulting to 0. Datapackage
+output writes a single <code>datapackage.json</code> and points it at the CSV files
+alongside; if the CSV export has not been run, this function calls it first.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

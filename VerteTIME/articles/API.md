@@ -437,7 +437,7 @@ a reader can branch on.
 ## Changelog
 
 See the
-[Changelog](https://robustecologies.github.io/VerteTIME/news/index.md)
+[Changelog](https://robustecologies.github.io/VerteTIME/news/index.html)
 for release notes. `NEWS.md` is the canonical user-visible record of
 every public release; per-release entries cover ingestion, validation,
 metric, plot and export changes that downstream users would notice.

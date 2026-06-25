@@ -335,7 +335,7 @@ vertebrate-only; GPDD, BioTIME and PREDICTS are multi-taxon.
 The synthetic compilation above is parametric and will not reproduce the
 heavy tails, long gaps and unit-class heterogeneity of the real
 compilation. Use this vignette to learn the function calls; consult the
-long-form manuscript for diagnostics on the real 145-dataset
+long-form manuscript for diagnostics on the real 132-dataset
 compilation. The world-map figure depends on coordinates being
 transcribed from each dataset’s primary reference; when those values are
 placeholders, the plot collapses to a single overlapping cluster.

@@ -32,7 +32,8 @@ A
 [`vt_diversity()`](https://robustecologies.github.io/VerteTIME/reference/vt_diversity.md)
 tibble keyed by `(dataset_id, site_id, year)` with columns `index` and
 `value`. Hill `q1` equals `exp(H)`, Hill `q2` equals `1 / (1 - D)`, Hill
-`q0` equals `S`. Chao1 returns `NA` when there are no singletons.
+`q0` equals `S`. Chao1 returns the observed richness when there are no
+singletons.
 
 ## Details
 
