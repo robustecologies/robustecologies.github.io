@@ -1,0 +1,10 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  samkhya_darshana_sanskrit: samkhya_darshana_sanskrit.html
+  samkhya_philosophy: samkhya_philosophy.html
+last_built: 2026-08-19T15:55Z
+urls:
+  reference: https://robustecologies.github.io/SamkhyaR/reference
+  article: https://robustecologies.github.io/SamkhyaR/articles

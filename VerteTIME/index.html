@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>VerteTIME • VerteTIME</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
   window.MathJax = {
     chtml: {
@@ -19,6 +24,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="VerteTIME">
 <meta name="description" content="A curated repository of world vertebrate community time series.">
 <meta property="og:description" content="A curated repository of world vertebrate community time series.">
+<meta property="og:image" content="https://robustecologies.github.io/VerteTIME/logo.png">
 <script defer data-domain="robustecologies.github.io/VerteTIME" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
@@ -74,9 +80,11 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="vertetime-">VerteTIME <a href="https://robustecologies.github.io/VerteTIME"><img src="reference/figures/logo_vertetime.png" align="right" alt="VerteTIME hex logo" width="120"></a>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="vertetime-">VerteTIME 
 <a class="anchor" aria-label="anchor" href="#vertetime-"></a>
-</h1></div>
+</h1>
+</div>
 <!-- badges: start -->
 
 <p><br></p>
@@ -275,7 +283,7 @@ Click to expand the function index
 <tr>
 <td><code>species</code></td>
 <td>one row per species observed</td>
-<td>taxonomic backbone (filled in v1.1 via <code>rgbif::name_backbone</code>)</td>
+<td>taxonomic backbone (filled in v1.1 via <code><a href="https://docs.ropensci.org/rgbif/reference/name_backbone.html" class="external-link">rgbif::name_backbone</a></code>)</td>
 </tr>
 <tr>
 <td><code>observations</code></td>
@@ -330,7 +338,7 @@ Click to expand the function index
 <div class="section level2">
 <h2 id="limitations-and-mitigations">Limitations and mitigations<a class="anchor" aria-label="anchor" href="#limitations-and-mitigations"></a>
 </h2>
-<p>The compilation is heterogeneous in <code>unit_class</code> (counts, densities, biomass, indices, CPUE, breeding pairs); cross-series quantitative comparison must stratify by <code>unit_class</code> or focus on dimensionless community-structure metrics. Geographic coverage is presently uneven and skews towards Europe, North America and a handful of long-running tropical sites; the Robinson world map figure surfaces this skew explicitly and the <code>coord_precision_km</code> column documents per-site coordinate precision. Higher-rank taxonomy (<code>class</code>, <code>order</code>, <code>family</code>) is left empty in v1.0 and is filled in v1.1 via <code>rgbif::name_backbone</code>; the dataset-level <code>taxonomic_focus</code> is the operative attribute until then. The <code>species$is_vertebrate</code> flag is similarly populated in v1.1. The package does not impute internal <code>NA</code>s; users who need imputed series should run <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/na_kalman.html" class="external-link">imputeTS::na_kalman</a></code> or similar packages downstream of <code><a href="reference/vt_long.html">vt_long()</a></code>. The grey-literature subset is opt-in: studies in non-English languages are under-represented relative to the body of long-term ecological observation actually conducted, and v1.1 will widen the language scope.</p>
+<p>The compilation is heterogeneous in <code>unit_class</code> (counts, densities, biomass, indices, CPUE, breeding pairs); cross-series quantitative comparison must stratify by <code>unit_class</code> or focus on dimensionless community-structure metrics. Geographic coverage is presently uneven and skews towards Europe, North America and a handful of long-running tropical sites; the Robinson world map figure surfaces this skew explicitly and the <code>coord_precision_km</code> column documents per-site coordinate precision. Higher-rank taxonomy (<code>class</code>, <code>order</code>, <code>family</code>) is left empty in v1.0 and is filled in v1.1 via <code><a href="https://docs.ropensci.org/rgbif/reference/name_backbone.html" class="external-link">rgbif::name_backbone</a></code>; the dataset-level <code>taxonomic_focus</code> is the operative attribute until then. The <code>species$is_vertebrate</code> flag is similarly populated in v1.1. The package does not impute internal <code>NA</code>s; users who need imputed series should run <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/na_kalman.html" class="external-link">imputeTS::na_kalman</a></code> or similar packages downstream of <code><a href="reference/vt_long.html">vt_long()</a></code>. The grey-literature subset is opt-in: studies in non-English languages are under-represented relative to the body of long-term ecological observation actually conducted, and v1.1 will widen the language scope.</p>
 <p>The <code>is_community_metric_eligible</code> flag (<code>n_species &gt;= 2 AND n_years &gt;= 3</code>) is a starting point but not a substitute for careful per-analysis filtering. We deliberately do not apply implicit dataset filters: the compilation is loaded in full, and metrics that are mathematically undefined on small communities are computed conditionally with explicit <code>NA</code>s rather than silent dataset exclusion.</p>
 <p><br></p>
 </div>
@@ -421,7 +429,7 @@ Click to expand the function index
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
