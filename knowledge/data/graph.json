@@ -1,0 +1,7182 @@
+{
+ "nodes": [
+  {
+   "id": "absolutely-continuous-measure",
+   "type": "concept",
+   "title": "Absolutely continuous measure",
+   "domains": [
+    "measure-theory"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "affine-space",
+   "type": "concept",
+   "title": "Affine space",
+   "domains": [
+    "linear-algebra",
+    "dynamical-systems"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "allesina2026",
+   "type": "source",
+   "title": "Global stability of ecological and evolutionary dynamics via equivalence",
+   "domains": [
+    "theoretical-ecology",
+    "dynamical-systems",
+    "community-ecology"
+   ],
+   "area": "ecology",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "almaraz2024b",
+   "type": "source",
+   "title": "Structural stability of invasion graphs for Lotka-Volterra systems",
+   "domains": [
+    "theoretical-ecology",
+    "dynamical-systems",
+    "community-ecology",
+    "differential-equations"
+   ],
+   "area": "ecology",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "alpha-limit-set",
+   "type": "concept",
+   "title": "Alpha limit set",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "anagnostopoulou2023",
+   "type": "source",
+   "title": "Nonautonomous Bifurcation Theory",
+   "domains": [
+    "nonautonomous-dynamics",
+    "bifurcation-theory",
+    "dynamical-systems",
+    "differential-equations"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "arnold1974",
+   "type": "source",
+   "title": "Stochastic differential equations: theory and applications.",
+   "domains": [
+    "stochastic-processes",
+    "probability",
+    "differential-equations"
+   ],
+   "area": "stochastics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "arnold1998",
+   "type": "source",
+   "title": "Random dynamical systems",
+   "domains": [
+    "stochastic-processes",
+    "nonautonomous-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "stochastics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "ashwin2000",
+   "type": "source",
+   "title": "On riddling and weak attractors",
+   "domains": [
+    "dynamical-systems",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "ashwin2017",
+   "type": "source",
+   "title": "Parameter shifts for nonautonomous systems in low dimension: bifurcation- and rate-induced tipping",
+   "domains": [
+    "nonautonomous-dynamics",
+    "bifurcation-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "assembly-graph",
+   "type": "concept",
+   "title": "Assembly graph",
+   "domains": [
+    "community-ecology",
+    "theoretical-ecology",
+    "dynamical-systems"
+   ],
+   "area": "ecology",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "asymptotically-autonomous-process",
+   "type": "concept",
+   "title": "Asymptotically autonomous process",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "attracting-invariant-graph-for-forced-circle-maps",
+   "type": "theorem",
+   "title": "Attracting invariant graph for forced circle maps",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "attraction-notions-for-processes",
+   "type": "question",
+   "title": "Attraction notions for processes",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "attractor-repeller-pair",
+   "type": "concept",
+   "title": "Attractor-repeller pair",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "birkhoff-ergodic-theorem",
+   "type": "theorem",
+   "title": "Birkhoff ergodic theorem",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "birkhoff1931",
+   "type": "source",
+   "title": "Proof of the Ergodic Theorem",
+   "domains": [
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "bogachev2007",
+   "type": "source",
+   "title": "Measure Theory",
+   "domains": [
+    "measure-theory"
+   ],
+   "area": "foundations",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "bortolan2013",
+   "type": "source",
+   "title": "Skew product semiflows and Morse decomposition",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "bounded-return-time-attractor",
+   "type": "concept",
+   "title": "Bounded-return-time attractor",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "brenig2016",
+   "type": "source",
+   "title": "Nonlinear dynamical systems seen through the scope of the Quasi-polynomial theory",
+   "domains": [
+    "dynamical-systems",
+    "differential-equations",
+    "functional-analysis"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "budisic2012",
+   "type": "source",
+   "title": "Applied Koopmanism",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "ergodic-theory",
+    "numerical-analysis"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "carvalho2013",
+   "type": "source",
+   "title": "Attractors for infinite-dimensional non-autonomous dynamical systems",
+   "domains": [
+    "nonautonomous-dynamics",
+    "differential-equations",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "chain-recurrence-and-computed-orbits",
+   "type": "question",
+   "title": "Chain recurrence and computed orbits",
+   "domains": [
+    "dynamical-systems",
+    "numerical-analysis"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "chain-recurrent-set",
+   "type": "concept",
+   "title": "Chain recurrent set",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "type": "theorem",
+   "title": "Chain recurrent set as an intersection of attractors",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "chain-recurrent-sets-of-three-circle-maps",
+   "type": "example",
+   "title": "Chain recurrent sets of three circle maps",
+   "domains": [
+    "dynamical-systems",
+    "scientific-computing"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "charpentier2007",
+   "type": "source",
+   "title": "Kolmogorov's heritage in mathematics",
+   "domains": [
+    "history-of-science",
+    "theoretical-ecology",
+    "dynamical-systems"
+   ],
+   "area": "philosophy",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "circle-flow-with-a-degenerate-equilibrium",
+   "type": "example",
+   "title": "Circle flow with a degenerate equilibrium",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "cocycle",
+   "type": "concept",
+   "title": "Cocycle",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "coincidence-of-attractor-notions",
+   "type": "question",
+   "title": "Coincidence of the notions of attractor for generic systems",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "community-dynamics",
+   "type": "map",
+   "title": "Community dynamics",
+   "domains": [
+    "theoretical-ecology",
+    "community-ecology",
+    "population-dynamics",
+    "dynamical-systems",
+    "differential-equations",
+    "linear-algebra",
+    "numerical-analysis"
+   ],
+   "area": "ecology",
+   "maturity": "developing",
+   "confidence": null
+  },
+  {
+   "id": "complete-lyapunov-function",
+   "type": "concept",
+   "title": "Complete Lyapunov function",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "conley-decomposition-theorem",
+   "type": "theorem",
+   "title": "Conley decomposition theorem",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "conley1978a",
+   "type": "source",
+   "title": "Isolated invariant sets and the Morse index",
+   "domains": [
+    "dynamical-systems",
+    "topology",
+    "differential-equations"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "continuous-spectrum-in-koopman-mode-analysis",
+   "type": "question",
+   "title": "Continuous spectrum in Koopman mode analysis",
+   "domains": [
+    "operator-theoretic-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "crauel1994",
+   "type": "source",
+   "title": "Attractors for random dynamical systems",
+   "domains": [
+    "nonautonomous-dynamics",
+    "stochastic-processes",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "criteria-for-a-fundamental-theorem",
+   "type": "question",
+   "title": "Criteria for a fundamental theorem",
+   "domains": [
+    "philosophy-of-science",
+    "history-of-science"
+   ],
+   "area": "philosophy",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "deciding-membership-in-a-robustly-mixing-class",
+   "type": "question",
+   "title": "Deciding membership in a robustly mixing class",
+   "domains": [
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "deisenroth2020",
+   "type": "source",
+   "title": "Mathematics for machine learning",
+   "domains": [
+    "linear-algebra",
+    "statistics"
+   ],
+   "area": "foundations",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "delayed-bifurcation",
+   "type": "concept",
+   "title": "Delayed bifurcation",
+   "domains": [
+    "bifurcation-theory",
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "disintegration-of-a-measure",
+   "type": "concept",
+   "title": "Disintegration of a measure",
+   "domains": [
+    "measure-theory",
+    "probability"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "dynamic-mode-decomposition",
+   "type": "method",
+   "title": "Dynamic mode decomposition",
+   "domains": [
+    "numerical-analysis",
+    "operator-theoretic-dynamics"
+   ],
+   "area": "computation",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "eckmann1985",
+   "type": "source",
+   "title": "Ergodic theory of chaos and strange attractors",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "edelsbrunner2010",
+   "type": "source",
+   "title": "Computational topology: an introduction",
+   "domains": [
+    "topology",
+    "scientific-computing"
+   ],
+   "area": "foundations",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "einsiedler2011",
+   "type": "source",
+   "title": "Ergodic Theory",
+   "domains": [
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "eisner2015",
+   "type": "source",
+   "title": "Operator Theoretic Aspects of Ergodic Theory",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "ergodic-theory",
+    "functional-analysis"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "ergodic-measure",
+   "type": "concept",
+   "title": "Ergodic measure",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "ergodic-partition",
+   "type": "concept",
+   "title": "Ergodic partition",
+   "domains": [
+    "ergodic-theory",
+    "operator-theoretic-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "evolution-process",
+   "type": "concept",
+   "title": "Evolution process",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "expanding-circle-map",
+   "type": "concept",
+   "title": "Expanding circle map",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "type": "question",
+   "title": "Fibre Lyapunov exponents and attracting graphs",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "finite-records-and-ergodic-inference",
+   "type": "question",
+   "title": "Finite records and ergodic inference",
+   "domains": [
+    "philosophy-of-science",
+    "ergodic-theory",
+    "time-series"
+   ],
+   "area": "philosophy",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "fokker-planck-equation",
+   "type": "concept",
+   "title": "Fokker-Planck equation",
+   "domains": [
+    "stochastic-processes",
+    "differential-equations",
+    "operator-theoretic-dynamics"
+   ],
+   "area": "stochastics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "forced-circle-diffeomorphism",
+   "type": "model",
+   "title": "Forced circle diffeomorphism",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "forward-attractor",
+   "type": "concept",
+   "title": "Forward attractor",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "forward-measure-attractor",
+   "type": "concept",
+   "title": "Forward measure attractor",
+   "domains": [
+    "nonautonomous-dynamics",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "forward-statistical-attractor",
+   "type": "concept",
+   "title": "Forward statistical attractor",
+   "domains": [
+    "nonautonomous-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "fundamental-theorem-of-a-discipline",
+   "type": "concept",
+   "title": "Fundamental theorem of a discipline",
+   "domains": [
+    "philosophy-of-science",
+    "history-of-science"
+   ],
+   "area": "philosophy",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "generalized-laplace-analysis",
+   "type": "theorem",
+   "title": "Generalized Laplace analysis",
+   "domains": [
+    "operator-theoretic-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "generic-property",
+   "type": "concept",
+   "title": "Generic property",
+   "domains": [
+    "topology",
+    "dynamical-systems",
+    "measure-theory"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "gradient-like-system",
+   "type": "concept",
+   "title": "Gradient-like system",
+   "domains": [
+    "dynamical-systems",
+    "differential-equations"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "homburg2012",
+   "type": "source",
+   "title": "Circle diffeomorphisms forced by expanding circle maps",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "hyperbolic-homoclinic-loop",
+   "type": "example",
+   "title": "Hyperbolic homoclinic loop",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "ilyashenko2005",
+   "type": "source",
+   "title": "Minimal attractors",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "ilyashenko2008",
+   "type": "source",
+   "title": "Some open problems in real and complex dynamical systems",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "ilyashenko2008a",
+   "type": "source",
+   "title": "Diffeomorphisms with intermingled attracting basins",
+   "domains": [
+    "dynamical-systems",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "implications-between-notions-of-attraction",
+   "type": "theorem",
+   "title": "Implications between notions of attraction",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "inclusions-between-the-recurrent-sets",
+   "type": "theorem",
+   "title": "Inclusions between the recurrent sets",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "invariant-graph",
+   "type": "concept",
+   "title": "Invariant graph",
+   "domains": [
+    "dynamical-systems",
+    "stochastic-processes"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "invariant-measure",
+   "type": "concept",
+   "title": "Invariant measure",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "invariant-measures-for-nonautonomous-systems",
+   "type": "question",
+   "title": "Invariant measures for nonautonomous systems",
+   "domains": [
+    "nonautonomous-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "invasion-graph",
+   "type": "concept",
+   "title": "Invasion graph",
+   "domains": [
+    "theoretical-ecology",
+    "dynamical-systems",
+    "community-ecology"
+   ],
+   "area": "ecology",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "iterated-function-system",
+   "type": "concept",
+   "title": "Iterated function system",
+   "domains": [
+    "dynamical-systems",
+    "stochastic-processes"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "jager2006",
+   "type": "source",
+   "title": "TOWARDS A CLASSIFICATION FOR QUASIPERIODICALLY FORCED CIRCLE HOMEOMORPHISMS",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "kapral1985",
+   "type": "source",
+   "title": "Bifurcation structure of the nonautonomous quadratic map",
+   "domains": [
+    "dynamical-systems",
+    "bifurcation-theory",
+    "nonautonomous-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "karabacak2011",
+   "type": "source",
+   "title": "On statistical attractors and the convergence of time averages",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "kifer1974",
+   "type": "source",
+   "title": "On small random perturbations of some smooth dynamical systems",
+   "domains": [
+    "dynamical-systems",
+    "stochastic-processes"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "kleptsyn2006",
+   "type": "source",
+   "title": "An example of non-coincidence of minimal and statistical attractors",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "kloeden2012",
+   "type": "source",
+   "title": "Limitations of pullback attractors for processes",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "kolmogorov-system",
+   "type": "model",
+   "title": "Kolmogorov system",
+   "domains": [
+    "theoretical-ecology",
+    "dynamical-systems",
+    "differential-equations"
+   ],
+   "area": "ecology",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "koopman-eigenfunction",
+   "type": "concept",
+   "title": "Koopman eigenfunction",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "koopman-mode",
+   "type": "concept",
+   "title": "Koopman mode",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "koopman-operator",
+   "type": "concept",
+   "title": "Koopman operator",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "koopman1931",
+   "type": "source",
+   "title": "Hamiltonian Systems and Transformation in Hilbert Space",
+   "domains": [
+    "operator-theoretic-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "lasota1994",
+   "type": "source",
+   "title": "Chaos, Fractals, and Noise",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "lebesgue-measure-and-preparable-initial-conditions",
+   "type": "question",
+   "title": "Lebesgue measure and preparable initial conditions",
+   "domains": [
+    "philosophy-of-science",
+    "ergodic-theory"
+   ],
+   "area": "philosophy",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "li1976",
+   "type": "source",
+   "title": "Finite approximation for the Frobenius-Perron operator. A solution to Ulam's conjecture",
+   "domains": [
+    "numerical-analysis",
+    "operator-theoretic-dynamics"
+   ],
+   "area": "computation",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "linear-complementarity-problem",
+   "type": "method",
+   "title": "Linear complementarity problem",
+   "domains": [
+    "linear-algebra",
+    "numerical-analysis",
+    "theoretical-ecology"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "liouville-equation",
+   "type": "concept",
+   "title": "Liouville equation",
+   "domains": [
+    "dynamical-systems",
+    "differential-equations"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "liouville-versus-fokker-planck",
+   "type": "question",
+   "title": "Liouville and Fokker-Planck equations",
+   "domains": [
+    "dynamical-systems",
+    "stochastic-processes"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "local-and-global-stability",
+   "type": "question",
+   "title": "Local and global stability",
+   "domains": [
+    "dynamical-systems",
+    "theoretical-ecology",
+    "community-ecology"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "logistic-map",
+   "type": "model",
+   "title": "Logistic map",
+   "domains": [
+    "population-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "ecology",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "logistic-map-invariant-density",
+   "type": "example",
+   "title": "Invariant density of the logistic map at r = 4",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "lotka-volterra-model",
+   "type": "model",
+   "title": "Lotka-Volterra model",
+   "domains": [
+    "theoretical-ecology",
+    "dynamical-systems",
+    "community-ecology",
+    "differential-equations"
+   ],
+   "area": "ecology",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "lyapunov-exponent",
+   "type": "concept",
+   "title": "Lyapunov exponent",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "may1976",
+   "type": "source",
+   "title": "Simple mathematical models with very complicated dynamics",
+   "domains": [
+    "population-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "ecology",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "measurable-map",
+   "type": "concept",
+   "title": "Measurable map",
+   "domains": [
+    "measure-theory"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "measure",
+   "type": "concept",
+   "title": "Measure",
+   "domains": [
+    "measure-theory"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "measure-attractor",
+   "type": "concept",
+   "title": "Measure attractor",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "measure-theoretic-dynamics",
+   "type": "map",
+   "title": "Measure-theoretic dynamics",
+   "domains": [
+    "measure-theory",
+    "ergodic-theory",
+    "dynamical-systems",
+    "operator-theoretic-dynamics"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": null
+  },
+  {
+   "id": "milnor1985",
+   "type": "source",
+   "title": "On the concept of attractor",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "milnor1985a",
+   "type": "source",
+   "title": "On the concept of attractor: Correction and remarks",
+   "domains": [
+    "dynamical-systems",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "minimal-attractor",
+   "type": "concept",
+   "title": "Minimal attractor",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "natural-extension",
+   "type": "concept",
+   "title": "Natural extension",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "newman2025",
+   "type": "source",
+   "title": "Return-time and pullback-convergence properties of statistical attractors",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory",
+    "nonautonomous-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "noise-and-random-dynamics",
+   "type": "map",
+   "title": "Noise and random dynamics",
+   "domains": [
+    "stochastic-processes",
+    "dynamical-systems",
+    "nonautonomous-dynamics",
+    "differential-equations"
+   ],
+   "area": "stochastics",
+   "maturity": "developing",
+   "confidence": null
+  },
+  {
+   "id": "nonautonomous-dynamics",
+   "type": "map",
+   "title": "Nonautonomous dynamics",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems",
+    "bifurcation-theory",
+    "differential-equations"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": null
+  },
+  {
+   "id": "nonautonomous-set",
+   "type": "concept",
+   "title": "Nonautonomous set",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "nonwandering-point-outside-the-limit-set",
+   "type": "example",
+   "title": "Nonwandering point outside the limit set",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "nonwandering-set",
+   "type": "concept",
+   "title": "Nonwandering set",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "norton1995",
+   "type": "source",
+   "title": "The fundamental theorem of dynamical systems",
+   "domains": [
+    "dynamical-systems",
+    "topology",
+    "philosophy-of-science"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "notions-of-attraction",
+   "type": "map",
+   "title": "Notions of attraction",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": null
+  },
+  {
+   "id": "okeeffe2020",
+   "type": "source",
+   "title": "Tipping Phenomena and Points of No Return in Ecosystems: Beyond Classical Bifurcations",
+   "domains": [
+    "nonautonomous-dynamics",
+    "bifurcation-theory",
+    "dynamical-systems",
+    "theoretical-ecology"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "oljaca2024",
+   "type": "source",
+   "title": "Measure and Statistical Attractors for Nonautonomous Dynamical Systems",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "omega-limit-set",
+   "type": "concept",
+   "title": "Omega limit set",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "operator-theoretic-dynamics",
+   "type": "map",
+   "title": "Operator-theoretic dynamics",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "ergodic-theory",
+    "measure-theory",
+    "numerical-analysis"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": null
+  },
+  {
+   "id": "ornstein-uhlenbeck-process",
+   "type": "example",
+   "title": "Ornstein-Uhlenbeck process",
+   "domains": [
+    "stochastic-processes",
+    "differential-equations"
+   ],
+   "area": "stochastics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "partial-hyperbolicity",
+   "type": "concept",
+   "title": "Partial hyperbolicity",
+   "domains": [
+    "dynamical-systems",
+    "differential-geometry"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "perron-frobenius-operator",
+   "type": "concept",
+   "title": "Perron-Frobenius operator",
+   "domains": [
+    "operator-theoretic-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "physical-measure",
+   "type": "concept",
+   "title": "Physical measure",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "physical-versus-srb-measures",
+   "type": "question",
+   "title": "Physical and SRB measures",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "pseudo-orbit",
+   "type": "concept",
+   "title": "Pseudo-orbit",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "pullback-attractor",
+   "type": "concept",
+   "title": "Pullback attractor",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "pullback-measure-attractor",
+   "type": "concept",
+   "title": "Pullback measure attractor",
+   "domains": [
+    "nonautonomous-dynamics",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "pullback-statistical-attractor",
+   "type": "concept",
+   "title": "Pullback statistical attractor",
+   "domains": [
+    "nonautonomous-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "pushforward-measure",
+   "type": "concept",
+   "title": "Pushforward measure",
+   "domains": [
+    "measure-theory",
+    "dynamical-systems"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "quasi-polynomial-form",
+   "type": "method",
+   "title": "Quasi-polynomial form",
+   "domains": [
+    "dynamical-systems",
+    "differential-equations",
+    "theoretical-ecology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "random-attractor",
+   "type": "concept",
+   "title": "Random attractor",
+   "domains": [
+    "nonautonomous-dynamics",
+    "stochastic-processes"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "rate-induced-tipping",
+   "type": "concept",
+   "title": "Rate-induced tipping",
+   "domains": [
+    "nonautonomous-dynamics",
+    "bifurcation-theory",
+    "dynamical-systems",
+    "theoretical-ecology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "recurrence-and-decomposition",
+   "type": "map",
+   "title": "Recurrence and decomposition",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": null
+  },
+  {
+   "id": "replicator-equation",
+   "type": "model",
+   "title": "Replicator equation",
+   "domains": [
+    "dynamical-systems",
+    "theoretical-ecology",
+    "differential-equations"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "riddled-basin",
+   "type": "concept",
+   "title": "Riddled basin",
+   "domains": [
+    "dynamical-systems",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "robinson1999",
+   "type": "source",
+   "title": "Dynamical systems: stability, symbolic dynamics, and chaos",
+   "domains": [
+    "dynamical-systems",
+    "topology",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "robust-topological-mixing-of-forced-circle-maps",
+   "type": "theorem",
+   "title": "Robust topological mixing of forced circle maps",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "ruelle1981",
+   "type": "source",
+   "title": "Small random perturbations of dynamical systems and the definition of attractors",
+   "domains": [
+    "dynamical-systems",
+    "stochastic-processes",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "saturated-equilibrium",
+   "type": "concept",
+   "title": "Saturated equilibrium",
+   "domains": [
+    "theoretical-ecology",
+    "dynamical-systems",
+    "community-ecology"
+   ],
+   "area": "ecology",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "semiflow",
+   "type": "concept",
+   "title": "Semiflow",
+   "domains": [
+    "dynamical-systems",
+    "differential-equations"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "servan2021",
+   "type": "source",
+   "title": "Tractable models of ecological assembly",
+   "domains": [
+    "community-ecology",
+    "theoretical-ecology",
+    "dynamical-systems"
+   ],
+   "area": "ecology",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "set-of-full-density",
+   "type": "concept",
+   "title": "Set of full density",
+   "domains": [
+    "measure-theory",
+    "dynamical-systems"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "sigma-algebra",
+   "type": "concept",
+   "title": "Sigma-algebra",
+   "domains": [
+    "measure-theory"
+   ],
+   "area": "foundations",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "sine-forced-circle-map-on-the-torus",
+   "type": "example",
+   "title": "Sine-forced circle map on the torus",
+   "domains": [
+    "dynamical-systems",
+    "scientific-computing"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "skew-product-flow",
+   "type": "concept",
+   "title": "Skew product flow",
+   "domains": [
+    "nonautonomous-dynamics",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "skew-product-map",
+   "type": "concept",
+   "title": "Skew product map",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "solenoid",
+   "type": "concept",
+   "title": "Solenoid",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "srb-measure",
+   "type": "concept",
+   "title": "SRB measure",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "stark1997",
+   "type": "source",
+   "title": "Invariant graphs for forced systems",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "stark1999",
+   "type": "source",
+   "title": "Regularity of invariant graphs for forced systems",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "statistical-attractor",
+   "type": "concept",
+   "title": "Statistical attractor",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "measure-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "statistical-attractors-as-pullback-measure-attractors",
+   "type": "question",
+   "title": "Statistical attractors as pullback measure attractors",
+   "domains": [
+    "dynamical-systems",
+    "nonautonomous-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "stochastic-differential-equation",
+   "type": "concept",
+   "title": "Stochastic differential equation",
+   "domains": [
+    "stochastic-processes",
+    "differential-equations"
+   ],
+   "area": "stochastics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "sturman2000",
+   "type": "source",
+   "title": "Semi-uniform ergodic theorems and applications to forced systems",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory",
+    "nonautonomous-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "synchronization",
+   "type": "concept",
+   "title": "Synchronization",
+   "domains": [
+    "dynamical-systems",
+    "stochastic-processes"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "synchronization-of-forced-circle-diffeomorphisms",
+   "type": "theorem",
+   "title": "Synchronization of forced circle diffeomorphisms",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "takens1994",
+   "type": "source",
+   "title": "Heteroclinic attractors: Time averages and moduli of topological conjugacy",
+   "domains": [
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "topological-and-measure-theoretic-senses-of-typical",
+   "type": "question",
+   "title": "Topological and measure-theoretic senses of typical",
+   "domains": [
+    "philosophy-of-science",
+    "dynamical-systems"
+   ],
+   "area": "philosophy",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "topological-mixing",
+   "type": "concept",
+   "title": "Topological mixing",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "ulams-method",
+   "type": "method",
+   "title": "Ulam's method",
+   "domains": [
+    "numerical-analysis",
+    "operator-theoretic-dynamics"
+   ],
+   "area": "computation",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "volterra-lyapunov-stable-matrix",
+   "type": "concept",
+   "title": "Volterra-Lyapunov stable matrix",
+   "domains": [
+    "dynamical-systems",
+    "linear-algebra",
+    "theoretical-ecology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "wandering-set",
+   "type": "concept",
+   "title": "Wandering set",
+   "domains": [
+    "dynamical-systems",
+    "topology"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "wiener-process",
+   "type": "concept",
+   "title": "Wiener process",
+   "domains": [
+    "stochastic-processes",
+    "probability"
+   ],
+   "area": "stochastics",
+   "maturity": "developing",
+   "confidence": "high"
+  },
+  {
+   "id": "wiener-wintner-theorem",
+   "type": "theorem",
+   "title": "Wiener-Wintner theorem",
+   "domains": [
+    "ergodic-theory",
+    "operator-theoretic-dynamics"
+   ],
+   "area": "dynamics",
+   "maturity": "developing",
+   "confidence": "medium-high"
+  },
+  {
+   "id": "young2002",
+   "type": "source",
+   "title": "What Are SRB Measures, and Which Dynamical Systems Have Them?",
+   "domains": [
+    "ergodic-theory",
+    "dynamical-systems"
+   ],
+   "area": "dynamics",
+   "maturity": null,
+   "confidence": null
+  },
+  {
+   "id": "zero-noise-limit",
+   "type": "concept",
+   "title": "Zero-noise limit",
+   "domains": [
+    "stochastic-processes",
+    "dynamical-systems",
+    "ergodic-theory"
+   ],
+   "area": "stochastics",
+   "maturity": "developing",
+   "confidence": "high"
+  }
+ ],
+ "edges": [
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "skew-product-map",
+   "k": "requires"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "expanding-circle-map",
+   "k": "requires"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "skew-product-map",
+   "k": "special-case-of"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "synchronization",
+   "k": "models",
+   "n": "The model represents a system whose states are phases and whose common driving signal is chaotic, and the theorem about it concerns the fibrewise convergence of those phases."
+  },
+  {
+   "s": "liouville-equation",
+   "t": "fokker-planck-equation",
+   "k": "special-case-of",
+   "n": "The Liouville equation is the Fokker-Planck equation with vanishing diffusion, so it transports densities along the flow without spreading them. The reading order runs the other way, from this note to the general one, so no 'requires' accompanies this relation."
+  },
+  {
+   "s": "liouville-equation",
+   "t": "pushforward-measure",
+   "k": "requires"
+  },
+  {
+   "s": "liouville-equation",
+   "t": "pushforward-measure",
+   "k": "infinitesimal-form-of",
+   "n": "For the flow <span class=\"math math-inline\">\\Phi_t</span> of a <span class=\"math math-inline\">C^2</span> vector field, the density of <span class=\"math math-inline\">(\\Phi_t)_{\\#}(\\rho_0 m)</span> solves the equation."
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "omega-limit-set",
+   "k": "requires"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "k": "used-in"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "complete-lyapunov-function",
+   "k": "used-in"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "measure-attractor",
+   "k": "contrasts-with",
+   "n": "A Conley attractor absorbs a whole neighbourhood, so its basin is open and contains it, whereas a measure attractor asks only that the set of points converging to it have positive Lebesgue measure and its basin need not be open or even contain a neighbourhood of the set."
+  },
+  {
+   "s": "zero-noise-limit",
+   "t": "fokker-planck-equation",
+   "k": "requires"
+  },
+  {
+   "s": "zero-noise-limit",
+   "t": "srb-measure",
+   "k": "used-in",
+   "n": "For an Axiom A attractor the SRB measure is the zero-noise limit of small random perturbations, which is one of the three routes by which that measure is reached <span class=\"cite\" data-keys=\"young2002\">(<a class=\"cite-link\" href=\"#/n/young2002\" data-id=\"young2002\">Young 2002</a>, Thm. 1)</span>."
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "measure-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "statistical-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "bounded-return-time-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "pullback-measure-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "wiener-wintner-theorem",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "requires"
+  },
+  {
+   "s": "wiener-wintner-theorem",
+   "t": "ergodic-partition",
+   "k": "used-in",
+   "n": "The averages at frequency zero evaluate the projection onto invariant functions from which the ergodic quotient is computed."
+  },
+  {
+   "s": "measurable-map",
+   "t": "sigma-algebra",
+   "k": "requires"
+  },
+  {
+   "s": "measurable-map",
+   "t": "pushforward-measure",
+   "k": "induces",
+   "n": "Every measure <span class=\"math math-inline\">\\mu</span> on the domain of a measurable map <span class=\"math math-inline\">F</span> determines the measure <span class=\"math math-inline\">F_{\\#}\\mu</span> on its codomain."
+  },
+  {
+   "s": "alpha-limit-set",
+   "t": "omega-limit-set",
+   "k": "requires"
+  },
+  {
+   "s": "alpha-limit-set",
+   "t": "inclusions-between-the-recurrent-sets",
+   "k": "used-in"
+  },
+  {
+   "s": "alpha-limit-set",
+   "t": "omega-limit-set",
+   "k": "contrasts-with",
+   "n": "The two are the same construction with the time direction reversed; they coincide for a rotation of the circle and separate whenever the dynamics has a direction, the alpha limit set of a point then sitting at the repelling end of its orbit and the omega limit set at the attracting end."
+  },
+  {
+   "s": "forward-attractor",
+   "t": "evolution-process",
+   "k": "requires"
+  },
+  {
+   "s": "assembly-graph",
+   "t": "lotka-volterra-model",
+   "k": "requires"
+  },
+  {
+   "s": "assembly-graph",
+   "t": "saturated-equilibrium",
+   "k": "requires"
+  },
+  {
+   "s": "assembly-graph",
+   "t": "invasion-graph",
+   "k": "contrasts-with",
+   "n": "An assembly graph is built for a process of sequential invasions and answers whether history matters; an invasion graph is built from the invasion rates of one model and its edges are heteroclinic connections."
+  },
+  {
+   "s": "koopman-operator",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "pushforward-measure",
+   "k": "requires"
+  },
+  {
+   "s": "lyapunov-exponent",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "lyapunov-exponent",
+   "t": "logistic-map",
+   "k": "used-in",
+   "n": "The exponent of the logistic map at the parameter four is the quantity that makes its orbits separate, and the worked value log 2 is the one the checks of this base reproduce."
+  },
+  {
+   "s": "measure",
+   "t": "sigma-algebra",
+   "k": "requires"
+  },
+  {
+   "s": "synchronization",
+   "t": "skew-product-map",
+   "k": "requires"
+  },
+  {
+   "s": "synchronization",
+   "t": "invariant-graph",
+   "k": "requires"
+  },
+  {
+   "s": "synchronization",
+   "t": "lyapunov-exponent",
+   "k": "requires"
+  },
+  {
+   "s": "synchronization",
+   "t": "topological-mixing",
+   "k": "contrasts-with",
+   "n": "A forced system can be topologically mixing, so that some orbit visits every open set, and synchronizing, so that almost every pair of orbits in one fibre converges; the two describe different sets of orbits and neither excludes the other."
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "forced-circle-diffeomorphism",
+   "k": "used-in",
+   "n": "The class of forced systems takes an expanding circle map in the base."
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "topological-mixing",
+   "k": "implies",
+   "n": "A smooth expanding circle map is topologically conjugate to the linear map of its degree, whose iterates spread every interval over the whole circle, so it is topologically mixing."
+  },
+  {
+   "s": "sigma-algebra",
+   "t": "ulams-method",
+   "k": "used-in",
+   "n": "The method replaces the state space by a finite partition and works inside the sigma-algebra that the partition generates, so the matrix it builds records exactly the sets that sigma-algebra can distinguish."
+  },
+  {
+   "s": "inclusions-between-the-recurrent-sets",
+   "t": "nonwandering-set",
+   "k": "requires"
+  },
+  {
+   "s": "inclusions-between-the-recurrent-sets",
+   "t": "chain-recurrent-set",
+   "k": "requires"
+  },
+  {
+   "s": "inclusions-between-the-recurrent-sets",
+   "t": "alpha-limit-set",
+   "k": "requires"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "nonwandering-set",
+   "k": "example-of"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "inclusions-between-the-recurrent-sets",
+   "k": "example-of"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "omega-limit-set",
+   "k": "example-of"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "wandering-set",
+   "k": "requires"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "cocycle",
+   "k": "requires"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "semiflow",
+   "k": "requires"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "semiflow",
+   "k": "special-case-of"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "evolution-process",
+   "k": "equivalent-to",
+   "n": "A process and a skew product flow describe the same equation, the first indexed by the initial time and the second by a point of the driving system; the translation is standard and the objects each makes natural differ."
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "pullback-attractor",
+   "k": "used-in"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "skew-product-map",
+   "k": "requires"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "disintegration-of-a-measure",
+   "k": "requires"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "synchronization",
+   "k": "used-in"
+  },
+  {
+   "s": "ergodic-measure",
+   "t": "invariant-measure",
+   "k": "special-case-of"
+  },
+  {
+   "s": "ergodic-measure",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "logistic-map",
+   "t": "logistic-map-invariant-density",
+   "k": "used-in"
+  },
+  {
+   "s": "saturated-equilibrium",
+   "t": "lotka-volterra-model",
+   "k": "requires"
+  },
+  {
+   "s": "saturated-equilibrium",
+   "t": "linear-complementarity-problem",
+   "k": "equivalent-to",
+   "n": "For a Lotka-Volterra system the saturated equilibria are exactly the solutions of the linear complementarity problem built from the interaction matrix and the growth rates."
+  },
+  {
+   "s": "saturated-equilibrium",
+   "t": "assembly-graph",
+   "k": "used-in"
+  },
+  {
+   "s": "forward-measure-attractor",
+   "t": "nonautonomous-set",
+   "k": "requires"
+  },
+  {
+   "s": "forward-measure-attractor",
+   "t": "measure-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "forward-measure-attractor",
+   "t": "measure-attractor",
+   "k": "equivalent-to",
+   "n": "For the process induced by a flow, a compact invariant set is a weak measure attractor if and only if the constant family built from it is a weak forward measure attractor, because the two basins coincide <span class=\"cite\" data-keys=\"oljaca2024\">(<a class=\"cite-link\" href=\"#/n/oljaca2024\" data-id=\"oljaca2024\">Oljača et al. 2024</a>, Thm. 2.19(i))</span>."
+  },
+  {
+   "s": "forward-measure-attractor",
+   "t": "pullback-measure-attractor",
+   "k": "contrasts-with",
+   "n": "Forward measure attraction fixes the initial time and measures a basin of initial conditions, whereas pullback measure attraction fixes the final time and measures a family of sets evolved from the past; neither implies the other."
+  },
+  {
+   "s": "pseudo-orbit",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "pseudo-orbit",
+   "t": "chain-recurrent-set",
+   "k": "used-in"
+  },
+  {
+   "s": "pseudo-orbit",
+   "t": "topological-mixing",
+   "k": "contrasts-with",
+   "n": "Both relate two regions by a finite number of steps, but mixing asks for true orbits between open sets and the chain relation asks for sequences with jumps, so a map can connect two points by pseudo-orbits at every accuracy and by no orbit at all."
+  },
+  {
+   "s": "skew-product-map",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "random-attractor",
+   "k": "used-in",
+   "n": "A random dynamical system is a skew product over the shift of the noise process, and its attractor is defined fibrewise over that base."
+  },
+  {
+   "s": "logistic-map-invariant-density",
+   "t": "invariant-measure",
+   "k": "example-of"
+  },
+  {
+   "s": "logistic-map-invariant-density",
+   "t": "perron-frobenius-operator",
+   "k": "example-of",
+   "n": "The density is a fixed point of the operator."
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "forced-circle-diffeomorphism",
+   "k": "requires"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "topological-mixing",
+   "k": "requires"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "synchronization",
+   "k": "requires"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "requires"
+  },
+  {
+   "s": "ornstein-uhlenbeck-process",
+   "t": "fokker-planck-equation",
+   "k": "example-of"
+  },
+  {
+   "s": "ornstein-uhlenbeck-process",
+   "t": "stochastic-differential-equation",
+   "k": "example-of"
+  },
+  {
+   "s": "ornstein-uhlenbeck-process",
+   "t": "zero-noise-limit",
+   "k": "example-of",
+   "n": "The stationary law is Gaussian with variance proportional to the square of the noise amplitude, so it concentrates on the equilibrium of the deterministic equation as that amplitude tends to zero."
+  },
+  {
+   "s": "replicator-equation",
+   "t": "kolmogorov-system",
+   "k": "requires"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "ergodic-measure",
+   "k": "characterizes",
+   "n": "An invariant probability measure is ergodic if and only if the time averages of every integrable observable converge to its space average almost everywhere."
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "physical-measure",
+   "k": "used-in",
+   "n": "A physical measure is defined through the convergence of time averages from a set of initial conditions of positive Lebesgue measure."
+  },
+  {
+   "s": "quasi-polynomial-form",
+   "t": "lotka-volterra-model",
+   "k": "requires"
+  },
+  {
+   "s": "quasi-polynomial-form",
+   "t": "kolmogorov-system",
+   "k": "approximates",
+   "n": "The reduction is exact, not an approximation; the relation records that the quasi-polynomial class sits inside the per capita form and is mapped onto Lotka-Volterra systems by the change of variables."
+  },
+  {
+   "s": "ergodic-partition",
+   "t": "ergodic-measure",
+   "k": "requires"
+  },
+  {
+   "s": "ergodic-partition",
+   "t": "koopman-eigenfunction",
+   "k": "requires"
+  },
+  {
+   "s": "pushforward-measure",
+   "t": "measure",
+   "k": "requires"
+  },
+  {
+   "s": "pushforward-measure",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "pushforward-measure",
+   "t": "perron-frobenius-operator",
+   "k": "induces",
+   "n": "For a nonsingular map, the pushforward restricted to measures with a density and written on densities is the Perron-Frobenius operator."
+  },
+  {
+   "s": "chain-recurrent-set",
+   "t": "pseudo-orbit",
+   "k": "requires"
+  },
+  {
+   "s": "chain-recurrent-set",
+   "t": "omega-limit-set",
+   "k": "requires"
+  },
+  {
+   "s": "chain-recurrent-set",
+   "t": "conley-decomposition-theorem",
+   "k": "used-in"
+  },
+  {
+   "s": "chain-recurrent-set",
+   "t": "topological-mixing",
+   "k": "contrasts-with",
+   "n": "A chain class is chain transitive, so any two of its points are joined by pseudo-orbits at every accuracy, whereas topological transitivity asks for true orbits between open sets; a map can be chain transitive on the whole space and have no dense orbit."
+  },
+  {
+   "s": "evolution-process",
+   "t": "nonautonomous-set",
+   "k": "used-in",
+   "n": "Invariance and attraction of a nonautonomous set are stated through the two-time maps of a process."
+  },
+  {
+   "s": "rate-induced-tipping",
+   "t": "pullback-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "rate-induced-tipping",
+   "t": "asymptotically-autonomous-process",
+   "k": "requires"
+  },
+  {
+   "s": "srb-measure",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "srb-measure",
+   "t": "lyapunov-exponent",
+   "k": "requires"
+  },
+  {
+   "s": "srb-measure",
+   "t": "absolutely-continuous-measure",
+   "k": "requires"
+  },
+  {
+   "s": "srb-measure",
+   "t": "physical-measure",
+   "k": "implies",
+   "n": "For an ergodic SRB measure with no zero Lyapunov exponents <span class=\"cite\" data-keys=\"young2002\">(<a class=\"cite-link\" href=\"#/n/young2002\" data-id=\"young2002\">Young 2002</a>, Thm. 3)</span>."
+  },
+  {
+   "s": "bounded-return-time-attractor",
+   "t": "measure",
+   "k": "requires"
+  },
+  {
+   "s": "bounded-return-time-attractor",
+   "t": "statistical-attractor",
+   "k": "implies",
+   "n": "Visits of unbounded length separated by excursions of bounded length force the time fraction spent in the neighbourhood to tend to one, so every set attracted in this sense is attracted statistically <span class=\"cite\" data-keys=\"newman2025\">(<a class=\"cite-link\" href=\"#/n/newman2025\" data-id=\"newman2025\">Newman et al. 2025</a>, Lemma 2.5(ii))</span>."
+  },
+  {
+   "s": "koopman-mode",
+   "t": "koopman-eigenfunction",
+   "k": "requires"
+  },
+  {
+   "s": "pullback-measure-attractor",
+   "t": "nonautonomous-set",
+   "k": "requires"
+  },
+  {
+   "s": "pullback-measure-attractor",
+   "t": "measure-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "pullback-statistical-attractor",
+   "t": "nonautonomous-set",
+   "k": "requires"
+  },
+  {
+   "s": "pullback-statistical-attractor",
+   "t": "statistical-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "pullback-statistical-attractor",
+   "t": "pullback-measure-attractor",
+   "k": "contrasts-with",
+   "n": "Pullback measure attraction requires the convergence along every sequence of initial times, pullback statistical attraction only along a set of initial times of full density at minus infinity; the linear equation with alternating growth satisfies the second and not the first <span class=\"cite\" data-keys=\"oljaca2024\">(<a class=\"cite-link\" href=\"#/n/oljaca2024\" data-id=\"oljaca2024\">Oljača et al. 2024</a>, Example 3.5)</span>."
+  },
+  {
+   "s": "volterra-lyapunov-stable-matrix",
+   "t": "lotka-volterra-model",
+   "k": "requires"
+  },
+  {
+   "s": "volterra-lyapunov-stable-matrix",
+   "t": "saturated-equilibrium",
+   "k": "implies",
+   "n": "A Volterra-Lyapunov stable interaction matrix gives a unique saturated equilibrium for every vector of growth rates, and that equilibrium attracts every trajectory with the same species present."
+  },
+  {
+   "s": "measure-attractor",
+   "t": "measure",
+   "k": "requires"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "bounded-return-time-attractor",
+   "k": "implies",
+   "n": "A point that converges to the set is attracted to it with return times bounded by any constant, so a positive-measure basin of convergence is a positive-measure basin of bounded-return-time attraction <span class=\"cite\" data-keys=\"newman2025\">(<a class=\"cite-link\" href=\"#/n/newman2025\" data-id=\"newman2025\">Newman et al. 2025</a>, Lemma 2.5(i))</span>."
+  },
+  {
+   "s": "measure-attractor",
+   "t": "pullback-measure-attractor",
+   "k": "implies",
+   "n": "For the process induced by a flow, a set with a positive-measure basin is a weak pullback measure attractor, since every neighbourhood of it eventually contains the backward image of a fixed positive-measure set <span class=\"cite\" data-keys=\"newman2025 oljaca2024\">(<a class=\"cite-link\" href=\"#/n/newman2025\" data-id=\"newman2025\">Newman et al. 2025</a>, Lemma 2.5(iii); <a class=\"cite-link\" href=\"#/n/oljaca2024\" data-id=\"oljaca2024\">Oljača et al. 2024</a>, Thm. 2.20(i))</span>."
+  },
+  {
+   "s": "measure-attractor",
+   "t": "physical-measure",
+   "k": "contrasts-with",
+   "n": "A measure attractor is a set selected by a positive-measure set of orbits that converge to it, whereas a physical measure is a measure selected by a positive-measure set of orbits whose time averages converge to it; the first says where the orbits go and the second says how they distribute there."
+  },
+  {
+   "s": "topological-mixing",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "topological-mixing",
+   "t": "ergodic-measure",
+   "k": "contrasts-with",
+   "n": "Topological mixing constrains open sets and says nothing about measures, while ergodicity constrains sets of positive measure and says nothing about open sets; neither implies the other without further hypotheses."
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "set-of-full-density",
+   "k": "requires"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "pullback-statistical-attractor",
+   "k": "implies",
+   "n": "For the process induced by a flow on a compact state space, the constant family built from a statistical attractor is a pullback statistical attractor <span class=\"cite\" data-keys=\"oljaca2024\">(<a class=\"cite-link\" href=\"#/n/oljaca2024\" data-id=\"oljaca2024\">Oljača et al. 2024</a>, Thm. 3.6(i))</span>."
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "forward-statistical-attractor",
+   "k": "implies",
+   "n": "For the process induced by a flow on a compact state space, the constant family built from a statistical attractor is a forward statistical attractor <span class=\"cite\" data-keys=\"oljaca2024\">(<a class=\"cite-link\" href=\"#/n/oljaca2024\" data-id=\"oljaca2024\">Oljača et al. 2024</a>, Thm. 3.6(ii))</span>."
+  },
+  {
+   "s": "stochastic-differential-equation",
+   "t": "wiener-process",
+   "k": "requires"
+  },
+  {
+   "s": "stochastic-differential-equation",
+   "t": "fokker-planck-equation",
+   "k": "induces",
+   "n": "The transition density of the solution satisfies the forward Kolmogorov equation built from the drift and the diffusion matrix of the equation."
+  },
+  {
+   "s": "hyperbolic-homoclinic-loop",
+   "t": "bounded-return-time-attractor",
+   "k": "example-of"
+  },
+  {
+   "s": "hyperbolic-homoclinic-loop",
+   "t": "pullback-measure-attractor",
+   "k": "example-of"
+  },
+  {
+   "s": "hyperbolic-homoclinic-loop",
+   "t": "implications-between-notions-of-attraction",
+   "k": "used-in",
+   "n": "The example realises the row in which bounded-return-time and pullback measure attraction hold while measure attraction fails."
+  },
+  {
+   "s": "physical-measure",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "physical-measure",
+   "t": "srb-measure",
+   "k": "contrasts-with",
+   "n": "Every ergodic SRB measure without zero Lyapunov exponents is physical, whereas a Dirac measure at an attracting fixed point is physical and is not SRB <span class=\"cite\" data-keys=\"young2002\">(<a class=\"cite-link\" href=\"#/n/young2002\" data-id=\"young2002\">Young 2002</a>, Thm. 3 and sec. 2.2)</span>."
+  },
+  {
+   "s": "sine-forced-circle-map-on-the-torus",
+   "t": "forced-circle-diffeomorphism",
+   "k": "example-of"
+  },
+  {
+   "s": "sine-forced-circle-map-on-the-torus",
+   "t": "synchronization",
+   "k": "example-of"
+  },
+  {
+   "s": "sine-forced-circle-map-on-the-torus",
+   "t": "expanding-circle-map",
+   "k": "requires"
+  },
+  {
+   "s": "sine-forced-circle-map-on-the-torus",
+   "t": "partial-hyperbolicity",
+   "k": "requires"
+  },
+  {
+   "s": "linear-complementarity-problem",
+   "t": "lotka-volterra-model",
+   "k": "requires"
+  },
+  {
+   "s": "linear-complementarity-problem",
+   "t": "saturated-equilibrium",
+   "k": "estimates",
+   "n": "Solving the complementarity problem built from the interaction matrix and the growth rates returns the saturated equilibria of the Lotka-Volterra system, including which species are absent."
+  },
+  {
+   "s": "kolmogorov-system",
+   "t": "semiflow",
+   "k": "requires"
+  },
+  {
+   "s": "kolmogorov-system",
+   "t": "lotka-volterra-model",
+   "k": "used-in"
+  },
+  {
+   "s": "partial-hyperbolicity",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "partial-hyperbolicity",
+   "t": "lyapunov-exponent",
+   "k": "requires"
+  },
+  {
+   "s": "partial-hyperbolicity",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "used-in"
+  },
+  {
+   "s": "absolutely-continuous-measure",
+   "t": "measure",
+   "k": "requires"
+  },
+  {
+   "s": "absolutely-continuous-measure",
+   "t": "perron-frobenius-operator",
+   "k": "used-in",
+   "n": "The Radon-Nikodym theorem makes the Perron-Frobenius operator of a nonsingular map well defined."
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "chain-recurrent-set",
+   "k": "requires"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "complete-lyapunov-function",
+   "k": "requires"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "gradient-like-system",
+   "k": "requires"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "fundamental-theorem-of-a-discipline",
+   "k": "used-in"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "k": "implies",
+   "n": "The decomposition is proved through the attractor-repeller pairs, and the description of the chain recurrent set as their intersection is the step that supplies the pieces of the Lyapunov function; the implication runs from the proof and not from the statement."
+  },
+  {
+   "s": "riddled-basin",
+   "t": "measure-attractor",
+   "k": "requires",
+   "n": "The notion is stated for the basin of a set that attracts a positive-measure set of states, which is what a measure attractor is."
+  },
+  {
+   "s": "invasion-graph",
+   "t": "lotka-volterra-model",
+   "k": "requires"
+  },
+  {
+   "s": "invasion-graph",
+   "t": "saturated-equilibrium",
+   "k": "requires"
+  },
+  {
+   "s": "invasion-graph",
+   "t": "volterra-lyapunov-stable-matrix",
+   "k": "requires"
+  },
+  {
+   "s": "perron-frobenius-operator",
+   "t": "pushforward-measure",
+   "k": "requires"
+  },
+  {
+   "s": "perron-frobenius-operator",
+   "t": "absolutely-continuous-measure",
+   "k": "requires"
+  },
+  {
+   "s": "perron-frobenius-operator",
+   "t": "koopman-operator",
+   "k": "dual-to",
+   "n": "With respect to the pairing <span class=\"math math-inline\">\\langle f, g \\rangle = \\int f g \\, dm</span> of <span class=\"math math-inline\">L^1(m)</span> with <span class=\"math math-inline\">L^\\infty(m)</span>, the operators satisfy <span class=\"math math-inline\">\\langle \\mathcal{P} f, g \\rangle = \\langle f, \\mathcal{K} g \\rangle</span>."
+  },
+  {
+   "s": "complete-lyapunov-function",
+   "t": "chain-recurrent-set",
+   "k": "requires"
+  },
+  {
+   "s": "complete-lyapunov-function",
+   "t": "attractor-repeller-pair",
+   "k": "requires"
+  },
+  {
+   "s": "complete-lyapunov-function",
+   "t": "gradient-like-system",
+   "k": "requires"
+  },
+  {
+   "s": "complete-lyapunov-function",
+   "t": "conley-decomposition-theorem",
+   "k": "used-in"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "measure",
+   "k": "requires"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "sigma-algebra",
+   "k": "requires"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "pushforward-measure",
+   "k": "requires"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "invariant-graph",
+   "k": "used-in"
+  },
+  {
+   "s": "generic-property",
+   "t": "measure",
+   "k": "requires"
+  },
+  {
+   "s": "generic-property",
+   "t": "measure-attractor",
+   "k": "contrasts-with",
+   "n": "The generic limit set is built from the omega-limit sets of the points outside a countable union of nowhere dense sets, the likely limit set from those of the points outside a null set; neither contains the other in general, although they always meet <span class=\"cite\" data-keys=\"milnor1985\">(<a class=\"cite-link\" href=\"#/n/milnor1985\" data-id=\"milnor1985\">Milnor 1985a</a>, Appendix 1)</span>."
+  },
+  {
+   "s": "invariant-measure",
+   "t": "pushforward-measure",
+   "k": "requires"
+  },
+  {
+   "s": "koopman-eigenfunction",
+   "t": "koopman-operator",
+   "k": "requires"
+  },
+  {
+   "s": "fundamental-theorem-of-a-discipline",
+   "t": "conley-decomposition-theorem",
+   "k": "requires"
+  },
+  {
+   "s": "fundamental-theorem-of-a-discipline",
+   "t": "criteria-for-a-fundamental-theorem",
+   "k": "used-in"
+  },
+  {
+   "s": "asymptotically-autonomous-process",
+   "t": "evolution-process",
+   "k": "special-case-of"
+  },
+  {
+   "s": "asymptotically-autonomous-process",
+   "t": "evolution-process",
+   "k": "requires",
+   "n": "The convergence of the shifted maps to a flow is an extra hypothesis on a process, and it is used to relate the pullback and forward notions of attraction to attractors of the limit systems."
+  },
+  {
+   "s": "solenoid",
+   "t": "natural-extension",
+   "k": "requires"
+  },
+  {
+   "s": "solenoid",
+   "t": "expanding-circle-map",
+   "k": "requires"
+  },
+  {
+   "s": "solenoid",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "used-in"
+  },
+  {
+   "s": "chain-recurrent-sets-of-three-circle-maps",
+   "t": "chain-recurrent-set",
+   "k": "example-of"
+  },
+  {
+   "s": "chain-recurrent-sets-of-three-circle-maps",
+   "t": "complete-lyapunov-function",
+   "k": "example-of"
+  },
+  {
+   "s": "chain-recurrent-sets-of-three-circle-maps",
+   "t": "conley-decomposition-theorem",
+   "k": "example-of"
+  },
+  {
+   "s": "chain-recurrent-sets-of-three-circle-maps",
+   "t": "pseudo-orbit",
+   "k": "requires"
+  },
+  {
+   "s": "delayed-bifurcation",
+   "t": "evolution-process",
+   "k": "requires"
+  },
+  {
+   "s": "delayed-bifurcation",
+   "t": "lyapunov-exponent",
+   "k": "requires"
+  },
+  {
+   "s": "delayed-bifurcation",
+   "t": "rate-induced-tipping",
+   "k": "contrasts-with",
+   "n": "Both are failures of a swept system to follow its frozen attractor, and they differ in what the frozen system does. A delayed bifurcation crosses a bifurcation and the system arrives late; rate-induced tipping crosses none and the system never arrives."
+  },
+  {
+   "s": "delayed-bifurcation",
+   "t": "logistic-map",
+   "k": "used-in"
+  },
+  {
+   "s": "robust-topological-mixing-of-forced-circle-maps",
+   "t": "forced-circle-diffeomorphism",
+   "k": "requires"
+  },
+  {
+   "s": "robust-topological-mixing-of-forced-circle-maps",
+   "t": "topological-mixing",
+   "k": "requires"
+  },
+  {
+   "s": "robust-topological-mixing-of-forced-circle-maps",
+   "t": "iterated-function-system",
+   "k": "requires"
+  },
+  {
+   "s": "robust-topological-mixing-of-forced-circle-maps",
+   "t": "solenoid",
+   "k": "requires"
+  },
+  {
+   "s": "robust-topological-mixing-of-forced-circle-maps",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "used-in"
+  },
+  {
+   "s": "wandering-set",
+   "t": "nonwandering-set",
+   "k": "requires"
+  },
+  {
+   "s": "wandering-set",
+   "t": "inclusions-between-the-recurrent-sets",
+   "k": "used-in"
+  },
+  {
+   "s": "cocycle",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "cocycle",
+   "t": "skew-product-flow",
+   "k": "part-of"
+  },
+  {
+   "s": "cocycle",
+   "t": "random-attractor",
+   "k": "used-in",
+   "n": "A random dynamical system is a cocycle over the shift of the noise process, and its attractor is defined fibrewise over that base."
+  },
+  {
+   "s": "cocycle",
+   "t": "lyapunov-exponent",
+   "k": "used-in",
+   "n": "The multiplicative ergodic theorem is a statement about linear cocycles, whose exponents are the growth rates of the products along a base orbit."
+  },
+  {
+   "s": "wiener-process",
+   "t": "measure",
+   "k": "requires"
+  },
+  {
+   "s": "wiener-process",
+   "t": "stochastic-differential-equation",
+   "k": "used-in",
+   "n": "The Wiener process is the integrator of the Ito equation, and its increments are the noise that the diffusion coefficient scales."
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "statistical-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "pushforward-measure",
+   "k": "requires"
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "measure-attractor",
+   "k": "contrasts-with",
+   "n": "Milnor calls a minimal attractor an attractor no proper closed subset of which is an attractor <span class=\"cite\" data-keys=\"milnor1985\">(<a class=\"cite-link\" href=\"#/n/milnor1985\" data-id=\"milnor1985\">Milnor 1985a</a>, sec. 2)</span>, which is a different object from the one defined here; the two share the word and nothing else."
+  },
+  {
+   "s": "random-attractor",
+   "t": "pullback-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "random-attractor",
+   "t": "stochastic-differential-equation",
+   "k": "requires",
+   "n": "The cocycle of a stochastic differential equation, with the driving noise fixed as the base, is the leading example of a random dynamical system."
+  },
+  {
+   "s": "forward-statistical-attractor",
+   "t": "nonautonomous-set",
+   "k": "requires"
+  },
+  {
+   "s": "forward-statistical-attractor",
+   "t": "set-of-full-density",
+   "k": "requires"
+  },
+  {
+   "s": "forward-statistical-attractor",
+   "t": "statistical-attractor",
+   "k": "requires"
+  },
+  {
+   "s": "natural-extension",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "natural-extension",
+   "t": "invariant-measure",
+   "k": "requires"
+  },
+  {
+   "s": "natural-extension",
+   "t": "sigma-algebra",
+   "k": "requires"
+  },
+  {
+   "s": "natural-extension",
+   "t": "solenoid",
+   "k": "induces",
+   "n": "The natural extension of an expanding circle map is a homeomorphism of the solenoid, which is the inverse limit of the circle under that map."
+  },
+  {
+   "s": "natural-extension",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "used-in"
+  },
+  {
+   "s": "fokker-planck-equation",
+   "t": "stochastic-differential-equation",
+   "k": "requires"
+  },
+  {
+   "s": "circle-flow-with-a-degenerate-equilibrium",
+   "t": "measure-attractor",
+   "k": "example-of"
+  },
+  {
+   "s": "circle-flow-with-a-degenerate-equilibrium",
+   "t": "statistical-attractor",
+   "k": "example-of"
+  },
+  {
+   "s": "circle-flow-with-a-degenerate-equilibrium",
+   "t": "pullback-measure-attractor",
+   "k": "example-of"
+  },
+  {
+   "s": "iterated-function-system",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "iterated-function-system",
+   "t": "skew-product-map",
+   "k": "contrasts-with",
+   "n": "An iterated function system is the fibre part of the step skew product over the full one-sided shift, and it differs from a general skew product because the fibre map reads only the current symbol."
+  },
+  {
+   "s": "iterated-function-system",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "used-in"
+  },
+  {
+   "s": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "t": "attractor-repeller-pair",
+   "k": "requires"
+  },
+  {
+   "s": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "t": "chain-recurrent-set",
+   "k": "requires"
+  },
+  {
+   "s": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "t": "complete-lyapunov-function",
+   "k": "used-in"
+  },
+  {
+   "s": "ulams-method",
+   "t": "perron-frobenius-operator",
+   "k": "requires"
+  },
+  {
+   "s": "ulams-method",
+   "t": "perron-frobenius-operator",
+   "k": "approximates",
+   "n": "The matrix acts on the vector of cell masses; convergence of the approximate invariant densities is proved for a class of piecewise expanding interval maps <span class=\"cite\" data-keys=\"li1976\">(<a class=\"cite-link\" href=\"#/n/li1976\" data-id=\"li1976\">Li 1976</a>)</span>."
+  },
+  {
+   "s": "ulams-method",
+   "t": "logistic-map-invariant-density",
+   "k": "used-in"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "requires"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "invariant-graph",
+   "k": "requires"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "natural-extension",
+   "k": "requires"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "disintegration-of-a-measure",
+   "k": "requires"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "partial-hyperbolicity",
+   "k": "requires"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "synchronization-of-forced-circle-diffeomorphisms",
+   "k": "implies",
+   "n": "The graph attracts almost every orbit fibrewise, so almost every pair of points of one fibre converges to each other; the implication needs the projection from the solenoid back to the circle, which the source performs in the proof of Theorem 1.1."
+  },
+  {
+   "s": "nonwandering-set",
+   "t": "omega-limit-set",
+   "k": "requires"
+  },
+  {
+   "s": "nonwandering-set",
+   "t": "inclusions-between-the-recurrent-sets",
+   "k": "used-in"
+  },
+  {
+   "s": "nonwandering-set",
+   "t": "chain-recurrent-set",
+   "k": "contrasts-with",
+   "n": "Both ask a point to come back, the nonwandering condition along true orbits of a neighbourhood and chain recurrence along pseudo-orbits with a jump at every step; the second is the weaker, and a circle map whose displacement never changes sign has two nonwandering points and a chain recurrent set that is the whole circle."
+  },
+  {
+   "s": "generalized-laplace-analysis",
+   "t": "koopman-mode",
+   "k": "requires"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "measure-attractor",
+   "k": "used-in"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "attractor-repeller-pair",
+   "k": "used-in"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "chain-recurrent-set",
+   "k": "used-in"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "nonwandering-set",
+   "k": "used-in"
+  },
+  {
+   "s": "affine-space",
+   "t": "lotka-volterra-model",
+   "k": "used-in",
+   "n": "The per capita growth rates of the model are affine functions of the abundances, which is what distinguishes it inside the Kolmogorov family."
+  },
+  {
+   "s": "affine-space",
+   "t": "replicator-equation",
+   "k": "used-in",
+   "n": "The simplex of frequencies is the part of an affine hyperplane that lies in the nonnegative orthant, and the vector field takes its values in the direction space of that hyperplane."
+  },
+  {
+   "s": "affine-space",
+   "t": "logistic-map",
+   "k": "used-in",
+   "n": "The conjugacy between the logistic and the quadratic families is an affine change of variables, so it leaves the Lyapunov exponent unchanged."
+  },
+  {
+   "s": "affine-space",
+   "t": "linear-complementarity-problem",
+   "k": "used-in",
+   "n": "The residual of the problem is an affine function of the unknown, and the equilibria with a given support solve an affine system."
+  },
+  {
+   "s": "affine-space",
+   "t": "iterated-function-system",
+   "k": "used-in"
+  },
+  {
+   "s": "semiflow",
+   "t": "measurable-map",
+   "k": "requires"
+  },
+  {
+   "s": "semiflow",
+   "t": "skew-product-flow",
+   "k": "used-in"
+  },
+  {
+   "s": "semiflow",
+   "t": "evolution-process",
+   "k": "contrasts-with",
+   "n": "A semiflow depends on elapsed time alone and a process depends on the initial time as well; the first describes an autonomous system and the second a nonautonomous one."
+  },
+  {
+   "s": "gradient-like-system",
+   "t": "chain-recurrent-set",
+   "k": "requires"
+  },
+  {
+   "s": "gradient-like-system",
+   "t": "conley-decomposition-theorem",
+   "k": "used-in"
+  },
+  {
+   "s": "gradient-like-system",
+   "t": "chain-recurrent-set",
+   "k": "contrasts-with",
+   "n": "A system is chain recurrent when its chain recurrent set is the whole space and strongly gradient-like when that set is totally disconnected, which are the two extremes; a system can nevertheless be gradient-like and chain recurrent at once, since the decreasing function need not separate the chain classes."
+  },
+  {
+   "s": "dynamic-mode-decomposition",
+   "t": "koopman-mode",
+   "k": "requires"
+  },
+  {
+   "s": "dynamic-mode-decomposition",
+   "t": "koopman-mode",
+   "k": "estimates",
+   "n": "The empirical Ritz vectors estimate the terms <span class=\"math math-inline\">\\varphi_j(x_0)C_j(F)</span> at the initial state <span class=\"math math-inline\">x_0</span>, and they equal these terms when the snapshots lie in the span of as many eigenfunction terms as snapshots are used."
+  },
+  {
+   "s": "dynamic-mode-decomposition",
+   "t": "koopman-operator",
+   "k": "approximates",
+   "n": "The companion matrix represents the compression of the Koopman operator to the Krylov subspace spanned by the first iterates of the observable, with the projection fixed by least squares at the initial state."
+  },
+  {
+   "s": "set-of-full-density",
+   "t": "pullback-statistical-attractor",
+   "k": "used-in",
+   "n": "Pullback statistical attraction requires convergence only along a set of initial times of full density at minus infinity."
+  },
+  {
+   "s": "pullback-attractor",
+   "t": "evolution-process",
+   "k": "requires"
+  },
+  {
+   "s": "pullback-attractor",
+   "t": "forward-attractor",
+   "k": "contrasts-with",
+   "n": "Pullback attraction fixes the final time and lets the initial time recede, forward attraction fixes the initial time and lets the final time grow; neither implies the other, and a pullback attractor may limit to a repeller of the future system."
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "kolmogorov-system",
+   "k": "requires"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "affine-space",
+   "k": "requires"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "kolmogorov-system",
+   "k": "special-case-of"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "invasion-graph",
+   "k": "used-in"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "assembly-graph",
+   "k": "used-in"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "replicator-equation",
+   "k": "equivalent-to",
+   "n": "Each replicator equation on n strategies is a Lotka-Volterra system on n - 1 species and conversely, so results about one transfer to the other."
+  },
+  {
+   "s": "nonautonomous-set",
+   "t": "evolution-process",
+   "k": "requires"
+  },
+  {
+   "s": "nonautonomous-set",
+   "t": "pullback-attractor",
+   "k": "used-in",
+   "n": "A pullback attractor is a nonautonomous set whose fibres attract in the limit of early initial times."
+  },
+  {
+   "s": "nonautonomous-set",
+   "t": "forward-attractor",
+   "k": "used-in",
+   "n": "A forward attractor is a nonautonomous set whose fibres attract in the limit of late final times."
+  },
+  {
+   "s": "ruelle1981",
+   "t": "zero-noise-limit",
+   "k": "mentions"
+  },
+  {
+   "s": "conley1978a",
+   "t": "conley-decomposition-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "conley1978a",
+   "t": "attractor-repeller-pair",
+   "k": "mentions"
+  },
+  {
+   "s": "conley1978a",
+   "t": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "k": "mentions"
+  },
+  {
+   "s": "conley1978a",
+   "t": "complete-lyapunov-function",
+   "k": "mentions"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "partial-hyperbolicity",
+   "k": "mentions"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "topological-mixing",
+   "k": "mentions"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "invariant-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "solenoid",
+   "k": "mentions"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "iterated-function-system",
+   "k": "mentions"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "forced-circle-diffeomorphism",
+   "t": "jager2006",
+   "k": "cites"
+  },
+  {
+   "s": "carvalho2013",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "omega-limit-set",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "alpha-limit-set",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "nonwandering-set",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "wandering-set",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "inclusions-between-the-recurrent-sets",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "nonwandering-point-outside-the-limit-set",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "pseudo-orbit",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "chain-recurrent-set",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "attractor-repeller-pair",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "complete-lyapunov-function",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "gradient-like-system",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "conley-decomposition-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "fundamental-theorem-of-a-discipline",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "criteria-for-a-fundamental-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "topological-mixing",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "semiflow",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "chain-recurrence-and-computed-orbits",
+   "k": "mentions"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "recurrence-and-decomposition",
+   "t": "robinson1999",
+   "k": "cites"
+  },
+  {
+   "s": "liouville-equation",
+   "t": "liouville-versus-fokker-planck",
+   "k": "mentions"
+  },
+  {
+   "s": "liouville-equation",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "liouville-equation",
+   "t": "lasota1994",
+   "k": "cites"
+  },
+  {
+   "s": "charpentier2007",
+   "t": "lotka-volterra-model",
+   "k": "mentions"
+  },
+  {
+   "s": "charpentier2007",
+   "t": "kolmogorov-system",
+   "k": "mentions"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "chain-recurrent-set",
+   "k": "mentions"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "attractor-repeller-pair",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "zero-noise-limit",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "zero-noise-limit",
+   "t": "ruelle1981",
+   "k": "cites"
+  },
+  {
+   "s": "zero-noise-limit",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "zero-noise-limit",
+   "t": "kifer1974",
+   "k": "cites"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "lyapunov-exponent",
+   "k": "mentions"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "invariant-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "sine-forced-circle-map-on-the-torus",
+   "k": "mentions"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "stark1997",
+   "k": "cites"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "stark1999",
+   "k": "cites"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "sturman2000",
+   "k": "cites"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "invariant-graph",
+   "k": "concerns"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "synchronization",
+   "k": "concerns"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "lyapunov-exponent",
+   "k": "concerns"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "concerns"
+  },
+  {
+   "s": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "t": "partial-hyperbolicity",
+   "k": "concerns"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "statistical-attractors-as-pullback-measure-attractors",
+   "k": "mentions"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "minimal-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "implications-between-notions-of-attraction",
+   "t": "ilyashenko2005",
+   "k": "cites"
+  },
+  {
+   "s": "wiener-wintner-theorem",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "wiener-wintner-theorem",
+   "t": "koopman-eigenfunction",
+   "k": "mentions"
+  },
+  {
+   "s": "wiener-wintner-theorem",
+   "t": "budisic2012",
+   "k": "mentions"
+  },
+  {
+   "s": "wiener-wintner-theorem",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "measurable-map",
+   "t": "bogachev2007",
+   "k": "cites"
+  },
+  {
+   "s": "alpha-limit-set",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "alpha-limit-set",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "alpha-limit-set",
+   "t": "robinson1999",
+   "k": "cites"
+  },
+  {
+   "s": "forward-attractor",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-attractor",
+   "t": "asymptotically-autonomous-process",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-attractor",
+   "t": "forward-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "forward-attractor",
+   "t": "kloeden2012",
+   "k": "cites"
+  },
+  {
+   "s": "assembly-graph",
+   "t": "servan2021",
+   "k": "cites"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "logistic-map-invariant-density",
+   "k": "mentions"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "koopman-mode",
+   "k": "mentions"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "liouville-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "lasota1994",
+   "k": "cites"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "eisner2015",
+   "k": "cites"
+  },
+  {
+   "s": "koopman-operator",
+   "t": "koopman1931",
+   "k": "cites"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "pushforward-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "nonautonomous-set",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "pullback-statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "crauel1994",
+   "k": "cites"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "invariant-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "pushforward-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "random-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "invariant-measures-for-nonautonomous-systems",
+   "t": "pullback-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "lyapunov-exponent",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "lyapunov-exponent",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "measure",
+   "t": "bogachev2007",
+   "k": "cites"
+  },
+  {
+   "s": "synchronization",
+   "t": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "synchronization",
+   "t": "stark1997",
+   "k": "cites"
+  },
+  {
+   "s": "synchronization",
+   "t": "stark1999",
+   "k": "cites"
+  },
+  {
+   "s": "synchronization",
+   "t": "sturman2000",
+   "k": "cites"
+  },
+  {
+   "s": "arnold1998",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "absolutely-continuous-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "logistic-map-invariant-density",
+   "k": "mentions"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "expanding-circle-map",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "sigma-algebra",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "sigma-algebra",
+   "t": "bogachev2007",
+   "k": "cites"
+  },
+  {
+   "s": "ashwin2000",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "ashwin2000",
+   "t": "riddled-basin",
+   "k": "mentions"
+  },
+  {
+   "s": "ashwin2000",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "inclusions-between-the-recurrent-sets",
+   "t": "pseudo-orbit",
+   "k": "mentions"
+  },
+  {
+   "s": "inclusions-between-the-recurrent-sets",
+   "t": "conley-decomposition-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "inclusions-between-the-recurrent-sets",
+   "t": "robinson1999",
+   "k": "cites"
+  },
+  {
+   "s": "inclusions-between-the-recurrent-sets",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "chain-recurrent-set",
+   "k": "mentions"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "robinson1999",
+   "k": "cites"
+  },
+  {
+   "s": "nonwandering-point-outside-the-limit-set",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "skew-product-map",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "expanding-circle-map",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "rate-induced-tipping",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "anagnostopoulou2023",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "crauel1994",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "bortolan2013",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-flow",
+   "t": "kloeden2012",
+   "k": "cites"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "lyapunov-exponent",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "solenoid",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "stark1997",
+   "k": "cites"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "stark1999",
+   "k": "cites"
+  },
+  {
+   "s": "invariant-graph",
+   "t": "sturman2000",
+   "k": "cites"
+  },
+  {
+   "s": "ergodic-measure",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "ergodic-measure",
+   "t": "koopman-eigenfunction",
+   "k": "mentions"
+  },
+  {
+   "s": "ergodic-measure",
+   "t": "einsiedler2011",
+   "k": "cites"
+  },
+  {
+   "s": "ergodic-measure",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "logistic-map",
+   "t": "ulams-method",
+   "k": "mentions"
+  },
+  {
+   "s": "logistic-map",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "logistic-map",
+   "t": "may1976",
+   "k": "cites"
+  },
+  {
+   "s": "saturated-equilibrium",
+   "t": "kolmogorov-system",
+   "k": "mentions"
+  },
+  {
+   "s": "saturated-equilibrium",
+   "t": "almaraz2024b",
+   "k": "cites"
+  },
+  {
+   "s": "saturated-equilibrium",
+   "t": "servan2021",
+   "k": "cites"
+  },
+  {
+   "s": "forward-measure-attractor",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-measure-attractor",
+   "t": "forward-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-measure-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "ilyashenko2008",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "ilyashenko2008",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "ilyashenko2008",
+   "t": "kleptsyn2006",
+   "k": "cites"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "liouville-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "fokker-planck-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "zero-noise-limit",
+   "k": "mentions"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "ornstein-uhlenbeck-process",
+   "k": "mentions"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "arnold1974",
+   "k": "cites"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "ruelle1981",
+   "k": "cites"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "liouville-equation",
+   "k": "concerns"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "srb-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "fokker-planck-equation",
+   "k": "concerns"
+  },
+  {
+   "s": "liouville-versus-fokker-planck",
+   "t": "zero-noise-limit",
+   "k": "concerns"
+  },
+  {
+   "s": "pseudo-orbit",
+   "t": "conley-decomposition-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "pseudo-orbit",
+   "t": "chain-recurrence-and-computed-orbits",
+   "k": "mentions"
+  },
+  {
+   "s": "pseudo-orbit",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "pseudo-orbit",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "disintegration-of-a-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "expanding-circle-map",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "lyapunov-exponent",
+   "k": "mentions"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "stark1997",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "stark1999",
+   "k": "cites"
+  },
+  {
+   "s": "skew-product-map",
+   "t": "sturman2000",
+   "k": "cites"
+  },
+  {
+   "s": "logistic-map-invariant-density",
+   "t": "pushforward-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "conley-decomposition-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "omega-limit-set",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "pseudo-orbit",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "chain-recurrent-set",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "gradient-like-system",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "attractor-repeller-pair",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "complete-lyapunov-function",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "fundamental-theorem-of-a-discipline",
+   "k": "mentions"
+  },
+  {
+   "s": "norton1995",
+   "t": "criteria-for-a-fundamental-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "invariant-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "solenoid",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "deciding-membership-in-a-robustly-mixing-class",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "topological-and-measure-theoretic-senses-of-typical",
+   "k": "mentions"
+  },
+  {
+   "s": "synchronization-of-forced-circle-diffeomorphisms",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "ilyashenko2008a",
+   "t": "riddled-basin",
+   "k": "mentions"
+  },
+  {
+   "s": "milnor1985",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "ornstein-uhlenbeck-process",
+   "t": "wiener-process",
+   "k": "mentions"
+  },
+  {
+   "s": "ornstein-uhlenbeck-process",
+   "t": "liouville-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "ornstein-uhlenbeck-process",
+   "t": "arnold1974",
+   "k": "cites"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "sigma-algebra",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "measurable-map",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "absolutely-continuous-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "pushforward-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "liouville-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "koopman-eigenfunction",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "koopman-mode",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "generalized-laplace-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "operator-theoretic-dynamics",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "invariant-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "ergodic-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "ergodic-partition",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "wiener-wintner-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "disintegration-of-a-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "noise-and-random-dynamics",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "physical-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "srb-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "lyapunov-exponent",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "physical-versus-srb-measures",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "minimal-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "wiener-process",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "stochastic-differential-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "fokker-planck-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "ornstein-uhlenbeck-process",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "zero-noise-limit",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "ulams-method",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "logistic-map-invariant-density",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "dynamic-mode-decomposition",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "liouville-versus-fokker-planck",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "invariant-measures-for-nonautonomous-systems",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "continuous-spectrum-in-koopman-mode-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "lebesgue-measure-and-preparable-initial-conditions",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-theoretic-dynamics",
+   "t": "finite-records-and-ergodic-inference",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "synchronization-of-forced-circle-diffeomorphisms",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "solenoid",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "disintegration-of-a-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "partial-hyperbolicity",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "iterated-function-system",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "topological-mixing",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "homburg2012",
+   "t": "invariant-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "replicator-equation",
+   "t": "allesina2026",
+   "k": "cites"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "finite-records-and-ergodic-inference",
+   "k": "mentions"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "birkhoff1931",
+   "k": "cites"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "einsiedler2011",
+   "k": "cites"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "birkhoff-ergodic-theorem",
+   "t": "takens1994",
+   "k": "cites"
+  },
+  {
+   "s": "edelsbrunner2010",
+   "t": "affine-space",
+   "k": "mentions"
+  },
+  {
+   "s": "arnold1974",
+   "t": "wiener-process",
+   "k": "mentions"
+  },
+  {
+   "s": "arnold1974",
+   "t": "stochastic-differential-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "arnold1974",
+   "t": "fokker-planck-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "arnold1974",
+   "t": "ornstein-uhlenbeck-process",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "semiflow",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "skew-product-flow",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "cocycle",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "nonautonomous-set",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "skew-product-map",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "forward-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "noise-and-random-dynamics",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "asymptotically-autonomous-process",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "rate-induced-tipping",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "delayed-bifurcation",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "invariant-measures-for-nonautonomous-systems",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "topological-and-measure-theoretic-senses-of-typical",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-dynamics",
+   "t": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "k": "mentions"
+  },
+  {
+   "s": "ilyashenko2005",
+   "t": "minimal-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "ilyashenko2005",
+   "t": "implications-between-notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "ilyashenko2005",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "ilyashenko2005",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "kifer1974",
+   "t": "zero-noise-limit",
+   "k": "mentions"
+  },
+  {
+   "s": "kleptsyn2006",
+   "t": "pushforward-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "kleptsyn2006",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "quasi-polynomial-form",
+   "t": "volterra-lyapunov-stable-matrix",
+   "k": "mentions"
+  },
+  {
+   "s": "quasi-polynomial-form",
+   "t": "brenig2016",
+   "k": "cites"
+  },
+  {
+   "s": "ergodic-partition",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "pushforward-measure",
+   "t": "bogachev2007",
+   "k": "cites"
+  },
+  {
+   "s": "criteria-for-a-fundamental-theorem",
+   "t": "conley-decomposition-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "criteria-for-a-fundamental-theorem",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "criteria-for-a-fundamental-theorem",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "criteria-for-a-fundamental-theorem",
+   "t": "fundamental-theorem-of-a-discipline",
+   "k": "concerns"
+  },
+  {
+   "s": "criteria-for-a-fundamental-theorem",
+   "t": "conley-decomposition-theorem",
+   "k": "concerns"
+  },
+  {
+   "s": "young2002",
+   "t": "srb-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "young2002",
+   "t": "physical-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "young2002",
+   "t": "physical-versus-srb-measures",
+   "k": "mentions"
+  },
+  {
+   "s": "young2002",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "chain-recurrent-set",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "chain-recurrent-set",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "evolution-process",
+   "t": "pushforward-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "evolution-process",
+   "t": "forward-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "evolution-process",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "evolution-process",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "evolution-process",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "rate-induced-tipping",
+   "t": "notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "rate-induced-tipping",
+   "t": "ashwin2017",
+   "k": "cites"
+  },
+  {
+   "s": "rate-induced-tipping",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "rate-induced-tipping",
+   "t": "okeeffe2020",
+   "k": "cites"
+  },
+  {
+   "s": "srb-measure",
+   "t": "physical-versus-srb-measures",
+   "k": "mentions"
+  },
+  {
+   "s": "srb-measure",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "srb-measure",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "srb-measure",
+   "t": "eckmann1985",
+   "k": "cites"
+  },
+  {
+   "s": "bounded-return-time-attractor",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "bounded-return-time-attractor",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "koopman-mode",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "koopman-mode",
+   "t": "continuous-spectrum-in-koopman-mode-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "koopman-mode",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "minimal-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "implications-between-notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "ilyashenko2008",
+   "k": "cites"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "milnor1985a",
+   "k": "cites"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "kleptsyn2006",
+   "k": "cites"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "ilyashenko2005",
+   "k": "cites"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "measure-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "statistical-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "minimal-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "coincidence-of-attractor-notions",
+   "t": "implications-between-notions-of-attraction",
+   "k": "concerns"
+  },
+  {
+   "s": "pullback-measure-attractor",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "pullback-measure-attractor",
+   "t": "bounded-return-time-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "pullback-measure-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "pullback-measure-attractor",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "deciding-membership-in-a-robustly-mixing-class",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "deciding-membership-in-a-robustly-mixing-class",
+   "t": "sine-forced-circle-map-on-the-torus",
+   "k": "mentions"
+  },
+  {
+   "s": "deciding-membership-in-a-robustly-mixing-class",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "deciding-membership-in-a-robustly-mixing-class",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "deciding-membership-in-a-robustly-mixing-class",
+   "t": "synchronization-of-forced-circle-diffeomorphisms",
+   "k": "concerns"
+  },
+  {
+   "s": "deciding-membership-in-a-robustly-mixing-class",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "concerns"
+  },
+  {
+   "s": "deciding-membership-in-a-robustly-mixing-class",
+   "t": "sine-forced-circle-map-on-the-torus",
+   "k": "concerns"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "set-of-full-density",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "bounded-return-time-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "minimal-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "riddled-basin",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "generic-property",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "nonautonomous-set",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "forward-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "forward-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "forward-statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "pullback-statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "asymptotically-autonomous-process",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "rate-induced-tipping",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "implications-between-notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "hyperbolic-homoclinic-loop",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "circle-flow-with-a-degenerate-equilibrium",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "recurrence-and-decomposition",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "attractor-repeller-pair",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "chain-recurrent-set",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "coincidence-of-attractor-notions",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "statistical-attractors-as-pullback-measure-attractors",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "attraction-notions-for-processes",
+   "k": "mentions"
+  },
+  {
+   "s": "notions-of-attraction",
+   "t": "invariant-measures-for-nonautonomous-systems",
+   "k": "mentions"
+  },
+  {
+   "s": "ashwin2017",
+   "t": "rate-induced-tipping",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "wiener-process",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "stochastic-differential-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "fokker-planck-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "liouville-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "ornstein-uhlenbeck-process",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "invariant-measures-for-nonautonomous-systems",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "skew-product-map",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "iterated-function-system",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "expanding-circle-map",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "solenoid",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "partial-hyperbolicity",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "invariant-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "synchronization",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "robust-topological-mixing-of-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "synchronization-of-forced-circle-diffeomorphisms",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "topological-mixing",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "sine-forced-circle-map-on-the-torus",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "zero-noise-limit",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "srb-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "liouville-versus-fokker-planck",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "fibre-lyapunov-exponents-and-attracting-graphs",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "deciding-membership-in-a-robustly-mixing-class",
+   "k": "mentions"
+  },
+  {
+   "s": "noise-and-random-dynamics",
+   "t": "topological-and-measure-theoretic-senses-of-typical",
+   "k": "mentions"
+  },
+  {
+   "s": "pullback-statistical-attractor",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "pullback-statistical-attractor",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "pullback-statistical-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "volterra-lyapunov-stable-matrix",
+   "t": "linear-complementarity-problem",
+   "k": "mentions"
+  },
+  {
+   "s": "volterra-lyapunov-stable-matrix",
+   "t": "local-and-global-stability",
+   "k": "mentions"
+  },
+  {
+   "s": "volterra-lyapunov-stable-matrix",
+   "t": "almaraz2024b",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "coincidence-of-attractor-notions",
+   "k": "mentions"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "ashwin2000",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "ilyashenko2008",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "kleptsyn2006",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "ilyashenko2005",
+   "k": "cites"
+  },
+  {
+   "s": "measure-attractor",
+   "t": "milnor1985a",
+   "k": "cites"
+  },
+  {
+   "s": "topological-mixing",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-mixing",
+   "t": "iterated-function-system",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-mixing",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-mixing",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "topological-mixing",
+   "t": "jager2006",
+   "k": "cites"
+  },
+  {
+   "s": "karabacak2011",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "karabacak2011",
+   "t": "kleptsyn2006",
+   "k": "cites"
+  },
+  {
+   "s": "karabacak2011",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "kolmogorov-system",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "lotka-volterra-model",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "affine-space",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "replicator-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "volterra-lyapunov-stable-matrix",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "saturated-equilibrium",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "linear-complementarity-problem",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "local-and-global-stability",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "invasion-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "assembly-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "community-dynamics",
+   "t": "quasi-polynomial-form",
+   "k": "mentions"
+  },
+  {
+   "s": "chain-recurrence-and-computed-orbits",
+   "t": "pseudo-orbit",
+   "k": "mentions"
+  },
+  {
+   "s": "chain-recurrence-and-computed-orbits",
+   "t": "chain-recurrent-set",
+   "k": "mentions"
+  },
+  {
+   "s": "chain-recurrence-and-computed-orbits",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "chain-recurrence-and-computed-orbits",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "chain-recurrence-and-computed-orbits",
+   "t": "pseudo-orbit",
+   "k": "concerns"
+  },
+  {
+   "s": "chain-recurrence-and-computed-orbits",
+   "t": "chain-recurrent-set",
+   "k": "concerns"
+  },
+  {
+   "s": "chain-recurrence-and-computed-orbits",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "concerns"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "pushforward-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "ilyashenko2008",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "ilyashenko2005",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "karabacak2011",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "takens1994",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractor",
+   "t": "kleptsyn2006",
+   "k": "cites"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "pushforward-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "liouville-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "fokker-planck-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "noise-and-random-dynamics",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "koopman-eigenfunction",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "koopman-mode",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "generalized-laplace-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "continuous-spectrum-in-koopman-mode-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "invariant-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "ergodic-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "ergodic-partition",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "wiener-wintner-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "ulams-method",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "dynamic-mode-decomposition",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "logistic-map-invariant-density",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "lyapunov-exponent",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "liouville-versus-fokker-planck",
+   "k": "mentions"
+  },
+  {
+   "s": "operator-theoretic-dynamics",
+   "t": "finite-records-and-ergodic-inference",
+   "k": "mentions"
+  },
+  {
+   "s": "lebesgue-measure-and-preparable-initial-conditions",
+   "t": "physical-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "lebesgue-measure-and-preparable-initial-conditions",
+   "t": "absolutely-continuous-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "lebesgue-measure-and-preparable-initial-conditions",
+   "t": "physical-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "lebesgue-measure-and-preparable-initial-conditions",
+   "t": "absolutely-continuous-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "stochastic-differential-equation",
+   "t": "liouville-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "stochastic-differential-equation",
+   "t": "arnold1974",
+   "k": "cites"
+  },
+  {
+   "s": "hyperbolic-homoclinic-loop",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "hyperbolic-homoclinic-loop",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "hyperbolic-homoclinic-loop",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "physical-measure",
+   "t": "physical-versus-srb-measures",
+   "k": "mentions"
+  },
+  {
+   "s": "physical-measure",
+   "t": "lebesgue-measure-and-preparable-initial-conditions",
+   "k": "mentions"
+  },
+  {
+   "s": "physical-measure",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "sine-forced-circle-map-on-the-torus",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "linear-complementarity-problem",
+   "t": "volterra-lyapunov-stable-matrix",
+   "k": "mentions"
+  },
+  {
+   "s": "linear-complementarity-problem",
+   "t": "almaraz2024b",
+   "k": "cites"
+  },
+  {
+   "s": "linear-complementarity-problem",
+   "t": "allesina2026",
+   "k": "cites"
+  },
+  {
+   "s": "budisic2012",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "koopman-eigenfunction",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "koopman-mode",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "continuous-spectrum-in-koopman-mode-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "generalized-laplace-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "dynamic-mode-decomposition",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "ergodic-partition",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "wiener-wintner-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "budisic2012",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "kolmogorov-system",
+   "t": "affine-space",
+   "k": "mentions"
+  },
+  {
+   "s": "kolmogorov-system",
+   "t": "fokker-planck-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "kolmogorov-system",
+   "t": "charpentier2007",
+   "k": "cites"
+  },
+  {
+   "s": "partial-hyperbolicity",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "partial-hyperbolicity",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "partial-hyperbolicity",
+   "t": "solenoid",
+   "k": "mentions"
+  },
+  {
+   "s": "partial-hyperbolicity",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "absolutely-continuous-measure",
+   "t": "logistic-map-invariant-density",
+   "k": "mentions"
+  },
+  {
+   "s": "absolutely-continuous-measure",
+   "t": "bogachev2007",
+   "k": "cites"
+  },
+  {
+   "s": "absolutely-continuous-measure",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "attractor-repeller-pair",
+   "k": "mentions"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "pseudo-orbit",
+   "k": "mentions"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "criteria-for-a-fundamental-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "conley-decomposition-theorem",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "riddled-basin",
+   "t": "implications-between-notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "riddled-basin",
+   "t": "attraction-notions-for-processes",
+   "k": "mentions"
+  },
+  {
+   "s": "riddled-basin",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "riddled-basin",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "riddled-basin",
+   "t": "ashwin2000",
+   "k": "cites"
+  },
+  {
+   "s": "riddled-basin",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "riddled-basin",
+   "t": "ilyashenko2008a",
+   "k": "cites"
+  },
+  {
+   "s": "invasion-graph",
+   "t": "almaraz2024b",
+   "k": "cites"
+  },
+  {
+   "s": "perron-frobenius-operator",
+   "t": "invariant-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "perron-frobenius-operator",
+   "t": "lasota1994",
+   "k": "cites"
+  },
+  {
+   "s": "complete-lyapunov-function",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "complete-lyapunov-function",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "skew-product-map",
+   "k": "mentions"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "ergodic-partition",
+   "k": "mentions"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "sine-forced-circle-map-on-the-torus",
+   "k": "mentions"
+  },
+  {
+   "s": "disintegration-of-a-measure",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "generic-property",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "generic-property",
+   "t": "riddled-basin",
+   "k": "mentions"
+  },
+  {
+   "s": "generic-property",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "generic-property",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "generic-property",
+   "t": "ilyashenko2008",
+   "k": "cites"
+  },
+  {
+   "s": "generic-property",
+   "t": "ilyashenko2008a",
+   "k": "cites"
+  },
+  {
+   "s": "generic-property",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "invariant-measure",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "invariant-measure",
+   "t": "einsiedler2011",
+   "k": "cites"
+  },
+  {
+   "s": "koopman-eigenfunction",
+   "t": "ergodic-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "koopman-eigenfunction",
+   "t": "wiener-wintner-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "koopman-eigenfunction",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "takens1994",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "takens1994",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "finite-records-and-ergodic-inference",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "finite-records-and-ergodic-inference",
+   "t": "physical-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "finite-records-and-ergodic-inference",
+   "t": "ergodic-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "finite-records-and-ergodic-inference",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "finite-records-and-ergodic-inference",
+   "t": "birkhoff-ergodic-theorem",
+   "k": "concerns"
+  },
+  {
+   "s": "finite-records-and-ergodic-inference",
+   "t": "ergodic-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "finite-records-and-ergodic-inference",
+   "t": "physical-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "fundamental-theorem-of-a-discipline",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "asymptotically-autonomous-process",
+   "t": "forward-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "asymptotically-autonomous-process",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "asymptotically-autonomous-process",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "asymptotically-autonomous-process",
+   "t": "bortolan2013",
+   "k": "cites"
+  },
+  {
+   "s": "solenoid",
+   "t": "skew-product-map",
+   "k": "mentions"
+  },
+  {
+   "s": "solenoid",
+   "t": "partial-hyperbolicity",
+   "k": "mentions"
+  },
+  {
+   "s": "solenoid",
+   "t": "sine-forced-circle-map-on-the-torus",
+   "k": "mentions"
+  },
+  {
+   "s": "solenoid",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "bortolan2013",
+   "t": "asymptotically-autonomous-process",
+   "k": "mentions"
+  },
+  {
+   "s": "chain-recurrent-sets-of-three-circle-maps",
+   "t": "attractor-repeller-pair",
+   "k": "mentions"
+  },
+  {
+   "s": "chain-recurrent-sets-of-three-circle-maps",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "deisenroth2020",
+   "t": "affine-space",
+   "k": "mentions"
+  },
+  {
+   "s": "delayed-bifurcation",
+   "t": "kapral1985",
+   "k": "cites"
+  },
+  {
+   "s": "robust-topological-mixing-of-forced-circle-maps",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "robust-topological-mixing-of-forced-circle-maps",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "wandering-set",
+   "t": "complete-lyapunov-function",
+   "k": "mentions"
+  },
+  {
+   "s": "wandering-set",
+   "t": "chain-recurrent-set",
+   "k": "mentions"
+  },
+  {
+   "s": "wandering-set",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "wandering-set",
+   "t": "omega-limit-set",
+   "k": "mentions"
+  },
+  {
+   "s": "wandering-set",
+   "t": "robinson1999",
+   "k": "cites"
+  },
+  {
+   "s": "cocycle",
+   "t": "skew-product-map",
+   "k": "mentions"
+  },
+  {
+   "s": "cocycle",
+   "t": "forced-circle-diffeomorphism",
+   "k": "mentions"
+  },
+  {
+   "s": "cocycle",
+   "t": "expanding-circle-map",
+   "k": "mentions"
+  },
+  {
+   "s": "cocycle",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "cocycle",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "cocycle",
+   "t": "forward-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "cocycle",
+   "t": "anagnostopoulou2023",
+   "k": "cites"
+  },
+  {
+   "s": "cocycle",
+   "t": "crauel1994",
+   "k": "cites"
+  },
+  {
+   "s": "cocycle",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "wiener-process",
+   "t": "arnold1974",
+   "k": "cites"
+  },
+  {
+   "s": "physical-versus-srb-measures",
+   "t": "physical-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "physical-versus-srb-measures",
+   "t": "srb-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "physical-versus-srb-measures",
+   "t": "young2002",
+   "k": "cites"
+  },
+  {
+   "s": "physical-versus-srb-measures",
+   "t": "physical-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "physical-versus-srb-measures",
+   "t": "srb-measure",
+   "k": "concerns"
+  },
+  {
+   "s": "physical-versus-srb-measures",
+   "t": "srb-measure",
+   "k": "resolved-by"
+  },
+  {
+   "s": "physical-versus-srb-measures",
+   "t": "physical-measure",
+   "k": "resolved-by"
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "srb-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "hyperbolic-homoclinic-loop",
+   "k": "mentions"
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "ilyashenko2005",
+   "k": "cites"
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "kleptsyn2006",
+   "k": "cites"
+  },
+  {
+   "s": "minimal-attractor",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "random-attractor",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "random-attractor",
+   "t": "invariant-measures-for-nonautonomous-systems",
+   "k": "mentions"
+  },
+  {
+   "s": "random-attractor",
+   "t": "ornstein-uhlenbeck-process",
+   "k": "mentions"
+  },
+  {
+   "s": "random-attractor",
+   "t": "fokker-planck-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "random-attractor",
+   "t": "crauel1994",
+   "k": "cites"
+  },
+  {
+   "s": "random-attractor",
+   "t": "arnold1998",
+   "k": "cites"
+  },
+  {
+   "s": "forward-statistical-attractor",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-statistical-attractor",
+   "t": "forward-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-statistical-attractor",
+   "t": "pullback-statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "forward-statistical-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "natural-extension",
+   "t": "skew-product-map",
+   "k": "mentions"
+  },
+  {
+   "s": "natural-extension",
+   "t": "disintegration-of-a-measure",
+   "k": "mentions"
+  },
+  {
+   "s": "natural-extension",
+   "t": "expanding-circle-map",
+   "k": "mentions"
+  },
+  {
+   "s": "natural-extension",
+   "t": "sine-forced-circle-map-on-the-torus",
+   "k": "mentions"
+  },
+  {
+   "s": "natural-extension",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "fokker-planck-equation",
+   "t": "wiener-process",
+   "k": "mentions"
+  },
+  {
+   "s": "fokker-planck-equation",
+   "t": "perron-frobenius-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "fokker-planck-equation",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "fokker-planck-equation",
+   "t": "arnold1974",
+   "k": "cites"
+  },
+  {
+   "s": "circle-flow-with-a-degenerate-equilibrium",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "iterated-function-system",
+   "t": "expanding-circle-map",
+   "k": "mentions"
+  },
+  {
+   "s": "iterated-function-system",
+   "t": "synchronization",
+   "k": "mentions"
+  },
+  {
+   "s": "iterated-function-system",
+   "t": "attracting-invariant-graph-for-forced-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "iterated-function-system",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "chain-recurrent-set-as-an-intersection-of-attractors",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "ulams-method",
+   "t": "li1976",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "pullback-statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "statistical-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "pullback-measure-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "statistical-attractors-as-pullback-measure-attractors",
+   "t": "implications-between-notions-of-attraction",
+   "k": "concerns"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "stark1997",
+   "k": "cites"
+  },
+  {
+   "s": "attracting-invariant-graph-for-forced-circle-maps",
+   "t": "sturman2000",
+   "k": "cites"
+  },
+  {
+   "s": "nonwandering-set",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "nonwandering-set",
+   "t": "conley-decomposition-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "nonwandering-set",
+   "t": "robinson1999",
+   "k": "cites"
+  },
+  {
+   "s": "nonwandering-set",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "kloeden2012",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "kloeden2012",
+   "t": "forward-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "milnor1985a",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "milnor1985a",
+   "t": "milnor1985",
+   "k": "cites"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "set-of-full-density",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "forward-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "forward-statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "pullback-statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "circle-flow-with-a-degenerate-equilibrium",
+   "k": "mentions"
+  },
+  {
+   "s": "oljaca2024",
+   "t": "asymptotically-autonomous-process",
+   "k": "mentions"
+  },
+  {
+   "s": "newman2025",
+   "t": "implications-between-notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "newman2025",
+   "t": "hyperbolic-homoclinic-loop",
+   "k": "mentions"
+  },
+  {
+   "s": "newman2025",
+   "t": "bounded-return-time-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "newman2025",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "newman2025",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "generalized-laplace-analysis",
+   "t": "budisic2012",
+   "k": "mentions"
+  },
+  {
+   "s": "generalized-laplace-analysis",
+   "t": "dynamic-mode-decomposition",
+   "k": "mentions"
+  },
+  {
+   "s": "generalized-laplace-analysis",
+   "t": "wiener-wintner-theorem",
+   "k": "mentions"
+  },
+  {
+   "s": "generalized-laplace-analysis",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "inclusions-between-the-recurrent-sets",
+   "k": "mentions"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "statistical-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "omega-limit-set",
+   "t": "robinson1999",
+   "k": "cites"
+  },
+  {
+   "s": "affine-space",
+   "t": "kolmogorov-system",
+   "k": "mentions"
+  },
+  {
+   "s": "affine-space",
+   "t": "quasi-polynomial-form",
+   "k": "mentions"
+  },
+  {
+   "s": "affine-space",
+   "t": "deisenroth2020",
+   "k": "cites"
+  },
+  {
+   "s": "affine-space",
+   "t": "edelsbrunner2010",
+   "k": "cites"
+  },
+  {
+   "s": "affine-space",
+   "t": "charpentier2007",
+   "k": "cites"
+  },
+  {
+   "s": "crauel1994",
+   "t": "random-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "crauel1994",
+   "t": "invariant-measures-for-nonautonomous-systems",
+   "k": "mentions"
+  },
+  {
+   "s": "semiflow",
+   "t": "cocycle",
+   "k": "mentions"
+  },
+  {
+   "s": "semiflow",
+   "t": "logistic-map",
+   "k": "mentions"
+  },
+  {
+   "s": "semiflow",
+   "t": "expanding-circle-map",
+   "k": "mentions"
+  },
+  {
+   "s": "semiflow",
+   "t": "natural-extension",
+   "k": "mentions"
+  },
+  {
+   "s": "semiflow",
+   "t": "pullback-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "semiflow",
+   "t": "bortolan2013",
+   "k": "cites"
+  },
+  {
+   "s": "gradient-like-system",
+   "t": "chain-recurrent-sets-of-three-circle-maps",
+   "k": "mentions"
+  },
+  {
+   "s": "gradient-like-system",
+   "t": "norton1995",
+   "k": "cites"
+  },
+  {
+   "s": "gradient-like-system",
+   "t": "conley1978a",
+   "k": "cites"
+  },
+  {
+   "s": "stark1999",
+   "t": "stark1997",
+   "k": "cites"
+  },
+  {
+   "s": "dynamic-mode-decomposition",
+   "t": "continuous-spectrum-in-koopman-mode-analysis",
+   "k": "mentions"
+  },
+  {
+   "s": "dynamic-mode-decomposition",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "set-of-full-density",
+   "t": "pullback-measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "set-of-full-density",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "set-of-full-density",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "pullback-attractor",
+   "t": "measure-attractor",
+   "k": "mentions"
+  },
+  {
+   "s": "pullback-attractor",
+   "t": "invariant-measures-for-nonautonomous-systems",
+   "k": "mentions"
+  },
+  {
+   "s": "pullback-attractor",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "pullback-attractor",
+   "t": "carvalho2013",
+   "k": "cites"
+  },
+  {
+   "s": "pullback-attractor",
+   "t": "kloeden2012",
+   "k": "cites"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "nonautonomous-dynamics",
+   "k": "mentions"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "almaraz2024b",
+   "k": "cites"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "charpentier2007",
+   "k": "cites"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "allesina2026",
+   "k": "cites"
+  },
+  {
+   "s": "lotka-volterra-model",
+   "t": "brenig2016",
+   "k": "cites"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "lotka-volterra-model",
+   "k": "mentions"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "volterra-lyapunov-stable-matrix",
+   "k": "mentions"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "saturated-equilibrium",
+   "k": "mentions"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "replicator-equation",
+   "k": "mentions"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "invasion-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "almaraz2024b",
+   "k": "cites"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "allesina2026",
+   "k": "cites"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "lotka-volterra-model",
+   "k": "concerns"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "volterra-lyapunov-stable-matrix",
+   "k": "concerns"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "saturated-equilibrium",
+   "k": "concerns"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "invasion-graph",
+   "k": "concerns"
+  },
+  {
+   "s": "local-and-global-stability",
+   "t": "replicator-equation",
+   "k": "concerns"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "topological-mixing",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "invariant-graph",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "generic-property",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "riddled-basin",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "lebesgue-measure-and-preparable-initial-conditions",
+   "k": "mentions"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "homburg2012",
+   "k": "cites"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "synchronization-of-forced-circle-diffeomorphisms",
+   "k": "concerns"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "topological-mixing",
+   "k": "concerns"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "generic-property",
+   "k": "concerns"
+  },
+  {
+   "s": "topological-and-measure-theoretic-senses-of-typical",
+   "t": "riddled-basin",
+   "k": "concerns"
+  },
+  {
+   "s": "continuous-spectrum-in-koopman-mode-analysis",
+   "t": "koopman-operator",
+   "k": "mentions"
+  },
+  {
+   "s": "continuous-spectrum-in-koopman-mode-analysis",
+   "t": "koopman-mode",
+   "k": "mentions"
+  },
+  {
+   "s": "continuous-spectrum-in-koopman-mode-analysis",
+   "t": "dynamic-mode-decomposition",
+   "k": "mentions"
+  },
+  {
+   "s": "continuous-spectrum-in-koopman-mode-analysis",
+   "t": "budisic2012",
+   "k": "cites"
+  },
+  {
+   "s": "continuous-spectrum-in-koopman-mode-analysis",
+   "t": "koopman-mode",
+   "k": "concerns"
+  },
+  {
+   "s": "continuous-spectrum-in-koopman-mode-analysis",
+   "t": "dynamic-mode-decomposition",
+   "k": "concerns"
+  },
+  {
+   "s": "nonautonomous-set",
+   "t": "asymptotically-autonomous-process",
+   "k": "mentions"
+  },
+  {
+   "s": "nonautonomous-set",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "implications-between-notions-of-attraction",
+   "k": "mentions"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "evolution-process",
+   "k": "mentions"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "newman2025",
+   "k": "cites"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "oljaca2024",
+   "k": "cites"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "bounded-return-time-attractor",
+   "k": "concerns"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "evolution-process",
+   "k": "concerns"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "implications-between-notions-of-attraction",
+   "k": "concerns"
+  },
+  {
+   "s": "attraction-notions-for-processes",
+   "t": "pullback-measure-attractor",
+   "k": "concerns"
+  }
+ ]
+}

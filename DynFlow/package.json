@@ -1,0 +1,14 @@
+{
+  "name": "dynflow",
+  "version": "0.1.0",
+  "description": "Live figures of dynamical systems for web pages, slides and packages",
+  "license": "GPL-3.0-or-later",
+  "author": "Pablo Almaraz <pablo.almaraz@csic.es> (https://orcid.org/0000-0003-1416-2695)",
+  "homepage": "https://robustecologies.github.io",
+  "main": "dist/dynflow.js",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "test": "node tests/core.test.mjs && node tests/analysis.test.mjs && node tests/models.test.mjs"
+  },
+  "private": true
+}

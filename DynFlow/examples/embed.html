@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later. Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embedding DynFlow scenes</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<style>
+  body { margin: 0; font-family: "Libre Franklin", system-ui, sans-serif; background: #fffdf8; color: #212529; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1, h2 { font-family: Jost, system-ui, sans-serif; font-weight: 500; }
+  code, pre { font-family: ui-monospace, monospace; font-size: 13px; }
+  pre { background: #f1f3f5; padding: 10px 12px; border-radius: 6px; overflow-x: auto; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  dyn-flow { border-radius: 10px; overflow: hidden; height: 300px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Embedding DynFlow scenes</h1>
+  <p>Each figure below is a <code>&lt;dyn-flow&gt;</code> element driven by <code>dist/dynflow.js</code>. Hover a figure to show its controls.</p>
+<pre>&lt;script src="dynflow.js"&gt;&lt;/script&gt;
+&lt;dyn-flow model="may-leonard" controls&gt;&lt;/dyn-flow&gt;
+&lt;dyn-flow src="scenes/fold.json"&gt;&lt;/dyn-flow&gt;
+&lt;dyn-flow scene='{"system": "...", "view": {"type": "phase"}}'&gt;&lt;/dyn-flow&gt;</pre>
+  <div class="grid">
+    <dyn-flow data-how="model" model="may-leonard" controls title="May-Leonard"></dyn-flow>
+    <dyn-flow data-how="src" src="scenes/fold.json" controls></dyn-flow>
+    <dyn-flow data-how="scene" controls scene='{"name":"Van der Pol","system":"x&#39; = y\ny&#39; = mu*(1 - x^2)*y - x\nparam mu = 1.5 [0, 5]\ninit x = 2\nrange x = [-3, 3]\nrange y = [-5, 5]","view":{"type":"phase","seeds":8},"style":{"theme":"paper","palette":"ink"},"overlay":{"title":"Van der Pol","equations":true}}'></dyn-flow>
+    <dyn-flow data-how="theme" model="lorenz" theme="blackboard" controls></dyn-flow>
+    <dyn-flow data-how="paused" model="logistic" paused controls></dyn-flow>
+    <dyn-flow data-how="error" scene='{"system":"x&#39; = y"}'></dyn-flow>
+  </div>
+</main>
+<script src="../dist/dynflow.js"></script>
+</body>
+</html>

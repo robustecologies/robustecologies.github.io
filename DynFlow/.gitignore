@@ -1,0 +1,7 @@
+PRIVATE/
+node_modules/
+examples/.standalone-test.html
+.Rproj.user
+.Rhistory
+.DS_Store
+*.log
