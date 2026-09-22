@@ -22,7 +22,9 @@
 
   // ------------------------------------------------------------- WebM
   /* Records the composite of the player for `seconds` at `fps` with the
-     browser's MediaRecorder; resolves to a WebM blob. */
+     browser's MediaRecorder; resolves to a WebM blob. Every video frame
+     advances the scene by 1/fps s of playback, so the film runs at the speed
+     of the live figure whatever the frame rate. */
   E.webm = function (player, seconds, fps, onProgress) {
     fps = fps || 30;
     const c = player.composite();
@@ -42,7 +44,7 @@
       let k = 0;
       const frame = function () {
         if (k >= total) { rec.stop(); return; }
-        player.tick(); player.composite(c); k++;
+        player.tick(1000 / fps); player.composite(c); k++;
         if (onProgress) onProgress(k / total);
         setTimeout(frame, 1000 / fps);
       };
@@ -138,7 +140,6 @@
     const frames = [], total = Math.round(seconds * fps);
     const wasRunning = player.running;
     player.pause();
-    const per = Math.max(1, Math.round(60 / fps));
     return new Promise(function (resolve) {
       let k = 0;
       const step = function () {
@@ -151,7 +152,7 @@
           }, 20);
           return;
         }
-        for (let i = 0; i < per; i++) player.tick();
+        player.tick(1000 / fps);
         player.composite(src);
         g.drawImage(src, 0, 0, w, h);
         frames.push(g.getImageData(0, 0, w, h));
@@ -193,21 +194,21 @@
 
   function escAttr(s) { return String(s).replace(/&/g, "&amp;").replace(/'/g, "&#39;").replace(/</g, "&lt;"); }
   E.embedSnippet = function (scene, src) {
-    return '<script src="' + (src || "dynflow.js") + '"></script>\n' +
-      "<dyn-flow style=\"display:block;width:100%;height:420px\" controls scene='" + escAttr(JSON.stringify(scene)) + "'></dyn-flow>";
+    return '<script src="' + (src || "relabflow.js") + '"></script>\n' +
+      "<relab-flow style=\"display:block;width:100%;height:420px\" controls scene='" + escAttr(JSON.stringify(scene)) + "'></relab-flow>";
   };
   // A page that needs nothing else: the engine source, the scene and a full-window player.
   E.standaloneHTML = function (scene, opts) {
     opts = opts || {};
-    if (!DF.SOURCE) throw new Error("The standalone export needs the built dynflow.js (run node tools/build.mjs)");
+    if (!DF.SOURCE) throw new Error("The standalone export needs the built relabflow.js (run node tools/build.mjs)");
     const th = DF.THEMES[scene.style && scene.style.theme] || DF.THEMES["relab-night"];
     const bg = th.bg[0] === "solid" ? th.bg[1] : th.bg[0] === "radial" ? th.bg[3] : "#000";
-    const title = (scene.overlay && scene.overlay.title) || scene.name || "DynFlow scene";
+    const title = (scene.overlay && scene.overlay.title) || scene.name || "RElabFlow scene";
     return "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>" +
-      title.replace(/</g, "&lt;") + "</title>\n<link rel=\"icon\" href=\"data:,\">\n<style>html,body{margin:0;height:100%;background:" + bg + "}dyn-flow{display:block;width:100vw;height:100vh}</style>\n</head>\n<body>\n" +
-      "<dyn-flow" + (opts.controls === false ? "" : " controls") + " scene='" + escAttr(JSON.stringify(scene)) + "'></dyn-flow>\n" +
+      title.replace(/</g, "&lt;") + "</title>\n<link rel=\"icon\" href=\"data:,\">\n<style>html,body{margin:0;height:100%;background:" + bg + "}relab-flow{display:block;width:100vw;height:100vh}</style>\n</head>\n<body>\n" +
+      "<relab-flow" + (opts.controls === false ? "" : " controls") + " scene='" + escAttr(JSON.stringify(scene)) + "'></relab-flow>\n" +
       "<script>\n" + DF.SOURCE.replace(/<\/script/gi, "<\\/script") + "\n</script>\n</body>\n</html>\n";
   };
 
   DF.Export = E;
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

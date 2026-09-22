@@ -1,20 +1,20 @@
 {
+  "version": 2,
+  "name": "Cusp catastrophe",
+  "model": "cusp",
+  "system": "x' = r + a*x - x^3\nparam r = 0 [-0.8, 0.8]\nparam a = 1 [-0.5, 2]\ninit x = -1\nrange x = [-1.6, 1.6]",
+  "dt": 0.01,
   "view": {
     "type": "sweep",
     "param": "r",
     "from": -0.8,
     "to": 0.8,
-    "speed": 0.0005
+    "speed": 0.005
   },
-  "dt": 0.01,
-  "stepsPerFrame": 10,
   "overlay": {
-    "title": "Fold catastrophe",
+    "title": "Cusp catastrophe",
+    "subtitle": "Two folds and hysteresis under a slow sweep of r",
     "equations": true,
-    "subtitle": "Hysteresis under a slow sweep",
     "readout": true
-  },
-  "name": "Cusp catastrophe",
-  "model": "cusp",
-  "system": "x' = r + a*x - x^3\nparam r = 0 [-0.8, 0.8]\nparam a = 1 [-0.5, 2]\ninit x = -1\nrange x = [-1.6, 1.6]"
+  }
 }

@@ -193,4 +193,40 @@ const eq = (id, over, box) => DF.findEquilibria(sys(id), pv(id, over), box);
   R.check("SIR: final-size relation", Math.abs(resid) < 1e-3, `S(inf)/N = ${sInf.toFixed(5)}, ln(S_inf/S_0) + R0 (1 - S_inf) = ${resid.toExponential(2)} (0 up to the seed I0 = 1)`);
 }
 
+// ------------------------------------------------ scenes corrected by the audit
+{
+  // Delayed predator and prey: at the equilibrium (5, 3.75) the characteristic
+  // equation is lambda^2 + 0.75 lambda exp(-lambda tau) + 0.375 = 0; roots i w
+  // need cos(w tau) = 0, so w^2 - 0.75 w - 0.375 = 0 and tau* = (pi / 2) / w.
+  const w = (0.75 + Math.sqrt(0.75 * 0.75 + 4 * 0.375)) / 2, tauStar = Math.PI / 2 / w;
+  const amp = (tau) => {
+    const S = sim("delayed-predator-prey", { dt: 0.01, params: pv("delayed-predator-prey", { tau: tau }), init: [5.2, 3.75] });
+    run(S, 5000);
+    const win = () => { let lo = Infinity, hi = -Infinity; run(S, 10000, (T) => { lo = Math.min(lo, T.X[0]); hi = Math.max(hi, T.X[0]); }); return [lo, hi]; };
+    const a = win(), b = win();
+    return { ratio: (b[1] - b[0]) / (a[1] - a[0]), range: b };
+  };
+  const below = amp(tauStar - 0.03), above = amp(tauStar + 0.03), dflt = amp(1.5);
+  R.check("delayed predator and prey: Hopf point in tau", below.ratio < 1 && above.ratio > 1 && Math.abs(tauStar - 1.437) < 5e-4,
+    `tau* = ${tauStar.toFixed(5)}; oscillation shrinks by ${below.ratio.toFixed(3)} per 100 time units at tau* - 0.03 and grows by ${above.ratio.toFixed(3)} at tau* + 0.03`);
+  const S = sim("delayed-predator-prey", { dt: 0.01 });
+  let lo = Infinity, hi = -Infinity, plo = Infinity, phi = -Infinity;
+  run(S, 60000, (T, k) => { if (k > 40000) { lo = Math.min(lo, T.X[0]); hi = Math.max(hi, T.X[0]); plo = Math.min(plo, T.X[1]); phi = Math.max(phi, T.X[1]); } });
+  R.check("delayed predator and prey: the default cycle fits the plot", lo > 1 && hi < 10.5 && plo > 2 && phi < 6 && hi - lo > 5,
+    `at tau = 1.5, N in [${lo.toFixed(2)}, ${hi.toFixed(2)}] and P in [${plo.toFixed(2)}, ${phi.toFixed(2)}], inside N in [0, 14], P in [0, 12]`);
+}
+{
+  // Charney-DeVore: one stable state at F = 2, a second pair of equilibria from
+  // a fold near F = 2.5, and two stable states (zonal and blocked) at F = 4.
+  const box = [[-10, 10], [-10, 10], [-10, 10]];
+  const e2 = eq("charney-devore", { F: 2 }, box), e4 = eq("charney-devore", { F: 4 }, box);
+  const st4 = e4.filter((e) => e.stable), sd4 = e4.filter((e) => /saddle/.test(e.type));
+  R.check("Charney-DeVore: bistable at F = 4", e2.length === 1 && e2[0].stable && st4.length === 2 && sd4.length === 1,
+    `F = 2: ${e2.length} equilibrium (${e2.map((e) => e.type).join(", ")}); F = 4: ${st4.length} stable (x = ${st4.map((e) => e.x[0].toFixed(3)).join(", ")}) and ${sd4.length} saddle`);
+  const cd = DF.continueBranches(sys("charney-devore"), Float64Array.from(pv("charney-devore")), 0, 0.2, 5, [[-3, 6], [-4, 4], [-4, 4]]);
+  const fd = cd.points.filter((q) => q.kind === "fold"), hp = cd.points.filter((q) => q.kind === "hopf");
+  R.check("Charney-DeVore: fold and Hopf points in F", fd.length === 1 && Math.abs(fd[0].p - 2.51) < 0.02 && hp.length === 1 && Math.abs(hp[0].p - 3.41) < 0.02,
+    `fold at F = ${fd.map((q) => q.p.toFixed(4)).join(", ")}, Hopf at F = ${hp.map((q) => q.p.toFixed(4)).join(", ")}; the blocked state is stable above the Hopf point`);
+}
+
 process.exit(R.done().fails ? 1 : 0);

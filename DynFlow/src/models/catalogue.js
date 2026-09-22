@@ -28,7 +28,7 @@
      init P = 10
      range N = [0, 80]
      range P = [0, 60]`,
-    { view: { type: "phase", seeds: 8 }, dt: 0.02, stepsPerFrame: 3, overlay: { equations: true } });
+    { view: { type: "phase", seeds: 8 }, dt: 0.02, overlay: { equations: true } });
 
   add("rosenzweig-macarthur", "Rosenzweig-MacArthur", "Ecology",
     "janos R/shiny_app.R:417 (rosenzweig)",
@@ -45,7 +45,7 @@
      init P = 1
      range N = [0, 7]
      range P = [0, 4.5]`,
-    { view: { type: "phase", seeds: 6 }, dt: 0.02, stepsPerFrame: 4, overlay: { equations: true } });
+    { view: { type: "phase", seeds: 6 }, dt: 0.02, overlay: { equations: true } });
 
   add("hastings-powell", "Hastings-Powell food chain", "Ecology",
     "kaRma R/demo_system.R:87 and janos R/shiny_app.R:532 (Hastings and Powell 1991)",
@@ -65,7 +65,7 @@
      range X = [0, 1]
      range Y = [0, 0.5]
      range Z = [7, 10.5]`,
-    { view: { type: "trajectory", warmup: 300, tail: 4000, rotate: 0.2 }, dt: 0.05, stepsPerFrame: 12, overlay: { equations: true } });
+    { view: { type: "trajectory", warmup: 300, rotate: 0.2 }, dt: 0.05, overlay: { equations: true } });
 
   add("may-leonard", "May-Leonard cyclic competition", "Ecology",
     "janos vignettes/chaotic-systems.Rmd:1241 and HiRsch R/systems.R:469 (May and Leonard 1975)",
@@ -81,7 +81,7 @@
      range N1 = [0, 1]
      range N2 = [0, 1]
      range N3 = [0, 1]`,
-    { view: { type: "flow", projection: "simplex", spawn: "mixed", life: [120, 420] }, n: 1800, dt: 0.05, stepsPerFrame: 3, style: { colorBy: "dominant" } });
+    { view: { type: "flow", projection: "simplex", spawn: "mixed", life: [120, 420] }, n: 1800, dt: 0.05, style: { colorBy: "dominant" } });
 
   add("competition-lv", "Lotka-Volterra competition", "Ecology",
     "janos R/analysis_phase_portrait.R:207",
@@ -98,7 +98,7 @@
      init N2 = 80
      range N1 = [0, 110]
      range N2 = [0, 110]`,
-    { view: { type: "phase", seeds: 10 }, dt: 0.02, stepsPerFrame: 4 });
+    { view: { type: "phase", seeds: 10 }, dt: 0.02 });
 
   add("glv4", "Four-species generalised Lotka-Volterra", "Ecology",
     "janos R/shiny_app.R:491 (glv4)",
@@ -115,7 +115,7 @@
      range x2 = [0, 1]
      range x3 = [0, 1]
      range x4 = [0, 1]`,
-    { view: { type: "timeseries", window: 60, members: 6 }, n: 6, spread: 0.5, dt: 0.05, stepsPerFrame: 2 });
+    { view: { type: "timeseries", window: 60, members: 6 }, n: 6, spread: 0.5, dt: 0.05 });
 
   add("vano-lv4", "Chaotic four-species Lotka-Volterra", "Ecology",
     "janos vignettes/chaotic-systems.Rmd:1118 (Vano et al. 2006)",
@@ -132,7 +132,7 @@
      range x2 = [0, 1]
      range x3 = [0, 0.5]
      range x4 = [0, 1]`,
-    { view: { type: "trajectory", axes: ["x1", "x2", "x3"], warmup: 200, tail: 5000, rotate: 0.2 }, dt: 0.05, stepsPerFrame: 10 });
+    { view: { type: "trajectory", axes: ["x1", "x2", "x3"], warmup: 200, rotate: 0.2 }, dt: 0.05 });
 
   add("act-lv", "Arneodo-Coullet-Tresser Lotka-Volterra", "Ecology",
     "janos vignettes/chaotic-systems.Rmd:1088 (Arneodo, Coullet and Tresser 1980)",
@@ -144,7 +144,7 @@
      init N1 = 0.5
      init N2 = 0.3
      init N3 = 0.2`,
-    { view: { type: "trajectory", warmup: 300, tail: 5000, rotate: 0.2 }, dt: 0.05, stepsPerFrame: 8 });
+    { view: { type: "trajectory", warmup: 300, rotate: 0.2 }, dt: 0.05 });
 
   add("huisman-weissing", "Huisman-Weissing resource competition", "Ecology",
     "wadaR R/multispecies_competition.R:232 (Huisman and Weissing 2001, Am. Nat. 157: 488)",
@@ -177,7 +177,7 @@
      init R1 = 10
      init R2 = 10
      init R3 = 10`,
-    { view: { type: "timeseries", vars: ["N1", "N2", "N3", "N4", "N5"], window: 800 }, dt: 0.1, stepsPerFrame: 20, keepPositive: true, style: { palette: "relab-qualitative" } });
+    { view: { type: "timeseries", vars: ["N1", "N2", "N3", "N4", "N5"], window: 800 }, dt: 0.1, keepPositive: true, style: { palette: "relab-qualitative" } });
 
   add("grazing", "May grazing model", "Ecology",
     "nonautonomeR R/systems.R:1018 (May 1977)",
@@ -189,7 +189,7 @@
      param V0 = 1 [0.5, 2]
      init V = 7
      range V = [0, 10]`,
-    { view: { type: "sweep", param: "c", var: "V", from: 1, to: 3 }, dt: 0.05, stepsPerFrame: 8 });
+    { view: { type: "sweep", param: "c", var: "V", from: 1, to: 3, speed: 0.0015 }, dt: 0.05 });
 
   add("allee", "Strong Allee effect", "Ecology",
     "janos R/analysis_fokker_planck.R:854",
@@ -200,7 +200,7 @@
      param K = 1 [0.7, 1.5]
      init x = 0.5
      range x = [0, 1.2]`,
-    { view: { type: "timeseries", window: 20, members: 12 }, n: 12, initMode: "box", dt: 0.02, stepsPerFrame: 2 });
+    { view: { type: "timeseries", window: 20, members: 12 }, n: 12, initMode: "box", dt: 0.02 });
 
   add("nicholson-bailey", "Nicholson-Bailey host and parasitoid", "Ecology",
     "janos R/shiny_app.R:719 (Nicholson and Bailey 1935)",
@@ -214,7 +214,7 @@
      init P = 10
      range H = [0, 200]
      range P = [0, 200]`,
-    { view: { type: "trajectory", tail: 60, dim3: false }, stepsPerFrame: 1, style: { pointSize: 4 } });
+    { view: { type: "trajectory", tail: 60, dim3: false }, style: { pointSize: 4 } });
 
   add("ricker", "Ricker map", "Ecology",
     "janos R/shiny_app.R:697 (Ricker 1954)",
@@ -240,7 +240,7 @@
      init y = 0.3
      range x = [0, 1]
      range y = [0, 0.8]`,
-    { view: { type: "strobe", period: 10, transient: 10 }, n: 600, spread: 0.3, dt: 0.02, stepsPerFrame: 50, style: { pointSize: 1.3, alpha: 0.7 } });
+    { view: { type: "strobe", period: 10, transient: 10 }, n: 600, spread: 0.3, dt: 0.02, style: { pointSize: 1.3, alpha: 0.7 } });
 
   add("coleman", "Coleman logistic with seasonal carrying capacity", "Ecology",
     "nonautonomeR R/systems.R:1119 and vignettes/coleman-model.Rmd:58",
@@ -251,7 +251,7 @@
      param w = 0.2 [0.05, 1]
      init x = 0.5
      range x = [0, 2]`,
-    { view: { type: "timeseries", window: 60, members: 10 }, n: 10, initMode: "box", dt: 0.02, stepsPerFrame: 3 });
+    { view: { type: "timeseries", window: 60, members: 10 }, n: 10, initMode: "box", dt: 0.02 });
 
   add("toggle-switch", "Genetic toggle switch", "Ecology",
     "janos vignettes/qualitative-analysis.Rmd:641 (Gardner, Cantor and Collins 2000)",
@@ -265,7 +265,7 @@
      init v = 0.5
      range u = [0, 3.5]
      range v = [0, 3.5]`,
-    { view: { type: "phase", seeds: 10 }, dt: 0.02, stepsPerFrame: 3 });
+    { view: { type: "phase", seeds: 10 }, dt: 0.02 });
 
   add("rock-paper-scissors", "Rock-paper-scissors replicator", "Ecology",
     "janos R/shiny_app.R:1133 (rps)",
@@ -283,7 +283,7 @@
      range p1 = [0, 1]
      range p2 = [0, 1]
      range p3 = [0, 1]`,
-    { view: { type: "flow", projection: "simplex", life: [200, 500] }, n: 1200, dt: 0.02, stepsPerFrame: 4 });
+    { view: { type: "flow", projection: "simplex", life: [200, 500] }, n: 1200, dt: 0.02 });
 
   // ============================================================== delays
   add("mackey-glass", "Mackey-Glass", "Delay equations",
@@ -296,7 +296,7 @@
      param tau = 17 [2, 30]
      init x = 0.9
      range x = [0.2, 1.5]`,
-    { view: { type: "timeseries", window: 600 }, dt: 0.1, stepsPerFrame: 10 });
+    { view: { type: "timeseries", window: 600 }, dt: 0.1 });
 
   add("hutchinson", "Hutchinson delayed logistic", "Delay equations",
     "janos R/shiny_app.R:743 (Hutchinson 1948)",
@@ -307,7 +307,7 @@
      param tau = 1 [0.2, 2]
      init N = 20
      range N = [0, 320]`,
-    { view: { type: "timeseries", window: 40 }, dt: 0.02, stepsPerFrame: 4 });
+    { view: { type: "timeseries", window: 40 }, dt: 0.02 });
 
   add("nicholson-blowflies", "Nicholson blowflies", "Delay equations",
     "janos vignettes/introduction.Rmd:265 and symplectoR R/data.R:123 (Gurney, Blythe and Nisbet 1980)",
@@ -319,11 +319,11 @@
      param tau = 15 [5, 20]
      init N = 3
      range N = [0, 20]`,
-    { view: { type: "timeseries", window: 300 }, dt: 0.1, stepsPerFrame: 6 });
+    { view: { type: "timeseries", window: 300 }, dt: 0.1 });
 
   add("delayed-predator-prey", "Delayed predator and prey", "Delay equations",
     "janos vignettes/qualitative-analysis.Rmd:768",
-    "Prey self-regulation acts with a delay tau, which destabilises coexistence into cycles.",
+    "Prey self-regulation acts with a delay tau, which destabilises coexistence into cycles in a Hopf bifurcation at tau = 1.437. At tau = 1.5 the prey cycles between about 1.7 and 10; at the value 3 of the source the cycles reach N of about 330, far outside the plot, so tau = 1.5 is the default here.",
     `N' = r*N*(1 - lag(N, tau)/K) - a*N*P
      P' = b*N*P - d*P
      param r = 1.5 [0.5, 2.5]
@@ -331,12 +331,12 @@
      param a = 0.2 [0.1, 0.4]
      param b = 0.1 [0.05, 0.2]
      param d = 0.5 [0.2, 1]
-     param tau = 3 [0.5, 5]
+     param tau = 1.5 [0.5, 5]
      init N = 5
      init P = 2
      range N = [0, 14]
      range P = [0, 12]`,
-    { view: { type: "trajectory", tail: 3000 }, dt: 0.02, stepsPerFrame: 6 });
+    { view: { type: "trajectory" }, dt: 0.02 });
 
   // ================================================================ chaos
   add("lorenz", "Lorenz", "Chaotic flows",
@@ -354,7 +354,7 @@
      range x = [-22, 22]
      range y = [-28, 28]
      range z = [0, 52]`,
-    { view: { type: "trajectory", warmup: 500, tail: 3500, rotate: 0.25 }, dt: 0.005, stepsPerFrame: 5, overlay: { equations: true } });
+    { view: { type: "trajectory", warmup: 500, rotate: 0.25 }, dt: 0.005, overlay: { equations: true } });
 
   add("rossler", "Rossler", "Chaotic flows",
     "janos R/shiny_app.R:520 and tuRbulence R/dynamical_systems.R:254 (Rossler 1976)",
@@ -371,7 +371,7 @@
      range x = [-12, 14]
      range y = [-14, 11]
      range z = [0, 24]`,
-    { view: { type: "trajectory", warmup: 300, tail: 4000, rotate: 0.2 }, dt: 0.01, stepsPerFrame: 6 });
+    { view: { type: "trajectory", warmup: 300, rotate: 0.2 }, dt: 0.01 });
 
   add("chua", "Chua double scroll", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:167 (Chua, Komuro and Matsumoto 1986)",
@@ -389,7 +389,7 @@
      range x = [-2.6, 2.6]
      range y = [-0.5, 0.5]
      range z = [-4, 4]`,
-    { view: { type: "trajectory", warmup: 400, tail: 5000, rotate: 0.2, axes: ["x", "z", "y"] }, dt: 0.005, stepsPerFrame: 6 });
+    { view: { type: "trajectory", warmup: 400, rotate: 0.2, axes: ["x", "z", "y"] }, dt: 0.005 });
 
   add("chen", "Chen", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:204 (Chen and Ueta 1999)",
@@ -406,7 +406,7 @@
      range x = [-30, 30]
      range y = [-32, 32]
      range z = [0, 60]`,
-    { view: { type: "trajectory", warmup: 300, tail: 4000, rotate: 0.25 }, dt: 0.001, stepsPerFrame: 12 });
+    { view: { type: "trajectory", warmup: 300, rotate: 0.25 }, dt: 0.001 });
 
   add("lu", "Lu", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:231 (Lu and Chen 2002)",
@@ -423,7 +423,7 @@
      range x = [-25, 25]
      range y = [-28, 28]
      range z = [0, 45]`,
-    { view: { type: "trajectory", warmup: 300, tail: 4000, rotate: 0.25 }, dt: 0.002, stepsPerFrame: 8 });
+    { view: { type: "trajectory", warmup: 300, rotate: 0.25 }, dt: 0.002 });
 
   add("shimizu-morioka", "Shimizu-Morioka", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:269 (Shimizu and Morioka 1980)",
@@ -439,7 +439,7 @@
      range x = [-2, 2]
      range y = [-1.6, 1.6]
      range z = [0, 2.4]`,
-    { view: { type: "trajectory", warmup: 400, tail: 5000, rotate: 0.2 }, dt: 0.02, stepsPerFrame: 6 });
+    { view: { type: "trajectory", warmup: 400, rotate: 0.2 }, dt: 0.02 });
 
   add("nose-hoover", "Nose-Hoover (Sprott A)", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:301 (Hoover 1985)",
@@ -454,7 +454,7 @@
      range x = [-4, 4]
      range y = [-5, 5]
      range z = [-4, 4]`,
-    { view: { type: "trajectory", tail: 6000, rotate: 0.2 }, dt: 0.01, stepsPerFrame: 6 });
+    { view: { type: "trajectory", rotate: 0.2 }, dt: 0.01 });
 
   add("sprott-jerk", "Sprott minimal jerk", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:343 (Sprott 1997)",
@@ -469,7 +469,7 @@
      range x = [-7, 5]
      range y = [-3, 3]
      range z = [-4, 3]`,
-    { view: { type: "trajectory", warmup: 400, tail: 5000, rotate: 0.2 }, dt: 0.01, stepsPerFrame: 6 });
+    { view: { type: "trajectory", warmup: 400, rotate: 0.2 }, dt: 0.01 });
 
   add("thomas", "Thomas cyclically symmetric", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:375 (Thomas 1999)",
@@ -484,7 +484,7 @@
      range x = [-5, 5]
      range y = [-5, 5]
      range z = [-5, 5]`,
-    { view: { type: "flow", life: [200, 600], rotate: 0.15 }, n: 1600, dt: 0.05, stepsPerFrame: 2, style: { colorBy: "speed", ramp: "relab-fire" } });
+    { view: { type: "flow", life: [200, 600], rotate: 0.15 }, n: 1600, dt: 0.05, style: { colorBy: "speed", ramp: "relab-fire" } });
 
   add("halvorsen", "Halvorsen", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:424",
@@ -499,7 +499,7 @@
      range x = [-12, 8]
      range y = [-12, 8]
      range z = [-12, 8]`,
-    { view: { type: "trajectory", warmup: 300, tail: 4000, rotate: 0.2 }, dt: 0.005, stepsPerFrame: 8 });
+    { view: { type: "trajectory", warmup: 300, rotate: 0.2 }, dt: 0.005 });
 
   add("aizawa", "Aizawa", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:457",
@@ -519,7 +519,7 @@
      range x = [-1.6, 1.6]
      range y = [-1.6, 1.6]
      range z = [-0.6, 2]`,
-    { view: { type: "flow", life: [150, 500], rotate: 0.2 }, n: 1500, dt: 0.01, stepsPerFrame: 3, style: { colorBy: "speed", ramp: "mako" } });
+    { view: { type: "flow", life: [150, 500], rotate: 0.2 }, n: 1500, dt: 0.01, style: { colorBy: "speed", ramp: "mako" } });
 
   add("rabinovich-fabrikant", "Rabinovich-Fabrikant", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:490 (Rabinovich and Fabrikant 1979)",
@@ -535,7 +535,7 @@
      range x = [-2.5, 2.5]
      range y = [-3, 3]
      range z = [0, 2]`,
-    { view: { type: "trajectory", warmup: 400, tail: 6000, rotate: 0.2 }, dt: 0.002, stepsPerFrame: 10 });
+    { view: { type: "trajectory", warmup: 400, rotate: 0.2 }, dt: 0.002 });
 
   add("lorenz-84", "Lorenz-84 atmosphere", "Chaotic flows",
     "tuRbulence R/dynamical_systems.R:447 and nonautonomeR R/systems.R:651 (Lorenz 1984)",
@@ -553,7 +553,7 @@
      range X = [-1.5, 2.8]
      range Y = [-2.5, 2.8]
      range Z = [-2.6, 2.6]`,
-    { view: { type: "trajectory", warmup: 300, tail: 5000, rotate: 0.2 }, dt: 0.01, stepsPerFrame: 6 });
+    { view: { type: "trajectory", warmup: 300, rotate: 0.2 }, dt: 0.01 });
 
   add("lorenz-96", "Lorenz-96, five sites", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:653 (Lorenz 1996)",
@@ -574,7 +574,7 @@
      range x3 = [-8, 13]
      range x4 = [-8, 13]
      range x5 = [-8, 13]`,
-    { view: { type: "trajectory", axes: ["x1", "x2", "x3"], warmup: 400, tail: 4000, rotate: 0.2 }, dt: 0.005, stepsPerFrame: 6 });
+    { view: { type: "trajectory", axes: ["x1", "x2", "x3"], warmup: 400, rotate: 0.2 }, dt: 0.005 });
 
   add("hyperchaotic-rossler", "Hyperchaotic Rossler", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:974 (Rossler 1979)",
@@ -595,7 +595,7 @@
      range y = [-40, 40]
      range z = [0, 100]
      range w = [0, 120]`,
-    { view: { type: "trajectory", axes: ["x", "y", "w"], warmup: 200, tail: 4000, rotate: 0.15 }, dt: 0.005, stepsPerFrame: 10 });
+    { view: { type: "trajectory", axes: ["x", "y", "w"], warmup: 200, rotate: 0.15 }, dt: 0.005 });
 
   add("newton-leipnik", "Newton-Leipnik", "Chaotic flows",
     "janos vignettes/chaotic-systems.Rmd:1283 (Leipnik and Newton 1981)",
@@ -611,23 +611,26 @@
      range x = [-0.6, 0.6]
      range y = [-0.6, 0.6]
      range z = [-0.6, 0.1]`,
-    { view: { type: "trajectory", warmup: 200, tail: 6000, rotate: 0.2 }, dt: 0.01, stepsPerFrame: 8 });
+    { view: { type: "trajectory", warmup: 200, rotate: 0.2 }, dt: 0.01 });
 
   add("charney-devore", "Charney-DeVore three modes", "Chaotic flows",
     "tuRbulence R/charney_devore.R:84 (Charney and DeVore 1979)",
-    "Truncated barotropic flow over topography: zonal and blocked regimes of the midlatitude atmosphere.",
+    "Truncated barotropic flow over topography. At F = 4 a zonal state (weak waves) and a blocked state (strong waves) are both stable, separated by a saddle; particles released over the box settle into one regime or the other. Below F of about 3.4 the blocked state is unstable, and below about 2.5 it does not exist.",
     `x' = k*(F - x) - alpha*y*z + beta*y
      y' = -k*y + alpha*x*z - beta*x - delta*z
      z' = -k*z + delta*y
-     param F = 1.5 [0.5, 3]
+     param F = 4 [0.5, 5]
      param k = 0.1 [0.05, 0.3]
      param alpha = 1 [0.5, 1.5]
      param beta = 0.5 [0.2, 1]
      param delta = 1 [0.5, 1.5]
      init x = 1
      init y = 0.1
-     init z = 0.1`,
-    { view: { type: "trajectory", warmup: 200, tail: 4000, rotate: 0.2 }, dt: 0.02, stepsPerFrame: 6 });
+     init z = 0.1
+     range x = [0, 4.5]
+     range y = [-1, 1]
+     range z = [-2.5, 2.8]`,
+    { view: { type: "flow", life: [240, 720], rotate: 0.15 }, n: 1200, dt: 0.02, style: { colorBy: "speed", ramp: "relab-fire" } });
 
   // ============================================================== forced
   add("duffing", "Forced Duffing oscillator", "Forced oscillators",
@@ -644,7 +647,7 @@
      init y = 0
      range x = [-2, 2]
      range y = [-1.6, 1.6]`,
-    { view: { type: "strobe", period: PI2 / 1.2, transient: 5 }, n: 500, spread: 1, dt: 0.02, stepsPerFrame: 60, style: { pointSize: 1.2, alpha: 0.6 } });
+    { view: { type: "strobe", period: PI2 / 1.2, transient: 5 }, n: 500, spread: 1, dt: 0.02, style: { pointSize: 1.2, alpha: 0.6 } });
 
   add("forced-van-der-pol", "Forced Van der Pol", "Forced oscillators",
     "janos vignettes/chaotic-systems.Rmd:532",
@@ -658,7 +661,7 @@
      init y = 0
      range x = [-3, 3]
      range y = [-8, 8]`,
-    { view: { type: "trajectory", tail: 2500 }, dt: 0.005, stepsPerFrame: 8 });
+    { view: { type: "trajectory" }, dt: 0.005 });
 
   add("forced-pendulum", "Forced damped pendulum", "Forced oscillators",
     "wadaR R/basins.R:73 and R/wada_detection.R:584",
@@ -671,7 +674,7 @@
      init v = 0
      range x = [-3.1416, 3.1416]
      range v = [-4, 4]`,
-    { view: { type: "strobe", period: PI2, transient: 10 }, n: 600, spread: 3, dt: 0.02, stepsPerFrame: 60, style: { pointSize: 1.3 } });
+    { view: { type: "strobe", period: PI2, transient: 10 }, n: 600, spread: 3, dt: 0.02, style: { pointSize: 1.3 } });
 
   add("driven-oscillator", "Driven damped linear oscillator", "Forced oscillators",
     "janos R/analysis_stroboscopic.R:75",
@@ -686,7 +689,7 @@
      init v = 0
      range x = [-2, 2]
      range v = [-2, 2]`,
-    { view: { type: "strobe", period: PI2 / 1.3, transient: 0 }, n: 300, spread: 2, dt: 0.01, stepsPerFrame: 30, style: { fade: 0.02, pointSize: 2 } });
+    { view: { type: "strobe", period: PI2 / 1.3, transient: 0 }, n: 300, spread: 2, dt: 0.01, style: { fade: 0.02, pointSize: 2 } });
 
   // ========================================================== oscillators
   add("van-der-pol", "Van der Pol", "Oscillators and excitable media",
@@ -699,7 +702,7 @@
      init y = 0
      range x = [-3, 3]
      range y = [-6, 6]`,
-    { view: { type: "phase", seeds: 8 }, dt: 0.01, stepsPerFrame: 5 });
+    { view: { type: "phase", seeds: 8 }, dt: 0.01 });
 
   add("fitzhugh-nagumo", "FitzHugh-Nagumo", "Oscillators and excitable media",
     "janos R/shiny_app.R:453 (FitzHugh 1961; Nagumo et al. 1962)",
@@ -714,7 +717,7 @@
      init w = -0.5
      range v = [-2.5, 2.5]
      range w = [-1, 2]`,
-    { view: { type: "phase", seeds: 8 }, dt: 0.02, stepsPerFrame: 5 });
+    { view: { type: "phase", seeds: 8 }, dt: 0.02 });
 
   add("brusselator", "Brusselator", "Oscillators and excitable media",
     "janos R/shiny_app.R:437 (Prigogine and Lefever 1968)",
@@ -727,7 +730,7 @@
      init Y = 1
      range X = [0, 4.5]
      range Y = [0, 5.5]`,
-    { view: { type: "phase", seeds: 6 }, dt: 0.01, stepsPerFrame: 5 });
+    { view: { type: "phase", seeds: 6 }, dt: 0.01 });
 
   add("selkov", "Sel'kov glycolysis", "Oscillators and excitable media",
     "janos vignettes/introduction.Rmd:209 (Sel'kov 1968)",
@@ -740,7 +743,7 @@
      init y = 0.5
      range x = [0, 3]
      range y = [0, 3]`,
-    { view: { type: "phase", seeds: 6 }, dt: 0.02, stepsPerFrame: 5 });
+    { view: { type: "phase", seeds: 6 }, dt: 0.02 });
 
   add("pendulum", "Pendulum", "Oscillators and excitable media",
     "classical mechanics",
@@ -752,7 +755,7 @@
      init v = 0
      range x = [-7, 7]
      range v = [-3.2, 3.2]`,
-    { view: { type: "phase", seeds: 14 }, dt: 0.01, stepsPerFrame: 5 });
+    { view: { type: "phase", seeds: 14 }, dt: 0.01 });
 
   add("kuramoto-pair", "Two coupled phase oscillators", "Oscillators and excitable media",
     "nonautonomeR R/systems.R:1453 (kuramoto_pair)",
@@ -766,7 +769,7 @@
      init phi2 = 1
      range phi1 = [0, 60]
      range phi2 = [0, 60]`,
-    { view: { type: "timeseries", window: 30 }, dt: 0.01, stepsPerFrame: 3 });
+    { view: { type: "timeseries", window: 30 }, dt: 0.01 });
 
   // ================================================================= maps
   add("logistic", "Logistic map", "Maps",
@@ -798,7 +801,7 @@
      init y = 0.1
      range x = [-1.5, 1.5]
      range y = [-0.45, 0.45]`,
-    { view: { type: "flow", life: [30, 200], dim3: false }, n: 3000, stepsPerFrame: 1, style: { fade: 0.03, pointSize: 1.2, alpha: 0.5, colorBy: "age", ramp: "relab-fire" } });
+    { view: { type: "flow", life: [30, 200], dim3: false }, n: 3000, style: { fade: 0.03, pointSize: 1.2, alpha: 0.5, colorBy: "age", ramp: "relab-fire" } });
 
   add("lozi", "Lozi map", "Maps",
     "janos vignettes/chaotic-systems.Rmd:810 (Lozi 1978)",
@@ -811,7 +814,7 @@
      init y = 0
      range x = [-1.4, 1.4]
      range y = [-0.7, 0.7]`,
-    { view: { type: "flow", life: [30, 200], dim3: false }, n: 3000, stepsPerFrame: 1, style: { fade: 0.03, pointSize: 1.2, alpha: 0.5, colorBy: "age" } });
+    { view: { type: "flow", life: [30, 200], dim3: false }, n: 3000, style: { fade: 0.03, pointSize: 1.2, alpha: 0.5, colorBy: "age" } });
 
   add("ikeda", "Ikeda map", "Maps",
     "janos vignettes/chaotic-systems.Rmd:842 (Ikeda 1979)",
@@ -827,7 +830,7 @@
      init y = 0.1
      range x = [-0.6, 2.2]
      range y = [-2.4, 1]`,
-    { view: { type: "flow", life: [40, 200], dim3: false }, n: 3000, stepsPerFrame: 1, style: { fade: 0.03, pointSize: 1.2, alpha: 0.5, colorBy: "age", ramp: "mako" } });
+    { view: { type: "flow", life: [40, 200], dim3: false }, n: 3000, style: { fade: 0.03, pointSize: 1.2, alpha: 0.5, colorBy: "age", ramp: "mako" } });
 
   add("standard-map", "Chirikov standard map", "Maps",
     "janos R/shiny_app.R:705 (Chirikov 1979)",
@@ -839,7 +842,7 @@
      init th = 0.5
      range p = [0, 6.2832]
      range th = [0, 6.2832]`,
-    { view: { type: "flow", life: [400, 2000], axes: ["th", "p"], dim3: false }, n: 1500, stepsPerFrame: 1, style: { fade: 0, pointSize: 1, alpha: 0.5, colorBy: "member", palette: "relab" } });
+    { view: { type: "flow", life: [400, 2000], axes: ["th", "p"], dim3: false }, n: 1500, style: { fade: 0, pointSize: 1, alpha: 0.5, colorBy: "member", palette: "relab" } });
 
   add("zaslavsky", "Zaslavsky random map", "Maps",
     "nonautonomeR R/systems.R:741 (Namenson, Ott and Antonsen 1996)",
@@ -853,7 +856,7 @@
      init y = 0.1
      range x = [0, 6.2832]
      range y = [-4, 4]`,
-    { view: { type: "flow", life: "inf", dim3: false }, n: 6000, spread: 0, initMode: "box", stepsPerFrame: 1, style: { fade: 0.6, pointSize: 1.4, alpha: 0.8, colorBy: "solid", palette: "mono-amber" } });
+    { view: { type: "flow", life: "inf", dim3: false }, n: 6000, spread: 0, initMode: "box", style: { fade: 0.6, pointSize: 1.4, alpha: 0.8, colorBy: "solid", palette: "mono-amber" } });
 
   add("random-baker", "Random baker's map", "Maps",
     "nonautonomeR R/systems.R:801",
@@ -866,7 +869,7 @@
      init y = 0.6
      range x = [0, 1]
      range y = [0, 1]`,
-    { view: { type: "flow", life: "inf", dim3: false }, n: 6000, initMode: "box", stepsPerFrame: 1, style: { fade: 0.7, pointSize: 1.3, alpha: 0.8, colorBy: "solid", palette: "mono-ice" } });
+    { view: { type: "flow", life: "inf", dim3: false }, n: 6000, initMode: "box", style: { fade: 0.7, pointSize: 1.3, alpha: 0.8, colorBy: "solid", palette: "mono-ice" } });
 
   add("stark-circle", "Quasiperiodically forced circle map", "Maps",
     "nonautonomeR R/demo_stark_skew.R:47 (Stark 1999)",
@@ -881,7 +884,7 @@
      init x = 0.2
      range th = [0, 6.2832]
      range x = [0, 6.2832]`,
-    { view: { type: "flow", life: [300, 1200], dim3: false }, n: 2000, initMode: "box", stepsPerFrame: 1, style: { fade: 0.02, pointSize: 1.3, alpha: 0.6, colorBy: "var", colorVar: "x", ramp: "blackboard" } });
+    { view: { type: "flow", life: [300, 1200], dim3: false }, n: 2000, initMode: "box", style: { fade: 0.02, pointSize: 1.3, alpha: 0.6, colorBy: "var", colorVar: "x", ramp: "blackboard" } });
 
   add("kaplan-yorke", "Kaplan-Yorke map", "Maps",
     "nonautonomeR R/systems.R:915 (Kaplan and Yorke 1979)",
@@ -893,7 +896,7 @@
      init y = 0.6677
      range x = [0, 1]
      range y = [-1.3, 1.3]`,
-    { view: { type: "flow", life: [20, 60], dim3: false }, n: 3000, initMode: "box", stepsPerFrame: 1, style: { fade: 0.05, pointSize: 1.2, alpha: 0.5 } });
+    { view: { type: "flow", life: [20, 60], dim3: false }, n: 3000, initMode: "box", style: { fade: 0.05, pointSize: 1.2, alpha: 0.5 } });
 
   add("de-jong", "Peter de Jong attractor", "Maps",
     "Pickover (1990), Computers, Pattern, Chaos and Beauty",
@@ -908,7 +911,7 @@
      init y = 0
      range x = [-2.2, 2.2]
      range y = [-2.2, 2.2]`,
-    { view: { type: "flow", life: "inf", dim3: false }, n: 4000, initMode: "box", stepsPerFrame: 1, style: { fade: 0.004, pointSize: 0.8, alpha: 0.25, colorBy: "age", ramp: "relab-fire" } });
+    { view: { type: "flow", life: "inf", dim3: false }, n: 4000, initMode: "box", style: { fade: 0.004, pointSize: 0.8, alpha: 0.25, colorBy: "age", ramp: "relab-fire" } });
 
   add("clifford", "Clifford attractor", "Maps",
     "Pickover (1990), Computers, Pattern, Chaos and Beauty",
@@ -923,7 +926,7 @@
      init y = 0.1
      range x = [-2.2, 2.2]
      range y = [-2.2, 2.2]`,
-    { view: { type: "flow", life: "inf", dim3: false }, n: 4000, initMode: "box", stepsPerFrame: 1, style: { fade: 0.004, pointSize: 0.8, alpha: 0.25, colorBy: "var", colorVar: "y", ramp: "mako" } });
+    { view: { type: "flow", life: "inf", dim3: false }, n: 4000, initMode: "box", style: { fade: 0.004, pointSize: 0.8, alpha: 0.25, colorBy: "var", colorVar: "y", ramp: "mako" } });
 
   // =========================================================== stochastic
   add("ornstein-uhlenbeck", "Ornstein-Uhlenbeck process", "Stochastic",
@@ -936,7 +939,7 @@
      param sigma = 0.5 [0, 1.5]
      init x = 2
      range x = [-1.5, 2.2]`,
-    { view: { type: "density", window: 20 }, n: 3000, dt: 0.01, stepsPerFrame: 2, style: { ramp: "relab-fire" } });
+    { view: { type: "density", window: 20 }, n: 3000, dt: 0.01, style: { ramp: "relab-fire" } });
 
   add("double-well", "Noisy double well", "Stochastic",
     "janos R/shiny_app.R:793 and nonautonomeR vignettes/melancholia-states.Rmd:298",
@@ -946,7 +949,7 @@
      param sigma = 0.45 [0, 1]
      init x = -1
      range x = [-2, 2]`,
-    { view: { type: "density", window: 200 }, n: 3000, dt: 0.02, stepsPerFrame: 3, style: { ramp: "magma" } });
+    { view: { type: "density", window: 200 }, n: 3000, dt: 0.02, style: { ramp: "magma" } });
 
   add("stochastic-resonance", "Stochastic resonance", "Stochastic",
     "janos vignettes/noise-in-dynamical-systems.Rmd:372 (Benzi, Sutera and Vulpiani 1981)",
@@ -958,7 +961,7 @@
      param sigma = 0.35 [0, 1]
      init x = -1
      range x = [-2, 2]`,
-    { view: { type: "timeseries", window: 400, members: 1 }, dt: 0.02, stepsPerFrame: 15 });
+    { view: { type: "timeseries", window: 400, members: 1 }, dt: 0.02 });
 
   add("verhulst-noise", "Noise-induced transition (stochastic Verhulst)", "Stochastic",
     "janos R/shiny_app.R:784 (Horsthemke and Lefever 1984)",
@@ -969,7 +972,7 @@
      param sigma = 0.8 [0, 2]
      init x = 1
      range x = [0, 3]`,
-    { view: { type: "density", window: 60 }, n: 3000, dt: 0.005, stepsPerFrame: 6, keepPositive: true, style: { ramp: "mako" } });
+    { view: { type: "density", window: 60 }, n: 3000, dt: 0.005, keepPositive: true, style: { ramp: "mako" } });
 
   add("stochastic-lv", "Stochastic Lotka-Volterra", "Stochastic",
     "janos R/shiny_app.R:802 (sde_lv)",
@@ -987,7 +990,7 @@
      init P = 10
      range N = [0, 80]
      range P = [0, 60]`,
-    { view: { type: "density", decay: 0.97 }, n: 3000, dt: 0.01, stepsPerFrame: 4, style: { ramp: "inferno" } });
+    { view: { type: "density", decay: 0.97 }, n: 3000, dt: 0.01, style: { ramp: "inferno" } });
 
   add("coherence-resonance", "Coherence resonance", "Stochastic",
     "janos vignettes/noise-in-dynamical-systems.Rmd:390 (Pikovsky and Kurths 1997)",
@@ -1002,7 +1005,7 @@
      init w = -0.6
      range v = [-2.5, 2.5]
      range w = [-1.2, 1.2]`,
-    { view: { type: "timeseries", vars: ["v"], window: 40 }, dt: 0.002, stepsPerFrame: 20 });
+    { view: { type: "timeseries", vars: ["v"], window: 40 }, dt: 0.002 });
 
   add("maier-stein", "Maier-Stein", "Stochastic",
     "nonautonomeR R/systems.R:992 (Maier and Stein 1993)",
@@ -1018,7 +1021,7 @@
      init y = 0
      range x = [-1.8, 1.8]
      range y = [-1, 1]`,
-    { view: { type: "density", decay: 0.96 }, n: 3000, dt: 0.01, stepsPerFrame: 4, style: { ramp: "magma" } });
+    { view: { type: "density", decay: 0.96 }, n: 3000, dt: 0.01, style: { ramp: "magma" } });
 
   add("geometric-brownian", "Geometric Brownian motion", "Stochastic",
     "janos R/shiny_app.R:775 (gbm)",
@@ -1029,7 +1032,7 @@
      param sigma = 0.3 [0, 0.8]
      init S = 100
      range S = [0, 400]`,
-    { view: { type: "timeseries", window: 10, members: 20 }, n: 20, dt: 0.002, stepsPerFrame: 10 });
+    { view: { type: "timeseries", window: 10, members: 20 }, n: 20, dt: 0.002 });
 
   add("noisy-van-der-pol", "Noisy Van der Pol", "Stochastic",
     "janos vignettes/qualitative-analysis.Rmd:689",
@@ -1043,7 +1046,7 @@
      init y = 0
      range x = [-3, 3]
      range y = [-5, 5]`,
-    { view: { type: "density", decay: 0.9 }, n: 3000, spread: 0.01, dt: 0.01, stepsPerFrame: 3, style: { ramp: "relab-fire" } });
+    { view: { type: "density", decay: 0.9 }, n: 3000, spread: 0.01, dt: 0.01, style: { ramp: "relab-fire" } });
 
   // ================================================= tipping and nonautonomous
   add("r-tipping", "Rate-induced tipping", "Tipping and nonautonomous",
@@ -1055,7 +1058,7 @@
      param L = 12 [1, 30]
      init y = -1
      range y = [-2, 3]`,
-    { view: { type: "timeseries", window: 25, members: 1 }, dt: 0.005, stepsPerFrame: 4, overlay: { equations: true } });
+    { view: { type: "timeseries", window: 25, members: 1 }, dt: 0.005, overlay: { equations: true } });
 
   add("fold-normal-form", "Saddle-node (fold) normal form", "Tipping and nonautonomous",
     "janos vignettes/advanced-dynamics.Rmd:213",
@@ -1064,7 +1067,7 @@
      param mu = -1 [-1, 0.5]
      init x = -1
      range x = [-1.6, 1.6]`,
-    { view: { type: "sweep", param: "mu", from: -1, to: 0.3, speed: 0.0005 }, dt: 0.01, stepsPerFrame: 8 });
+    { view: { type: "sweep", param: "mu", from: -1, to: 0.3, speed: 0.00625 }, dt: 0.01 });
 
   add("cusp", "Cusp catastrophe", "Tipping and nonautonomous",
     "normal form of the cusp catastrophe (Thom 1972; Zeeman 1977)",
@@ -1074,7 +1077,7 @@
      param a = 1 [-0.5, 2]
      init x = -1
      range x = [-1.6, 1.6]`,
-    { view: { type: "sweep", param: "r", from: -0.8, to: 0.8, speed: 0.0005 }, dt: 0.01, stepsPerFrame: 10, overlay: { equations: true } });
+    { view: { type: "sweep", param: "r", from: -0.8, to: 0.8, speed: 0.005 }, dt: 0.01, overlay: { equations: true } });
 
   add("pitchfork", "Pitchfork normal form", "Tipping and nonautonomous",
     "janos R/analysis_bifurcation_sweep.R:80",
@@ -1083,7 +1086,7 @@
      param a = 1 [-1, 1.5]
      init x = 0.05
      range x = [-1.4, 1.4]`,
-    { view: { type: "sweep", param: "a", from: -1, to: 1.5, speed: 0.0005 }, dt: 0.01, stepsPerFrame: 8 });
+    { view: { type: "sweep", param: "a", from: -1, to: 1.5, speed: 0.00625 }, dt: 0.01 });
 
   add("hopf-normal-form", "Hopf normal form", "Tipping and nonautonomous",
     "janos vignettes/advanced-dynamics.Rmd:241",
@@ -1095,7 +1098,7 @@
      init y = 0.1
      range x = [-1.3, 1.3]
      range y = [-1.3, 1.3]`,
-    { view: { type: "phase", seeds: 8 }, dt: 0.02, stepsPerFrame: 3 });
+    { view: { type: "phase", seeds: 8 }, dt: 0.02 });
 
   add("bogdanov-takens", "Bogdanov-Takens normal form", "Tipping and nonautonomous",
     "normal form (Kuznetsov 2004, Elements of Applied Bifurcation Theory, ch. 8)",
@@ -1108,7 +1111,7 @@
      init y = 0.1
      range x = [-1, 1]
      range y = [-1, 1]`,
-    { view: { type: "phase", seeds: 10 }, dt: 0.01, stepsPerFrame: 4 });
+    { view: { type: "phase", seeds: 10 }, dt: 0.01 });
 
   add("stommel", "Stommel two-box ocean", "Tipping and nonautonomous",
     "tuRbulence R/stommel.R:73 (Stommel 1961)",
@@ -1122,10 +1125,10 @@
      init S = 1
      range T = [0, 3.5]
      range S = [0, 3.5]`,
-    { view: { type: "sweep", param: "eta2", var: "S", from: 0.5, to: 1.5, speed: 0.0004 }, dt: 0.02, stepsPerFrame: 10 });
+    { view: { type: "sweep", param: "eta2", var: "S", from: 0.5, to: 1.5, speed: 0.002 }, dt: 0.02 });
 
   add("lorenz84-forced", "Lorenz-84 under climate change", "Tipping and nonautonomous",
-    "nonautonomeR R/systems.R:651 and vignettes/ergodicity.Rmd:174 (Jánosi, Tél and co-authors)",
+    "nonautonomeR R/systems.R:651 and vignettes/ergodicity.Rmd:174 (J\u00e1nosi, T\u00e9l and co-authors)",
     "Annual forcing F(t) = F0 + 2 sin(2 pi t / 73) with F0 ramping down: a cloud of 1500 members, all driven alike, traces a snapshot attractor that deforms as the climate changes.",
     `X' = -Y^2 - Z^2 - a*X + a*(F0 + AF*sin(2*pi*t/73))
      Y' = X*Y - b*X*Z - Y + G
@@ -1141,7 +1144,7 @@
      range X = [-1.5, 3.2]
      range Y = [-3, 3]
      range Z = [-3, 3]`,
-    { view: { type: "flow", life: "inf", rotate: 0.1 }, n: 1500, spread: 1.2, initMode: "ball", dt: 0.02, stepsPerFrame: 3, perturbations: [{ kind: "ramp", param: "F0", rate: -0.000274, t0: 0, span: -2 }], style: { fade: 0.25, colorBy: "speed", ramp: "relab-fire" }, overlay: { readout: true } });
+    { view: { type: "flow", life: "inf", rotate: 0.1 }, n: 1500, spread: 1.2, initMode: "ball", dt: 0.02, perturbations: [{ kind: "ramp", param: "F0", rate: -0.000274, t0: 0, span: -2 }], style: { fade: 0.25, colorBy: "speed", ramp: "relab-fire" }, overlay: { readout: true } });
 
   add("lorenz-drift", "Lorenz with drifting rho", "Tipping and nonautonomous",
     "nonautonomeR vignettes/pullback-scenes.Rmd:145",
@@ -1158,7 +1161,7 @@
      range x = [-26, 26]
      range y = [-34, 34]
      range z = [0, 62]`,
-    { view: { type: "flow", life: "inf", rotate: 0.12 }, n: 1500, initMode: "ball", spread: 6, dt: 0.005, stepsPerFrame: 4, perturbations: [{ kind: "ramp", param: "rho", rate: 0.02, t0: 0, span: 12 }], style: { fade: 0.2 }, overlay: { readout: true } });
+    { view: { type: "flow", life: "inf", rotate: 0.12 }, n: 1500, initMode: "ball", spread: 6, dt: 0.005, perturbations: [{ kind: "ramp", param: "rho", rate: 0.02, t0: 0, span: 12 }], style: { fade: 0.2 }, overlay: { readout: true } });
 
   add("duffing-drift", "Duffing with drifting forcing", "Tipping and nonautonomous",
     "nonautonomeR R/systems.R:963 (Janosi and Tel 2024)",
@@ -1172,7 +1175,7 @@
      init v = 0
      range x = [-2, 2]
      range v = [-1.6, 1.6]`,
-    { view: { type: "strobe", period: PI2, transient: 3 }, n: 1500, spread: 1.5, initMode: "ball", dt: 2 * Math.PI / 128, stepsPerFrame: 128, perturbations: [{ kind: "ramp", param: "eps", rate: 0.00045, t0: 0, span: 0.3 }], style: { fade: 0.35, pointSize: 1.6, alpha: 0.8 }, overlay: { readout: true } });
+    { view: { type: "strobe", period: PI2, transient: 3 }, n: 1500, spread: 1.5, initMode: "ball", dt: 2 * Math.PI / 128, perturbations: [{ kind: "ramp", param: "eps", rate: 0.00045, t0: 0, span: 0.3 }], style: { fade: 0.35, pointSize: 1.6, alpha: 0.8 }, overlay: { readout: true } });
 
   add("tilted-well", "Double well with a slow tilt", "Tipping and nonautonomous",
     "nonautonomeR vignettes/melancholia-states.Rmd:524",
@@ -1183,7 +1186,7 @@
      param sigma = 0.15 [0, 0.5]
      init x = -1.2
      range x = [-1.8, 1.8]`,
-    { view: { type: "density", window: 120 }, n: 3000, dt: 0.02, stepsPerFrame: 3, perturbations: [{ kind: "ramp", param: "lambda", rate: 0.01, t0: 0, span: 1.2 }], style: { ramp: "magma" }, overlay: { readout: true } });
+    { view: { type: "density", window: 120 }, n: 3000, dt: 0.02, perturbations: [{ kind: "ramp", param: "lambda", rate: 0.01, t0: 0, span: 1.2 }], style: { ramp: "magma" }, overlay: { readout: true } });
 
   // ============================================================ epidemics
   add("sir", "SIR epidemic", "Epidemics",
@@ -1201,7 +1204,7 @@
      range S = [0, 1000]
      range I = [0, 1000]
      range R = [0, 1000]`,
-    { view: { type: "timeseries", window: 160 }, dt: 0.05, stepsPerFrame: 4 });
+    { view: { type: "timeseries", window: 160 }, dt: 0.05 });
 
   add("seasonal-sir", "Seasonally forced SIR", "Epidemics",
     "janos vignettes/chaotic-systems.Rmd:1204 (Olsen and Schaffer 1990)",
@@ -1217,7 +1220,7 @@
      init I = 0.0002
      range S = [0.045, 0.085]
      range I = [0, 0.002]`,
-    { view: { type: "timeseries", window: 20, vars: ["I"] }, dt: 0.0005, stepsPerFrame: 40 });
+    { view: { type: "timeseries", window: 20, vars: ["I"] }, dt: 0.0005 });
 
   DF.CATALOGUE = M;
   DF.catalogueGroups = function () {
@@ -1234,4 +1237,4 @@
     s.overlay = Object.assign({ title: m.name }, s.overlay || {});
     return Object.assign(s, overrides || {});
   };
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

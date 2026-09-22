@@ -83,4 +83,4 @@
   DF.rampRGB = rampRGB;
   DF.paintBackground = paintBackground;
   DF.backgroundCSS = backgroundCSS;
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

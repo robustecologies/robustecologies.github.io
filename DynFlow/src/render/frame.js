@@ -36,6 +36,188 @@
     return out;
   }
 
+  /* Playback rate. A scene plays at `rate` units of model time per second
+     of wall-clock time (iterations per second for a map), times the speed
+     multiplier of the player. When a scene does not fix the rate, it is
+     chosen so that the motion reads alike across models: a trajectory
+     travels about one plot width per second (1.5 widths of the axis box in
+     a rotating 3D view, which draws the box smaller), a particle about 0.6, a fresh
+     orbit of the phase plane about 0.5 over its first second; a time
+     series scrolls one window in 10 s; a stroboscopic view adds 10 sections
+     per second; a sweep crosses its interval in 25 s.
+
+     Speeds are measured in plot widths, each displayed axis scaled by its
+     range, and averaged over half-second windows of playback, as the eye
+     averages them. A first estimate comes from the median speed of the
+     field (over a grid of the axis box) or of a probe ensemble after a
+     transient; it is then corrected by replaying, without drawing, what the
+     view shows at that rate: the attractor after the view's warm-up for a
+     trajectory, particles born and dying as the flow view makes them, fresh
+     orbits of the phase plane. Particle and orbit replays are repeated up to
+     three times, rate <- rate x target / measured, within fixed bounds of
+     the first estimate. */
+  const RATE_TARGET = { trajectory: 1.0, flow: 0.6, phase: 0.5, density: 0.5, strobe: 1.0 };
+  const PARAM_FORCING = { periodic: 1, quasiperiodic: 1, ramp: 1, step: 1 };
+  function median(a) {
+    const b = a.filter(isFinite).sort(function (u, v) { return u - v; });
+    return b.length ? b[b.length >> 1] : NaN;
+  }
+  function planeSpeed(d, axes, widths) {
+    let s = 0;
+    for (let k = 0; k < axes.length; k++) { const u = d[axes[k]] / widths[axes[k]]; s += u * u; }
+    return Math.sqrt(s);
+  }
+  function fieldSpeed(sys, params, init, axes, ranges) {
+    const dim = sys.vars.length, x = Float64Array.from(init), d = new Float64Array(dim), p = Float64Array.from(params);
+    const widths = ranges.map(function (r) { return r[1] - r[0]; }), G = axes.length >= 3 ? 9 : 14, out = [];
+    const H = function (i) { return x[i]; };
+    const walk = function (k) {
+      if (k === axes.length) {
+        sys.f(0, x, p, d, H);
+        out.push(planeSpeed(d, axes, widths));
+        return;
+      }
+      const a = axes[k], r = ranges[a];
+      for (let g = 0; g < G; g++) { x[a] = r[0] + (g + 0.5) / G * (r[1] - r[0]); walk(k + 1); }
+    };
+    walk(0);
+    return median(out);
+  }
+  function attractorSpeed(sys, params, init, axes, ranges, opts) {
+    const dim = sys.vars.length, widths = ranges.map(function (r) { return r[1] - r[0]; });
+    const meanW = widths.reduce(function (s, w) { return s + w; }, 0) / dim;
+    const sim = new DF.Simulator(sys, { n: 6, dt: opts.dt, params: params, init: init, spread: 0.01 * meanW, seed: 12345, perturbations: opts.perturbations || [], keepPositive: !!opts.keepPositive });
+    const steps = opts.steps || 4000, lagged = sys.kind === "dde", every = 5, out = [];
+    const d = new Float64Array(dim), prev = new Float64Array(sim.X.length), x = new Float64Array(dim);
+    const H = function (i) { return x[i]; };
+    for (let s = 0; s < steps; s++) {
+      if (lagged && s % every === every - 1) prev.set(sim.X);
+      sim.step();
+      if (s < steps / 4 || s % every) continue;
+      for (let k = 0; k < sim.n; k++) {
+        if (!sim.alive[k]) continue;
+        for (let i = 0; i < dim; i++) x[i] = sim.X[k * dim + i];
+        if (lagged) for (let i = 0; i < dim; i++) d[i] = (x[i] - prev[k * dim + i]) / sim.h;
+        else sys.f(sim.t, x, sim.p, d, H);
+        out.push(planeSpeed(d, axes, widths));
+      }
+    }
+    return median(out);
+  }
+  /* Replay of a view at a given rate, without drawing: the median over
+     members of the path length per second in half-second windows (for fresh
+     orbits of the phase plane, over their first second, while they move). */
+  function replaySpeed(sys, o, rate, kind) {
+    const dim = sys.vars.length, h = o.dt, W = o.ranges.map(function (r) { return r[1] - r[0]; }), axes = o.axes, v = o.view || {};
+    const perFrame = rate / (60 * h), MAXSTEPS = 8000;
+    let acc = 0;
+    const stepsNow = function () { acc += perFrame; const n = Math.floor(acc); acc -= n; return n; };
+    const disp = function (X, k, prev) { let s = 0; for (let j = 0; j < axes.length; j++) { const i = axes[j], u = (X[k * dim + i] - prev[k * dim + i]) / W[i]; s += u * u; } return Math.sqrt(s); };
+    const out = [], WIN = 30;
+    const meanW = W.reduce(function (s, w) { return s + w; }, 0) / dim;
+    const common = { dt: h, params: o.params, init: o.init, seed: 4321, keepPositive: !!o.keepPositive, box: o.ranges };
+    if (kind === "phase") {
+      const r = new DF.RNG(99), forcing = (o.perturbations || []).filter(function (q) { return q.kind in PARAM_FORCING; });
+      for (let t = 0; t < 8; t++) {
+        const x0 = Float64Array.from(o.init);
+        if (t) axes.forEach(function (i) { x0[i] = r.range(o.ranges[i][0], o.ranges[i][1]); });
+        const sim = new DF.Simulator(sys, Object.assign({}, common, { n: 1, init: x0, deterministic: true, perturbations: forcing }));
+        const prev = Float64Array.from(sim.X);
+        let path = 0, steps = 0;
+        acc = 0;
+        const gone = function () { for (let i = 0; i < dim; i++) if (sim.X[i] < o.ranges[i][0] - 2 * W[i] || sim.X[i] > o.ranges[i][1] + 2 * W[i]) return true; return false; };
+        for (let f = 0; f < 60 && steps < MAXSTEPS; f++) {
+          const n = stepsNow(); steps += n;
+          for (let k = 0; k < n; k++) sim.step();
+          // The phase view drops an orbit that leaves the box by two widths.
+          if (!sim.alive[0] || gone()) break;
+          path += disp(sim.X, 0, prev); prev.set(sim.X);
+        }
+        out.push(path);
+      }
+      return median(out);
+    }
+    let sim, n, life = null, age = null, spawn = null;
+    if (kind === "flow" && v.life !== "inf" && v.life) {
+      n = 24;
+      sim = new DF.Simulator(sys, Object.assign({}, common, { n: n, perturbations: o.perturbations || [] }));
+      const r = sim.rng, x = new Float64Array(dim);
+      spawn = function (k) {
+        const mode = v.spawn === "mixed" ? (r.uniform() < (v.spawnMix === undefined ? 0.25 : v.spawnMix) ? "init" : "box") : v.spawn || "box";
+        for (let i = 0; i < dim; i++) x[i] = mode === "init" ? o.init[i] + (o.spread || 0.02) * W[i] * r.normal() : r.range(o.ranges[i][0], o.ranges[i][1]);
+        sim.setMember(k, x);
+      };
+      life = new Float64Array(n); age = new Float64Array(n);
+      for (let k = 0; k < n; k++) { spawn(k); life[k] = v.life[0] + r.uniform() * (v.life[1] - v.life[0]); age[k] = r.uniform() * life[k]; }
+    } else {
+      n = 6;
+      sim = new DF.Simulator(sys, Object.assign({}, common, { n: n, spread: kind === "flow" ? o.spread : 0.01 * meanW, initMode: kind === "flow" ? o.initMode : "point", perturbations: o.perturbations || [] }));
+    }
+    const warmFrames = v.warmup === undefined ? (kind === "flow" ? 60 : 0) : v.warmup;
+    const warm = Math.min(20000, Math.max(kind === "attractor" ? 1000 : 0, Math.round(warmFrames * perFrame)));
+    for (let k = 0; k < warm; k++) sim.step();
+    const frames = Math.max(60, Math.min(kind === "flow" ? 150 : 600, Math.floor(MAXSTEPS / Math.max(perFrame, 1e-9))));
+    const prev = Float64Array.from(sim.X), wl = new Float64Array(n), wc = new Int32Array(n);
+    acc = 0;
+    for (let f = 0; f < frames; f++) {
+      const m = stepsNow();
+      for (let k = 0; k < m; k++) sim.step();
+      for (let k = 0; k < n; k++) {
+        if (life) {
+          age[k] += 1;
+          if (!sim.alive[k] || age[k] > life[k]) { spawn(k); age[k] = 0; wl[k] = 0; wc[k] = 0; for (let i = 0; i < dim; i++) prev[k * dim + i] = sim.X[k * dim + i]; continue; }
+        } else if (!sim.alive[k]) continue;
+        const d = disp(sim.X, k, prev);
+        if (!isFinite(d)) continue;
+        wl[k] += d;
+        if (++wc[k] === WIN) { out.push(wl[k] * 60 / WIN); wl[k] = 0; wc[k] = 0; }
+      }
+      prev.set(sim.X);
+    }
+    return median(out);
+  }
+  function calibrateRate(sys, o) {
+    const v = o.view || {}, type = v.type || "flow", discrete = sys.time === "discrete", dt = o.dt;
+    const round = function (r) { return +r.toPrecision(2); };
+    const windowOf = function (def) { return v.window || def; };
+    if (type === "timeseries") return { rate: round(windowOf(discrete ? 100 : 50) / 10), basis: "window" };
+    if (type === "density" && (v.mode || (sys.vars.length === 1 ? "carpet" : "map")) === "carpet") return { rate: round(windowOf(60) / 10), basis: "window" };
+    if (type === "cobweb") return { rate: 6, basis: "iterations" };
+    if (type === "sweep") return { rate: round(1 / (Math.max(1e-9, o.sweepSpeed) * 25)), basis: "sweep" };
+    if (type === "strobe" && v.mode !== "section") return { rate: round(10 * o.period), basis: "sections" };
+    if (discrete || type === "orbit") return { rate: discrete ? 60 : round(240 * dt), basis: "iterations" };
+    // The rotating 3D camera draws the axis box at about 0.77 of the shorter
+    // side of the plot, and projection shortens a displacement by about 0.82
+    // on average, so a 3D scene aims 1.5 times higher to look as fast on screen.
+    const threeD = o.axes.length >= 3 && v.projection !== "simplex" && (type === "trajectory" || type === "flow");
+    const target = (RATE_TARGET[type] || 0.6) * (threeD ? 1.5 : 1), axes = o.axes;
+    const lo = 60 * dt / 8, hi = 60 * dt * 4000, clamp = function (r) { return Math.min(hi, Math.max(lo, r)); };
+    const onAttractor = type === "trajectory" || type === "density" || type === "strobe" || (type === "flow" && (v.life === "inf" || v.spawn === "init"));
+    let speed = NaN, basis = "";
+    if (onAttractor) { speed = attractorSpeed(sys, o.params, o.init, axes, o.ranges, o); basis = "attractor"; }
+    if (!(speed > 1e-12)) { speed = fieldSpeed(sys, o.params, o.init, axes, o.ranges); basis = "field"; }
+    if (!(speed > 1e-12)) return { rate: round(120 * dt), basis: "default" };
+    const r0 = clamp(target / speed);
+    let r = r0;
+    try {
+      if (type === "trajectory" || type === "density" || type === "strobe") {
+        const m = replaySpeed(sys, o, r, "attractor");
+        if (m > 1e-9) { r = clamp(r * Math.min(5, Math.max(0.2, target / m))); basis = "replay"; }
+      } else if (type === "flow" || type === "phase") {
+        const bound = type === "flow" ? 20 : 4;
+        for (let it = 0; it < 3; it++) {
+          const m = replaySpeed(sys, o, r, type);
+          if (!(m > 1e-9)) break;
+          const f = target / m;
+          r = clamp(Math.min(r0 * bound, Math.max(r0 / bound, r * Math.min(10, Math.max(0.1, f)))));
+          basis = "replay";
+          if (Math.abs(f - 1) < 0.1) break;
+        }
+      }
+    } catch (e) { r = r0; }
+    return { rate: round(r), basis: basis };
+  }
+
   /* Camera. axes holds two or three variable indices; ranges maps each
      axis to [lo, hi]. In 3D the box is centred, rotated by azimuth about the
      vertical axis and tilted by elevation, and projected orthographically. */
@@ -171,6 +353,40 @@
     return { L: L, R: R, T: T, B: B };
   }
 
+  // The axes of drawAxes as SVG elements, for vector exports.
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function axesSVG(cam, theme, labels, opts) {
+    opts = opts || {};
+    const th = DF.THEMES[theme] || DF.THEMES["relab-night"], fs = opts.fontSize || 11;
+    const corner = function (i, j) { const x = []; x[cam.axes[0]] = cam.ranges[0][i]; x[cam.axes[1]] = cam.ranges[1][j]; return cam.project(x, [0, 0]); };
+    const c0 = corner(0, 0), c1 = corner(1, 1), L = c0[0], R = c1[0], B = c0[1], T = c1[1];
+    const f = function (v) { return v.toFixed(1); };
+    let s = '<g font-family="Jost, sans-serif" font-size="' + fs + '" fill="' + th.muted + '" stroke="none">';
+    let lines = "";
+    const probe = [];
+    ticks(cam.ranges[0][0], cam.ranges[0][1]).forEach(function (v) {
+      probe[cam.axes[0]] = v; probe[cam.axes[1]] = cam.ranges[1][0];
+      const p = cam.project(probe, [0, 0]);
+      if (opts.grid) lines += "M" + f(p[0]) + " " + f(B) + "V" + f(T);
+      lines += "M" + f(p[0]) + " " + f(B) + "v4";
+      s += '<text x="' + f(p[0]) + '" y="' + f(B + 6 + fs * 0.8) + '" text-anchor="middle">' + esc(fmt(v)) + "</text>";
+    });
+    ticks(cam.ranges[1][0], cam.ranges[1][1]).forEach(function (v) {
+      probe[cam.axes[0]] = cam.ranges[0][0]; probe[cam.axes[1]] = v;
+      const p = cam.project(probe, [0, 0]);
+      if (opts.grid) lines += "M" + f(L) + " " + f(p[1]) + "H" + f(R);
+      lines += "M" + f(L - 4) + " " + f(p[1]) + "H" + f(L);
+      s += '<text x="' + f(L - 7) + '" y="' + f(p[1] + fs * 0.35) + '" text-anchor="end">' + esc(fmt(v)) + "</text>";
+    });
+    s += "</g>";
+    s = '<path d="' + lines + '" fill="none" stroke="' + th.grid + '" stroke-width="1"/>' + s;
+    s += '<rect x="' + f(L) + '" y="' + f(T) + '" width="' + f(R - L) + '" height="' + f(B - T) + '" fill="none" stroke="' + th.muted + '" stroke-opacity="0.6"/>';
+    s += '<g font-family="\'TeX Gyre Pagella\', Palatino, serif" font-style="italic" font-size="' + (fs + 2) + '" fill="' + th.ink + '">' +
+      '<text x="' + f((L + R) / 2) + '" y="' + f(B + 22 + fs) + '" text-anchor="middle">' + esc(labels[0]) + "</text>" +
+      '<text transform="translate(' + f(L - 40) + " " + f((T + B) / 2) + ') rotate(-90)" text-anchor="middle">' + esc(labels[1]) + "</text></g>";
+    return s;
+  }
+
   // Wireframe of the 3D box, faint, for orientation.
   function drawBox3D(ctx, cam, theme) {
     const th = DF.THEMES[theme] || DF.THEMES["relab-night"];
@@ -190,6 +406,11 @@
   }
 
   DF.autoRanges = autoRanges;
+  DF.calibrateRate = calibrateRate;
+  DF.fieldSpeed = fieldSpeed;
+  DF.attractorSpeed = attractorSpeed;
+  DF.replaySpeed = replaySpeed;
+  DF.axesSVG = axesSVG;
   DF.Camera = Camera;
   DF.ticks = ticks;
   DF.fmt = fmt;
@@ -204,4 +425,4 @@
     ctx.textBaseline = "top"; ctx.fillText(labels[1], V[1][0] - 8, V[1][1] + 6); ctx.fillText(labels[2], V[2][0] + 8, V[2][1] + 6);
     ctx.restore();
   };
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

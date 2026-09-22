@@ -7,6 +7,7 @@
 <script src="../src/core/analysis.js"></script>
 <script src="../src/render/style.js"></script>
 <script src="../src/render/frame.js"></script>
+<script src="../src/render/mathtype.js"></script>
 <script src="../src/render/views.js"></script>
 <script src="../src/render/player.js"></script>
 <script src="../vendor/katex/katex.min.js"></script>
@@ -15,5 +16,5 @@ const S = {"flow": {"name": "ML", "system": "x1' = x1*(1 - x1 - a*x2 - b*x3)\nx2
 window.players = [];
 window.errors = [];
 for (const k in S) { const d = document.createElement('div'); d.className='c'; d.id=k; document.body.appendChild(d);
-  try { const p = new DynFlow.Player(d, S[k]); p.on('error', e => window.errors.push(k+': '+e.message)); p.play(); window.players.push(p); } catch(e) { window.errors.push(k+': '+e.stack); } }
+  try { const p = new RElabFlow.Player(d, S[k]); p.on('error', e => window.errors.push(k+': '+e.message)); p.play(); window.players.push(p); } catch(e) { window.errors.push(k+': '+e.stack); } }
 </script></body></html>

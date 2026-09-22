@@ -264,7 +264,13 @@
       vars: vars, params: params,
       init: vars.map(function (v) { return v in init ? init[v] : 0.1; }),
       ranges: ranges, f: f, g: g, noiseMask: noiseMask, usesTime: info.usesTime, usesRandom: info.usesRandom,
-      maxLag: function (p) { let m = 0; lagFns.forEach(function (fn) { m = Math.max(m, fn(p, 0)); }); return m; },
+      // A delay that depends on the state or on an aux cannot be bounded in
+      // advance; it returns Infinity and the history then uses its full capacity.
+      maxLag: function (p) {
+        let m = 0;
+        lagFns.forEach(function (fn) { let v; try { v = fn(p, 0); } catch (e) { v = Infinity; } m = Math.max(m, isNaN(v) ? Infinity : Math.abs(v)); });
+        return m;
+      },
       source: String(text)
     };
   }
@@ -316,7 +322,8 @@
         if (op === "/") return "\\frac{" + tex(node.a, ctx) + "}{" + tex(node.b, ctx) + "}";
         if (op === "^") return wrap(node.a, 9) + "^{" + tex(node.b, ctx) + "}";
         if (op === "*") {
-          const a = wrap(node.a, 6), b = wrap(node.b, 6);
+          // A negated left factor needs no brackets: -a*x = -(a*x).
+          const a = node.a.k === "neg" ? tex(node.a, ctx) : wrap(node.a, 6), b = wrap(node.b, 6);
           const numRight = node.b.k === "num";
           return a + (numRight || /^[\d.]/.test(b) ? " \\cdot " : "\\,") + b;
         }
@@ -371,8 +378,12 @@
   }
 
   DF.FormulaError = FormulaError;
+  DF.STATEMENT = RE;
+  DF.GREEK = GREEK;
+  DF.GREEK_ALIAS = GREEK_ALIAS;
+  DF.TEX_PREC = TEX_PREC;
   DF.parseExpression = parse;
   DF.compileSystem = compileSystem;
   DF.systemLatex = systemLatex;
   DF.texName = texName;
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

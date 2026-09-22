@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later
    Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab
-   DynFlow studio. Chrome in the lab indigo; amber for focus and action. */
+   RElabFlow studio. Chrome in the lab indigo; amber for focus and action. */
 :root {
   --bg: #100c1d; --panel: #171229; --panel-2: #1e1836; --panel-3: #282046;
   --line: #2d2552; --line-2: #3d3470;
@@ -76,7 +76,11 @@ a { color: var(--amber); }
 .stage-area { flex: 1; min-height: 0; display: grid; place-items: center; padding: 18px; position: relative; }
 .stage { position: relative; width: 100%; height: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06); }
 .stage.fixed { width: auto; height: auto; }
-.stage-hint { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); font-size: 12px; color: rgba(255, 255, 255, 0.55); pointer-events: none; transition: opacity 0.6s; font-family: var(--font-ui); }
+.stage-hint { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); padding: 4px 12px; border-radius: 999px; background: rgba(11, 6, 32, 0.6); font-size: 12px; color: rgba(255, 255, 255, 0.7); pointer-events: none; transition: opacity 0.6s; font-family: var(--font-ui); white-space: nowrap; }
+.stage-hint.lifted { bottom: 84px; }
+.stage-hint:empty { display: none; }
+.rate { display: flex; align-items: center; gap: 6px; }
+.rate input { flex: 1; }
 .err-bar { position: absolute; left: 18px; right: 18px; top: 18px; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(207, 68, 70, 0.92); color: #fff; font-size: 13px; display: none; z-index: 5; }
 .err-bar.on { display: block; }
 .transport { height: 58px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-top: 1px solid var(--line); background: var(--panel); }

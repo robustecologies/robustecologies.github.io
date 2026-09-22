@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab
-/* DynFlow studio: choose or write a model, perturb it, choose a view and a
+/* RElabFlow studio: choose or write a model, perturb it, choose a view and a
    style, and export the scene as an image, a film, a page or an element. */
 (function () {
   "use strict";
-  const DF = window.DynFlow;
+  const DF = window.RElabFlow;
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const h = (tag, attrs, ...kids) => {
@@ -23,6 +23,13 @@
   const tex = (el, src, display) => { try { if (window.katex) window.katex.render(src, el, { throwOnError: false, displayMode: !!display }); else el.textContent = src; } catch (e) { el.textContent = src; } return el; };
   const clone = (o) => JSON.parse(JSON.stringify(o));
   const fmt = (v) => (Math.abs(v) >= 1e4 || (Math.abs(v) < 1e-3 && v !== 0) ? (+v).toExponential(3) : String(+(+v).toPrecision(6)));
+  // Short form for values that change every frame (a swept parameter).
+  const fmtLive = (v) => (Math.abs(v) >= 1e4 || (Math.abs(v) < 1e-3 && v !== 0) ? (+v).toExponential(1) : String(+(+v).toPrecision(3)));
+  const STORE = "relabflow:scene", OLD_STORE = "dynflow:scene";
+  // Speed multiplier from the transport slider (0 to 100, 50 is x1, one octave per 12.5).
+  const speedOf = (v) => +Math.pow(2, (v - 50) / 12.5).toPrecision(3);
+  const sliderOf = (m) => Math.round(50 + 12.5 * Math.log2(m || 1));
+  const HINT = { flow: "Click the figure to release particles", trajectory: "Click the figure to start an orbit", phase: "Click the plane to launch an orbit", sweep: "Click the plot to set the parameter by hand", cobweb: "Click the plot to restart from another value" };
 
   const ICON = {
     play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>',
@@ -54,7 +61,7 @@
   // ------------------------------------------------------------ showcase
   const SHOWCASE = [
     { label: "Transiency begets persistence", id: "may-leonard", over: { view: { type: "flow", projection: "simplex", spawn: "mixed", life: [140, 460] }, n: 2200, overlay: { title: "Robust Ecologies Lab", subtitle: "Exploring how transiency begets persistence", caption: "Three competing species (May-Leonard): orbits leave coexistence and linger ever longer near each single-species state. Click to seed new initial conditions." } } },
-    { label: "Fold catastrophe", id: "cusp", over: { style: { theme: "relab-night" }, overlay: { title: "Fold catastrophe", subtitle: "Hysteresis under a slow sweep of r", equations: true, readout: true } } },
+    { label: "Hysteresis", id: "cusp", over: { style: { theme: "relab-night" }, overlay: { title: "Cusp catastrophe", subtitle: "Two folds and hysteresis under a slow sweep of r", equations: true, readout: true } } },
     { label: "Lorenz attractor", id: "lorenz", over: { overlay: { title: "Lorenz system", subtitle: "sigma = 10, rho = 28, beta = 8/3", equations: true } } },
     { label: "Snapshot attractor", id: "zaslavsky", over: { overlay: { title: "A snapshot attractor", subtitle: "6000 states under one random forcing" } } },
     { label: "Rate-induced tipping", id: "r-tipping", over: { overlay: { title: "Rate-induced tipping", subtitle: "Ramp faster than r = 1 and the state escapes" } } },
@@ -74,9 +81,9 @@
     const top = $("#top");
     top.append(
       h("button", { class: "tbtn iconbtn only-narrow", title: "Models", "aria-label": "Show the model library", onclick: () => document.body.classList.toggle("show-lib"), html: ICON.lib }),
-      h("a", { class: "brand", href: "#", onclick: (e) => { e.preventDefault(); loadShowcase(0); } },
-        h("img", { src: "vendor/relab-logo.png", alt: "" }),
-        h("span", { class: "wordmark", html: "<b>Dyn</b>Flow<small>studio</small>" })),
+      h("a", { class: "brand", href: "https://robustecologies.github.io", target: "_blank", rel: "noopener", title: "Robust Ecologies Lab (opens in a new tab)" },
+        h("img", { src: "vendor/relab-logo-128.png", alt: "Robust Ecologies Lab" }),
+        h("span", { class: "wordmark", html: "<b>RElab</b>Flow<small>studio</small>" })),
       h("input", { class: "scene-name", id: "sceneName", "aria-label": "Scene name", oninput: (e) => { S.scene.name = e.target.value; } }),
       h("div", { class: "spacer" }),
       h("button", { class: "tbtn hide-narrow", onclick: () => newModel(), title: "Write a model from formulas" }, "New model"),
@@ -97,7 +104,7 @@
       h("hr"),
       item("Standalone HTML page", null, () => exportHTML()),
       item("Copy embed snippet", null, () => copyEmbed()),
-      item("Scene file (JSON)", "S", () => exportJSON()),
+      item("Scene file (JSON)", null, () => exportJSON()),
       item("Copy share link", null, () => shareLink())
     );
     document.addEventListener("click", (e) => { if (!m.contains(e.target)) m.classList.remove("on"); });
@@ -105,7 +112,7 @@
 
   function buildLibrary() {
     const lib = $("#library");
-    const search = h("input", { type: "search", placeholder: "Search 80 models", "aria-label": "Search models", oninput: (e) => filterLibrary(e.target.value) });
+    const search = h("input", { type: "search", placeholder: "Search " + DF.CATALOGUE.length + " models", "aria-label": "Search models", oninput: (e) => filterLibrary(e.target.value) });
     lib.append(h("div", { class: "lib-head" }, h("div", { class: "search", html: ICON.search }, search),
       h("button", { class: "btn block", onclick: () => newModel() }, "+ Write a model")));
     const list = h("div", { class: "lib-list", id: "libList" });
@@ -122,7 +129,7 @@
       const d = h("details", { class: "grp", open: true, "data-group": g }, h("summary", {}, g, h("span", { class: "count" }, items.length)));
       items.forEach((m) => {
         const sys = DF.compileSystem(m.system);
-        const tag = { ode: "ODE", sde: "SDE", map: "map", dde: "DDE" }[sys.kind] + " · " + sys.vars.length + "D" + (sys.usesTime ? " · forced" : "") + (sys.usesRandom ? " · random" : "");
+        const tag = { ode: "ODE", sde: "SDE", map: "map", dde: "DDE" }[sys.kind] + " \u00b7 " + sys.vars.length + "D" + (sys.usesTime ? " \u00b7 forced" : "") + (sys.usesRandom ? " \u00b7 random" : "");
         d.append(h("button", { class: "item", "data-id": m.id, "data-text": (m.name + " " + m.about + " " + m.group + " " + tag).toLowerCase(), onclick: () => loadModel(m.id) },
           h("span", { class: "nm" }, m.name), h("span", { class: "tg" }, tag)));
       });
@@ -161,10 +168,12 @@
     const host = h("div", { style: "position:fixed;left:-10000px;top:0;width:240px;height:128px" });
     document.body.append(host);
     try {
-      const s = sceneOf(sc);
-      s.n = Math.min(s.n || 400, 400); s.overlay = { position: "none" };
-      const p = new DF.Player(host, s);
-      p.advance(s.view && s.view.type === "orbit" ? 30 : 110);
+      const s = DF.normalizeScene(sceneOf(sc));
+      // The ensemble of the scene, capped, and at most 60 ms of work per preview.
+      s.n = Math.min(s.n, s.view.type === "strobe" ? 150 : 400); s.overlay = { position: "none" };
+      // Each preview frame covers 4 frames of playback, so a preview shows about 7 s of the scene.
+      const p = new DF.Player(host, s), t0 = performance.now(), frames = s.view.type === "orbit" ? 30 : 110;
+      for (let i = 0; i < frames && performance.now() - t0 < 60; i++) p.tick(4000 / 60);
       const c = p.composite();
       canvas.getContext("2d").drawImage(c, 0, 0, canvas.width, canvas.height);
       p.dispose();
@@ -185,7 +194,7 @@
     const stage = h("div", { class: "stage", id: "stage" });
     area.append(stage, h("div", { class: "err-bar", id: "errBar" }), h("div", { class: "stage-hint", id: "hint" }, "Click the figure to seed trajectories; drag to rotate 3D views"));
     const play = h("button", { class: "play", id: "playBtn", title: "Play or pause (space)", "aria-label": "Play or pause", onclick: () => S.player && S.player.toggle(), html: ICON.pause });
-    const speed = h("input", { type: "range", class: "speed", id: "speed", min: 0, max: 100, "aria-label": "Speed", oninput: (e) => { const v = Math.max(1, Math.round(Math.pow(10, e.target.value / 40) - 0.5)); S.scene.stepsPerFrame = v; if (S.player) S.player.scene.stepsPerFrame = v; $("#speedVal").textContent = v + "×"; } });
+    const speed = h("input", { type: "range", class: "speed", id: "speed", min: 0, max: 100, step: 1, "aria-label": "Speed", title: "Playback speed, a multiple of the model's own rate", oninput: (e) => { const m = speedOf(+e.target.value); S.scene.speed = m; if (S.player) S.player.setSpeed(m); $("#speedVal").textContent = "\u00d7" + m; save(); } });
     const seed = h("input", { class: "seed", id: "seed", type: "number", "aria-label": "Random seed", title: "Random seed", onchange: (e) => { S.scene.seed = +e.target.value || 1; restart(); } });
     const aspect = h("select", { "aria-label": "Aspect ratio", onchange: (e) => { S.aspect = e.target.value; fitStage(); } },
       ...["fill", "16:9", "4:3", "3:2", "1:1", "4:5", "9:16"].map((a) => h("option", { value: a }, a === "fill" ? "Fill" : a)));
@@ -214,15 +223,19 @@
   }
 
   // --------------------------------------------------------- scene flow
-  function loadShowcase(i) { S.model = SHOWCASE[i].id; setScene(sceneOf(SHOWCASE[i])); }
+  function loadShowcase(i) { S.model = SHOWCASE[i].id; return setScene(sceneOf(SHOWCASE[i])); }
   function loadModel(id) {
     const s = DF.sceneFor(id);
     if (S.scene && S.scene.style && $("#keepTheme") && $("#keepTheme").checked) s.style = Object.assign({}, s.style || {}, { theme: S.scene.style.theme });
     S.model = id; setScene(s);
     document.body.classList.remove("show-lib");
   }
+  /* Show a scene. A scene that does not compile is refused: the figure that
+     was showing stays, with the error above it, and nothing is saved. Returns
+     true when the scene is showing. */
   function setScene(scene, keepTab) {
     const s = DF.normalizeScene(scene);
+    let ok;
     if (!S.player) {
       S.player = new DF.Player($("#stage"), s);
       S.player.on("state", (st) => { $("#playBtn").innerHTML = st === "play" ? ICON.pause : ICON.play; });
@@ -230,19 +243,23 @@
       S.player.on("frame", onFrame);
       S.player.on("param", (d) => syncParam(d.name, d.value));
       S.player.on("interact", () => { $("#hint").style.opacity = 0; });
-    } else S.player.load(s);
-    if (S.player.error) { showError(S.player.error); return; }
+      ok = !S.player.error;
+    } else ok = S.player.load(s);
+    if (!ok) { showError(S.player.error); return false; }
     hideError();
     S.scene = S.player.scene;
     S.model = s.model || S.model;
     $("#sceneName").value = S.scene.name || "";
     $("#seed").value = S.scene.seed;
-    const spf = S.scene.stepsPerFrame;
-    $("#speed").value = Math.round(40 * Math.log10(spf + 0.5)); $("#speedVal").textContent = spf + "×";
+    $("#speed").value = sliderOf(S.scene.speed); $("#speedVal").textContent = "\u00d7" + (S.scene.speed || 1);
+    const hint = $("#hint"), vt = S.scene.view.type;
+    hint.textContent = S.player.cam && S.player.cam.is3D() ? "Drag the figure to rotate it" : HINT[vt] || "";
+    hint.classList.toggle("lifted", !!S.scene.overlay.caption);
     $$(".item").forEach((it) => it.classList.toggle("active", it.dataset.id === S.model));
     renderInspector();
     S.player.play();
     save();
+    return true;
   }
   // Rebuild the player from the current scene (after structural changes).
   function restart() {
@@ -261,7 +278,10 @@
     if (now - lastRead < 200) return;
     lastRead = now;
     const p = S.player, sim = p.sim;
-    $("#readout").textContent = (p.sys.time === "discrete" ? "n " + sim.t : "t " + sim.t.toFixed(2)) + "  " + Math.round(p.fps || 0) + " fps";
+    // When the frame budget holds the steps back, the share of real time kept is shown.
+    const slow = p.slow < 0.95 ? "  \u00d7" + p.slow.toFixed(2) + " (CPU)" : "";
+    $("#readout").textContent = (p.sys.time === "discrete" ? "n " + sim.t : "t " + sim.t.toFixed(2)) + "  " + Math.round(p.fps || 0) + " fps" + slow;
+    $("#readout").title = slow ? "The computer cannot keep up with this speed; the figure runs at the fraction shown" : "";
     if (S.tab === "perturb") $$("[data-live-param]").forEach((el) => { const i = sim.paramIndex(el.dataset.liveParam); if (i >= 0) el.textContent = fmt(sim.p[i]); });
   }
   function showError(e) { const b = $("#errBar"); b.textContent = e && e.message ? e.message : String(e); b.classList.add("on"); }
@@ -269,7 +289,7 @@
   let saveTimer = 0;
   function save() {
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => { try { localStorage.setItem("dynflow:scene", JSON.stringify(S.player.getScene())); } catch (e) { /* storage unavailable */ } }, 400);
+    saveTimer = setTimeout(() => { try { if (S.player && S.player.view && S.scene) localStorage.setItem(STORE, JSON.stringify(S.player.getScene())); } catch (e) { /* storage unavailable */ } }, 400);
   }
 
   // ---------------------------------------------------------- inspector
@@ -338,7 +358,9 @@
     pane.append(sec("Integration", null,
       h("p", { class: "hint", style: "margin:0 0 6px" }, "Scheme: " + kindName + (sys.time === "discrete" ? "" : ", fixed step")),
       sys.time === "continuous" ? h("div", { class: "row two" }, h("label", {}, "Step dt"), numInput(S.scene.dt, (v) => { S.scene.dt = Math.max(1e-6, v); restart(); }, { label: "dt" })) : null,
-      h("div", { class: "row two" }, h("label", {}, "Steps per frame"), numInput(S.scene.stepsPerFrame, (v) => { S.scene.stepsPerFrame = Math.max(1, Math.round(v)); S.player.scene.stepsPerFrame = S.scene.stepsPerFrame; }, { label: "steps per frame" })),
+      h("div", { class: "row two" }, h("label", { title: sys.time === "discrete" ? "Iterations of the map per second at speed \u00d71" : "Units of model time per second at speed \u00d71" }, sys.time === "discrete" ? "Iterations per s" : "Time per second"),
+        h("div", { class: "rate" }, numInput(p.rate, (v) => { if (v > 0) { S.scene.rate = v; p.setRate(v); renderModel(); save(); } }, { label: "playback rate" }),
+          S.scene.rate > 0 ? h("button", { class: "btn small", title: "Measure the rate from the model again", onclick: () => { delete S.scene.rate; restart(); renderInspector(); } }, "Auto") : h("span", { class: "hint", title: "Chosen from the model: " + (p.autoRate ? p.autoRate.basis : "") }, "auto"))),
       h("div", { class: "row two" }, h("label", {}, "Ensemble size"), numInput(S.scene.n, (v) => { S.scene.n = Math.max(1, Math.min(20000, Math.round(v))); restart(); }, { label: "ensemble size" })),
       h("div", { class: "row two" }, h("label", {}, "Initial spread"), h("select", { onchange: (e) => { S.scene.initMode = e.target.value; restart(); } },
         ...[["point", "Around the initial state"], ["ball", "Gaussian ball"], ["box", "Uniform over the axes"]].map(([v, t]) => h("option", { value: v, selected: S.scene.initMode === v }, t)))),
@@ -350,7 +372,7 @@
   function syncParam(name, v) {
     if (S.tab !== "model") return;
     const r = $('input[data-param="' + name + '"]'), n = $('input[data-param-num="' + name + '"]');
-    if (r) r.value = v; if (n && document.activeElement !== n) n.value = fmt(v);
+    if (r) r.value = v; if (n && document.activeElement !== n) n.value = fmtLive(v);
   }
 
   // Perturb
@@ -389,7 +411,7 @@
       const live = (f, v) => { q[f] = v; const sp = S.player.sim.perturbations[j]; if (sp) { sp[f] = v; S.player.sim.updateParams(); } save(); };
       card.append(h("header", {}, h("input", { type: "checkbox", checked: q.enabled !== false, title: "Enabled", onchange: (e) => { q.enabled = e.target.checked; card.classList.toggle("off", !q.enabled); live("enabled", q.enabled); } }),
         h("strong", {}, def.label), def.target === "param" ? h("span", { class: "kind-tag", "data-live-param": q.param }, "") : null,
-        h("button", { class: "x", title: "Remove", "aria-label": "Remove", onclick: () => { list.splice(j, 1); restart(); renderPerturb(); } }, "×")));
+        h("button", { class: "x", title: "Remove", "aria-label": "Remove", onclick: () => { list.splice(j, 1); restart(); renderPerturb(); } }, "\u00d7")));
       const targets = def.target === "param" ? sys.params.map((p) => p.name) : sys.vars;
       card.append(h("div", { class: "row" }, h("label", {}, def.target === "param" ? "Parameter" : "Variable"),
         h("select", { onchange: (e) => { q[def.target] = e.target.value; restart(); renderPerturb(); } }, ...targets.map((t) => h("option", { value: t, selected: q[def.target] === t }, t)))));
@@ -443,7 +465,7 @@
         opts.append(row("Births", selectOf(v.spawn || "box", [["box", "Uniform over the axes"], ["init", "Near the initial state"], ["mixed", "Mixed"]], (x) => set("spawn", x))));
         break;
       case "trajectory":
-        opts.append(row("Tail length", numInput(v.tail || 2500, (x) => set("tail", Math.max(10, Math.round(x))), { label: "tail" })));
+        opts.append(row("Tail (s of playback)", numInput(v.tail ? +(v.tail * S.player.sim.h / S.player.rate).toPrecision(3) : v.tailSeconds || 12, (x) => { delete v.tail; set("tailSeconds", Math.max(0.5, x)); }, { label: "tail in seconds" })));
         opts.append(row("Warm-up frames", numInput(v.warmup || 0, (x) => set("warmup", Math.max(0, Math.round(x))), { label: "warm-up" })));
         break;
       case "timeseries":
@@ -467,9 +489,9 @@
         opts.append(row("Variable", selectOf(v.var || sys.vars[0], sys.vars, (x) => set("var", x))));
         opts.append(row("From", numInput(v.from === undefined ? q.min : v.from, (x) => set("from", x), { label: "from" })), row("To", numInput(v.to === undefined ? q.max : v.to, (x) => set("to", x), { label: "to" })));
         if (v.type === "sweep") {
-          opts.append(row("Sweep speed", h("input", { type: "range", min: 0.00005, max: 0.004, step: 0.00005, value: v.speed || 0.0006, oninput: (e) => { v.speed = +e.target.value; } })));
+          opts.append(row("Sweep speed", numInput(v.speed || S.player.sweepSpeed, (x) => set("speed", Math.max(1e-7, x)), { label: "sweep speed, fraction of the interval per unit of time" })));
           opts.append(h("label", { class: "check" }, h("input", { type: "checkbox", checked: v.branches !== false, onchange: (e) => set("branches", e.target.checked) }), "Equilibrium branches"));
-          opts.append(h("p", { class: "hint" }, "Click the plot to set the parameter by hand; Restart resumes the sweep. A faster sweep delays the jump past the fold."));
+          opts.append(h("p", { class: "hint" }, "Sweep speed is the fraction of the interval crossed per unit of model time. A faster sweep delays the jump past the fold; the Speed control only changes how fast the figure plays. Click the plot to set the parameter by hand; Restart resumes the sweep."));
         } else {
           opts.append(row("Transient", numInput(v.transient || (sys.time === "discrete" ? 300 : Math.round(200 / S.scene.dt)), (x) => set("transient", Math.round(x)), { label: "transient" })));
           opts.append(row("Samples", numInput(v.samples || (sys.time === "discrete" ? 150 : Math.round(400 / S.scene.dt)), (x) => set("samples", Math.round(x)), { label: "samples" })));
@@ -511,7 +533,8 @@
     const v = S.scene.view, d = DF.VIEW_DEFAULTS[k];
     const keep = { axes: v.axes, ranges: v.ranges, projection: k === "flow" || k === "trajectory" ? v.projection : undefined };
     S.scene.view = Object.assign({ type: k }, keep);
-    S.scene.n = d.n; S.scene.stepsPerFrame = Math.max(d.stepsPerFrame, k === "orbit" ? 1 : S.scene.stepsPerFrame);
+    // The natural rate depends on the view, so it is measured again.
+    S.scene.n = d.n; delete S.scene.rate;
     Object.assign(S.scene.style, { fade: d.fade, lineWidth: d.lineWidth, alpha: d.alpha, colorBy: d.colorBy });
     if (k === "sweep" || k === "orbit") { S.scene.view.param = S.player.sys.params[0].name; }
     restart(); renderView();
@@ -550,7 +573,7 @@
     pane.append(sec("Strokes", null,
       slider("Trail fade", "fade", 0, 0.6, 0.005), slider("Line width", "lineWidth", 0.2, 5, 0.1), slider("Opacity", "alpha", 0.02, 1, 0.01), slider("Point size", "pointSize", 0.4, 6, 0.1),
       h("div", { class: "row two" }, h("label", {}, "Resolution"), h("select", { onchange: (e) => { S.player.setStyle({ renderScale: +e.target.value }); restart(); } },
-        ...[[1, "Screen"], [2, "2× (print)"], [3, "3× (poster)"]].map(([v, t]) => h("option", { value: v, selected: +st.renderScale === v }, t))))));
+        ...[[1, "Screen"], [2, "2\u00d7 (print)"], [3, "3\u00d7 (poster)"]].map(([v, t]) => h("option", { value: v, selected: +st.renderScale === v }, t))))));
     const txt = (label, key, area) => h("div", { class: "row two" }, h("label", {}, label),
       h(area ? "textarea" : "input", { type: "text", rows: 2, value: ov[key] || "", oninput: (e) => { S.player.setOverlay({ [key]: e.target.value }); save(); } }));
     const tgl = (label, key) => h("label", { class: "check" }, h("input", { type: "checkbox", checked: !!ov[key], onchange: (e) => { S.player.setOverlay({ [key]: e.target.checked }); save(); } }), label);
@@ -576,10 +599,10 @@
     snip.value = DF.Export.embedSnippet(S.player.getScene());
     pane.append(sec("Live figure", null,
       h("div", { class: "btns" }, h("button", { class: "btn primary", onclick: exportHTML }, "Standalone page"), h("button", { class: "btn", onclick: copyEmbed }, "Copy embed code")), snip,
-      h("p", { class: "hint" }, "The standalone page runs offline and contains everything; use it in reveal.js or as an iframe. The embed code needs dynflow.js from the dist folder next to your page.")));
+      h("p", { class: "hint" }, "The standalone page runs offline and contains everything; use it in reveal.js or as an iframe. The embed code needs relabflow.js from the dist folder next to your page.")));
     const rcode = h("textarea", { class: "snippet", readonly: true });
-    rcode.value = "# In an R Markdown or Quarto document, or a pkgdown article\nhtmltools::tagList(\n  htmltools::tags$script(src = \"dynflow.js\"),\n  htmltools::HTML('<dyn-flow style=\"display:block;height:420px\" src=\"" + DF.Export.slug(S.scene.name) + ".json\" controls></dyn-flow>')\n)";
-    pane.append(sec("R Markdown, Quarto, pkgdown", null, rcode, h("p", { class: "hint" }, "Save the scene file (JSON) next to the document and copy dist/dynflow.js into the site.")));
+    rcode.value = "# In an R Markdown or Quarto document, or a pkgdown article\nhtmltools::tagList(\n  htmltools::tags$script(src = \"relabflow.js\"),\n  htmltools::HTML('<relab-flow style=\"display:block;height:420px\" src=\"" + DF.Export.slug(S.scene.name) + ".json\" controls></relab-flow>')\n)";
+    pane.append(sec("R Markdown, Quarto, pkgdown", null, rcode, h("p", { class: "hint" }, "Save the scene file (JSON) next to the document and copy dist/relabflow.js into the site.")));
     pane.append(sec("Scene", null, h("div", { class: "btns" }, h("button", { class: "btn", onclick: exportJSON }, "Save scene (JSON)"), h("button", { class: "btn", onclick: openFile }, "Open scene"), h("button", { class: "btn", onclick: shareLink }, "Copy share link"))));
   }
 
@@ -615,7 +638,7 @@
   function openFile() {
     const inp = h("input", { type: "file", accept: ".json,application/json", onchange: async (e) => {
       const f = e.target.files[0]; if (!f) return;
-      try { const sc = JSON.parse(await f.text()); S.model = sc.model || null; setScene(sc); toast("Scene loaded"); } catch (err) { toast("Not a scene file: " + err.message); }
+      try { const sc = JSON.parse(await f.text()); const prev = S.model; S.model = sc.model || null; if (setScene(sc)) toast("Scene loaded"); else { S.model = prev; toast("The scene does not compile; the previous figure stays"); } } catch (err) { toast("Not a scene file: " + err.message); }
     } });
     inp.click();
   }
@@ -644,19 +667,38 @@
     });
   }
 
+  // The scene of the last session, if it still compiles; a saved scene that
+  // does not is discarded so that it cannot break every later start.
+  function restoreSaved() {
+    let text = null;
+    try {
+      text = localStorage.getItem(STORE);
+      if (!text && (text = localStorage.getItem(OLD_STORE))) localStorage.removeItem(OLD_STORE);
+    } catch (e) { return null; }
+    if (!text) return null;
+    try { const sc = JSON.parse(text); DF.compileSystem(sc.system); return sc; }
+    catch (e) { try { localStorage.removeItem(STORE); } catch (e2) { /* storage unavailable */ } toast("The saved scene could not be opened"); return null; }
+  }
+
   // ------------------------------------------------------------- start
   async function start() {
     buildTop(); buildLibrary(); buildStage(); buildInspector(); keys();
     $("#help").addEventListener("click", (e) => { if (e.target.id === "help" || e.target.closest("[data-close]")) $("#help").classList.remove("on"); });
-    let scene = null;
+    let scene = null, fromLink = false;
     const hash = location.hash;
-    if (hash.startsWith("#s=")) { try { scene = await DF.Export.decodeScene(hash.slice(3)); } catch (e) { toast("The link does not hold a valid scene"); } }
+    if (hash.startsWith("#s=")) { try { scene = await DF.Export.decodeScene(hash.slice(3)); fromLink = true; } catch (e) { toast("The link does not hold a valid scene"); } }
     else if (hash.startsWith("#model=")) { try { scene = DF.sceneFor(hash.slice(7)); } catch (e) { toast(e.message); } }
-    if (!scene) { try { const saved = localStorage.getItem("dynflow:scene"); if (saved) scene = JSON.parse(saved); } catch (e) { scene = null; } }
-    if (scene) { S.model = scene.model || null; setScene(scene); }
-    else loadShowcase(0);
+    if (!scene) scene = restoreSaved();
+    let shown = false;
+    if (scene) { S.model = scene.model || null; shown = setScene(scene); }
+    if (!shown) {
+      // Nothing to show, or a scene that does not compile: the studio opens on the showcase.
+      const err = S.player && S.player.error;
+      loadShowcase(0);
+      if (err) toast((fromLink ? "The link holds a scene that does not compile: " : "The scene does not compile: ") + err.message);
+    }
     setTimeout(() => { const hint = $("#hint"); if (hint) hint.style.opacity = 0; }, 7000);
   }
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", start) : start();
-  window.DynFlowStudio = S;
+  window.RElabFlowStudio = S;
 })();

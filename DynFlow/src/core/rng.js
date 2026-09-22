@@ -70,4 +70,4 @@
   };
 
   DF.RNG = RNG;
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

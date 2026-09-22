@@ -87,4 +87,35 @@ function charDet(A, n, lr, li) {
     `K = 3.7: ${s1.type} at N* = ${s1.x[0].toFixed(6)} (0.625); K = 3.8: ${s2.type}`);
 }
 
+// Branches of equilibria by pseudo-arclength continuation, against closed forms.
+{
+  const fold = (sys, pars, pi, a, b, box) => DF.continueBranches(DF.compileSystem(sys), Float64Array.from(pars), pi, a, b, box);
+  // Cusp x' = r + a x - x^3 at a = 1: folds at r = +/- 2 (1/3)^(3/2), one S-shaped branch.
+  const cusp = fold("x' = r + a*x - x^3\nparam r = 0\nparam a = 1", [0, 1], 0, -0.8, 0.8, [[-1.6, 1.6]]);
+  const exact = 2 * Math.pow(1 / 3, 1.5), cf = cusp.points.filter((q) => q.kind === "fold").map((q) => q.p).sort((u, v) => u - v);
+  const resid = Math.max.apply(null, cusp.branches[0].map((q) => Math.abs(q.p + q.x[0] - Math.pow(q.x[0], 3))));
+  R.check("continuation through the folds of the cusp", cusp.branches.length === 1 && cf.length === 2 && Math.abs(cf[0] + exact) < 1e-3 && Math.abs(cf[1] - exact) < 1e-3 && resid < 1e-8,
+    `1 branch; folds at r = ${cf.map((v) => v.toFixed(5)).join(", ")} (exact -/+${exact.toFixed(5)}); largest residual ${resid.toExponential(1)}`);
+  // Pitchfork x' = a x - x^3: x = 0 stable for a < 0 only, x = +/- sqrt(a) stable, one branch point at a = 0.
+  const pf = fold("x' = a*x - x^3\nparam a = 1", [1], 0, -1, 1.5, [[-1.4, 1.4]]);
+  const non = pf.branches.flat().filter((q) => Math.abs(q.x[0]) > 1e-3), triv = pf.branches.flat().filter((q) => Math.abs(q.x[0]) < 1e-9 && Math.abs(q.p) > 0.05);
+  const bp = pf.points.filter((q) => q.kind === "branch");
+  R.check("pitchfork branches and stability", Math.max.apply(null, non.map((q) => Math.abs(q.x[0] * q.x[0] - q.p))) < 1e-9 && non.every((q) => q.stable) && triv.every((q) => q.stable === q.p < 0) && bp.length === 1 && Math.abs(bp[0].p) < 1e-3,
+    `${non.length} points with x^2 = a, all stable; trivial branch stable exactly for a < 0; one branch point at a = ${bp.length ? bp[0].p.toExponential(1) : "none"}`);
+  // Brusselator: Hopf point B = 1 + A^2 = 2 at A = 1.
+  const bru = fold("X' = A - (B + 1)*X + X^2*Y\nY' = B*X - X^2*Y\nparam A = 1\nparam B = 3", [1, 3], 1, 0.3, 6, [[0, 4.5], [0, 5.5]]);
+  const hopf = bru.points.filter((q) => q.kind === "hopf");
+  R.check("Hopf point of the Brusselator", hopf.length === 1 && Math.abs(hopf[0].p - 2) < 1e-3, `Hopf at B = ${hopf.length ? hopf[0].p.toFixed(5) : "none"} (1 + A^2 = 2)`);
+  // Logistic map: period doubling of the fixed point 1 - 1/r at r = 3.
+  const lg = fold("x[n+1] = r*x*(1 - x)\nparam r = 3", [3], 0, 2.5, 4, [[0, 1]]);
+  const flip = lg.points.filter((q) => q.kind === "flip");
+  R.check("period doubling of the logistic map", flip.length === 1 && Math.abs(flip[0].p - 3) < 1e-3, `flip at r = ${flip.length ? flip[0].p.toFixed(5) : "none"} (3)`);
+  // May grazing model: folds at the extrema of c(V) = r (1 - V/K) (V^2 + V0^2) / V.
+  const gr = fold("V' = r*V*(1 - V/K) - c*V^2/(V^2 + V0^2)\nparam r = 1\nparam K = 10\nparam c = 2\nparam V0 = 1", [1, 10, 2, 1], 2, 1, 3, [[0, 10]]);
+  const cV = (V) => (1 - V / 10) * (V * V + 1) / V, ext = [];
+  for (let V = 0.05, prev = cV(0.04); V < 10; V += 1e-5) { const c = cV(V), nx = cV(V + 1e-5); if ((c - prev) * (nx - c) < 0) ext.push(c); prev = c; }
+  const gf = gr.points.filter((q) => q.kind === "fold").map((q) => q.p).sort((u, v) => u - v), ge = ext.filter((c) => c > 1 && c < 3).sort((u, v) => u - v);
+  R.check("folds of the May grazing model", gf.length === 2 && ge.length === 2 && Math.abs(gf[0] - ge[0]) < 2e-3 && Math.abs(gf[1] - ge[1]) < 2e-3, `folds at c = ${gf.map((v) => v.toFixed(5)).join(", ")}; extrema of c(V): ${ge.map((v) => v.toFixed(5)).join(", ")}`);
+}
+
 process.exit(R.done().fails ? 1 : 0);

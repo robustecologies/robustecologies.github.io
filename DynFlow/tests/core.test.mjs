@@ -106,6 +106,45 @@ const variance = (a) => { const m = mean(a); return a.reduce((s, v) => s + (v - 
   R.check("DDE convergence order (Mackey-Glass)", ea / eb > 12, `error at t = 50: ${ea.toExponential(2)} (h = 0.1), ${eb.toExponential(2)} (h = 0.05), ratio ${(ea / eb).toFixed(1)} (16 for order 4)`);
 }
 
+// ------------------------------------------------------ clock and delays
+{
+  // Time is t0 + steps h: after N steps t equals N h to the last bit, and a
+  // stroboscopic sample every T / h steps falls on t = k T. Summing h drifted
+  // by up to one step: with T = 10, h = 0.02, 34 of 60 samples came one step late.
+  const s = new DF.Simulator(DF.compileSystem("x' = -x"), { dt: 0.02 });
+  let late = 0, worst = 0;
+  for (let k = 1; k <= 30000; k++) { s.step(); if (k % 500 === 0) { const e = Math.abs(s.t - (k / 500) * 10); worst = Math.max(worst, e); if (e > 1e-9) late++; } }
+  R.check("integer step clock", late === 0 && s.t === 30000 * 0.02, `60 sections at t = 10 k: none off by more than 1e-9 (worst ${worst.toExponential(1)}); t after 30000 steps = ${s.t}`);
+  const t0 = new DF.Simulator(DF.compileSystem("x' = -x"), { dt: 0.1, t0: 5 });
+  for (let k = 0; k < 10; k++) t0.step();
+  R.check("simulator started at t0", Math.abs(t0.t - 6) < 1e-12, `t = ${t0.t} after 10 steps of 0.1 from t0 = 5`);
+}
+{
+  // The delay history is sized for the largest delay the slider allows, and
+  // grows, keeping every stored point, when a larger delay is set by hand.
+  // Before, Mackey-Glass kept 17.7 time units of history when tau = 30 was asked for.
+  const mg = DF.compileSystem("x' = a*lag(x, tau)/(1 + lag(x, tau)^n) - b*x\nparam a = 0.2\nparam b = 0.1\nparam n = 10\nparam tau = 17 [2, 30]\ninit x = 0.9");
+  const s = new DF.Simulator(mg, { dt: 0.1 });
+  const span = (s.hist[0].cap - 8) * 0.1;
+  R.check("delay history covers the slider range", span >= 30 - 1e-9, `history spans ${span.toFixed(1)} time units for tau up to 30`);
+  // x' = -x(t - tau): tau = 1 until t = 3, then tau = 5 (above the slider maximum of 3).
+  const dd = DF.compileSystem("x' = -lag(x, tau)\nparam tau = 1 [0.5, 3]\ninit x = 1");
+  const B = new DF.Simulator(dd, { dt: 0.05 }), C = new DF.Simulator(dd, { dt: 0.05, params: [5] });
+  C.base[0] = 1; C.updateParams();
+  for (let k = 0; k < 60; k++) { B.step(); C.step(); }
+  B.base[0] = 5; B.updateParams(); C.base[0] = 5; C.updateParams();
+  let diff = 0;
+  for (let k = 0; k < 200; k++) { B.step(); C.step(); diff = Math.max(diff, Math.abs(B.X[0] - C.X[0])); }
+  R.check("delay history grows without losing points", diff === 0 && B.hist[0].cap >= Math.ceil(5 / 0.05), `after tau is raised from 1 to 5 at t = 3, the solution equals that of a simulator sized for tau = 5 from the start (max difference ${diff}) over t in [3, 13]`);
+}
+{
+  // The deterministic skeleton: an SDE follows its drift, with no state or parameter noise.
+  const ou = DF.compileSystem("x' = -x\nnoise x = 0.5\ninit x = 1");
+  const s = new DF.Simulator(ou, { dt: 0.01, deterministic: true, perturbations: [{ kind: "additive", var: "x", sigma: 1 }] });
+  for (let k = 0; k < 100; k++) s.step();
+  R.check("deterministic skeleton", Math.abs(s.X[0] - Math.exp(-1)) < 1e-9, `x(1) = ${s.X[0].toFixed(10)} (e^-1 = ${Math.exp(-1).toFixed(10)})`);
+}
+
 // ------------------------------------------------------------ Lyapunov
 {
   const logi = DF.compileSystem("x[n+1] = r*x*(1-x)\nparam r = 4\ninit x = 0.3");

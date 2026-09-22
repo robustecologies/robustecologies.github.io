@@ -1,8 +1,8 @@
-# DynFlow
+# RElabFlow
 
-DynFlow builds live figures of dynamical systems for web pages, slides and packages. It has two parts. In the studio (`index.html`), you choose or write a model, perturb it, choose a view and a style, and export the result. The player (`dist/dynflow.js`) is one script file that plays a saved scene anywhere, as a `<dyn-flow>` element or as a standalone page.
+RElabFlow builds live figures of dynamical systems for web pages, slides and packages. It has two parts. In the studio (`index.html`), you choose or write a model, perturb it, choose a view and a style, and export the result. The player (`dist/relabflow.js`) is one script file that plays a saved scene anywhere, as a `<relab-flow>` element or as a standalone page.
 
-DynFlow is plain JavaScript. It has no build step for use, no server requirement and no dependency on R or on any package. It includes a catalogue of 82 models from ecology, chaotic flows, forced oscillators, maps, delay equations, stochastic processes, tipping and epidemics.
+RElabFlow is plain JavaScript. It has no build step for use, no server requirement and no dependency on R or on any package. It includes a catalogue of 82 models from ecology, chaotic flows, forced oscillators, maps, delay equations, stochastic processes, tipping and epidemics.
 
 <br>
 
@@ -16,7 +16,7 @@ DynFlow is plain JavaScript. It has no build step for use, no server requirement
 The studio also works when you open the file from disk. To use share links and the clipboard, serve the folder:
 
 ```bash
-cd /path/to/DynFlowApp
+cd /path/to/relabflow
 python3 -m http.server 8000
 # then open http://127.0.0.1:8000
 ```
@@ -38,6 +38,18 @@ In a 2D view, a click on the figure starts new orbits. In a 3D view, a drag rota
 
 <br>
 
+## Playback speed
+
+A figure plays a fixed amount of model time per second. When a scene opens, RElabFlow measures this rate for the model and the view. At the measured rate, a trajectory moves about one plot width per second and a time series scrolls one window in 10 seconds.
+
+1. To play faster or slower, move the Speed slider. The value multiplies the rate, from ×1/16 to ×16.
+2. To set a rate of your own, open Model, Integration and type a value in Time per second. For a map, the field is Iterations per s.
+3. To measure the rate again, click Auto.
+
+The speed does not change with the refresh rate of the screen. If the computer cannot compute all the steps, the readout shows the fraction of real time that the figure keeps, for example `×0.50 (CPU)`.
+
+<br>
+
 ## Views
 
 | View | Shows |
@@ -46,7 +58,7 @@ In a 2D view, a click on the figure starts new orbits. In a 3D view, a drag rota
 | Trajectory | A few long orbits with a colour gradient along the tail |
 | Time series | Chosen variables against time |
 | Phase plane | Vector field, nullclines, equilibria with their stability, and orbits |
-| Sweep | A slow sweep of one parameter over the branches of equilibria (hysteresis) |
+| Sweep | The branches of equilibria against one parameter, with folds, Hopf points and branch points, and a state under a slow sweep of the parameter (hysteresis) |
 | Bifurcation | Iterates or local maxima against one parameter |
 | Density | Ensemble density as a heat map, or one variable over time |
 | Strobe | The state every period T, or its crossings of a Poincare plane |
@@ -81,27 +93,27 @@ Press Apply, or Ctrl + Enter. The Help dialog lists the functions. `THEORY.md` s
 
 ## Use a scene elsewhere
 
-Save the scene as JSON (Export, Scene file). Then copy `dist/dynflow.js` next to your page and add:
+Save the scene as JSON (Export, Scene file). Then copy `dist/relabflow.js` next to your page and add:
 
 ```html
-<script src="dynflow.js"></script>
-<dyn-flow src="my-scene.json" controls style="height:420px"></dyn-flow>
+<script src="relabflow.js"></script>
+<relab-flow src="my-scene.json" controls style="height:420px"></relab-flow>
 ```
 
 You can place a catalogue model without a scene file:
 
 ```html
-<dyn-flow model="lorenz" theme="blackboard" controls></dyn-flow>
+<relab-flow model="lorenz" theme="blackboard" controls></relab-flow>
 ```
 
-The attributes of the element are `scene`, `src`, `model`, `theme`, `view`, `title`, `controls`, `paused` and `static`. The element starts when it becomes visible. When the reader prefers reduced motion, the element shows a still frame.
+The attributes of the element are `scene`, `src`, `model`, `theme`, `view`, `title`, `controls`, `paused` and `static`. When you change `scene`, `src`, `model`, `theme`, `view` or `title`, the element loads the scene again. The element starts when it becomes visible, and it keeps its figure when a script moves it to another part of the page. When the reader prefers reduced motion, the element shows a still frame. A page that you open from disk cannot load a scene file with `src`. Serve the folder, or give the scene in the `scene` attribute.
 
 In R Markdown, Quarto or pkgdown, emit the same two tags:
 
 ```r
 htmltools::tagList(
-  htmltools::tags$script(src = "dynflow.js"),
-  htmltools::HTML('<dyn-flow src="my-scene.json" controls style="display:block;height:420px"></dyn-flow>')
+  htmltools::tags$script(src = "relabflow.js"),
+  htmltools::HTML('<relab-flow src="my-scene.json" controls style="display:block;height:420px"></relab-flow>')
 )
 ```
 
@@ -113,9 +125,9 @@ For slides, use Export, Standalone HTML page. The page contains the player and t
 
 | Export | Result |
 |---|---|
-| PNG | The current frame at the current resolution. Set Style, Resolution to 2x or 3x for print. |
-| SVG | Orbits, nullclines and branches as vector paths; particle clouds as an embedded image |
-| WebM | A video of the running figure. Convert to MP4 with `ffmpeg -i scene.webm scene.mp4`. |
+| PNG | The current frame with its title, legend and equations, at the current resolution. Set Style, Resolution to 2x or 3x for print. |
+| SVG | Orbits, time series, nullclines, branches, axes, legend and equations as vector paths and text; particle clouds, densities and bifurcation diagrams as an embedded image |
+| WebM | A video of the running figure, at the speed of the figure. Convert to MP4 with `ffmpeg -i scene.webm scene.mp4`. |
 | GIF | An animation for slides and messages |
 | Standalone HTML | One file with the player and the scene |
 | Embed code | The script and element tags for a web page |
@@ -138,6 +150,7 @@ Run the tests:
 node tests/core.test.mjs       # schemes, formulas, random numbers, perturbations
 node tests/analysis.test.mjs   # eigenvalues, equilibria, bifurcation points
 node tests/models.test.mjs     # every catalogue model and the claims in its description
+node tests/playback.test.mjs   # speed of every scene on screen, rate of older scene files
 node tests/browser.test.mjs    # studio, exports and element in headless Chrome
 ```
 
@@ -150,19 +163,19 @@ The browser test needs Google Chrome, Python 3, Pillow and ffprobe.
 | Path | Content |
 |---|---|
 | `index.html`, `src/studio/` | The studio |
-| `src/core/` | Formula compiler, random numbers, simulator, local analysis |
-| `src/render/` | Themes and palettes, projections, views, player, exports |
+| `src/core/` | Formula compiler, random numbers, simulator, local analysis and continuation of equilibria |
+| `src/render/` | Themes and palettes, projections and playback rates, equation typesetting, views, player, exports |
 | `src/models/catalogue.js` | The 82 models, each with its source |
-| `src/component/dyn-flow.js` | The `<dyn-flow>` element |
-| `dist/dynflow.js` | The player in one file, built by `tools/build.mjs` |
+| `src/component/relab-flow.js` | The `<relab-flow>` element |
+| `dist/relabflow.js` | The player in one file, built by `tools/build.mjs` |
 | `examples/` | Embedding examples and scene files |
 | `tests/` | Numerical and browser tests |
-| `vendor/` | KaTeX and fonts |
+| `vendor/` | KaTeX, fonts and the lab logo |
 
 <br>
 
 ## Licence
 
-DynFlow is free software under the GNU General Public License, version 3 or later (`LICENSE`). Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab (ORCID [0000-0003-1416-2695](https://orcid.org/0000-0003-1416-2695)).
+RElabFlow is free software under the GNU General Public License, version 3 or later (`LICENSE`). Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab (ORCID [0000-0003-1416-2695](https://orcid.org/0000-0003-1416-2695)).
 
 Third-party files in `vendor/` keep their own licences: KaTeX (MIT, `vendor/katex/LICENSE`), Jost and Libre Franklin (SIL Open Font License 1.1, `vendor/fonts/OFL-1.1.txt`), and TeX Gyre Pagella (GUST Font License, `vendor/fonts/GUST-FONT-LICENSE.txt`).

@@ -8,20 +8,27 @@
      trajectory  a few long orbits with a gradient tail, 2D or rotating 3D
      timeseries  scrolling time series of chosen variables
      phase       vector field, nullclines, classified equilibria, orbits
-     sweep       slow parameter sweep over the equilibrium branches (hysteresis)
+     sweep       slow parameter sweep over the continued equilibrium branches
      orbit       bifurcation diagram, built column by column
      density     ensemble density: 2D heat map, or a time carpet in 1D
      strobe      stroboscopic samples every period T, or a Poincare section
      cobweb      cobweb diagram of a one-dimensional map
 
-   Every view implements init(P), frame(P), and optionally drawStatic(P),
-   pointer(P, kind, x, y, ev), svg(P) and legend(P). */
+   Every view implements init(P) and frame(P), and optionally drawStatic(P),
+   pointer(P, kind, x, y, ev), onParam(P, i), svg(P) and legend(P). A frame
+   advances the simulator by P.spf steps, the number the Player's clock
+   holds for that frame; P.frameMs is its length in milliseconds. */
 (function (DF) {
   "use strict";
 
   const V = {};
+  const FRAME_MS = 1000 / 60;
+  const PARAM_FORCING = { periodic: 1, quasiperiodic: 1, ramp: 1, step: 1 };
 
   // ------------------------------------------------------------ helpers
+  // Length of the current frame in frames at 60 per second.
+  function frames(P) { return (P.frameMs === undefined ? FRAME_MS : P.frameMs) / FRAME_MS; }
+  function warm(P, fr) { const n = P.nominalSteps(fr); for (let s = 0; s < n; s++) P.sim.step(); }
   function colorFor(P, k, x, extra) {
     const s = P.scene.style, pal = P.palette;
     switch (s.colorBy) {
@@ -96,17 +103,41 @@
     }
     return false;
   }
-  function svgHead(P) {
-    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + P.w + '" height="' + P.h + '" viewBox="0 0 ' + P.w + " " + P.h + '">';
+  const f1 = function (v) { return (+v).toFixed(1); };
+  function pathD(pts) {
+    let d = "";
+    for (let i = 0; i + 1 < pts.length; i += 2) d += (i ? "L" : "M") + f1(pts[i]) + " " + f1(pts[i + 1]);
+    return d;
   }
-  function polyline(pts, color, width, alpha) {
+  function polyline(pts, color, width, alpha, dash) {
     if (pts.length < 4) return "";
-    let d = "M" + pts[0].toFixed(2) + " " + pts[1].toFixed(2);
-    for (let i = 2; i < pts.length; i += 2) d += "L" + pts[i].toFixed(2) + " " + pts[i + 1].toFixed(2);
-    return '<path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="' + width + '" stroke-opacity="' + alpha + '" stroke-linejoin="round" stroke-linecap="round"/>';
+    return '<path d="' + pathD(pts) + '" fill="none" stroke="' + color + '" stroke-width="' + width + '" stroke-opacity="' + (+alpha).toFixed(3) + '" stroke-linejoin="round" stroke-linecap="round"' + (dash ? ' stroke-dasharray="' + dash + '"' : "") + "/>";
   }
+  function clipOpen(id, f) { return '<clipPath id="' + id + '"><rect x="' + f1(f.L) + '" y="' + f1(f.T) + '" width="' + f1(f.R - f.L) + '" height="' + f1(f.B - f.T) + '"/></clipPath><g clip-path="url(#' + id + ')">'; }
   function rotate3D(P) {
-    if (P.cam.is3D() && !P.dragging) P.cam.azim += (P.scene.view.rotate || 0) * 0.01;
+    if (P.cam.is3D() && !P.dragging) P.cam.azim += (P.scene.view.rotate || 0) * 0.01 * frames(P);
+  }
+  // Tail of a trajectory, in stored points, and the stride between stored
+  // steps: `tail` counts steps; without it the tail holds `seconds` of playback.
+  function tailSpec(P, seconds, perSecond, maxPts) {
+    const v = P.scene.view, sps = P.rate / P.sim.h, every = v.sampleEvery || Math.max(1, Math.ceil(sps / perSecond));
+    const len = v.tail ? Math.ceil(v.tail / every) : Math.round((v.tailSeconds || seconds) * sps / every);
+    return { every: every, len: Math.max(20, Math.min(maxPts, len)) };
+  }
+  function box3DSVG(P) {
+    const cam = P.cam, th = P.theme, c = [0, 1], out = [];
+    const corner = function (i, j, k) { const x = []; x[cam.axes[0]] = cam.ranges[0][i]; x[cam.axes[1]] = cam.ranges[1][j]; x[cam.axes[2]] = cam.ranges[2][k]; return cam.project(x, [0, 0]); };
+    let d = "";
+    c.forEach(function (i) { c.forEach(function (j) { c.forEach(function (k) { out.push([i, j, k]); }); }); });
+    out.forEach(function (a) {
+      out.forEach(function (b) {
+        const dd = Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]);
+        if (dd !== 1 || a.join() > b.join()) return;
+        const u = corner(a[0], a[1], a[2]), w = corner(b[0], b[1], b[2]);
+        d += "M" + f1(u[0]) + " " + f1(u[1]) + "L" + f1(w[0]) + " " + f1(w[1]);
+      });
+    });
+    return '<path d="' + d + '" fill="none" stroke="' + th.grid + '" stroke-width="1"/>';
   }
 
   // ------------------------------------------------------------ flow
@@ -116,28 +147,28 @@
       const n = P.sim.n, st = new Float64Array(P.sys.vars.length);
       this.age = new Float32Array(n); this.life = new Float32Array(n);
       this.prev = new Float32Array(2 * n); this.has = new Uint8Array(n);
-      this.buck = new Buckets(); this.pt = [0, 0];
+      this.buck = new Buckets(); this.pt = [0, 0]; this.x2 = new Float64Array(P.sys.vars.length);
       for (let k = 0; k < n; k++) {
         spawnState(P, st); P.sim.setMember(k, st);
         this.life[k] = this.newLife(P); this.age[k] = P.sim.rng.uniform() * this.life[k];
       }
       // Warm-up so that the first frame already shows the flow.
-      const warm = P.scene.view.warmup === undefined ? 60 : P.scene.view.warmup;
-      for (let s = 0; s < warm * P.scene.stepsPerFrame; s++) P.sim.step();
+      warm(P, P.scene.view.warmup === undefined ? 60 : P.scene.view.warmup);
     },
+    // Lifetimes are counted in frames at 60 frames per second.
     newLife: function (P) {
       const L = P.scene.view.life;
       if (!L || L[1] === Infinity || L === "inf") return Infinity;
       return L[0] + P.sim.rng.uniform() * (L[1] - L[0]);
     },
     frame: function (P) {
-      const sim = P.sim, n = sim.n, dim = P.sys.vars.length, cam = P.cam, st = P.scene.style;
+      const sim = P.sim, n = sim.n, cam = P.cam, st = P.scene.style, df = frames(P);
       rotate3D(P);
       P.fade(st.fade);
-      for (let s = 0; s < P.scene.stepsPerFrame; s++) sim.step();
-      const x = P.tmpX, discrete = P.sys.time === "discrete", st2 = new Float64Array(dim);
+      for (let s = 0; s < P.spf; s++) sim.step();
+      const x = P.tmpX, discrete = P.sys.time === "discrete", st2 = this.x2;
       for (let k = 0; k < n; k++) {
-        this.age[k]++;
+        this.age[k] += df;
         if (!sim.alive[k] || this.age[k] > this.life[k]) {
           spawnState(P, st2); sim.setMember(k, st2); this.age[k] = 0; this.life[k] = this.newLife(P); this.has[k] = 0;
           continue;
@@ -146,7 +177,7 @@
         if (outOfView(P, x)) { this.age[k] = this.life[k] + 1; continue; }
         const q = cam.project(x, this.pt);
         const col = colorFor(P, k, x, extraFor(P, k, x, this.age[k] / (isFinite(this.life[k]) ? this.life[k] : 1)));
-        if (discrete) this.buck.seg(col, q[0], q[1], q[0], q[1]);
+        if (discrete) { if (P.spf > 0 || !this.has[k]) this.buck.seg(col, q[0], q[1], q[0], q[1]); }
         else if (this.has[k]) this.buck.seg(col, this.prev[2 * k], this.prev[2 * k + 1], q[0], q[1]);
         this.prev[2 * k] = q[0]; this.prev[2 * k + 1] = q[1]; this.has[k] = 1;
       }
@@ -184,10 +215,11 @@
   V.trajectory = {
     label: "Trajectory",
     init: function (P) {
-      const n = P.sim.n, dim = P.sys.vars.length, L = P.scene.view.tail || 2500;
-      this.L = L; this.buf = new Float64Array(n * L * dim); this.len = new Int32Array(n); this.head = new Int32Array(n);
-      const warm = P.scene.view.warmup === undefined ? 0 : P.scene.view.warmup;
-      for (let s = 0; s < warm * P.scene.stepsPerFrame; s++) P.sim.step();
+      const n = P.sim.n, dim = P.sys.vars.length, spec = tailSpec(P, 12, 400, 12000);
+      this.L = spec.len; this.every = spec.every; this.k = 0;
+      this.buf = new Float64Array(n * this.L * dim); this.len = new Int32Array(n); this.head = new Int32Array(n);
+      warm(P, P.scene.view.warmup || 0);
+      this.push(P);
     },
     push: function (P) {
       const n = P.sim.n, dim = P.sys.vars.length, L = this.L;
@@ -208,10 +240,14 @@
       }
       return out;
     },
+    colorOf: function (P, k, u) {
+      const st = P.scene.style;
+      if (st.colorBy === "time" || st.colorBy === "age") { const c = DF.rampRGB(st.ramp, u); return "rgb(" + c.join(",") + ")"; }
+      return P.palette[(st.colorBy === "member" ? k : 0) % P.palette.length];
+    },
     frame: function (P) {
       rotate3D(P);
-      const every = P.scene.view.sampleEvery || 1;
-      for (let s = 0; s < P.scene.stepsPerFrame; s++) { P.sim.step(); if (s % every === 0) this.push(P); }
+      for (let s = 0; s < P.spf; s++) { P.sim.step(); if (++this.k % this.every === 0) this.push(P); }
       const ctx = P.ctx.top, st = P.scene.style, n = P.sim.n, G = 28;
       ctx.clearRect(0, 0, P.w, P.h);
       if (P.cam.is3D() && P.scene.view.box) DF.drawBox3D(ctx, P.cam, P.scene.style.theme);
@@ -223,10 +259,7 @@
         for (let g = 0; g < G; g++) {
           const a = Math.floor(g * (m - 1) / G), b = Math.floor((g + 1) * (m - 1) / G);
           if (b <= a) continue;
-          const u = (g + 1) / G;
-          let col;
-          if (st.colorBy === "time" || st.colorBy === "age") { const c = DF.rampRGB(st.ramp, u); col = "rgb(" + c.join(",") + ")"; }
-          else col = P.palette[(st.colorBy === "member" ? k : 0) % P.palette.length];
+          const u = (g + 1) / G, col = this.colorOf(P, k, u);
           ctx.strokeStyle = col; ctx.fillStyle = col;
           ctx.globalAlpha = st.alpha * (0.08 + 0.92 * Math.pow(u, 1.4));
           if (discrete) { for (let j = a; j <= b; j++) ctx.fillRect(pts[2 * j] - st.pointSize / 2, pts[2 * j + 1] - st.pointSize / 2, st.pointSize, st.pointSize); continue; }
@@ -251,10 +284,20 @@
     },
     svg: function (P) {
       let out = "";
-      const st = P.scene.style;
+      const st = P.scene.style, G = 28, discrete = P.sys.time === "discrete";
+      if (P.cam.is3D() && (P.scene.view.box || P.scene.view.showAxes)) out += box3DSVG(P);
+      else if (!P.cam.is3D() && P.scene.view.showAxes) out += DF.axesSVG(P.cam, st.theme, [P.sys.vars[P.cam.axes[0]], P.sys.vars[P.cam.axes[1]]]);
       for (let k = 0; k < P.sim.n; k++) {
-        const pts = Array.from(this.points(P, k));
-        out += polyline(pts, P.palette[(st.colorBy === "member" ? k : 0) % P.palette.length], st.lineWidth, st.alpha);
+        const pts = this.points(P, k), m = pts.length / 2;
+        if (m < 2) continue;
+        for (let g = 0; g < G; g++) {
+          const a = Math.floor(g * (m - 1) / G), b = Math.floor((g + 1) * (m - 1) / G);
+          if (b <= a) continue;
+          const u = (g + 1) / G, col = this.colorOf(P, k, u), alpha = st.alpha * (0.08 + 0.92 * Math.pow(u, 1.4));
+          if (discrete) { for (let j = a; j <= b; j++) out += '<rect x="' + f1(pts[2 * j] - st.pointSize / 2) + '" y="' + f1(pts[2 * j + 1] - st.pointSize / 2) + '" width="' + st.pointSize + '" height="' + st.pointSize + '" fill="' + col + '" fill-opacity="' + alpha.toFixed(3) + '"/>'; continue; }
+          out += polyline(Array.from(pts.subarray(2 * a, 2 * b + 2)), col, st.lineWidth, alpha);
+        }
+        out += '<circle cx="' + f1(pts[pts.length - 2]) + '" cy="' + f1(pts[pts.length - 1]) + '" r="' + Math.max(2.5, st.lineWidth * 2) + '" fill="' + P.palette[(st.colorBy === "member" ? k : 0) % P.palette.length] + '"/>';
       }
       return out;
     }
@@ -268,27 +311,35 @@
       const vars = (P.scene.view.vars && P.scene.view.vars.length ? P.scene.view.vars : P.sys.vars.slice(0, 4)).filter(function (v) { return P.sys.vars.indexOf(v) >= 0; });
       this.vi = vars.map(function (v) { return P.sys.vars.indexOf(v); });
       this.members = Math.min(P.sim.n, P.scene.view.members || 1);
-      this.cap = 4000; this.T = new Float64Array(this.cap); this.Y = new Float64Array(this.cap * this.members * this.vi.length);
+      this.span = P.scene.view.window || (P.sys.time === "discrete" ? 100 : 50);
+      // The buffer holds 4000 samples; one sample every `every` steps keeps
+      // 10 percent more than a whole window in it.
+      this.cap = 4000; this.every = Math.max(1, Math.ceil(this.span * 1.1 / (P.sim.h * this.cap)));
+      this.T = new Float64Array(this.cap); this.Y = new Float64Array(this.cap * this.members * this.vi.length);
       this.len = 0; this.head = 0;
       let lo = Infinity, hi = -Infinity;
       this.vi.forEach(function (i) { lo = Math.min(lo, P.fullRanges[i][0]); hi = Math.max(hi, P.fullRanges[i][1]); });
       this.yr = P.scene.view.yRange || [lo, hi];
+      this.record(P);
     },
+    record: function (P) {
+      const nv = this.vi.length, M = this.members, h = this.head;
+      this.T[h] = P.sim.t;
+      for (let m = 0; m < M; m++) for (let j = 0; j < nv; j++) this.Y[(h * M + m) * nv + j] = P.sim.X[m * P.sys.vars.length + this.vi[j]];
+      this.head = (h + 1) % this.cap; this.len = Math.min(this.len + 1, this.cap);
+    },
+    camera: function (P) {
+      const t0 = Math.max(0, P.sim.t - this.span), cam = new DF.Camera([0, 1], [[t0, t0 + this.span], this.yr], { pad: 0.02 });
+      cam.resize(P.w, P.h, P.inset);
+      return cam;
+    },
+    labels: function (P) { return [P.sys.time === "discrete" ? "n" : "t", this.vi.map(function (i) { return P.sys.vars[i]; }).join(", ")]; },
     frame: function (P) {
       const nv = this.vi.length, M = this.members;
-      for (let s = 0; s < P.scene.stepsPerFrame; s++) {
-        P.sim.step();
-        const h = this.head;
-        this.T[h] = P.sim.t;
-        for (let m = 0; m < M; m++) for (let j = 0; j < nv; j++) this.Y[(h * M + m) * nv + j] = P.sim.X[m * P.sys.vars.length + this.vi[j]];
-        this.head = (h + 1) % this.cap; this.len = Math.min(this.len + 1, this.cap);
-      }
-      const span = P.scene.view.window || (P.sys.time === "discrete" ? 100 : 50);
-      const t0 = Math.max(0, P.sim.t - span), t1 = t0 + span;
+      for (let s = 0; s < P.spf; s++) { P.sim.step(); if (P.sim.steps % this.every === 0) this.record(P); }
       const ctx = P.ctx.top; ctx.clearRect(0, 0, P.w, P.h);
-      const cam = new DF.Camera([0, 1], [[t0, t1], this.yr], { pad: 0.02 });
-      cam.resize(P.w, P.h, P.inset);
-      DF.drawAxes(ctx, cam, P.scene.style.theme, [P.sys.time === "discrete" ? "n" : "t", this.vi.map(function (i) { return P.sys.vars[i]; }).join(", ")], { grid: true });
+      const cam = this.camera(P), t0 = cam.ranges[0][0];
+      this.frameBox = DF.drawAxes(ctx, cam, P.scene.style.theme, this.labels(P), { grid: true });
       const st = P.scene.style, q = [0, 0], x = [0, 0];
       ctx.save(); const b = cam.plotBox(); ctx.beginPath(); ctx.rect(b.x, b.y, b.w, b.h); ctx.clip();
       ctx.lineJoin = "round";
@@ -310,15 +361,17 @@
     },
     legend: function (P) { return this.vi.map(function (i, j) { return [P.sys.vars[i], P.palette[j % P.palette.length]]; }); },
     svg: function (P) {
-      const nv = this.vi.length, M = this.members, cam = this.cam, t0 = cam.ranges[0][0];
-      let out = "";
+      const nv = this.vi.length, M = this.members, cam = this.cam || this.camera(P), t0 = cam.ranges[0][0], st = P.scene.style;
+      let out = DF.axesSVG(cam, st.theme, this.labels(P), { grid: true });
+      const b = cam.plotBox();
+      out += clipOpen("ts-clip", { L: b.x, T: b.y, R: b.x + b.w, B: b.y + b.h });
       const start = (this.head - this.len + this.cap) % this.cap, q = [0, 0], x = [0, 0];
       for (let m = 0; m < M; m++) for (let j = 0; j < nv; j++) {
         const pts = [];
         for (let r = 0; r < this.len; r++) { const h = (start + r) % this.cap; if (this.T[h] < t0) continue; x[0] = this.T[h]; x[1] = this.Y[(h * M + m) * nv + j]; cam.project(x, q); pts.push(q[0], q[1]); }
-        out += polyline(pts, P.palette[j % P.palette.length], P.scene.style.lineWidth, P.scene.style.alpha);
+        out += polyline(pts, P.palette[j % P.palette.length], st.lineWidth, M > 1 ? Math.max(0.25, st.alpha * 0.6) : st.alpha);
       }
-      return out;
+      return out + "</g>";
     }
   };
 
@@ -340,13 +393,45 @@
     }
     return segs;
   }
+  /* Join the segments of a contour into polylines, so that a dash pattern
+     runs along the whole curve. Two segment ends meet when they agree to
+     1e-6 of a grid cell (qx, qy); a cell edge crossed by the curve gives the
+     same point to both cells up to rounding. */
+  function stitch(segs, qx, qy) {
+    const key = function (p) { return Math.round(p[0] / qx) + "," + Math.round(p[1] / qy); };
+    const n = segs.length / 2, used = new Uint8Array(n), ends = new Map(), lines = [];
+    for (let i = 0; i < 2 * n; i++) { const k = key(segs[i]); let a = ends.get(k); if (!a) { a = []; ends.set(k, a); } a.push(i); }
+    const follow = function (tip) {
+      const out = [];
+      for (;;) {
+        const c = (ends.get(key(tip)) || []).find(function (e) { return !used[e >> 1]; });
+        if (c === undefined) return out;
+        used[c >> 1] = 1;
+        tip = segs[c ^ 1];
+        out.push(tip);
+      }
+    };
+    for (let s = 0; s < n; s++) {
+      if (used[s]) continue;
+      used[s] = 1;
+      const fwd = follow(segs[2 * s + 1]), back = follow(segs[2 * s]);
+      lines.push(back.reverse().concat([segs[2 * s], segs[2 * s + 1]], fwd));
+    }
+    return lines;
+  }
+  function equilibriumStyle(P, e) {
+    const th = P.theme;
+    if (e.stable) return { fill: th.ink, stroke: th.ink };
+    if (/saddle/.test(e.type)) return { fill: P.palette[0], stroke: th.ink };
+    return { fill: th.dark ? "#0b0620" : "#ffffff", stroke: th.ink };
+  }
 
   V.phase = {
     label: "Phase plane",
     axes: true,
     init: function (P) {
       this.trails = []; this.maxTrails = 40;
-      this.static = null;
+      this.spec = tailSpec(P, 10, 300, 6000);
       const n0 = Math.min(P.sim.n, P.scene.view.seeds === undefined ? 6 : P.scene.view.seeds);
       const r = P.sim.rng, s = new Float64Array(P.sys.vars.length);
       for (let k = 0; k < n0; k++) {
@@ -358,13 +443,20 @@
         this.addTrail(P, s);
       }
     },
+    /* Every orbit of the plane is a one-member simulator started now, so it
+       keeps its own time (forced systems) and its own delay history (delay
+       equations); it follows the deterministic skeleton, without noise, and
+       the parameter forcing of the scene. */
     addTrail: function (P, s) {
       if (this.trails.length >= this.maxTrails) this.trails.shift();
-      this.trails.push({ x: Float64Array.from(s), pts: [], life: 0 });
+      const sim = new DF.Simulator(P.sys, {
+        n: 1, dt: P.sim.h, params: P.sim.base, init: s, t0: P.sim.t, deterministic: true, keepPositive: !!P.scene.keepPositive,
+        perturbations: P.scene.perturbations.filter(function (q) { return q.kind in PARAM_FORCING; })
+      });
+      this.trails.push({ sim: sim, pts: [], k: 0 });
     },
     drawStatic: function (P) {
       const ctx = P.ctx.base, cam = P.cam, sys = P.sys, v = P.scene.view, st = P.scene.style;
-      const th = P.theme;
       const frame = DF.drawAxes(ctx, cam, st.theme, [sys.vars[cam.axes[0]], sys.vars[cam.axes[1]]], { grid: false });
       this.frameBox = frame;
       const a0 = cam.axes[0], a1 = cam.axes[1], t = P.sim.t, p = P.sim.p;
@@ -373,10 +465,10 @@
       const R0 = cam.ranges[0], R1 = cam.ranges[1];
       ctx.save(); ctx.beginPath(); ctx.rect(frame.L, frame.T, frame.R - frame.L, frame.B - frame.T); ctx.clip();
       // Vector field: arrows on a grid, length by log speed.
+      this.arrows = [];
       if (v.field !== "none") {
-        const nx = v.fieldDensity || 22, ny = Math.round(nx * (frame.B - frame.T) / (frame.R - frame.L));
+        const nx = v.fieldDensity || 22, ny = Math.max(2, Math.round(nx * (frame.B - frame.T) / (frame.R - frame.L)));
         const cellW = (frame.R - frame.L) / nx, cellH = (frame.B - frame.T) / ny;
-        const q = [0, 0];
         let vmax = 0;
         const vals = [];
         for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
@@ -387,20 +479,25 @@
           vals.push([frame.L + (i + 0.5) * cellW, frame.T + (j + 0.5) * cellH, u, w, m]);
         }
         ctx.lineWidth = 1;
+        const self = this;
         vals.forEach(function (e) {
           if (!(e[4] > 0) || !isFinite(e[4])) return;
           const rel = Math.log1p(9 * e[4] / vmax) / Math.log(10);
           const len = Math.min(cellW, cellH) * 0.42 * (0.35 + 0.65 * rel), ux = e[2] / e[4], uy = e[3] / e[4];
           const c = DF.rampRGB(st.ramp, 0.25 + 0.75 * rel);
-          ctx.strokeStyle = th.dark ? "rgba(" + c.join(",") + ",0.55)" : "rgba(" + c.join(",") + ",0.75)";
+          const col = "rgba(" + c.join(",") + "," + (P.theme.dark ? 0.55 : 0.75) + ")";
           const x0 = e[0] - ux * len, y0 = e[1] - uy * len, x1 = e[0] + ux * len, y1 = e[1] + uy * len;
+          const hd = [x1 - 4 * ux + 2.5 * uy, y1 - 4 * uy - 2.5 * ux, x1 - 4 * ux - 2.5 * uy, y1 - 4 * uy + 2.5 * ux];
+          ctx.strokeStyle = col;
           ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
-          ctx.moveTo(x1, y1); ctx.lineTo(x1 - 4 * ux + 2.5 * uy, y1 - 4 * uy - 2.5 * ux);
-          ctx.moveTo(x1, y1); ctx.lineTo(x1 - 4 * ux - 2.5 * uy, y1 - 4 * uy + 2.5 * ux);
+          ctx.moveTo(x1, y1); ctx.lineTo(hd[0], hd[1]);
+          ctx.moveTo(x1, y1); ctx.lineTo(hd[2], hd[3]);
           ctx.stroke();
+          self.arrows.push({ c: col, d: "M" + f1(x0) + " " + f1(y0) + "L" + f1(x1) + " " + f1(y1) + "M" + f1(x1) + " " + f1(y1) + "L" + f1(hd[0]) + " " + f1(hd[1]) + "M" + f1(x1) + " " + f1(y1) + "L" + f1(hd[2]) + " " + f1(hd[3]) });
         });
       }
-      // Nullclines f_a0 = 0 and f_a1 = 0 by marching squares.
+      // Nullclines f_a0 = 0 and f_a1 = 0 by marching squares, joined into polylines.
+      this.nullLines = [];
       if (v.nullclines !== false && P.sys.time === "continuous") {
         const nx = 160, ny = 160, g0 = new Float64Array(nx * ny), g1 = new Float64Array(nx * ny);
         for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
@@ -409,20 +506,22 @@
           g0[j * nx + i] = d[a0]; g1[j * nx + i] = d[a1];
         }
         const X = function (i) { return R0[0] + i / (nx - 1) * (R0[1] - R0[0]); }, Y = function (j) { return R1[0] + j / (ny - 1) * (R1[1] - R1[0]); };
-        const self = this; self.nullSegs = [];
+        const qx = 1e-6 * (R0[1] - R0[0]) / (nx - 1), qy = 1e-6 * (R1[1] - R1[0]) / (ny - 1);
+        const self = this;
         [g0, g1].forEach(function (g, idx) {
-          const segs = contour(g, nx, ny, X, Y);
-          const col = P.palette[(idx + 1) % P.palette.length];
-          ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.setLineDash(idx ? [6, 4] : []); ctx.globalAlpha = 0.9;
-          ctx.beginPath();
+          const lines = stitch(contour(g, nx, ny, X, Y), qx, qy);
+          const col = P.palette[(idx + 1) % P.palette.length], dash = idx ? [6, 4] : [];
+          ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.setLineDash(dash); ctx.globalAlpha = 0.9; ctx.lineJoin = "round";
           const q = [0, 0], z = Float64Array.from(P.sim.init);
-          const pts = [];
-          for (let s = 0; s < segs.length; s += 2) {
-            z[a0] = segs[s][0]; z[a1] = segs[s][1]; cam.project(z, q); ctx.moveTo(q[0], q[1]); pts.push(q[0], q[1]);
-            z[a0] = segs[s + 1][0]; z[a1] = segs[s + 1][1]; cam.project(z, q); ctx.lineTo(q[0], q[1]); pts.push(q[0], q[1]);
-          }
-          ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
-          self.nullSegs.push({ pts: pts, color: col, dash: idx ? "6 4" : "" });
+          lines.forEach(function (line) {
+            const pts = [];
+            line.forEach(function (pt) { z[a0] = pt[0]; z[a1] = pt[1]; cam.project(z, q); pts.push(q[0], q[1]); });
+            ctx.beginPath(); ctx.moveTo(pts[0], pts[1]);
+            for (let i = 2; i < pts.length; i += 2) ctx.lineTo(pts[i], pts[i + 1]);
+            ctx.stroke();
+            self.nullLines.push({ pts: pts, color: col, dash: idx ? "6 4" : "" });
+          });
+          ctx.setLineDash([]); ctx.globalAlpha = 1;
         });
       }
       ctx.restore();
@@ -434,39 +533,39 @@
         const q = [0, 0], z = Float64Array.from(P.sim.init);
         this.equilibria.forEach(function (e) {
           z[a0] = e.x[0]; z[a1] = e.x[1]; cam.project(z, q);
-          ctx.lineWidth = 2; ctx.strokeStyle = th.ink; ctx.fillStyle = th.ink;
-          ctx.beginPath(); ctx.arc(q[0], q[1], 5.5, 0, 7);
-          if (e.stable) ctx.fill();
-          else if (/saddle/.test(e.type)) { ctx.fillStyle = P.palette[0]; ctx.fill(); ctx.stroke(); }
-          else { ctx.fillStyle = th.dark ? "#0b0620" : "#ffffff"; ctx.fill(); ctx.stroke(); }
+          const sty = equilibriumStyle(P, e);
+          ctx.lineWidth = 2; ctx.strokeStyle = sty.stroke; ctx.fillStyle = sty.fill;
+          ctx.beginPath(); ctx.arc(q[0], q[1], 5.5, 0, 7); ctx.fill(); if (!e.stable) ctx.stroke();
         });
       }
     },
     frame: function (P) {
-      const sys = P.sys, dim = sys.vars.length, h = P.sim.h, cam = P.cam, st = P.scene.style;
+      const sys = P.sys, cam = P.cam, st = P.scene.style, a0 = cam.axes[0], a1 = cam.axes[1];
       if (sys.usesTime || P.sim.perturbations.some(function (q) { return q.enabled !== false && DF.PARAM_PERTURBATIONS.indexOf(q.kind) >= 0; })) {
         if ((P.frameCount % 20) === 0) P.redrawStatic();
       }
-      for (let s = 0; s < P.scene.stepsPerFrame; s++) P.sim.step();
-      const rk = this.rk || (this.rk = DF.makeRK4(dim)), q = [0, 0], tt = P.sim.t;
-      const maxPts = P.scene.view.tail || 1500;
-      const self = this;
+      for (let s = 0; s < P.spf; s++) P.sim.step();
+      const every = this.spec.every, maxPts = 2 * this.spec.len;
       this.trails.forEach(function (tr) {
-        for (let s = 0; s < P.scene.stepsPerFrame; s++) {
-          if (sys.time === "discrete") { sys.f(tt, tr.x, P.sim.p, P.tmpDx); tr.x.set(P.tmpDx); }
-          else rk(sys.f, tt, tr.x, P.sim.p, h, function (i) { return tr.x[i]; });
-          if (!tr.x.every(isFinite) || outOfView(P, tr.x)) { tr.dead = true; break; }
-          cam.project(tr.x, q); tr.pts.push(q[0], q[1]);
+        if (tr.dead) return;
+        tr.sim.base.set(P.sim.base); tr.sim.updateParams();
+        const x = tr.sim.X;
+        if (!tr.pts.length) tr.pts.push(x[a0], x[a1]);
+        for (let s = 0; s < P.spf; s++) {
+          tr.sim.step();
+          if (!tr.sim.alive[0] || outOfView(P, x)) { tr.dead = true; break; }
+          if (++tr.k % every === 0) tr.pts.push(x[a0], x[a1]);
         }
-        if (tr.pts.length > 2 * maxPts) tr.pts.splice(0, tr.pts.length - 2 * maxPts);
+        if (tr.pts.length > maxPts) tr.pts.splice(0, tr.pts.length - maxPts);
       });
       this.trails = this.trails.filter(function (tr) { return !tr.dead || tr.pts.length > 2; });
       const ctx = P.ctx.top; ctx.clearRect(0, 0, P.w, P.h);
       ctx.save();
       if (this.frameBox) { const f = this.frameBox; ctx.beginPath(); ctx.rect(f.L, f.T, f.R - f.L, f.B - f.T); ctx.clip(); }
+      const self = this;
       this.trails.forEach(function (tr, k) {
         const col = P.palette[(st.colorBy === "member" ? k : 0) % P.palette.length];
-        const pts = tr.pts, m = pts.length / 2;
+        const pts = self.screen(P, tr), m = pts.length / 2;
         if (m < 2) return;
         ctx.strokeStyle = col; ctx.lineWidth = st.lineWidth; ctx.lineJoin = "round";
         const G = 10;
@@ -482,7 +581,12 @@
         if (!tr.dead) { ctx.beginPath(); ctx.arc(pts[pts.length - 2], pts[pts.length - 1], 3.5, 0, 7); ctx.fill(); }
       });
       ctx.restore();
-      self.lastTrails = this.trails;
+    },
+    // Screen points of a trail, which is stored in state coordinates.
+    screen: function (P, tr) {
+      const cam = P.cam, z = Float64Array.from(P.sim.init), q = [0, 0], a0 = cam.axes[0], a1 = cam.axes[1], out = new Array(tr.pts.length);
+      for (let i = 0; i < tr.pts.length; i += 2) { z[a0] = tr.pts[i]; z[a1] = tr.pts[i + 1]; cam.project(z, q); out[i] = q[0]; out[i + 1] = q[1]; }
+      return out;
     },
     pointer: function (P, kind, px, py) {
       if (kind !== "down") return false;
@@ -491,33 +595,42 @@
       this.addTrail(P, s);
       return true;
     },
+    onParam: function (P) { P.markStatic(); },
     legend: function (P) {
       const L = [["stable", P.theme.ink, "dot"], ["saddle", P.palette[0], "dot"], ["unstable", P.theme.ink, "ring"]];
       if (P.scene.view.nullclines !== false) L.unshift([P.sys.vars[P.cam.axes[0]] + "-nullcline", P.palette[1 % P.palette.length], "line"], [P.sys.vars[P.cam.axes[1]] + "-nullcline", P.palette[2 % P.palette.length], "dash"]);
       return L;
     },
     svg: function (P) {
-      let out = "";
-      (this.nullSegs || []).forEach(function (nc) {
-        let d = "";
-        for (let i = 0; i < nc.pts.length; i += 4) d += "M" + nc.pts[i].toFixed(1) + " " + nc.pts[i + 1].toFixed(1) + "L" + nc.pts[i + 2].toFixed(1) + " " + nc.pts[i + 3].toFixed(1);
-        out += '<path d="' + d + '" fill="none" stroke="' + nc.color + '" stroke-width="1.6"' + (nc.dash ? ' stroke-dasharray="' + nc.dash + '"' : "") + "/>";
+      const cam = P.cam, st = P.scene.style, f = this.frameBox, self = this;
+      let out = DF.axesSVG(cam, st.theme, [P.sys.vars[cam.axes[0]], P.sys.vars[cam.axes[1]]]);
+      if (!f) return out;
+      out += clipOpen("phase-clip", f);
+      (this.arrows || []).forEach(function (a) { out += '<path d="' + a.d + '" fill="none" stroke="' + a.c + '" stroke-width="1"/>'; });
+      (this.nullLines || []).forEach(function (nc) { out += polyline(nc.pts, nc.color, 1.6, 0.9, nc.dash); });
+      this.trails.forEach(function (tr, k) {
+        const col = P.palette[(st.colorBy === "member" ? k : 0) % P.palette.length], pts = self.screen(P, tr), m = pts.length / 2, G = 10;
+        for (let g = 0; g < G; g++) {
+          const a = Math.floor(g * (m - 1) / G), b = Math.floor((g + 1) * (m - 1) / G);
+          if (b > a) out += polyline(pts.slice(2 * a, 2 * b + 2), col, st.lineWidth, st.alpha * (0.15 + 0.85 * (g + 1) / G));
+        }
+        if (!tr.dead && m >= 1) out += '<circle cx="' + f1(pts[pts.length - 2]) + '" cy="' + f1(pts[pts.length - 1]) + '" r="3.5" fill="' + col + '"/>';
       });
-      (this.trails || []).forEach(function (tr, k) { out += polyline(tr.pts, P.palette[0], P.scene.style.lineWidth, P.scene.style.alpha); });
-      const q = [0, 0], z = Float64Array.from(P.sim.init), th = P.theme;
+      out += "</g>";
+      const q = [0, 0], z = Float64Array.from(P.sim.init);
       (this.equilibria || []).forEach(function (e) {
-        z[P.cam.axes[0]] = e.x[0]; z[P.cam.axes[1]] = e.x[1]; P.cam.project(z, q);
-        out += '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="5.5" fill="' + (e.stable ? th.ink : "none") + '" stroke="' + th.ink + '" stroke-width="2"/>';
+        z[cam.axes[0]] = e.x[0]; z[cam.axes[1]] = e.x[1]; cam.project(z, q);
+        const sty = equilibriumStyle(P, e);
+        out += '<circle cx="' + f1(q[0]) + '" cy="' + f1(q[1]) + '" r="5.5" fill="' + sty.fill + '"' + (e.stable ? "" : ' stroke="' + sty.stroke + '" stroke-width="2"') + "/>";
       });
       return out;
     }
   };
 
   // ------------------------------------------------------------ sweep
-  /* Branches of equilibria (or fixed points) against one parameter, found
-     by Newton iteration at each of `cols` parameter values, then a single
-     state driven by a slow triangular sweep of that parameter. */
-  function branches(P, pi, vi, from, to, cols) {
+  /* Fallback when continuation finds no branch: equilibria found by Newton
+     iteration at each of `cols` parameter values, drawn as points. */
+  function scanBranches(P, pi, vi, from, to, cols) {
     const sys = P.sys, p = Float64Array.from(P.sim.base), pts = [];
     const box = P.fullRanges.map(function (r) { return r.slice(); });
     let prev = [];
@@ -530,6 +643,7 @@
     }
     return pts;
   }
+  const POINT_LABEL = { fold: "fold", hopf: "Hopf", branch: "branch point", flip: "period doubling", torus: "torus" };
 
   V.sweep = {
     label: "Parameter sweep (hysteresis)",
@@ -543,55 +657,100 @@
       this.pval = this.from; this.dir = 1; this.trail = [];
       this.cam = new DF.Camera([0, 1], [[this.from, this.to], P.fullRanges[this.vi]], { pad: 0.04 });
       this.cam.resize(P.w, P.h, P.inset);
-      this.branchPts = null;
+      this.data = null;
+      P.sim.base[this.pi] = this.pval; P.sim.updateParams();
+    },
+    // Branches as runs of equal stability, in data coordinates [p, x, p, x, ...].
+    compute: function (P) {
+      const sys = P.sys, pi = this.pi, vi = this.vi;
+      let res = null;
+      try { res = DF.continueBranches(sys, Float64Array.from(P.sim.base), pi, this.from, this.to, P.fullRanges.map(function (r) { return r.slice(); })); } catch (e) { res = null; }
+      const runs = [];
+      if (res) res.branches.forEach(function (br) {
+        let cur = null;
+        br.forEach(function (q) {
+          if (!cur || cur.stable !== q.stable) {
+            const last = cur ? cur.pts.slice(-2) : null;
+            cur = { stable: q.stable, pts: last ? last : [] };
+            runs.push(cur);
+          }
+          cur.pts.push(q.p, q.x[vi]);
+        });
+      });
+      if (!runs.length) return { runs: [], points: [], dots: scanBranches(P, pi, vi, this.from, this.to, 200) };
+      return { runs: runs, points: res.points.map(function (q) { return { kind: q.kind, p: q.p, v: q.x[vi] }; }), dots: null };
     },
     drawStatic: function (P) {
       this.cam.resize(P.w, P.h, P.inset);
-      const ctx = P.ctx.base, cam = this.cam, th = P.theme;
-      const f = DF.drawAxes(ctx, cam, P.scene.style.theme, [P.sys.params[this.pi].name, P.sys.vars[this.vi]], { grid: false });
+      const ctx = P.ctx.base, cam = this.cam, th = P.theme, pname = P.sys.params[this.pi].name;
+      const f = DF.drawAxes(ctx, cam, P.scene.style.theme, [pname, P.sys.vars[this.vi]], { grid: false });
       this.frameBox = f;
       if (P.scene.view.branches === false) return;
-      if (!this.branchPts) this.branchPts = branches(P, this.pi, this.vi, this.from, this.to, Math.min(400, Math.round((f.R - f.L) / 2)));
+      if (!this.data) this.data = this.compute(P);
       const q = [0, 0], x = [0, 0];
       ctx.save(); ctx.beginPath(); ctx.rect(f.L, f.T, f.R - f.L, f.B - f.T); ctx.clip();
-      this.branchPts.forEach(function (b) {
+      ctx.lineJoin = "round"; ctx.lineCap = "round";
+      this.data.runs.forEach(function (run) {
+        ctx.strokeStyle = run.stable ? th.ink : th.muted; ctx.lineWidth = run.stable ? 2.2 : 1.6; ctx.setLineDash(run.stable ? [] : [6, 5]);
+        ctx.beginPath();
+        for (let i = 0; i < run.pts.length; i += 2) { x[0] = run.pts[i]; x[1] = run.pts[i + 1]; cam.project(x, q); if (i) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]); }
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+      (this.data.dots || []).forEach(function (b) {
         x[0] = b.p; x[1] = b.v; cam.project(x, q);
-        ctx.fillStyle = b.stable ? th.ink : th.muted;
-        const r = b.stable ? 1.7 : 1.1;
-        if (b.stable) { ctx.beginPath(); ctx.arc(q[0], q[1], r, 0, 7); ctx.fill(); }
-        else { ctx.globalAlpha = 0.8; ctx.fillRect(q[0] - r, q[1] - r, 2 * r, 2 * r); ctx.globalAlpha = 1; }
+        ctx.fillStyle = b.stable ? th.ink : th.muted; ctx.beginPath(); ctx.arc(q[0], q[1], b.stable ? 1.7 : 1.1, 0, 7); ctx.fill();
       });
       ctx.restore();
+      ctx.font = "10.5px Jost, system-ui, sans-serif"; ctx.textBaseline = "middle";
+      this.data.points.forEach(function (sp) {
+        x[0] = sp.p; x[1] = sp.v; cam.project(x, q);
+        if (q[0] < f.L - 1 || q[0] > f.R + 1 || q[1] < f.T - 1 || q[1] > f.B + 1) return;
+        ctx.lineWidth = 1.6; ctx.strokeStyle = th.ink; ctx.fillStyle = th.dark ? "#0b0620" : "#ffffff";
+        ctx.beginPath(); ctx.arc(q[0], q[1], 4.5, 0, 7); ctx.fill(); ctx.stroke();
+        const right = q[0] < (f.L + f.R) / 2;
+        ctx.fillStyle = th.muted; ctx.textAlign = right ? "left" : "right";
+        ctx.fillText(POINT_LABEL[sp.kind] + ", " + pname + " = " + DF.fmt(sp.p), q[0] + (right ? 9 : -9), q[1]);
+      });
     },
     frame: function (P) {
-      const v = P.scene.view, sim = P.sim;
+      const sim = P.sim, span = this.to - this.from, h = sim.h;
       if (!P.userParam) {
-        const speed = (v.speed || 0.0006) * (this.to - this.from);
-        this.pval += this.dir * speed;
-        if (this.pval > this.to) { this.pval = this.to; this.dir = -1; }
-        if (this.pval < this.from) { this.pval = this.from; this.dir = 1; }
-        sim.base[this.pi] = this.pval; sim.updateParams();
-        P.emit("param", { name: P.sys.params[this.pi].name, value: this.pval });
-      } else this.pval = sim.base[this.pi];
-      for (let s = 0; s < P.scene.stepsPerFrame; s++) sim.step();
+        // The parameter moves by speed x span per unit of model time, a little at every step.
+        const dp = P.sweepSpeed * span * (P.sys.time === "discrete" ? 1 : h);
+        for (let s = 0; s < P.spf; s++) {
+          this.pval += this.dir * dp;
+          if (this.pval > this.to) { this.pval = this.to; this.dir = -1; }
+          if (this.pval < this.from) { this.pval = this.from; this.dir = 1; }
+          sim.base[this.pi] = this.pval; sim.updateParams();
+          sim.step();
+        }
+        if (P.spf) P.emit("param", { name: P.sys.params[this.pi].name, value: this.pval });
+      } else {
+        this.pval = sim.base[this.pi];
+        for (let s = 0; s < P.spf; s++) sim.step();
+      }
       if (!sim.alive[0]) sim.setMember(0, sim.init);
-      const q = [0, 0];
-      this.cam.project([this.pval, sim.X[this.vi]], q);
-      this.trail.push(q[0], q[1]);
-      if (this.trail.length > 2 * (v.tail || 1400)) this.trail.splice(0, 2);
-      const ctx = P.ctx.top, st = P.scene.style;
+      if (P.spf || !this.trail.length) {
+        this.trail.push(this.pval, sim.X[this.vi]);
+        if (this.trail.length > 2 * (P.scene.view.tail || 1400)) this.trail.splice(0, 2);
+      }
+      const ctx = P.ctx.top, st = P.scene.style, q = [0, 0], x = [0, 0], cam = this.cam;
       ctx.clearRect(0, 0, P.w, P.h);
       ctx.save(); if (this.frameBox) { const f = this.frameBox; ctx.beginPath(); ctx.rect(f.L, f.T, f.R - f.L, f.B - f.T); ctx.clip(); }
-      const m = this.trail.length / 2, G = 16;
-      ctx.strokeStyle = P.palette[1 % P.palette.length]; ctx.lineWidth = st.lineWidth;
+      const pts = [];
+      for (let i = 0; i < this.trail.length; i += 2) { x[0] = this.trail[i]; x[1] = this.trail[i + 1]; cam.project(x, q); pts.push(q[0], q[1]); }
+      const m = pts.length / 2, G = 16;
+      ctx.strokeStyle = P.palette[1 % P.palette.length]; ctx.lineWidth = st.lineWidth; ctx.lineJoin = "round";
       for (let g = 0; g < G; g++) {
         const a = Math.floor(g * (m - 1) / G), b = Math.floor((g + 1) * (m - 1) / G);
         if (b <= a) continue;
         ctx.globalAlpha = st.alpha * (0.1 + 0.9 * (g + 1) / G);
-        ctx.beginPath(); ctx.moveTo(this.trail[2 * a], this.trail[2 * a + 1]);
-        for (let j = a + 1; j <= b; j++) ctx.lineTo(this.trail[2 * j], this.trail[2 * j + 1]);
+        ctx.beginPath(); ctx.moveTo(pts[2 * a], pts[2 * a + 1]);
+        for (let j = a + 1; j <= b; j++) ctx.lineTo(pts[2 * j], pts[2 * j + 1]);
         ctx.stroke();
       }
+      x[0] = this.pval; x[1] = sim.X[this.vi]; cam.project(x, q);
       ctx.globalAlpha = 1; ctx.fillStyle = P.palette[0];
       ctx.beginPath(); ctx.arc(q[0], q[1], 6, 0, 7); ctx.fill();
       // Parameter marker on the axis.
@@ -605,12 +764,36 @@
       P.emit("param", { name: P.sys.params[this.pi].name, value: P.sim.base[this.pi] });
       return true;
     },
-    legend: function (P) { return [["stable branch", P.theme.ink, "dot"], ["unstable branch", P.theme.muted, "dot"], ["state under the sweep", P.palette[1 % P.palette.length], "line"]]; },
+    // Moving the swept parameter by hand stops the sweep; any other parameter changes the branches.
+    onParam: function (P, i) {
+      if (i === this.pi) { P.userParam = true; return; }
+      this.data = null; P.markStatic();
+    },
+    legend: function (P) {
+      const L = [["stable branch", P.theme.ink, "line"], ["unstable branch", P.theme.muted, "dash"]];
+      if (this.data && this.data.points.length) L.push([Array.from(new Set(this.data.points.map(function (q) { return POINT_LABEL[q.kind]; }))).join(", "), P.theme.ink, "ring"]);
+      L.push(["state under the sweep", P.palette[1 % P.palette.length], "line"]);
+      return L;
+    },
     svg: function (P) {
-      let out = "";
-      const q = [0, 0], cam = this.cam, th = P.theme;
-      (this.branchPts || []).forEach(function (b) { cam.project([b.p, b.v], q); out += '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="' + (b.stable ? 1.7 : 1.1) + '" fill="' + (b.stable ? th.ink : th.muted) + '"/>'; });
-      out += polyline(this.trail, P.palette[1 % P.palette.length], P.scene.style.lineWidth, P.scene.style.alpha);
+      const cam = this.cam, th = P.theme, st = P.scene.style, f = this.frameBox, pname = P.sys.params[this.pi].name, q = [0, 0], x = [0, 0];
+      let out = DF.axesSVG(cam, st.theme, [pname, P.sys.vars[this.vi]]);
+      if (!f) return out;
+      const toScreen = function (arr) { const pts = []; for (let i = 0; i < arr.length; i += 2) { x[0] = arr[i]; x[1] = arr[i + 1]; cam.project(x, q); pts.push(q[0], q[1]); } return pts; };
+      out += clipOpen("sweep-clip", f);
+      if (this.data) {
+        this.data.runs.forEach(function (run) { out += polyline(toScreen(run.pts), run.stable ? th.ink : th.muted, run.stable ? 2.2 : 1.6, 1, run.stable ? "" : "6 5"); });
+        (this.data.dots || []).forEach(function (b) { const s = toScreen([b.p, b.v]); out += '<circle cx="' + f1(s[0]) + '" cy="' + f1(s[1]) + '" r="' + (b.stable ? 1.7 : 1.1) + '" fill="' + (b.stable ? th.ink : th.muted) + '"/>'; });
+      }
+      out += polyline(toScreen(this.trail), P.palette[1 % P.palette.length], st.lineWidth, st.alpha);
+      out += "</g>";
+      if (this.data) this.data.points.forEach(function (sp) {
+        const s = toScreen([sp.p, sp.v]);
+        if (s[0] < f.L - 1 || s[0] > f.R + 1 || s[1] < f.T - 1 || s[1] > f.B + 1) return;
+        const right = s[0] < (f.L + f.R) / 2;
+        out += '<circle cx="' + f1(s[0]) + '" cy="' + f1(s[1]) + '" r="4.5" fill="' + (th.dark ? "#0b0620" : "#ffffff") + '" stroke="' + th.ink + '" stroke-width="1.6"/>';
+        out += '<text x="' + f1(s[0] + (right ? 9 : -9)) + '" y="' + f1(s[1] + 3.5) + '" text-anchor="' + (right ? "start" : "end") + '" font-family="Jost, sans-serif" font-size="10.5" fill="' + th.muted + '">' + POINT_LABEL[sp.kind] + ", " + pname + " = " + DF.fmt(sp.p) + "</text>";
+      });
       return out;
     }
   };
@@ -630,6 +813,11 @@
       this.col = 0; this.state = Float64Array.from(P.sim.init); this.points = [];
       this.rk = DF.makeRK4(sys.vars.length);
       this.p = Float64Array.from(P.sim.base);
+      // Delay equations need their history and random maps their draws, so
+      // they run in a simulator; flows and maps without randomness use a
+      // bare integrator, and stochastic equations their drift alone.
+      this.useSim = sys.kind === "dde" || sys.usesRandom;
+      this.runner = null;
     },
     drawStatic: function (P) {
       this.cam.resize(P.w, P.h, P.inset);
@@ -643,25 +831,43 @@
       ctx.globalAlpha = 1;
     },
     frame: function (P) {
-      if (!this.cols || this.col > this.cols) return;
-      const v = P.scene.view, sys = P.sys, dim = sys.vars.length, h = P.sim.h, st = P.scene.style;
-      const transient = v.transient || (sys.time === "discrete" ? 300 : Math.round(200 / h));
-      const samples = v.samples || (sys.time === "discrete" ? 150 : Math.round(400 / h));
-      const ctx = P.ctx.trail, q = [0, 0], budget = performance.now() + (v.budget || 12);
+      if (!this.cols || this.col > this.cols) { this.drawCursor(P); return; }
+      const v = P.scene.view, sys = P.sys, h = P.sim.h, st = P.scene.style, discrete = sys.time === "discrete";
+      const transient = v.transient || (discrete ? 300 : Math.round(200 / h));
+      const samples = v.samples || (discrete ? 150 : Math.round(400 / h));
+      const ctx = P.ctx.trail, q = [0, 0], budget = (typeof performance !== "undefined" ? performance.now() : Date.now()) + (v.budget || 12);
       const x = this.state, tmp = P.tmpDx, H = function (i) { return x[i]; };
+      const clock = function () { return typeof performance !== "undefined" ? performance.now() : Date.now(); };
       ctx.fillStyle = P.palette[0]; ctx.globalAlpha = st.alpha;
-      while (this.col <= this.cols && performance.now() < budget) {
+      while (this.col <= this.cols && clock() < budget) {
         const pv = this.from + (this.to - this.from) * this.col / this.cols;
         this.p[this.pi] = pv;
-        if (v.follow === false || !x.every(isFinite)) x.set(P.sim.init);
-        let t = 0, prev2 = NaN, prev1 = NaN;
-        const adv = function (self) { if (sys.time === "discrete") { sys.f(t, x, self.p, tmp, H); x.set(tmp); t += 1; } else { self.rk(sys.f, t, x, self.p, h, H); t += h; } };
-        for (let s = 0; s < transient; s++) adv(this);
+        let adv, read;
+        // Following the attractor, a state that sits on an equilibrium to the
+        // last bit stays there after the equilibrium turns unstable (with a
+        // constant delay history nothing seeds the oscillation), so each new
+        // column starts from the previous state nudged by one part in 1e6.
+        const kick = function (z) { for (let i = 0; i < z.length; i++) z[i] += 1e-6 * (Math.abs(z[i]) + 1e-6) * (i % 2 ? -1 : 1); };
+        if (this.useSim) {
+          if (!this.runner || v.follow === false || !this.runner.alive[0]) this.runner = new DF.Simulator(sys, { n: 1, dt: h, params: this.p, init: P.sim.init, seed: P.scene.seed + this.col });
+          else { this.runner.base[this.pi] = pv; this.runner.updateParams(); kick(this.runner.X); }
+          const R = this.runner;
+          adv = function () { R.step(); };
+          read = function () { return R.alive[0] ? R.X[this.vi] : NaN; }.bind(this);
+        } else {
+          if (v.follow === false || !x.every(isFinite)) x.set(P.sim.init); else if (this.col) kick(x);
+          let t = 0;
+          const self = this;
+          adv = function () { if (discrete) { sys.f(t, x, self.p, tmp, H); x.set(tmp); t += 1; } else { self.rk(sys.f, t, x, self.p, h, H); t += h; } };
+          read = function () { return x[self.vi]; };
+        }
+        let prev2 = NaN, prev1 = NaN;
+        for (let s = 0; s < transient; s++) adv();
         for (let s = 0; s < samples; s++) {
-          adv(this);
-          const y = x[this.vi];
+          adv();
+          const y = read();
           if (!isFinite(y)) break;
-          if (sys.time === "discrete") { this.points.push(pv, y); this.cam.project([pv, y], q); ctx.fillRect(q[0] - 0.6, q[1] - 0.6, 1.2, 1.2); }
+          if (discrete) { this.points.push(pv, y); this.cam.project([pv, y], q); ctx.fillRect(q[0] - 0.6, q[1] - 0.6, 1.2, 1.2); }
           else if (prev1 > prev2 && prev1 >= y) {
             // Local maximum: vertex of the parabola through the last three samples.
             const den = prev2 - 2 * prev1 + y, peak = den !== 0 ? prev1 - (prev2 - y) * (prev2 - y) / (8 * den) : prev1;
@@ -672,13 +878,20 @@
         this.col++;
       }
       ctx.globalAlpha = 1;
+      this.drawCursor(P);
+    },
+    drawCursor: function (P) {
       const top = P.ctx.top; top.clearRect(0, 0, P.w, P.h);
-      if (this.col <= this.cols && this.frameBox) {
+      if (this.cols && this.col <= this.cols && this.frameBox) {
         const px = this.frameBox.L + (this.frameBox.R - this.frameBox.L) * this.col / this.cols;
         top.strokeStyle = P.palette[1 % P.palette.length]; top.globalAlpha = 0.6; top.beginPath(); top.moveTo(px, this.frameBox.T); top.lineTo(px, this.frameBox.B); top.stroke(); top.globalAlpha = 1;
       }
     },
-    legend: function (P) { return [[P.sys.time === "discrete" ? "iterates after a transient" : "local maxima after a transient", P.palette[0], "dot"]]; }
+    onParam: function (P) { P.restart(); },
+    legend: function (P) {
+      if (P.sys.time === "discrete") return [["iterates after a transient", P.palette[0], "dot"]];
+      return [[P.sys.kind === "sde" ? "local maxima of the drift (noise off) after a transient" : "local maxima after a transient", P.palette[0], "dot"]];
+    }
   };
 
   // ------------------------------------------------------------ density
@@ -691,14 +904,13 @@
       this.vi = Math.max(0, P.sys.vars.indexOf(v.var || P.sys.vars[P.cam.axes[1] === undefined ? 0 : P.cam.axes[1]]));
       if (P.sys.vars.length === 1) this.vi = 0;
       this.grid = null; this.img = null;
-      const warm = v.warmup || 0;
-      for (let s = 0; s < warm * P.scene.stepsPerFrame; s++) P.sim.step();
+      warm(P, v.warmup || 0);
     },
     drawStatic: function (P) {
       const st = P.scene.style;
       if (this.mode === "carpet") {
-        const span = P.scene.view.window || 60;
-        this.cam = new DF.Camera([0, 1], [[-span, 0], P.fullRanges[this.vi]], { pad: 0.0 });
+        this.span = P.scene.view.window || 60;
+        this.cam = new DF.Camera([0, 1], [[-this.span, 0], P.fullRanges[this.vi]], { pad: 0.0 });
         this.cam.resize(P.w, P.h, P.inset);
         this.frameBox = DF.drawAxes(P.ctx.base, this.cam, st.theme, ["t - t now", P.sys.vars[this.vi]], {});
       } else {
@@ -708,35 +920,47 @@
       this.nx = Math.max(10, Math.round((f.R - f.L) / (P.scene.view.cell || 3)));
       this.ny = Math.max(10, Math.round((f.B - f.T) / (P.scene.view.cell || 3)));
       this.grid = new Float32Array(this.nx * this.ny);
+      // A carpet column covers window / nx units of time, so the axis spans the window.
+      this.colDt = (this.span || 1) / this.nx; this.nextCol = P.sim.t + this.colDt;
       if (typeof document !== "undefined") {
         this.off = document.createElement("canvas"); this.off.width = this.nx; this.off.height = this.ny;
         this.octx = this.off.getContext("2d"); this.img = this.octx.createImageData(this.nx, this.ny);
       }
     },
+    column: function (P) {
+      const sim = P.sim, dim = P.sys.vars.length, nx = this.nx, ny = this.ny, g = this.grid, r = P.fullRanges[this.vi];
+      for (let j = 0; j < ny; j++) { g.copyWithin(j * nx, j * nx + 1, j * nx + nx); g[j * nx + nx - 1] = 0; }
+      for (let k = 0; k < sim.n; k++) {
+        const y = sim.X[k * dim + this.vi], j = Math.floor((r[1] - y) / (r[1] - r[0]) * ny);
+        if (j >= 0 && j < ny) g[j * nx + nx - 1] += 1;
+      }
+      let mx = 0; for (let j = 0; j < ny; j++) mx = Math.max(mx, g[j * nx + nx - 1]);
+      for (let j = 0; j < ny; j++) g[j * nx + nx - 1] /= (mx || 1);
+    },
     frame: function (P) {
       const sim = P.sim, dim = P.sys.vars.length, v = P.scene.view, st = P.scene.style;
-      for (let s = 0; s < P.scene.stepsPerFrame; s++) sim.step();
-      for (let k = 0; k < sim.n; k++) if (!sim.alive[k]) sim.setMember(k, spawnState(P, new Float64Array(dim)));
+      const respawn = function () { for (let k = 0; k < sim.n; k++) if (!sim.alive[k]) sim.setMember(k, spawnState(P, new Float64Array(dim))); };
+      if (this.mode === "carpet" && this.grid) {
+        for (let s = 0; s < P.spf; s++) {
+          sim.step();
+          for (let c = 0; sim.t >= this.nextCol && c < this.nx; c++) { this.column(P); this.nextCol += this.colDt; }
+          if (sim.t >= this.nextCol) this.nextCol = sim.t + this.colDt;
+        }
+        respawn();
+      } else {
+        for (let s = 0; s < P.spf; s++) sim.step();
+        respawn();
+      }
       if (!this.grid || !this.img) return;
       const nx = this.nx, ny = this.ny, g = this.grid;
-      if (this.mode === "carpet") {
-        // shift one column left per `shiftEvery` frames, fill the last column
-        const r = P.fullRanges[this.vi];
-        for (let j = 0; j < ny; j++) { for (let i = 0; i < nx - 1; i++) g[j * nx + i] = g[j * nx + i + 1]; g[j * nx + nx - 1] = 0; }
-        for (let k = 0; k < sim.n; k++) {
-          const y = sim.X[k * dim + this.vi], j = Math.floor((r[1] - y) / (r[1] - r[0]) * ny);
-          if (j >= 0 && j < ny) g[j * nx + nx - 1] += 1;
-        }
-        let mx = 0; for (let j = 0; j < ny; j++) mx = Math.max(mx, g[j * nx + nx - 1]);
-        for (let j = 0; j < ny; j++) g[j * nx + nx - 1] /= (mx || 1);
-      } else {
-        const decay = v.decay === undefined ? 0.85 : v.decay;
+      if (this.mode !== "carpet") {
+        const decay = Math.pow(v.decay === undefined ? 0.85 : v.decay, frames(P));
         for (let i = 0; i < g.length; i++) g[i] *= decay;
         const cam = P.cam, a0 = cam.axes[0], a1 = cam.axes[1], R0 = cam.ranges[0], R1 = cam.ranges[1];
         for (let k = 0; k < sim.n; k++) {
           const u = (sim.X[k * dim + a0] - R0[0]) / (R0[1] - R0[0]), w = (R1[1] - sim.X[k * dim + a1]) / (R1[1] - R1[0]);
           const i = Math.floor(u * nx), j = Math.floor(w * ny);
-          if (i >= 0 && i < nx && j >= 0 && j < ny) g[j * nx + i] += 1;
+          if (i >= 0 && i < nx && j >= 0 && j < ny) g[j * nx + i] += frames(P);
         }
       }
       let mx = 0; for (let i = 0; i < g.length; i++) mx = Math.max(mx, g[i]);
@@ -760,11 +984,11 @@
     axes: true,
     init: function (P) {
       const v = P.scene.view;
-      const per = P.sim.perturbations.find(function (q) { return q.kind === "periodic" && q.enabled !== false; });
-      this.period = v.period || (per ? per.period : 2 * Math.PI);
-      this.next = (v.phase || 0) * this.period;
-      while (this.next <= P.sim.t) this.next += this.period;
-      this.prevSide = null; this.prev = null;
+      this.period = P.strobePeriod();
+      // The Player chose h = T / N, so the state is sampled every N steps, at t = k T exactly.
+      this.N = Math.max(1, Math.round(this.period / (P.sys.time === "discrete" ? 1 : P.sim.h)));
+      this.offset = Math.round((((v.phase || 0) % 1) + 1) % 1 * this.N);
+      this.prev = null;
       this.count = 0; this.transient = v.transient === undefined ? 20 : v.transient;
       this.points = [];
     },
@@ -780,9 +1004,10 @@
       const a0 = P.cam.axes[0], a1 = P.cam.axes[1];
       if (st.fade > 0) P.fade(st.fade);
       ctx.fillStyle = P.palette[0]; ctx.globalAlpha = st.alpha; ctx.globalCompositeOperation = P.theme.blend;
-      const plot = (function (self) { return function (x) { self.points.push(x[a0], x[a1]); if (self.points.length > 400000) self.points.splice(0, 2); P.cam.project(x, q); ctx.fillRect(q[0] - st.pointSize / 2, q[1] - st.pointSize / 2, st.pointSize, st.pointSize); }; })(this);
+      const self = this;
+      const plot = function (x) { self.points.push(x[a0], x[a1]); if (self.points.length > 400000) self.points.splice(0, 2); P.cam.project(x, q); ctx.fillRect(q[0] - st.pointSize / 2, q[1] - st.pointSize / 2, st.pointSize, st.pointSize); };
       const x = P.tmpX;
-      for (let s = 0; s < P.scene.stepsPerFrame; s++) {
+      for (let s = 0; s < P.spf; s++) {
         if (v.mode === "section") {
           const si = Math.max(0, P.sys.vars.indexOf(v.sectionVar || P.sys.vars[dim - 1])), c = v.sectionValue || 0;
           if (!this.prev) this.prev = Float64Array.from(sim.X);
@@ -798,15 +1023,16 @@
           }
         } else {
           sim.step();
-          if (sim.t + 1e-12 >= this.next) {
+          if ((sim.steps - this.offset) % this.N === 0) {
             this.count++;
             if (this.count > this.transient) for (let k = 0; k < sim.n; k++) { if (sim.alive[k]) plot(sim.member(k, x)); }
-            this.next += this.period;
           }
         }
       }
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
     },
+    // Points sampled under another parameter belong to another attractor.
+    onParam: function (P) { this.points = []; this.count = 0; P.clearTrail(); },
     legend: function (P) { return [[P.scene.view.mode === "section" ? "upward crossings of the section" : "state at t = t0 + kT, T = " + DF.fmt(this.period), P.palette[0], "dot"]]; }
   };
 
@@ -815,40 +1041,43 @@
     label: "Cobweb (1D maps)",
     axes: true,
     init: function (P) {
-      this.x = P.sim.init[0]; this.path = []; this.vi = 0;
+      this.x = P.sim.init[0]; this.path = []; this.vi = 0; this.n = 0;
       const r = P.fullRanges[0];
       this.cam = new DF.Camera([0, 1], [r, r], { pad: 0.03 });
       this.cam.resize(P.w, P.h, P.inset);
     },
+    curve: function (P) {
+      const r = this.cam.ranges[0], out = new Float64Array(P.sys.vars.length), x = Float64Array.from(P.sim.init), pts = [];
+      for (let i = 0; i <= 600; i++) { x[0] = r[0] + (r[1] - r[0]) * i / 600; P.sys.f(this.n, x, P.sim.p, out); pts.push(x[0], out[0]); }
+      return pts;
+    },
     drawStatic: function (P) {
       this.cam.resize(P.w, P.h, P.inset);
       const ctx = P.ctx.base, cam = this.cam, th = P.theme, v = P.sys.vars[0];
-      const f = DF.drawAxes(ctx, cam, P.scene.style.theme, [v + "ₙ", v + "ₙ₊₁"], {});
+      const f = DF.drawAxes(ctx, cam, P.scene.style.theme, [v + "\u2099", v + "\u2099\u208a\u2081"], {});
       this.frameBox = f;
-      const r = cam.ranges[0], q = [0, 0], out = new Float64Array(P.sys.vars.length), x = Float64Array.from(P.sim.init);
+      const r = cam.ranges[0], q = [0, 0], c = this.curve(P);
       ctx.save(); ctx.beginPath(); ctx.rect(f.L, f.T, f.R - f.L, f.B - f.T); ctx.clip();
       ctx.strokeStyle = th.muted; ctx.lineWidth = 1; ctx.setLineDash([4, 4]);
       cam.project([r[0], r[0]], q); ctx.beginPath(); ctx.moveTo(q[0], q[1]); cam.project([r[1], r[1]], q); ctx.lineTo(q[0], q[1]); ctx.stroke();
       ctx.setLineDash([]); ctx.strokeStyle = P.palette[2 % P.palette.length]; ctx.lineWidth = 2; ctx.beginPath();
-      for (let i = 0; i <= 600; i++) {
-        x[0] = r[0] + (r[1] - r[0]) * i / 600; P.sys.f(P.sim.t, x, P.sim.p, out);
-        cam.project([x[0], out[0]], q); if (i) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
-      }
+      for (let i = 0; i < c.length; i += 2) { cam.project([c[i], c[i + 1]], q); if (i) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]); }
       ctx.stroke(); ctx.restore();
     },
     frame: function (P) {
-      const every = Math.max(1, Math.round(8 / Math.max(1, P.scene.stepsPerFrame)));
-      if ((P.frameCount % every) !== 0) return;
       const out = P.tmpDx, x = P.tmpX;
-      x[0] = this.x; P.sys.f(P.sim.t, x, P.sim.p, out);
-      const y = out[0];
-      if (!isFinite(y)) { this.x = P.sim.init[0]; this.path = []; return; }
-      if (!this.path.length) this.path.push(this.x, this.cam.ranges[1][0] < 0 && this.cam.ranges[1][1] > 0 ? 0 : this.cam.ranges[1][0]);
-      this.path.push(this.x, y, y, y);
-      if (this.path.length > 2 * (P.scene.view.tail || 120)) this.path.splice(0, 4);
-      this.x = y; P.sim.t += 1;
+      for (let s = 0; s < P.spf; s++) {
+        x[0] = this.x; P.sys.f(this.n, x, P.sim.p, out);
+        const y = out[0];
+        if (!isFinite(y)) { this.x = P.sim.init[0]; this.path = []; continue; }
+        if (!this.path.length) this.path.push(this.x, this.cam.ranges[1][0] < 0 && this.cam.ranges[1][1] > 0 ? 0 : this.cam.ranges[1][0]);
+        this.path.push(this.x, y, y, y);
+        if (this.path.length > 2 * (P.scene.view.tail || 120)) this.path.splice(0, 4);
+        this.x = y; this.n += 1;
+      }
       const ctx = P.ctx.top, st = P.scene.style, q = [0, 0];
       ctx.clearRect(0, 0, P.w, P.h);
+      if (!this.frameBox) return;
       ctx.save(); const f = this.frameBox; ctx.beginPath(); ctx.rect(f.L, f.T, f.R - f.L, f.B - f.T); ctx.clip();
       const m = this.path.length / 2;
       ctx.strokeStyle = P.palette[0]; ctx.lineWidth = st.lineWidth;
@@ -857,13 +1086,26 @@
         ctx.beginPath(); this.cam.project([this.path[2 * j - 2], this.path[2 * j - 1]], q); ctx.moveTo(q[0], q[1]);
         this.cam.project([this.path[2 * j], this.path[2 * j + 1]], q); ctx.lineTo(q[0], q[1]); ctx.stroke();
       }
-      ctx.globalAlpha = 1; ctx.fillStyle = P.palette[0]; ctx.beginPath(); ctx.arc(q[0], q[1], 4, 0, 7); ctx.fill();
+      if (m) { ctx.globalAlpha = 1; ctx.fillStyle = P.palette[0]; ctx.beginPath(); ctx.arc(q[0], q[1], 4, 0, 7); ctx.fill(); }
       ctx.restore();
     },
     pointer: function (P, kind, px, py) {
       if (kind !== "down") return false;
       this.x = this.cam.unproject(px, py)[0]; this.path = [];
       return true;
+    },
+    onParam: function (P) { P.markStatic(); },
+    svg: function (P) {
+      const cam = this.cam, th = P.theme, st = P.scene.style, f = this.frameBox, v = P.sys.vars[0], r = cam.ranges[0], q = [0, 0];
+      let out = DF.axesSVG(cam, st.theme, [v + "\u2099", v + "\u2099\u208a\u2081"]);
+      if (!f) return out;
+      const toScreen = function (arr) { const pts = []; for (let i = 0; i < arr.length; i += 2) { cam.project([arr[i], arr[i + 1]], q); pts.push(q[0], q[1]); } return pts; };
+      out += clipOpen("cobweb-clip", f);
+      out += polyline(toScreen([r[0], r[0], r[1], r[1]]), th.muted, 1, 1, "4 4");
+      out += polyline(toScreen(this.curve(P)), P.palette[2 % P.palette.length], 2, 1);
+      const pts = toScreen(this.path), m = pts.length / 2;
+      for (let j = 1; j < m; j++) out += polyline(pts.slice(2 * j - 2, 2 * j + 2), P.palette[0], st.lineWidth, st.alpha * (0.1 + 0.9 * j / m));
+      return out + "</g>";
     }
   };
 
@@ -882,4 +1124,5 @@
   DF.VIEWS = V;
   DF.viewsFor = viewsFor;
   DF.contour = contour;
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+  DF.stitchContour = stitch;
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

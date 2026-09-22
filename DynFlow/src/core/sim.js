@@ -47,6 +47,18 @@
     for (let i = 0; i < this.dim; i++) { this.X[j * this.dim + i] = x[i]; this.D[j * this.dim + i] = dx[i]; }
     this.head = (j + 1) % this.cap; this.len = Math.min(this.len + 1, this.cap);
   };
+  // Enlarge the buffer to newCap points, keeping every stored point in order.
+  History.prototype.grow = function (newCap) {
+    if (newCap <= this.cap) return;
+    const dim = this.dim, T = new Float64Array(newCap), X = new Float64Array(newCap * dim), D = new Float64Array(newCap * dim);
+    const oldest = (this.head - this.len + this.cap) % this.cap;
+    for (let q = 0; q < this.len; q++) {
+      const j = (oldest + q) % this.cap;
+      T[q] = this.T[j];
+      for (let i = 0; i < dim; i++) { X[q * dim + i] = this.X[j * dim + i]; D[q * dim + i] = this.D[j * dim + i]; }
+    }
+    this.T = T; this.X = X; this.D = D; this.cap = newCap; this.head = this.len % newCap;
+  };
   History.prototype.at = function (i, s) {
     if (s <= this.t0 || this.len === 0) return this.x0[i];
     const cap = this.cap, dim = this.dim;
@@ -79,6 +91,8 @@
        jumps          at rate lambda, x += size, or x *= (1 - frac)
        pulse          every T time units, x += size, or x *= (1 - frac)  */
   const PARAM_KINDS = { periodic: 1, quasiperiodic: 1, ramp: 1, step: 1, ou: 1 };
+  // Memory for the delay histories of one ensemble, in stored points times members times variables.
+  const HISTORY_BUDGET = 4e6;
 
   function Simulator(system, opts) {
     opts = opts || {};
@@ -95,7 +109,12 @@
     this.spread = opts.spread === undefined ? 0.05 : opts.spread;
     this.box = opts.box || null;
     this.keepPositive = !!opts.keepPositive;
-    this.maxHistory = opts.maxHistory || 20000;
+    // Deterministic skeleton: drift only, no state noise and no parameter noise
+    // (the orbits of the phase plane and the bifurcation diagram of an SDE).
+    this.deterministic = !!opts.deterministic;
+    this.t0 = opts.t0 || 0;
+    this.maxHistory = opts.maxHistory || Math.max(64, Math.min(200000, Math.floor(HISTORY_BUDGET / (this.n * this.dim))));
+    this.historyClamped = false;
     this.reset();
   }
 
@@ -105,23 +124,54 @@
     this.rng = new DF.RNG(this.seed);
     const rng = this.rng;
     this.R = { u: function () { return rng.uniform(); }, n: function () { return rng.normal(); }, U: new Float64Array(8), N: new Float64Array(8) };
-    this.t = 0; this.steps = 0;
+    // Time is t0 + steps h, computed from an integer count so that it does not
+    // drift through rounding: t equals k T exactly when T is a multiple of h.
+    this.t = this.t0; this.steps = 0;
     this.X = new Float64Array(n * dim);
     this.alive = new Uint8Array(n).fill(1);
     for (let k = 0; k < n; k++) this.initMember(k);
     this.rk4 = makeRK4(dim);
     this.dx = new Float64Array(dim); this.gx = new Float64Array(dim); this.xk = new Float64Array(dim);
-    this.eta = new Float64Array(this.perturbations.length);         // common OU states
-    this.etaK = new Float64Array(this.perturbations.length * n);    // per-member OU states
+    const np = this.perturbations.length;
+    this.eta = new Float64Array(np);         // common OU states
+    this.etaK = new Float64Array(np * n);    // per-member OU states
+    this.cDW = new Float64Array(np); this.cJump = new Float64Array(np); this.cStable = new Float64Array(np);
     this.nextPulse = this.perturbations.map(function (q) { return q.kind === "pulse" ? (q.t0 || q.period || 1) : Infinity; });
     this.hist = null;
     this.updateParams();
     if (this.sys.kind === "dde") {
-      const lag = this.sys.maxLag(this.p);
-      const cap = Math.min(this.maxHistory, Math.ceil(lag / this.h) + 8);
+      const cap = this.historyCap(this.lagBound());
       this.hist = [];
       for (let k = 0; k < n; k++) this.hist.push(this.newHistory(k, cap));
     }
+  };
+
+  /* Largest delay the scene can ask for: the delays at the current parameters
+     and with each parameter at either end of its slider range, so that moving
+     a slider does not outrun the stored history. */
+  Simulator.prototype.lagBound = function () {
+    const sys = this.sys, q = Float64Array.from(this.p);
+    let m = sys.maxLag(q);
+    sys.params.forEach(function (par, i) {
+      const keep = q[i];
+      q[i] = par.min; m = Math.max(m, sys.maxLag(q));
+      q[i] = par.max; m = Math.max(m, sys.maxLag(q));
+      q[i] = keep;
+    });
+    return m;
+  };
+  Simulator.prototype.historyCap = function (lag) {
+    const need = isFinite(lag) ? Math.ceil(lag / this.h) + 8 : Infinity;
+    if (need > this.maxHistory) this.historyClamped = true;
+    return Math.min(this.maxHistory, need);
+  };
+  // Grow every member's history when the current delay needs more points.
+  Simulator.prototype.ensureHistory = function () {
+    if (!this.hist || !this.hist.length) return;
+    const cap = this.historyCap(this.sys.maxLag(this.p));
+    if (cap <= this.hist[0].cap) return;
+    const c = Math.min(this.maxHistory, Math.max(cap, Math.ceil(this.hist[0].cap * 1.5)));
+    this.hist.forEach(function (H) { H.grow(c); });
   };
 
   // History of member k starting now, holding the initial point with the
@@ -180,29 +230,34 @@
         case "ou": this.p[i] = b + this.eta[j]; break;
       }
     }
+    if (this.hist) this.ensureHistory();
   };
 
   // Advance the whole ensemble by one step of length h.
   Simulator.prototype.step = function () {
     const sys = this.sys, n = this.n, dim = this.dim, h = this.h, t = this.t, r = this.rng;
-    const X = this.X, p = this.p, pert = this.perturbations;
-    const sqh = Math.sqrt(h);
+    const X = this.X, p = this.p, pert = this.perturbations, det = this.deterministic;
+    const sqh = Math.sqrt(h), discrete = sys.time === "discrete";
+    const tNext = this.t0 + (this.steps + 1) * (discrete ? 1 : h);
     // Common noise increments, drawn once per step for the whole ensemble.
-    if (sys.usesRandom) for (let i = 0; i < 8; i++) { this.R.U[i] = r.uniform(); this.R.N[i] = r.normal(); }
-    const R = this.R;
-    const commonDW = pert.map(function (q) { return q.common && q.enabled !== false ? r.normal() : 0; });
-    const commonJump = pert.map(function (q) { return q.kind === "jumps" && q.common && q.enabled !== false ? r.poisson(q.rate * h) : 0; });
-    const commonStable = pert.map(function (q) { return q.kind === "levy" && q.common && q.enabled !== false ? r.stable(q.alpha || 1.5) : 0; });
+    if (sys.usesRandom && !det) for (let i = 0; i < 8; i++) { this.R.U[i] = r.uniform(); this.R.N[i] = r.normal(); }
+    const R = det ? undefined : this.R;
+    const commonDW = this.cDW, commonJump = this.cJump, commonStable = this.cStable;
+    if (!det) {
+      for (let j = 0; j < pert.length; j++) { const q = pert[j]; commonDW[j] = q.common && q.enabled !== false ? r.normal() : 0; }
+      for (let j = 0; j < pert.length; j++) { const q = pert[j]; commonJump[j] = q.kind === "jumps" && q.common && q.enabled !== false ? r.poisson(q.rate * h) : 0; }
+      for (let j = 0; j < pert.length; j++) { const q = pert[j]; commonStable[j] = q.kind === "levy" && q.common && q.enabled !== false ? r.stable(q.alpha || 1.5) : 0; }
+    }
 
     for (let k = 0; k < n; k++) {
       if (!this.alive[k]) continue;
       const x = X.subarray(k * dim, k * dim + dim);
       const Hk = this.hist ? this.hist[k] : null;
       const H = Hk ? function (i, s) { return Hk.at(i, s); } : undefined;
-      if (sys.time === "discrete") {
+      if (discrete) {
         sys.f(t, x, p, this.dx, H, R);
         x.set(this.dx);
-      } else if (sys.kind === "sde") {
+      } else if (sys.kind === "sde" && !det) {
         sys.f(t, x, p, this.dx, H, R);
         sys.g(t, x, p, this.gx, H, R);
         for (let i = 0; i < dim; i++) x[i] += this.dx[i] * h + (sys.noiseMask[i] ? this.gx[i] * sqh * r.normal() : 0);
@@ -210,7 +265,7 @@
         this.rk4(sys.f, t, x, p, h, H, R);
       }
       // State perturbations; in discrete time h is 1 and dW has variance 1.
-      for (let j = 0; j < pert.length; j++) {
+      for (let j = 0; j < pert.length && !det; j++) {
         const q = pert[j];
         if (q.enabled === false || q.kind in PARAM_KINDS || q.kind === "pulse") continue;
         const i = sys.vars.indexOf(q.var);
@@ -240,12 +295,12 @@
       let ok = true;
       for (let i = 0; i < dim; i++) if (!isFinite(x[i]) || Math.abs(x[i]) > 1e12) { ok = false; break; }
       if (!ok) this.alive[k] = 0;
-      if (Hk && ok) { sys.f(t + h, x, p, this.dx, H); Hk.push(t + h, x, this.dx); }
+      if (Hk && ok) { sys.f(tNext, x, p, this.dx, H); Hk.push(tNext, x, this.dx); }
     }
-    this.t = t + (sys.time === "discrete" ? 1 : h);
     this.steps++;
+    this.t = tNext;
     // Pulses at fixed times act on every member at once.
-    for (let j = 0; j < pert.length; j++) {
+    for (let j = 0; j < pert.length && !det; j++) {
       const q = pert[j];
       if (q.kind !== "pulse" || q.enabled === false) continue;
       const i = sys.vars.indexOf(q.var);
@@ -258,7 +313,7 @@
       }
     }
     // Common Ornstein-Uhlenbeck parameter noise.
-    for (let j = 0; j < pert.length; j++) {
+    for (let j = 0; j < pert.length && !det; j++) {
       const q = pert[j];
       if (q.kind !== "ou" || q.enabled === false) continue;
       const tau = q.tau || 1;
@@ -310,4 +365,4 @@
   DF.largestLyapunov = largestLyapunov;
   DF.PARAM_PERTURBATIONS = Object.keys(PARAM_KINDS);
   DF.STATE_PERTURBATIONS = ["additive", "multiplicative", "coloured", "levy", "jumps", "pulse"];
-})(globalThis.DynFlow = globalThis.DynFlow || {});
+})(globalThis.RElabFlow = globalThis.RElabFlow || {});

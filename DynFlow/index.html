@@ -1,12 +1,12 @@
 <!doctype html>
-<!-- DynFlow studio. SPDX-License-Identifier: GPL-3.0-or-later. Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab. -->
+<!-- RElabFlow studio. SPDX-License-Identifier: GPL-3.0-or-later. Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DynFlow studio</title>
+<title>RElabFlow studio</title>
 <meta name="description" content="Build live figures of dynamical systems for web pages, slides and packages.">
-<link rel="icon" href="vendor/relab-logo.png">
+<link rel="icon" href="vendor/relab-logo-128.png">
 <link rel="stylesheet" href="vendor/fonts/fonts.css">
 <link rel="stylesheet" href="vendor/fonts/pagella.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
@@ -24,8 +24,8 @@
 
 <div class="modal" id="help" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
   <div class="dialog">
-    <h2 id="helpTitle">DynFlow studio</h2>
-    <p>Choose a model from the library or write your own, perturb it, choose a view and a style, and export the result as an image, a film, a standalone page or a live element for web pages and slides. Every scene is a small JSON file that holds its own equations, so it can be reopened here or played anywhere with <code>dynflow.js</code>.</p>
+    <h2 id="helpTitle">RElabFlow studio</h2>
+    <p>Choose a model from the library or write your own, perturb it, choose a view and a style, and export the result as an image, a film, a standalone page or a live element for web pages and slides. Every scene is a small JSON file that holds its own equations, so it can be reopened here or played anywhere with <code>relabflow.js</code>.</p>
     <h4>Keys</h4>
     <p><span class="kbd">Space</span> play or pause, <span class="kbd">R</span> restart, <span class="kbd">S</span> one frame, <span class="kbd">N</span> new random seed, <span class="kbd">F</span> full screen, <span class="kbd">P</span> save a PNG, <span class="kbd">Esc</span> close. On the figure, a click seeds orbits in 2D views and a drag rotates 3D views.</p>
     <h4>Formula language</h4>
@@ -38,21 +38,23 @@ param a = 1 [0, 3]            # value and slider range
 init x = 0.5
 range x = [0, 4]              # axis range</pre>
     <p>Functions: <code>sin cos tan exp log sqrt abs min max pow mod step ifelse clamp hill tanh atan2</code> and others; <code>t</code> is time (or the step for maps); <code>pi</code>, <code>e</code>. Random draws <code>urand()</code> and <code>nrand()</code> are fresh for every member of the ensemble; <code>ucommon(k)</code> and <code>ncommon(k)</code> are shared by the whole ensemble at each step, which turns a map into a random dynamical system.</p>
+    <h4>Playback</h4>
+    <p>A figure plays a fixed amount of model time per second of real time. RElabFlow measures that rate for each model and view, so that a trajectory crosses about one plot width per second, a time series scrolls one window in 10 s and a sweep crosses its interval in 25 s. The Speed control multiplies the rate. Set a rate of your own under Model, Integration; Auto measures it again. When the computer cannot keep up, the readout shows the fraction of real time that the figure keeps.</p>
     <h4>Numerics</h4>
-    <p>Differential equations use the classical fourth-order Runge-Kutta scheme at a fixed step; stochastic equations the Euler-Maruyama scheme (Ito); delay equations Runge-Kutta 4 with a cubic Hermite interpolant of the history, constant before the start. Equilibria are found by damped Newton iteration and classified by the eigenvalues of the Jacobian. The test files in <code>tests/</code> check the schemes and the catalogue against closed forms and published values.</p>
+    <p>Differential equations use the classical fourth-order Runge-Kutta scheme at a fixed step; stochastic equations the Euler-Maruyama scheme (Ito); delay equations Runge-Kutta 4 with a cubic Hermite interpolant of the history, constant before the start. Equilibria are found by damped Newton iteration and classified by the eigenvalues of the Jacobian. The sweep view follows each branch of equilibria by pseudo-arclength continuation, through its folds, and marks folds, Hopf points and branch points. The test files in <code>tests/</code> check the schemes and the catalogue against closed forms and published values.</p>
     <h4>Using a scene elsewhere</h4>
-<pre>&lt;script src="dynflow.js"&gt;&lt;/script&gt;
-&lt;dyn-flow src="lorenz.json" controls style="height:420px"&gt;&lt;/dyn-flow&gt;
-&lt;dyn-flow model="may-leonard" theme="blackboard"&gt;&lt;/dyn-flow&gt;</pre>
+<pre>&lt;script src="relabflow.js"&gt;&lt;/script&gt;
+&lt;relab-flow src="lorenz.json" controls style="height:420px"&gt;&lt;/relab-flow&gt;
+&lt;relab-flow model="may-leonard" theme="blackboard"&gt;&lt;/relab-flow&gt;</pre>
     <p>In R Markdown, Quarto and pkgdown, emit the same two tags with <code>htmltools</code>. In reveal.js, place the element in a slide or use the standalone page in an iframe. The element starts when it becomes visible and shows a still frame when the reader prefers reduced motion.</p>
     <h4>Licence</h4>
-    <p>DynFlow is free software under the GNU General Public License, version 3 or later. Copyright &copy; 2026 Pablo Almaraz, Robust Ecologies Lab. KaTeX (MIT) renders the equations; Jost and Libre Franklin (SIL Open Font License) and TeX Gyre Pagella (GUST Font License) set the text.</p>
+    <p>RElabFlow is free software under the GNU General Public License, version 3 or later. Copyright &copy; 2026 Pablo Almaraz, Robust Ecologies Lab. KaTeX (MIT) renders the equations; Jost and Libre Franklin (SIL Open Font License) and TeX Gyre Pagella (GUST Font License) set the text.</p>
     <div class="btns"><button class="btn primary" data-close>Close</button></div>
   </div>
 </div>
 
 <script src="vendor/katex/katex.min.js"></script>
-<script src="dist/dynflow.js"></script>
+<script src="dist/relabflow.js"></script>
 <script src="src/studio/studio.js"></script>
 </body>
 </html>

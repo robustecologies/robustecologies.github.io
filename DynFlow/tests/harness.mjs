@@ -14,7 +14,7 @@ export function load(files) {
   ctx.globalThis = ctx;
   vm.createContext(ctx);
   for (const f of files) vm.runInContext(readFileSync(join(ROOT, f), "utf8"), ctx, { filename: f });
-  return ctx.DynFlow;
+  return ctx.RElabFlow;
 }
 
 export function reporter(title) {
