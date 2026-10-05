@@ -17,6 +17,7 @@ The studio RElabSite writes the pages from the content in this folder. Edit the 
 | `<page>/social.png` | The image that social media show with a link to the page |
 | `assets/` | Styles, scripts and fonts, written by RElabSite |
 | `projects/` | The SaniVult and GuadalShiftR project sites |
+| `PRIVATE/` | Private material, such as the legacy Quarto site. Git ignores it (`.gitignore`), so it is never published. RElabSite does not read it. |
 
 The repository holds only the content of this folder. To keep another site under the same address, such as the site of an R package, add its folder in RElabSite, Site settings, Publishing.
 
