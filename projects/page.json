@@ -1,0 +1,20 @@
+{
+  "type": "projects",
+  "title": "Projects",
+  "intro": "",
+  "projects": [
+    {
+      "name": "SaniVult",
+      "href": "projects/sanivult/index.html",
+      "newTab": true,
+      "description": "Evaluating the impacts of the outbreak of a Bovine Spongiform Encephalopathy epidemic on the demographic and population dynamics of one of the world’s largest colonies of the Eurasian Griffon vulture (Gyps fulvus)."
+    },
+    {
+      "name": "GuadalShiftR",
+      "href": "projects/guadalshiftr/index.html",
+      "newTab": true,
+      "image": "projects/guadalshiftr/imgs/hexGuadalShiftR.png",
+      "description": "Exploring tipping points, catastrophic bifurcations and alternative stable states in the Guadalquivir marshes"
+    }
+  ]
+}

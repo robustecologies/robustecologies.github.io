@@ -1,0 +1,14 @@
+{
+  "type": "listing",
+  "title": "Blog",
+  "pageTitle": "Robust Ecologies Lab",
+  "description": "Robust Ecologies Lab's blog",
+  "showDescription": false,
+  "style": "posts",
+  "collection": "blog",
+  "groupByYear": true,
+  "callout": {
+    "title": "Copyright",
+    "html": "<p>Except where noted, all content is © Pablo Almaraz and licensed under <a href=\"https://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative Commons</a>.</p>"
+  }
+}

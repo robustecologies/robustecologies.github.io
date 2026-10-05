@@ -1,836 +1,104 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<!doctype html>
+<html lang="en" data-root="../../../">
+<head>
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Pablo Almaraz">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Robust Ecologies Lab</title>
-<style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-</style>
-
-
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<link href="../../..//files/favicon.png" rel="icon" type="image/png">
-<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c4e1171eb4281116019c604a711c5128.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-cd1412a6a0027eb54415590d158af348.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
-<script src="../../../site_libs/quarto-contrib/iconify-2.0.0/iconify-icon.min.js"></script>
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
-
-<script type="text/javascript">
-
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-527449-5', 'auto');
-
-ga('send', {
-  hitType: 'pageview',
-  'anonymizeIp': true,
-});
-</script>
-<style>
-
-      .quarto-title-block .quarto-title-banner {
-        background: #CF2547;
-      }
-</style>
-
-
-<link rel="stylesheet" href="_extensions/styles_home.css">
-<meta property="og:title" content="Robust Ecologies Lab">
-<meta property="og:description" content="The RELab is a one man band">
-<meta property="og:image" content="https://robustecologies.github.io/files/favicon.png">
+<meta name="description" content="Waterfowl fly away, / longing for mild climate, / to unknown spaces">
+<meta name="author" content="Pablo Almaraz">
+<link rel="canonical" href="https://robustecologies.github.io/research/articles/almaraz-etal-2012/">
+<meta property="og:title" content="Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl">
+<meta property="og:description" content="Waterfowl fly away, / longing for mild climate, / to unknown spaces">
+<meta property="og:image" content="https://robustecologies.github.io/research/articles/almaraz-etal-2012/social.png">
+<meta property="og:url" content="https://robustecologies.github.io/research/articles/almaraz-etal-2012/">
 <meta property="og:site_name" content="Robust Ecologies Lab">
 <meta property="og:locale" content="es_ES">
-<meta property="og:image:height" content="763">
-<meta property="og:image:width" content="763">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../../files/favicon-32.png">
+<link rel="preload" href="../../../assets/fonts/Jost-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../../assets/fonts/LibreFranklin-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../assets/site.css">
+<script>try{var t=localStorage.getItem('relab:theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl","url":"https://robustecologies.github.io/research/articles/almaraz-etal-2012/","datePublished":"2012-02-28","author":[{"@type":"Person","name":"Pablo Almaraz"},{"@type":"Person","name":"Andy J. Green"},{"@type":"Person","name":"Eduardo Aguilera"},{"@type":"Person","name":"Miguel A. Rendón"},{"@type":"Person","name":"Javier Bustamante"}],"isPartOf":{"@type":"Periodical","name":"Journal of Animal Ecology"},"volumeNumber":"81","pagination":"1113-1125","publisher":{"@type":"Organization","name":"Wiley"},"sameAs":"https://doi.org/10.1111/j.1365-2656.2012.01972.x","identifier":{"@type":"PropertyValue","propertyID":"DOI","value":"10.1111/j.1365-2656.2012.01972.x"},"keywords":"Partial observability, Waterfowl, Climatic fluctuations, Stochasticity, Stability, Bayesianism","mainEntityOfPage":"https://robustecologies.github.io/research/articles/almaraz-etal-2012/"}</script>
 </head>
-
-<body class="floating nav-fixed slimcontent quarto-light">
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">Robust Ecologies Lab</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../about/index.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-people" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">People</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-people">    
-        <li>
-    <a class="dropdown-item" href="../../../people/almaraz/index.html">
- <span class="dropdown-text">Pablo Almaraz</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../../../research/index.html"> 
-<span class="menu-text">Research</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Projects</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
-        <li>
-    <a class="dropdown-item" href="../../../projects/sanivult/index.html" target="_blank">
- <span class="dropdown-text">SaniVult</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../projects/guadalshiftr/index.html" target="_blank">
- <span class="dropdown-text">GuadalShiftR</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../../../talks/index.html"> 
-<span class="menu-text">Talks</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../blog/index.html"> 
-<span class="menu-text">Blog</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="mailto:pablo.almaraz@csic.es" rel="me"> 
-<span class="menu-text"><iconify-icon inline="" icon="bi:envelope" style="font-size: 1.1em;" aria-label="Icon envelope from bi Iconify.design set." title="E-mail"></iconify-icon></span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://bsky.app/profile/robustecolab.bsky.social" rel="me"> 
-<span class="menu-text"><iconify-icon inline="" icon="ph:butterfly-bold" style="font-size: 1.2em;" aria-label="Icon butterfly-bold from ph Iconify.design set." title="Bluesky"></iconify-icon></span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://github.com/robustecologies" rel="me"> 
-<span class="menu-text"><iconify-icon inline="" icon="bi:github" style="font-size: 1.1em;" aria-label="Icon github from bi Iconify.design set." title="GitHub"></iconify-icon></span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block research default toc-left page-columns page-full">
-    <div class="quarto-title-banner page-columns page-full">
-                <div class="back-nav"><a href="../../../research/">← Back to research</a></div>
-                <div class="quarto-title column-body">
-            <h1 class="title">Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl</h1>
-
-            
-            
-                        <div class="haiku">
-                Waterfowl fly away,<br>longing for mild climate,<br>to unknown spaces
-            </div>
-            
-                                    <div class="quarto-categories">
-                                <div class="quarto-category">Partial observability</div>
-                                <div class="quarto-category">Waterfowl</div>
-                                <div class="quarto-category">Climatic fluctuations</div>
-                                <div class="quarto-category">Stochasticity</div>
-                                <div class="quarto-category">Stability</div>
-                                <div class="quarto-category">Bayesianism</div>
-                            </div>
-                                </div>
-    </div>
-    
-        <div class="project-details">
-        <div class="publication-content">
-            <p><a href="http://robustecologies.github.io/" target="_blank" rel="noopener noreferrer">Pablo Almaraz</a>, Andy J. Green, Eduardo Aguilera, Miguel A. Rendón, Javier Bustamante (2012) Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl. <em>Journal of Animal Ecology</em> 81: 1113–1125, <a href="https://doi.org/10.1111/j.1365-2656.2012.01972.x" target="_blank" rel="noopener noreferrer"><code>DOI: 10.1111/j.1365-2656.2012.01972.x</code></a></p>
-        </div>
-                <ul class="project-links">
-                        <li class="project-link">
-                <a href="https://doi.org/10.1111/j.1365-2656.2012.01972.x"><i class="fa-solid fa-scroll"></i> Final version</a>
-            </li>
-                        <li class="project-link">
-                <a href="https://www.zotero.org/save?type=doi&amp;q=https://doi.org/10.1111/j.1365-2656.2012.01972.x"><i class="fas fa-book"></i> Add to Zotero</a>
-            </li>
-                    </ul>
-            </div>
-
-    
-    <div class="quarto-title-meta-author">
-      <div class="quarto-title-meta-heading">Authors</div>
-      <div class="quarto-title-meta-heading">Affiliations</div>
-      
-        <div class="quarto-title-meta-contents">
-        <p class="author"><a href="http://robustecologies.github.io">Pablo Almaraz</a> <a href="https://orcid.org/0000-0003-1416-2695" class="quarto-title-author-orcid" aria-label="ORCID profile for Pablo Almaraz"> <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-      </div>
-      <div class="quarto-title-meta-contents">
-            <p class="affiliation">
-                ICMAN-CSIC
-              </p>
-          </div>
-        <div class="quarto-title-meta-contents">
-        <p class="author">Andy J. Green </p>
-      </div>
-      <div class="quarto-title-meta-contents">
-            <p class="affiliation">
-                EBD-CSIC
-              </p>
-          </div>
-        <div class="quarto-title-meta-contents">
-        <p class="author">Eduardo Aguilera </p>
-      </div>
-      <div class="quarto-title-meta-contents">
-            <p class="affiliation">
-                EBD-CSIC
-              </p>
-          </div>
-        <div class="quarto-title-meta-contents">
-        <p class="author">Miguel A. Rendón </p>
-      </div>
-      <div class="quarto-title-meta-contents">
-            <p class="affiliation">
-                EBD-CSIC
-              </p>
-          </div>
-        <div class="quarto-title-meta-contents">
-        <p class="author">Javier Bustamante </p>
-      </div>
-      <div class="quarto-title-meta-contents">
-            <p class="affiliation">
-                EBD-CSIC
-              </p>
-          </div>
-      </div>
-
-    <div class="quarto-title-meta">
-
-          
-        <div>
-        <div class="quarto-title-meta-heading">Published</div>
-        <div class="quarto-title-meta-contents">
-          <p class="date">February 2012</p>
-        </div>
-      </div>
-      
-        
-        <div>
-        <div class="quarto-title-meta-heading">Doi</div>
-        <div class="quarto-title-meta-contents">
-          <p class="doi">
-            <a href="https://doi.org/10.1111/j.1365-2656.2012.01972.x">10.1111/j.1365-2656.2012.01972.x</a>
-          </p>
-        </div>
-      </div>
-      </div>
-      
-
-    
-</header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#useful-links" id="toc-useful-links" class="nav-link active" data-scroll-target="#useful-links">Useful links</a></li>
-  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#important-figure" id="toc-important-figure" class="nav-link" data-scroll-target="#important-figure">Important figure</a></li>
-  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
-  </ul>
-</nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
-<!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
-
-
-
-
-<!-- ## Open code and data -->
-<!-- <div style="text-align: center;"> -->
-<!--   <a href="https://github.com/palmaraz/SaniVult" target="_blank"> -->
-<!-- </div> -->
-<!-- <div style="text-align: center;"> -->
-<!-- <a href="https://doi.org/10.5281/zenodo.7046213" target="_blank"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7046213.svg" alt="DOI"></a> -->
-<!-- </div> -->
-<section id="useful-links" class="level2">
+<body>
+<a class="skip" href="#content">Skip to content</a><header class="top"><div class="top-inner"><a class="brand" href="../../../index.html"><img src="../../../files/logo-68.png" alt="" width="34" height="34"><span>Robust Ecologies Lab</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span></span><span></span><span></span></button><nav class="nav" id="site-nav" aria-label="Main"><ul><li><a href="../../../index.html">Home</a></li><li><a href="../../../about/index.html">About</a></li><li class="has-menu"><button type="button" class="menu-btn" aria-expanded="false">People</button><ul class="menu"><li><a href="../../../people/almaraz/index.html">Pablo Almaraz</a></li></ul></li><li><a href="../../index.html" aria-current="page">Research</a></li><li class="has-menu"><button type="button" class="menu-btn" aria-expanded="false">Projects</button><ul class="menu"><li><a href="../../../projects/index.html">Overview</a></li><li><a href="../../../projects/sanivult/index.html" target="_blank" rel="noopener">SaniVult</a></li><li><a href="../../../projects/guadalshiftr/index.html" target="_blank" rel="noopener">GuadalShiftR</a></li></ul></li><li><a href="../../../talks/index.html">Talks</a></li><li><a href="../../../blog/index.html">Blog</a></li></ul></nav><div class="nav-icons"><button class="search-toggle" type="button" aria-expanded="false" aria-controls="search-panel"><span class="icon" role="img" aria-label="Search"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7l126.6 126.7c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208M208 352a144 144 0 1 0 0-288a144 144 0 1 0 0 288"/></svg></span></button><button class="theme-toggle" type="button" aria-label="Light or dark theme" title="Light or dark theme"><svg viewBox="0 0 24 24" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button><a href="mailto:pablo.almaraz@csic.es" rel="me"><span class="icon" role="img" aria-label="E-mail"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2l7-4.2V4a1 1 0 0 0-1-1zm13 2.383l-4.708 2.825L15 11.105zm-.034 6.876l-5.64-3.471L8 9.583l-1.326-.795l-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/></svg></span></a><a href="https://bsky.app/profile/robustecolab.bsky.social" rel="me"><span class="icon" role="img" aria-label="Bluesky"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="currentColor" d="M235.79 48c-4.27-5.48-12.4-12-26.88-12c-17.86 0-40.5 11.7-60.57 31.3c-3 2.89-5.74 5.85-8.34 8.84V56a12 12 0 0 0-24 0v20.14c-2.6-3-5.38-6-8.34-8.84C87.59 47.7 65 36 47.09 36c-14.48 0-22.61 6.54-26.88 12C7 65 12 93.91 19.28 122.66c5.75 22.64 17.8 33 28.88 37.69A48.12 48.12 0 0 0 92 228a47.87 47.87 0 0 0 36-16.28A48 48 0 0 0 212 180a48.5 48.5 0 0 0-4.14-19.65c11.08-4.67 23.13-15 28.88-37.69C244 93.91 249 65 235.79 48M92 204a24 24 0 0 1-24-24a24.36 24.36 0 0 1 21.31-24.07a12 12 0 0 0-2.64-23.86a47.6 47.6 0 0 0-21.5 7.93c-8.19-.29-18-4.92-22.63-23.24c-7.41-29.18-8.55-47.35-3.39-54C39.74 62 41.3 60 47.09 60c11.21 0 28.82 9.83 43.81 24.47c15.25 14.9 25.1 31.86 25.1 43.2V180a24 24 0 0 1-24 24m121.45-87.25C208.81 135.07 199 139.7 190.82 140a47.54 47.54 0 0 0-21.51-7.92a12 12 0 1 0-2.64 23.86A24.36 24.36 0 0 1 188 180a24 24 0 1 1-48 0v-52.33c0-11.34 9.85-28.3 25.1-43.2C180.09 69.83 197.7 60 208.91 60c5.79 0 7.35 2 7.94 2.76c5.15 6.64 4.02 24.81-3.39 53.99Z"/></svg></span></a><a href="https://github.com/robustecologies" rel="me"><span class="icon" role="img" aria-label="GitHub"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59c.4.07.55-.17.55-.38c0-.19-.01-.82-.01-1.49c-2.01.37-2.53-.49-2.69-.94c-.09-.23-.48-.94-.82-1.13c-.28-.15-.68-.52-.01-.53c.63-.01 1.08.58 1.23.82c.72 1.21 1.87.87 2.33.66c.07-.52.28-.87.51-1.07c-1.78-.2-3.64-.89-3.64-3.95c0-.87.31-1.59.82-2.15c-.08-.2-.36-1.02.08-2.12c0 0 .67-.21 2.2.82c.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82c.44 1.1.16 1.92.08 2.12c.51.56.82 1.27.82 2.15c0 3.07-1.87 3.75-3.65 3.95c.29.25.54.73.54 1.48c0 1.07-.01 1.93-.01 2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg></span></a></div></div><div class="search-panel" id="search-panel" hidden><div class="search-inner"><form class="site-search" role="search" onsubmit="return false"><label class="sr-only" for="site-search-top">Search the site</label><input id="site-search-top" class="site-search-input" type="search" autocomplete="off" placeholder="Search the site: transiency, Doñana, Lotka-Volterra…"></form><ol class="search-results" aria-live="polite"></ol></div></div></header>
+<section class="band"><canvas class="band-canvas" aria-hidden="true"></canvas><div class="band-inner"><p class="back-nav"><a href="../../index.html">← Back to research</a></p><h1>Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl</h1><p class="band-haiku">Waterfowl fly away,<br>longing for mild climate,<br>to unknown spaces</p><p class="band-cats"><span>Partial observability</span><span>Waterfowl</span><span>Climatic fluctuations</span><span>Stochasticity</span><span>Stability</span><span>Bayesianism</span></p></div></section>
+<main id="content" class="wrap doc"><section class="pub"><div class="publication-content"><p><a href="http://robustecologies.github.io/" target="_blank" rel="noopener noreferrer">Pablo Almaraz</a>, Andy J. Green, Eduardo Aguilera, Miguel A. Rendón, Javier Bustamante (2012) Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl. <em>Journal of Animal Ecology</em> 81: 1113–1125, <a href="https://doi.org/10.1111/j.1365-2656.2012.01972.x" target="_blank" rel="noopener noreferrer"><code>DOI: 10.1111/j.1365-2656.2012.01972.x</code></a></p></div><ul class="project-links"><li class="project-link"><a href="https://doi.org/10.1111/j.1365-2656.2012.01972.x"><span class="icon" aria-hidden="true"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M0 80v48c0 17.7 14.3 32 32 32h64V80c0-26.5-21.5-48-48-48S0 53.5 0 80m112-48c10 13.4 16 30 16 48v304c0 35.3 28.7 64 64 64s64-28.7 64-64v-5.3c0-32.4 26.3-58.7 58.7-58.7H480V128c0-53-43-96-96-96zm352 448c61.9 0 112-50.1 112-112c0-8.8-7.2-16-16-16H314.7c-14.7 0-26.7 11.9-26.7 26.7v5.3c0 53-43 96-96 96z"/></svg></span> Final version</a></li><li class="project-link"><a href="https://www.zotero.org/save?type=doi&amp;q=https://doi.org/10.1111/j.1365-2656.2012.01972.x"><span class="icon" aria-hidden="true"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M96 0C43 0 0 43 0 96v320c0 53 43 96 96 96h320c17.7 0 32-14.3 32-32s-14.3-32-32-32v-64c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32zm0 384h256v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32m32-240c0-8.8 7.2-16 16-16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16m16 48h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16"/></svg></span> Add to Zotero</a></li></ul><details class="cite-menu"><summary><span class="icon" aria-hidden="true"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M96 0C43 0 0 43 0 96v320c0 53 43 96 96 96h320c17.7 0 32-14.3 32-32s-14.3-32-32-32v-64c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32zm0 384h256v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32m32-240c0-8.8 7.2-16 16-16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16m16 48h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16"/></svg></span> Cite</summary><div class="cite-body"><div class="cite-block"><div class="cite-head"><span>BibTeX</span><button type="button" class="copy-cite" data-format="bib">Copy</button></div><pre><code>@article{Almaraz2012,
+  author = {Almaraz, Pablo and Green, Andy J. and Aguilera, Eduardo and Rendón, Miguel A. and Bustamante, Javier},
+  title = {{Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl}},
+  journal = {Journal of Animal Ecology},
+  volume = {81},
+  number = {5},
+  pages = {1113--1125},
+  year = {2012},
+  doi = {10.1111/j.1365-2656.2012.01972.x},
+  publisher = {Wiley}
+}</code></pre></div><div class="cite-block"><div class="cite-head"><span>RIS</span><button type="button" class="copy-cite" data-format="ris">Copy</button></div><pre><code>TY  - JOUR
+AU  - Almaraz, Pablo
+AU  - Green, Andy J.
+AU  - Aguilera, Eduardo
+AU  - Rendón, Miguel A.
+AU  - Bustamante, Javier
+TI  - Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl
+T2  - Journal of Animal Ecology
+PY  - 2012
+VL  - 81
+IS  - 5
+SP  - 1113
+EP  - 1125
+DO  - 10.1111/j.1365-2656.2012.01972.x
+UR  - https://doi.org/10.1111/j.1365-2656.2012.01972.x
+PB  - Wiley
+ER  - </code></pre></div><div class="cite-block"><div class="cite-head"><span>APA</span><button type="button" class="copy-cite" data-format="apa">Copy</button></div><p class="cite-text">Almaraz, P., Green, A. J., Aguilera, E., Rendón, M. A., & Bustamante, J. (2012). Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl. <em>Journal of Animal Ecology, 81</em>(5), 1113–1125. https://doi.org/10.1111/j.1365-2656.2012.01972.x</p></div></div></details></section><section class="doc-meta"><div class="meta-authors"><div class="meta-heading">Authors</div><div class="meta-heading">Affiliations</div><div class="meta-contents"><p class="author"><a href="http://robustecologies.github.io">Pablo Almaraz</a> <a aria-label="ORCID profile for Pablo Almaraz" class="orcid" href="https://orcid.org/0000-0003-1416-2695"><span class="icon" aria-hidden="true"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M294.75 188.19h-45.92V342h47.47c67.62 0 83.12-51.34 83.12-76.91c0-41.64-26.54-76.9-84.67-76.9M256 8C119 8 8 119 8 256s111 248 248 248s248-111 248-248S393 8 256 8m-80.79 360.76h-29.84v-207.5h29.84zm-14.92-231.14a19.57 19.57 0 1 1 19.57-19.57a19.64 19.64 0 0 1-19.57 19.57M300 369h-81V161.26h80.6c76.73 0 110.44 54.83 110.44 103.85C410 318.39 368.38 369 300 369"/></svg></span></a></p></div><div class="meta-contents"><p class="affiliation">ICMAN-CSIC</p></div><div class="meta-contents"><p class="author">Andy J. Green</p></div><div class="meta-contents"><p class="affiliation">EBD-CSIC</p></div><div class="meta-contents"><p class="author">Eduardo Aguilera</p></div><div class="meta-contents"><p class="affiliation">EBD-CSIC</p></div><div class="meta-contents"><p class="author">Miguel A. Rendón</p></div><div class="meta-contents"><p class="affiliation">EBD-CSIC</p></div><div class="meta-contents"><p class="author">Javier Bustamante</p></div><div class="meta-contents"><p class="affiliation">EBD-CSIC</p></div></div><div class="meta-row"><div class="meta-item"><div class="meta-heading">Published</div><div class="meta-contents"><p class="date">February 2012</p></div></div><div class="meta-item"><div class="meta-heading">Doi</div><div class="meta-contents"><p class="doi"><a href="https://doi.org/10.1111/j.1365-2656.2012.01972.x">10.1111/j.1365-2656.2012.01972.x</a></p></div></div></div></section><figure class="mechanism"><div class="live-fig mech-fig" role="img" aria-label="Stationary distribution of the stochastic Gompertz model"><script type="application/json">{"system":"X' = a - c*X\nnoise X = sigma\nparam a = 1\nparam c = 0.5\nparam sigma = 0.5\ninit X = 0.2\nrange X = [-0.5, 4]","view":{"type":"density","window":30},"n":3000,"dt":0.01,"style":{"ramp":"relab-fire"}}</script></div><figcaption>Live: the stochastic Gompertz model on the log scale, dX = (a − cX) dt + σ dW with a = 1, c = 0.5 and σ = 0.5. An ensemble that starts at X = 0.2 relaxes on the time scale 1/c = 2 into the stationary normal distribution of mean a/c = 2 and standard deviation σ/√(2c) = 0.5; 4000 members give 1.999 and 0.494 at t = 20.</figcaption></figure><div class="doc-body"><section class="level2" id="useful-links">
 <h2 class="anchored" data-anchor-id="useful-links">Useful links</h2>
-<!-- - [Paper (preprint)](chaudhry-dotson-heiss-who-cares-crackdowns.pdf) -->
+
 <ul>
 <li><a href="https://besjournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fj.1365-2656.2012.01972.x&amp;file=jane1972_sm_AppendixS1.docx">Appendix S1</a></li>
 <li><a href="https://besjournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fj.1365-2656.2012.01972.x&amp;file=jane1972_sm_AppendixS2.docx">Appendix S2</a></li>
-<li><a href="https://besjournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fj.1365-2656.2012.01972.x&amp;file=jane1972_sm_AppendixS3.docx">Appendix S3</a> <!-- - [Statistical analysis notebook](https://stats.andrewheiss.com/who-cares-about-crackdowns/) --> <!-- - [GitHub repository](https://github.com/andrewheiss/who-cares-about-crackdown) --> <!-- - [Experiment preregistration](https://osf.io/hsbyd) (research question #2) --></li>
+<li><a href="https://besjournals.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fj.1365-2656.2012.01972.x&amp;file=jane1972_sm_AppendixS3.docx">Appendix S3</a>   </li>
 </ul>
 </section>
-<section id="abstract" class="level2">
+<section class="level2" id="abstract">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
 <p>Understanding the impact of environmental variability on migrating species requires the estimation of sequential abiotic effects in different geographic areas across the life cycle. For instance, waterfowl (ducks, geese and swans) usually breed widely dispersed throughout their breeding range and gather in large numbers in their wintering headquarters, but there is a lack of knowledge on the effects of the sequential environmental conditions experienced by migrating birds on the long-term community dynamics at their wintering sites. Here, we analyse multidecadal time-series data of 10 waterfowl species wintering in the Guadalquivir Marshes (SW Spain), the single most important wintering site for waterfowl breeding in Europe. We use a multivariate state-space approach to estimate the effects of biotic interactions, local environmental forcing during winter and large-scale climate during breeding and migration on wintering multispecies abundance fluctuations, while accounting for partial observability (observation error and missing data) in both population and environmental data. The joint effect of local weather and large-scale climate explained 31·6% of variance at the community level, while the variability explained by interspecific interactions was negligible (&lt;5%). In general, abiotic conditions during winter prevailed over conditions experienced during breeding and migration. Across species, a pervasive and coherent nonlinear signal of environmental variability on population dynamics suggests weaker forcing at extreme values of abiotic variables. Modelling missing observations through data augmentation increased the estimated magnitude of environmental forcing by an average 30·1% and reduced the impact of stochasticity by 39·3% when accounting for observation error. Interestingly however, the impact of environmental forcing on community dynamics was underestimated by an average 15·3% and environmental stochasticity overestimated by 14·1% when ignoring both observation error and data augmentation. These results provide a salient example of sequential multiscale environmental forcing in a major migratory bird community, which suggests a demographic link between the breeding and wintering grounds operating through nonlinear environmental effects. Remarkably, this study highlights that modelling observation error in the environmental covariates of an ecological model can be proportionally more important than modelling this source of variance in the population data.</p>
 </section>
-<section id="important-figure" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="important-figure">
 <h2 class="anchored" data-anchor-id="important-figure">Important figure</h2>
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="almarazetal_Fig3_JAE-2011-00617.R2.png" class="img-fluid figure-img" width="1000"></p>
+<p><img loading="lazy" decoding="async" class="img-fluid figure-img" src="almarazetal_Fig3_JAE-2011-00617.R2.png" width="1000"/></p>
 <figcaption class="margin-caption">Diagram depicting the structure of the MSSM fitted to the time series of the waterfowl community wintering in Guadalquivir Marshes. The graph depicts the flow of time, from left to right, and the flow of the hierarchy of effects, from the top to the bottom. In the upper part, the sequential effects of the North Atlantic Oscillation during breeding (grey box) and wintering (white box) are linked to the vector of population sizes both directly (black arrows) and indirectly through the local environmental effects (grey arrows). At the bottom, the vector for the observed abundances (denoted by nk) and flooding values (ft) are linked to the community and hidden flooding processes through observation models, respectively, while the population process vectors are linked across time through the community interaction matrix A, containing the intra- and interspecific effects (the alpha’s). Shown are the effects for a single time slice (time t).</figcaption>
 </figure>
 </div>
-<!-- ## Data and code -->
-<!-- The project is reproducible with R code [available at GitHub](https://github.com/palmaraz/GuadalShiftR) and [Zenodo](https://zenodo.org/records/). Follow [the instructions there](https://github.com/robustecologies) to install all supporting files and R packages. -->
-<!-- This project includes the following data files: -->
-<!-- - [**`data/raw_data/`**](https://github.com/robustecologies): Running `targets::tar_make(survey_results_file)` will download the `.rds` file from OSF and place it in `data/raw_data`.  -->
+
+
+
+
 </section>
-<section id="citation" class="level2">
+<section class="level2" id="citation">
 <h2 class="anchored" data-anchor-id="citation">Citation</h2>
-<p class="buttons" style="text-align:center;">
-<a class="btn btn-danger" target="_blank" href="https://www.zotero.org/save?type=doi&amp;q=https://doi.org/10.1111/j.1365-2656.2012.01972.x"><i class="ai  ai-zotero" title="" style="color:"></i> Add to Zotero <i class="fa-solid fa-square-arrow-up-right" aria-label="square-arrow-up-right"></i></a>
+<p class="buttons" style="text-align: center;">
+<a class="btn btn-danger" href="https://www.zotero.org/save?type=doi&amp;q=https://doi.org/10.1111/j.1365-2656.2012.01972.x" target="_blank"><span aria-hidden="true" class="icon"><svg focusable="false" viewbox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M31.264 64h276.752v54.624L79.072 401.392h228.944V448H11.984v-53.424l229.76-283.968H31.264Z" fill="currentColor"></path></svg></span> Add to Zotero <span aria-label="square-arrow-up-right" class="icon" role="img"><svg focusable="false" viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M384 32c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64zM160 144c-13.3 0-24 10.7-24 24s10.7 24 24 24h94.1L119 327c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l135-135L288 328c0 13.3 10.7 24 24 24s24-10.7 24-24V168c0-13.3-10.7-24-24-24z" fill="currentColor"></path></svg></span></a>
 </p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">Almaraz2012</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Estimating Partial Observability and Nonlinear Climate Effects on Stochastic Community Dynamics of Migratory Waterfowl},</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Almaraz, Pablo and Green, Andy J. and Aguilera, Eduardo and Rend<span class="ch">\'</span>on, Miguel A. and Bustamante, Javier},</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">date</span> = {2012-09},</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journaltitle</span> = {Journal of Animal Ecology},</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {81},</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {5},</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {1113--1125},</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1111/j.1365-2656.2012.01972.x}</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
-
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">Almaraz2012</span>,</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>  <span class="dt">title</span> = {Estimating Partial Observability and Nonlinear Climate Effects on Stochastic Community Dynamics of Migratory Waterfowl},</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>  <span class="dt">author</span> = {Almaraz, Pablo and Green, Andy J. and Aguilera, Eduardo and Rend<span class="ch">\'</span>on, Miguel A. and Bustamante, Javier},</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>  <span class="dt">date</span> = {2012-09},</span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a>  <span class="dt">journaltitle</span> = {Journal of Animal Ecology},</span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a>  <span class="dt">volume</span> = {81},</span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a>  <span class="dt">number</span> = {5},</span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a>  <span class="dt">pages</span> = {1113--1125},</span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1111/j.1365-2656.2012.01972.x}</span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>}</span></code></pre></div>
 </section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/robustecologies\.github\.io");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-        }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
-      } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
-      }
-    }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
-          }
-        } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
-            if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
-      } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
-        });
-      }
-    }
-  });
-  </script>
-</div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-<p><span class="faux-block"><i class="fa-solid fa-copyright" aria-label="copyright"></i> 2026 RELab <span class="faux-block"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> CC BY-NC-SA 4.0</a></span></span></p>
-</div>   
-    <div class="nav-footer-center">
-<p><span class="faux-block"><i class="fa-solid fa-key" aria-label="key"></i> <a href="../../../pgpk.txt">PGP public key</a></span></p>
-</div>
-    <div class="nav-footer-right">
-<p><span class="faux-block">Made with <a href="https://cran.r-project.org/"><i class="fa-brands fa-r-project" aria-label="r-project"></i></a> and <a href="https://quarto.org/">Quarto</a></span> <span class="faux-block"><a href="https://github.com/robustecologies">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></span></p>
-</div>
-  </div>
-</footer>
-
-
-
-
-</body></html>
+</div></main>
+<footer class="footer"><div class="footer-inner"><span><span class="icon" role="img" aria-label="copyright"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 512a256 256 0 1 0 0-512a256 256 0 1 0 0 512m-56.6-199.4c31.2 31.2 81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1z"/></svg></span> 2026 RELab <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><span class="icon" role="img" aria-label="creative-commons"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="m245.83 214.87l-33.22 17.28c-9.43-19.58-25.24-19.93-27.46-19.93c-22.13 0-33.22 14.61-33.22 43.84c0 23.57 9.21 43.84 33.22 43.84c14.47 0 24.65-7.09 30.57-21.26l30.55 15.5c-6.17 11.51-25.69 38.98-65.1 38.98c-22.6 0-73.96-10.32-73.96-77.05c0-58.69 43-77.06 72.63-77.06c30.72-.01 52.7 11.95 65.99 35.86m143.05 0l-32.78 17.28c-9.5-19.77-25.72-19.93-27.9-19.93c-22.14 0-33.22 14.61-33.22 43.84c0 23.55 9.23 43.84 33.22 43.84c14.45 0 24.65-7.09 30.54-21.26l31 15.5c-2.1 3.75-21.39 38.98-65.09 38.98c-22.69 0-73.96-9.87-73.96-77.05c0-58.67 42.97-77.06 72.63-77.06c30.71-.01 52.58 11.95 65.56 35.86M247.56 8.05C104.74 8.05 0 123.11 0 256.05c0 138.49 113.6 248 247.56 248c129.93 0 248.44-100.87 248.44-248c0-137.87-106.62-248-248.44-248m.87 450.81c-112.54 0-203.7-93.04-203.7-202.81c0-105.42 85.43-203.27 203.72-203.27c112.53 0 202.82 89.46 202.82 203.26c-.01 121.69-99.68 202.82-202.84 202.82"/></svg></span> <span class="icon" role="img" aria-label="creative-commons-by"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M314.9 194.4v101.4h-28.3v120.5h-77.1V295.9h-28.3V194.4c0-4.4 1.6-8.2 4.6-11.3c3.1-3.1 6.9-4.7 11.3-4.7H299c4.1 0 7.8 1.6 11.1 4.7c3.1 3.2 4.8 6.9 4.8 11.3m-101.5-63.7c0-23.3 11.5-35 34.5-35s34.5 11.7 34.5 35q0 34.5-34.5 34.5c-34.5 0-34.5-11.5-34.5-34.5M247.6 8C389.4 8 496 118.1 496 256c0 147.1-118.5 248-248.4 248C113.6 504 0 394.5 0 256C0 123.1 104.7 8 247.6 8m.8 44.7C130.2 52.7 44.7 150.6 44.7 256c0 109.8 91.2 202.8 203.7 202.8c103.2 0 202.8-81.1 202.8-202.8c.1-113.8-90.2-203.3-202.8-203.3"/></svg></span> CC BY-NC-SA 4.0</a></span><span><span class="icon" role="img" aria-label="key"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24v-40h40c13.3 0 24-10.7 24-24v-40h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3m40-256a40 40 0 1 1 0 80a40 40 0 1 1 0-80"/></svg></span> <a href="../../../pgpk.txt">PGP public key</a></span><span><a href="https://github.com/robustecologies">View the source at <span class="icon" role="img" aria-label="github"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6c-3.3.3-5.6-1.3-5.6-3.6c0-2 2.3-3.6 5.2-3.6c3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9c2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9c.3 2 2.9 3.3 5.9 2.6c2.9-.7 4.9-2.6 4.6-4.6c-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2c12.8 2.3 17.3-5.6 17.3-12.1c0-6.2-.3-40.4-.3-61.4c0 0-70 15-84.7-29.8c0 0-11.4-29.1-27.8-36.6c0 0-22.9-15.7 1.6-15.4c0 0 24.9 2 38.6 25.8c21.9 38.6 58.6 27.5 72.9 20.9c2.3-16 8.8-27.1 16-33.7c-55.9-6.2-112.3-14.3-112.3-110.5c0-27.5 7.6-41.3 23.6-58.9c-2.6-6.5-11.1-33.3 2.6-67.9c20.9-6.5 69 27 69 27c20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27c13.7 34.7 5.2 61.4 2.6 67.9c16 17.7 25.8 31.5 25.8 58.9c0 96.5-58.9 104.2-114.8 110.5c9.2 7.9 17 22.9 17 46.4c0 33.7-.3 75.4-.3 83.6c0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252C496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2c1.6 1.6 3.9 2.3 5.2 1c1.3-1 1-3.3-.7-5.2c-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9c1.6 1 3.6.7 4.3-.7c.7-1.3-.3-2.9-2.3-3.9c-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2c2.3 2.3 5.2 2.6 6.5 1c1.3-1.3.7-4.3-1.3-6.2c-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2c-1.4-2.3-4-3.3-5.6-2"/></svg></span> GitHub</a></span></div></footer>
+<script src="../../../assets/js/search-index.js"></script>
+<script src="../../../assets/js/relabflow.js"></script>
+<script src="../../../assets/js/flows.js"></script>
+<script src="../../../assets/js/viz.js"></script>
+<script src="../../../assets/js/site.js"></script>
+</body>
+</html>

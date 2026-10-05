@@ -1,0 +1,76 @@
+{
+  "type": "article",
+  "title": "Simple models, complex models, useful models: can we tell them from the flap of a butterfly’s wings?",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2014-08-29",
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "http://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695",
+      "affiliation": "ICMAN-CSIC"
+    }
+  ],
+  "categories": [
+    "Metapopulation dynamics",
+    "Epistemology",
+    "Modelling",
+    "Bayesianism"
+  ],
+  "haiku": [
+    "A butterfly flaps its wings,",
+    "an ecologist wonders,",
+    "where have all the flowers gone"
+  ],
+  "reference": "<a href=\"http://robustecologies.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Pablo Almaraz</a>, (2014) Simple models, complex models, useful models: can we tell them from the flap of a butterfly’s wings? <em>Frontiers in Ecology and Evolution</em> 2: 54, doi: <a href=\"https://doi.org/10.3389/fevo.2014.00054\" target=\"_blank\" rel=\"noopener noreferrer\"><code>DOI: 10.3389/fevo.2014.00054</code></a>",
+  "links": [
+    {
+      "name": "Final version",
+      "url": "https://doi.org/10.3389/fevo.2014.00054",
+      "icon": "fa-solid fa-scroll"
+    },
+    {
+      "name": "Add to Zotero",
+      "url": "https://www.zotero.org/save?type=doi&q=https://doi.org/10.3389/fevo.2014.00054",
+      "icon": "fas fa-book"
+    }
+  ],
+  "doi": "10.3389/fevo.2014.00054",
+  "extra": "",
+  "citation": {
+    "journal": "Frontiers in Ecology and Evolution",
+    "volume": "2",
+    "issue": "",
+    "pages": "",
+    "year": 2014,
+    "title": "Simple models, complex models, useful models: can we tell them from the flap of a butterfly's wings?",
+    "authors": [
+      {
+        "given": "Pablo",
+        "family": "Almaraz"
+      }
+    ],
+    "publisher": "Frontiers Media SA"
+  },
+  "figure": {
+    "label": "Sensitive dependence in the Lorenz system",
+    "legend": "Live: the Lorenz system (σ = 10, ρ = 28, β = 8/3). Particles are born in a cloud about 0.002 across at one point of the attractor and spread over all of it within about ten time units, since nearby states separate at the rate λ₁ ≈ 0.91.",
+    "scene": {
+      "system": "x' = sigma*(y - x)\ny' = x*(rho - z) - y\nz' = x*y - beta*z\nparam sigma = 10\nparam rho = 28\nparam beta = 2.6666666666666665\ninit x = -2.4325\ninit y = -4.2424\ninit z = 11.8379",
+      "view": {
+        "type": "flow",
+        "spawn": "init",
+        "life": [
+          300,
+          900
+        ]
+      },
+      "n": 1500,
+      "spread": 0.000023,
+      "dt": 0.005,
+      "style": {
+        "ramp": "magma"
+      }
+    }
+  }
+}

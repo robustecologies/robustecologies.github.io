@@ -1,0 +1,55 @@
+{
+  "type": "notfound",
+  "title": "Let φ(x) ≔ x is a page of this site, and ξ(x) ≔ x is the page you asked for. Then,",
+  "logic": "¬∃x (φ(x) ∧ ξ(x))",
+  "text": "Since no x fulfils both conditions (in other words, <strong>Error 404</strong>), your request has left the state space of this site. Every orbit, however, lies in the basin of attraction of something: write a word below, and the flow will carry you to the pages that lie closest to it.",
+  "fixedPoints": [
+    {
+      "label": "Home",
+      "href": "index.html"
+    },
+    {
+      "label": "Goals of the lab",
+      "href": "about/index.html"
+    },
+    {
+      "label": "Pablo Almaraz",
+      "href": "people/almaraz/index.html"
+    },
+    {
+      "label": "Research output of the lab",
+      "href": "research/index.html"
+    },
+    {
+      "label": "Talks",
+      "href": "talks/index.html"
+    },
+    {
+      "label": "Blog",
+      "href": "blog/index.html"
+    }
+  ],
+  "googleHref": "https://www.google.com/search?q=robustecologies.github.io",
+  "figure": {
+    "label": "Orbits leaving a saddle",
+    "caption": "Live: orbits of x′ = x, y′ = −y near a saddle at the origin. They arrive along the vertical axis and leave along the horizontal one, as your request arrived here and now has to leave.",
+    "scene": {
+      "system": "x' = x\ny' = -y\ninit x = 0\ninit y = 0\nrange x = [-1, 1]\nrange y = [-1, 1]",
+      "view": {
+        "type": "flow",
+        "spawn": "box",
+        "life": [
+          60,
+          200
+        ]
+      },
+      "n": 700,
+      "dt": 0.02,
+      "rate": 1.2,
+      "style": {
+        "ramp": "relab-fire",
+        "fade": 0.07
+      }
+    }
+  }
+}

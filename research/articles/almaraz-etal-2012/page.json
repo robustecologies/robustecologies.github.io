@@ -1,0 +1,105 @@
+{
+  "type": "article",
+  "title": "Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2012-02-28",
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "http://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695",
+      "affiliation": "ICMAN-CSIC"
+    },
+    {
+      "name": "Andy J. Green",
+      "affiliation": "EBD-CSIC"
+    },
+    {
+      "name": "Eduardo Aguilera",
+      "affiliation": "EBD-CSIC"
+    },
+    {
+      "name": "Miguel A. Rendón",
+      "affiliation": "EBD-CSIC"
+    },
+    {
+      "name": "Javier Bustamante",
+      "affiliation": "EBD-CSIC"
+    }
+  ],
+  "categories": [
+    "Partial observability",
+    "Waterfowl",
+    "Climatic fluctuations",
+    "Stochasticity",
+    "Stability",
+    "Bayesianism"
+  ],
+  "haiku": [
+    "Waterfowl fly away,",
+    "longing for mild climate,",
+    "to unknown spaces"
+  ],
+  "reference": "<a href=\"http://robustecologies.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Pablo Almaraz</a>, Andy J. Green, Eduardo Aguilera, Miguel A. Rendón, Javier Bustamante (2012) Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl. <em>Journal of Animal Ecology</em> 81: 1113–1125, <a href=\"https://doi.org/10.1111/j.1365-2656.2012.01972.x\" target=\"_blank\" rel=\"noopener noreferrer\"><code>DOI: 10.1111/j.1365-2656.2012.01972.x</code></a>",
+  "links": [
+    {
+      "name": "Final version",
+      "url": "https://doi.org/10.1111/j.1365-2656.2012.01972.x",
+      "icon": "fa-solid fa-scroll"
+    },
+    {
+      "name": "Add to Zotero",
+      "url": "https://www.zotero.org/save?type=doi&q=https://doi.org/10.1111/j.1365-2656.2012.01972.x",
+      "icon": "fas fa-book"
+    }
+  ],
+  "doi": "10.1111/j.1365-2656.2012.01972.x",
+  "extra": "",
+  "citation": {
+    "journal": "Journal of Animal Ecology",
+    "volume": "81",
+    "issue": "5",
+    "pages": "1113-1125",
+    "year": 2012,
+    "title": "Estimating partial observability and nonlinear climate effects on stochastic community dynamics of migratory waterfowl",
+    "authors": [
+      {
+        "given": "Pablo",
+        "family": "Almaraz"
+      },
+      {
+        "given": "Andy J.",
+        "family": "Green"
+      },
+      {
+        "given": "Eduardo",
+        "family": "Aguilera"
+      },
+      {
+        "given": "Miguel A.",
+        "family": "Rendón"
+      },
+      {
+        "given": "Javier",
+        "family": "Bustamante"
+      }
+    ],
+    "publisher": "Wiley"
+  },
+  "figure": {
+    "label": "Stationary distribution of the stochastic Gompertz model",
+    "legend": "Live: the stochastic Gompertz model on the log scale, dX = (a − cX) dt + σ dW with a = 1, c = 0.5 and σ = 0.5. An ensemble that starts at X = 0.2 relaxes on the time scale 1/c = 2 into the stationary normal distribution of mean a/c = 2 and standard deviation σ/√(2c) = 0.5; 4000 members give 1.999 and 0.494 at t = 20.",
+    "scene": {
+      "system": "X' = a - c*X\nnoise X = sigma\nparam a = 1\nparam c = 0.5\nparam sigma = 0.5\ninit X = 0.2\nrange X = [-0.5, 4]",
+      "view": {
+        "type": "density",
+        "window": 30
+      },
+      "n": 3000,
+      "dt": 0.01,
+      "style": {
+        "ramp": "relab-fire"
+      }
+    }
+  }
+}

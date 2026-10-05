@@ -1,0 +1,112 @@
+{
+  "title": "Robust Ecologies Lab",
+  "url": "https://robustecologies.github.io",
+  "description": "The RELab is a one man band",
+  "author": "Pablo Almaraz",
+  "locale": "es_ES",
+  "menu": [
+    {
+      "label": "Home",
+      "href": "index.html"
+    },
+    {
+      "label": "About",
+      "href": "about/index.html"
+    },
+    {
+      "label": "People",
+      "menu": [
+        {
+          "label": "Pablo Almaraz",
+          "href": "people/almaraz/index.html"
+        }
+      ]
+    },
+    {
+      "label": "Research",
+      "href": "research/index.html"
+    },
+    {
+      "label": "Projects",
+      "menu": [
+        {
+          "label": "Overview",
+          "href": "projects/index.html"
+        },
+        {
+          "label": "SaniVult",
+          "href": "projects/sanivult/index.html",
+          "newTab": true
+        },
+        {
+          "label": "GuadalShiftR",
+          "href": "projects/guadalshiftr/index.html",
+          "newTab": true
+        }
+      ]
+    },
+    {
+      "label": "Software",
+      "href": "software/index.html",
+      "whenSoftware": true
+    },
+    {
+      "label": "Talks",
+      "href": "talks/index.html"
+    },
+    {
+      "label": "Blog",
+      "href": "blog/index.html"
+    }
+  ],
+  "social": [
+    {
+      "label": "E-mail",
+      "href": "mailto:pablo.almaraz@csic.es",
+      "icon": "bi:envelope"
+    },
+    {
+      "label": "Bluesky",
+      "href": "https://bsky.app/profile/robustecolab.bsky.social",
+      "icon": "ph:butterfly-bold"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/robustecologies",
+      "icon": "bi:github"
+    }
+  ],
+  "footer": {
+    "year": "2026",
+    "holder": "RELab",
+    "license": "CC BY-NC-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "pgp": "pgpk.txt",
+    "source": "https://github.com/robustecologies"
+  },
+  "hero": {
+    "models": []
+  },
+  "comments": {
+    "enabled": false,
+    "repo": "robustecologies/robustecologies.github.io",
+    "repoId": "R_kgDOQjZPow",
+    "categories": {
+      "talks": {
+        "name": "Talks",
+        "id": "DIC_kwDOIg6EJc4CSz92"
+      },
+      "blog": {
+        "name": "Blog comments",
+        "id": "DIC_kwDOIg6EJc4CSz92"
+      }
+    }
+  },
+  "analytics": {
+    "goatcounter": ""
+  },
+  "packagesDir": "../RElabPackages",
+  "publish": {
+    "keep": []
+  }
+}

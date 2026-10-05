@@ -1,0 +1,27 @@
+{
+  "type": "post",
+  "collection": "blog",
+  "title": "Diversification and extinction dynamics buried in the sea floor",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2025-03-05",
+  "description": "Natural selection, or the non-survival of the non-fit",
+  "image": "img/nature11851-f1.2.jpg",
+  "categories": [
+    "Contingency",
+    "Diversification",
+    "Evolution",
+    "Extinction",
+    "Foraminifera",
+    "Natural selection",
+    "Transiency"
+  ],
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "https://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695"
+    }
+  ],
+  "showAuthor": true,
+  "comments": true
+}

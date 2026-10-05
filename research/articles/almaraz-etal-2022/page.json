@@ -1,0 +1,118 @@
+{
+  "type": "article",
+  "title": "Long-term demographic dynamics of a keystone scavenger disrupted by human-induced shifts in food availability.",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2022-09-03",
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "http://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695",
+      "affiliation": "ICMAN-CSIC"
+    },
+    {
+      "name": "Félix Martínez",
+      "affiliation": "Universidad Rey Juan Carlos"
+    },
+    {
+      "name": "Zebensui Morales-Reyes",
+      "orcid": "0000-0002-4529-8651",
+      "affiliation": "Miguel Hernández University of Elche"
+    },
+    {
+      "name": "José A. Sánchez-Zapata",
+      "affiliation": "Miguel Hernández University of Elche"
+    },
+    {
+      "name": "Guillermo Blanco",
+      "affiliation": "MNCN-CSIC"
+    }
+  ],
+  "categories": [
+    "Stage-structured demography",
+    "Scavengers",
+    "Transient dynamics",
+    "Asymptotic dynamics",
+    "Stability"
+  ],
+  "haiku": [
+    "A vulture colony grows,",
+    "unbounded not,",
+    "transient dynamics reigns"
+  ],
+  "reference": "<a href=\"http://robustecologies.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Pablo Almaraz</a>, Félix Martínez, Zebensui Morales-Reyes, José A. Sánchez-Zapata, Guillermo Blanco (2022) Long-term demographic dynamics of a keystone scavenger disrupted by human-induced shifts in food availability. <em>Ecological Applications</em> 32: e2579, <a href=\"https://doi.org/10.1002/eap.2579\" target=\"_blank\" rel=\"noopener noreferrer\"><code>DOI: 10.1002/eap.2579</code></a>",
+  "links": [
+    {
+      "name": "Final version",
+      "url": "https://doi.org/10.1002/eap.2579",
+      "icon": "fa-solid fa-scroll"
+    },
+    {
+      "name": "Code",
+      "url": "https://github.com/robustecologies/SaniVult",
+      "icon": "fa-brands fa-github"
+    },
+    {
+      "name": "Zenodo",
+      "url": "https://doi.org/10.5281/zenodo.7046213",
+      "icon": "fas fa-z"
+    },
+    {
+      "name": "Add to Zotero",
+      "url": "https://www.zotero.org/save?type=doi&q=https://doi.org/10.1002/eap.2579",
+      "icon": "fas fa-book"
+    }
+  ],
+  "doi": "10.1002/eap.2579",
+  "extra": "",
+  "citation": {
+    "journal": "Ecological Applications",
+    "volume": "32",
+    "issue": "6",
+    "pages": "e2579",
+    "year": 2022,
+    "title": "Long‐term demographic dynamics of a keystone scavenger disrupted by human‐induced shifts in food availability",
+    "authors": [
+      {
+        "given": "Pablo",
+        "family": "Almaraz"
+      },
+      {
+        "given": "Félix",
+        "family": "Martínez"
+      },
+      {
+        "given": "Zebensui",
+        "family": "Morales‐Reyes"
+      },
+      {
+        "given": "José A.",
+        "family": "Sánchez‐Zapata"
+      },
+      {
+        "given": "Guillermo",
+        "family": "Blanco"
+      }
+    ],
+    "publisher": "Wiley"
+  },
+  "figure": {
+    "label": "Stage-structured population under food shortages",
+    "legend": "Live: juveniles (amber) and adults (blue) of a long-lived species with density-dependent fecundity. Every 100 time units fecundity falls by 60 percent for 10 time units: juveniles drop by 54 percent and adults, buffered by their high survival, by 19 percent, and both return to the equilibrium (8.06, 40.30).",
+    "scene": {
+      "system": "J' = f*(1 - s*step(mod(t, P) - t0)*step(t0 + L - mod(t, P)))*A*exp(-d*A) - (mj + g)*J\nA' = g*J - ma*A\nparam f = 0.6\nparam s = 0.6\nparam P = 100\nparam t0 = 40\nparam L = 10\nparam d = 0.05\nparam mj = 0.15\nparam g = 0.25\nparam ma = 0.05\ninit J = 8.06\ninit A = 40.3\nrange J = [0, 12]\nrange A = [0, 48]",
+      "view": {
+        "type": "timeseries",
+        "vars": [
+          "J",
+          "A"
+        ],
+        "window": 200
+      },
+      "dt": 0.01,
+      "style": {
+        "palette": "relab-qualitative"
+      }
+    }
+  }
+}

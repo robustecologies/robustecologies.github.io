@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Robust Ecologies Lab: Talks</title>
+  <link>https://robustecologies.github.io/talks/</link>
+  <description>Robust Ecologies Lab&#39;s talks</description>
+  <language>en</language>
+  <atom:link href="https://robustecologies.github.io/talks/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>Natural disasters, catastrophic bifurcations and structural fragility in a World Heritage wetland</title>
+    <link>https://robustecologies.github.io/talks/2025/06/26/ebd-seminars/</link>
+    <guid>https://robustecologies.github.io/talks/2025/06/26/ebd-seminars/</guid>
+    <pubDate>Thu, 26 Jun 2025 00:00:00 GMT</pubDate>
+    <description>Seminar Series of the Doñana Biological Station (CSIC)</description>
+    <category>Catastrophic bifurcations</category>
+    <category>Tipping points</category>
+    <category>Structural stability</category>
+    <category>Birds</category>
+    <category>Doñana</category>
+    <category>Transiency</category>
+  </item>
+</channel>
+</rss>
