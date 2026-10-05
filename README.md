@@ -18,10 +18,10 @@ The studio RElabSite writes the pages from the content in this folder. Edit the 
 | `assets/` | Styles, scripts and fonts, written by RElabSite |
 | `projects/` | The SaniVult and GuadalShiftR project sites |
 
-The folders VerteTIME, SamkhyaR, DynFlow and knowledge hold other sites under the same address. RElabSite does not write them and never deletes them.
+The repository holds only the content of this folder. To keep another site under the same address, such as the site of an R package, add its folder in RElabSite, Site settings, Publishing.
 
 <br>
 
 ## Publishing
 
-RElabSite commits each change to the branch `preview` and pushes it. Merge `preview` into `main` on GitHub to update the site.
+RElabSite commits each change to the branch `preview` and pushes it. Merge `preview` into `main` on GitHub to update the site. The README of RElabSite gives all the steps, the folders to keep and the solutions to common problems.
