@@ -1,0 +1,104 @@
+{
+  "type": "article",
+  "title": "Structural stability of invasion graphs for Lotka–Volterra systems.",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2024-06-17",
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "http://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695",
+      "affiliation": "ICMAN-CSIC"
+    },
+    {
+      "name": "<strong>Piotr Kalita</strong>",
+      "orcid": "0000-0002-2651-9666",
+      "affiliation": "Jagiellonian University"
+    },
+    {
+      "name": "José A. Langa",
+      "affiliation": "Universidad de Sevilla"
+    },
+    {
+      "name": "Fernando Soler–Toscano",
+      "affiliation": "Universidad de Sevilla"
+    }
+  ],
+  "categories": [
+    "Structural stability",
+    "Lotka-Volterra",
+    "Morse-Smale",
+    "Invasion graphs",
+    "Global attractors",
+    "Stability"
+  ],
+  "haiku": [
+    "A C1-perturbation sets in,",
+    "a global attractor",
+    "resists the push"
+  ],
+  "reference": "<a href=\"http://robustecologies.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>Pablo Almaraz</strong></a>, Piotr Kalita, José A. Langa, Fernando Soler–Toscano (2024) Structural stability of invasion graphs for Lotka–Volterra systems. <em>Journal of Mathematical Biology</em> 88: 64, <a href=\"https://doi.org/10.1007/s00285-024-02087-8\" target=\"_blank\" rel=\"noopener noreferrer\"><code>DOI: 10.1007/s00285-024-02087-8</code></a>",
+  "links": [
+    {
+      "name": "Final version",
+      "url": "https://doi.org/10.1007/s00285-024-02087-8",
+      "icon": "fa-solid fa-scroll"
+    },
+    {
+      "name": "Add to Zotero",
+      "url": "https://www.zotero.org/save?type=doi&q=https://doi.org/10.1007/s00285-024-02087-8",
+      "icon": "fas fa-book"
+    }
+  ],
+  "doi": "10.1007/s00285-024-02087-8",
+  "extra": "",
+  "citation": {
+    "journal": "Journal of Mathematical Biology",
+    "volume": "88",
+    "issue": "6",
+    "pages": "64",
+    "year": 2024,
+    "title": "Structural stability of invasion graphs for Lotka–Volterra systems",
+    "authors": [
+      {
+        "given": "Pablo",
+        "family": "Almaraz"
+      },
+      {
+        "given": "Piotr",
+        "family": "Kalita"
+      },
+      {
+        "given": "José A.",
+        "family": "Langa"
+      },
+      {
+        "given": "Fernando",
+        "family": "Soler–Toscano"
+      }
+    ],
+    "publisher": "Springer Science and Business Media LLC"
+  },
+  "figure": {
+    "label": "Global attractor of three competitors",
+    "legend": "Live: Lotka-Volterra competition among three species whose interaction matrix is Volterra-Lyapunov stable (its symmetric part has eigenvalues 1.8, 0.6 and 0.6). Species 3 cannot invade the other two (invasion rate −0.14), and every orbit that starts with all three present converges to the equilibrium (0.59, 0.82, 0); the boundary equilibria and the connections between them form the invasion graph.",
+    "scene": {
+      "system": "x1' = x1*(1 - x1 - 0.5*x2 - 0.3*x3)\nx2' = x2*(1 - 0.3*x1 - x2 - 0.5*x3)\nx3' = x3*(0.4 - 0.5*x1 - 0.3*x2 - x3)\ninit x1 = 0.3\ninit x2 = 0.3\ninit x3 = 0.3\nrange x1 = [0, 1.1]\nrange x2 = [0, 1.1]\nrange x3 = [0, 1.1]",
+      "view": {
+        "type": "flow",
+        "spawn": "box",
+        "life": [
+          80,
+          320
+        ],
+        "rotate": 0.12,
+        "fit": false
+      },
+      "n": 1500,
+      "dt": 0.05,
+      "style": {
+        "ramp": "relab-fire"
+      }
+    }
+  }
+}

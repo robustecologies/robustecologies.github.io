@@ -1,0 +1,14 @@
+{
+  "type": "listing",
+  "title": "Talks",
+  "pageTitle": "Robust Ecologies Lab",
+  "description": "Robust Ecologies Lab's talks",
+  "showDescription": false,
+  "style": "posts",
+  "collection": "talks",
+  "groupByYear": true,
+  "callout": {
+    "title": "Copyright",
+    "html": "<p>Except where noted, all content is © Pablo Almaraz and licensed under <a href=\"https://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative Commons</a>.</p>"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "type": "article",
+  "title": "Size-mediated non-trophic interactions and stochastic predation drive assembly and dynamics in a seabird community",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2011-10-01",
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "http://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695",
+      "affiliation": "ICMAN-CSIC"
+    },
+    {
+      "name": "Daniel Oro",
+      "affiliation": "CEAB-CSIC"
+    }
+  ],
+  "categories": [
+    "Partial observability",
+    "Seabirds",
+    "Ecological interactions",
+    "Stochasticity",
+    "Stability",
+    "Bayesianism"
+  ],
+  "haiku": [
+    "Seabirds in the beach,",
+    "large species thrive,",
+    "small ones sink"
+  ],
+  "reference": "<a href=\"http://robustecologies.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Pablo Almaraz</a>, Daniel Oro (2011) Size-mediated non-trophic interactions and stochastic predation drive assembly and dynamics in a seabird community. <em>Ecology</em> 92: 1948–1958, doi: <a href=\"https://doi.org/10.1890/11-0181.1\" target=\"_blank\" rel=\"noopener noreferrer\"><code>DOI: 10.1890/11-0181.1</code></a>",
+  "links": [
+    {
+      "name": "Final version",
+      "url": "https://doi.org/10.1890/11-0181.1",
+      "icon": "fa-solid fa-scroll"
+    },
+    {
+      "name": "Add to Zotero",
+      "url": "https://www.zotero.org/save?type=doi&q=https://doi.org/10.1890/11-0181.1",
+      "icon": "fas fa-book"
+    }
+  ],
+  "doi": "10.1890/11-0181.1",
+  "extra": "",
+  "citation": {
+    "journal": "Ecology",
+    "volume": "92",
+    "issue": "10",
+    "pages": "1948-1958",
+    "year": 2011,
+    "title": "Size-mediated non-trophic interactions and stochastic predation drive assembly and dynamics in a seabird community",
+    "authors": [
+      {
+        "given": "Pablo",
+        "family": "Almaraz"
+      },
+      {
+        "given": "Daniel",
+        "family": "Oro"
+      }
+    ],
+    "publisher": "Wiley"
+  },
+  "figure": {
+    "label": "Size-asymmetric competition",
+    "legend": "Live: three competitors of body sizes 1, 2 and 4. A species is depressed by a larger one with coefficient 0.6√(size ratio) and by a smaller one with coefficient 0.2. Every orbit that starts with all three present converges to (0, 0.18, 0.96): the smallest species is excluded (invasion rate −0.31) and the other two coexist.",
+    "scene": {
+      "system": "s' = s*(1 - s - 0.8485*m - 1.2*l)\nm' = m*(1 - 0.2*s - m - 0.8485*l)\nl' = l*(1 - 0.2*s - 0.2*m - l)\ninit s = 0.3\ninit m = 0.3\ninit l = 0.3\nrange s = [0, 1.1]\nrange m = [0, 1.1]\nrange l = [0, 1.1]",
+      "view": {
+        "type": "flow",
+        "spawn": "box",
+        "life": [
+          80,
+          320
+        ],
+        "rotate": 0.12,
+        "fit": false
+      },
+      "n": 1500,
+      "dt": 0.05,
+      "style": {
+        "ramp": "viridis"
+      }
+    }
+  }
+}

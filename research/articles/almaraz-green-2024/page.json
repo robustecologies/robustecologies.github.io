@@ -1,0 +1,91 @@
+{
+  "type": "article",
+  "title": "Catastrophic bifurcation in the dynamics of a threatened bird community triggered by a planetary-scale environmental perturbation.",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2024-05-31",
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "http://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695",
+      "affiliation": "ICMAN-CSIC"
+    },
+    {
+      "name": "Andy J. Green",
+      "affiliation": "EBD-CSIC"
+    }
+  ],
+  "categories": [
+    "Simulation",
+    "Bayes",
+    "Alternative stable states",
+    "Nonequilibrium",
+    "Regime shift",
+    "Catastrophe theory",
+    "Lotka-Volterra"
+  ],
+  "haiku": [
+    "A volcano explodes,",
+    "a wildfowl community",
+    "loses wintering fidelity"
+  ],
+  "reference": "<a href=\"http://robustecologies.org/\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>Pablo Almaraz</strong></a>, <a href=\"https://scholar.google.es/citations?user=wTg9HCcAAAAJ&hl=es\" target=\"_blank\" rel=\"noopener noreferrer\">Andy J. Green</a> (2024) Catastrophic bifurcation in the dynamics of a threatened bird community triggered by a planetary-scale environmental perturbation. <em>Biological Conservation</em> 291: 110466, <a href=\"https://doi.org/10.1016/j.biocon.2024.110466\" target=\"_blank\" rel=\"noopener noreferrer\"><code>DOI: 10.1016/j.biocon.2024.110466</code></a>",
+  "links": [
+    {
+      "name": "Final version",
+      "url": "https://doi.org/10.1016/j.biocon.2024.110466",
+      "icon": "fa-solid fa-scroll"
+    },
+    {
+      "name": "Code",
+      "url": "https://github.com/robustecologies/GuadalShiftR",
+      "icon": "fa-brands fa-github"
+    },
+    {
+      "name": "Zenodo",
+      "url": "https://zenodo.org/records/10637067",
+      "icon": "fas fa-z"
+    },
+    {
+      "name": "Add to Zotero",
+      "url": "https://www.zotero.org/save?type=doi&q=10.1016/j.biocon.2024.110466",
+      "icon": "fas fa-book"
+    }
+  ],
+  "doi": "10.1016/j.biocon.2024.110466",
+  "extra": "Part of the special issue <a href=\"https://www.sciencedirect.com/special-issue/10DNPT6S9QV\" rel=\"noopener noreferrer\" target=\"_blank\">‘Non-equilibrium perspectives in biological conservation’</a>, edited by Sonia Kefi, Pierre Gaüzère and Daniel Oro",
+  "citation": {
+    "journal": "Biological Conservation",
+    "volume": "291",
+    "issue": "",
+    "pages": "110466",
+    "year": 2024,
+    "title": "Catastrophic bifurcation in the dynamics of a threatened bird community triggered by a planetary-scale environmental perturbation",
+    "authors": [
+      {
+        "given": "Pablo",
+        "family": "Almaraz"
+      },
+      {
+        "given": "Andy J.",
+        "family": "Green"
+      }
+    ],
+    "publisher": "Elsevier BV"
+  },
+  "figure": {
+    "label": "Fold catastrophe under a slow sweep",
+    "legend": "Live: the fold catastrophe x′ = r + x − x³ under a slow sweep of r between −0.8 and 0.8. The state follows one branch of equilibria until it passes the fold at r = ±0.385, jumps to the other branch, and stays there when r returns, until the opposite fold: hysteresis, the signature of a catastrophic bifurcation.",
+    "scene": {
+      "system": "x' = r + a*x - x^3\nparam r = 0 [-0.8, 0.8]\nparam a = 1 [-0.5, 2]\ninit x = -1\nrange x = [-1.6, 1.6]",
+      "view": {
+        "type": "sweep",
+        "param": "r",
+        "from": -0.8,
+        "to": 0.8,
+        "speed": 0.005
+      },
+      "dt": 0.01
+    }
+  }
+}

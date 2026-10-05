@@ -1,0 +1,196 @@
+{
+  "type": "software",
+  "title": "Software",
+  "intro": "",
+  "packages": [
+    {
+      "include": false,
+      "name": "chamaeleon",
+      "title": "Multiscale analysis of chameleon behaviour in stochastic strange attractors",
+      "version": "0.4.0",
+      "description": "Implementation of multiscale times-series analysis combining Takens embedding, multivariate empirical mode decomposition (MEMD), and extreme value theory (EVT) for non-stationary dynamical systems. Computes scale-dependent instantaneous dimension and inverse persistence to characterize chameleon attractors, a kind of stochastic strange attractors whose geometric and topological properties vary across time and scales. Core methodology based on Alberti et al. (2023) <doi:10.1016/j.chaos.2023.113195>. Provides an original surrogate-based statistical testing framework for formal hypothesis testing of chameleon behavior against scale-invariant null models, including multiple test statistics, effect size estimation, and non-stationary analysis.",
+      "github": "https://github.com/robustecologies/chamaeleon",
+      "docs": "https://robustecologies.github.io/chamaeleon"
+    },
+    {
+      "include": false,
+      "name": "galeRkin",
+      "title": "A General-Purpose Finite Element Method Ecosystem in R with a C++ Core",
+      "version": "0.3.0",
+      "description": "A finite element pipeline for R built on a C++17 core. Meshes in one, two and three dimensions are equipped with Lagrange spaces of degree one to three, and a weak form is composed in R from named terms rather than parsed from a string, so each term is testable on its own against a manufactured solution. The core turns a form into sparse matrices and vectors by batched quadrature over all elements, with every coefficient materialized before assembly starts, so no call into R happens inside a parallel region. Direct and iterative sparse solvers, Dirichlet constraints imposed by symmetric elimination, periodic constraints imposed by identification, boundary integrals for Neumann and Robin conditions, error norms against a known solution and a convergence harness following the method of manufactured solutions complete the scalar pipeline, on the foundations of Ciarlet (2002) <doi:10.1137/1.9780898719208> and Brenner and Scott (2008) <doi:10.1007/978-0-387-75934-0>. Beyond it the package carries a damped Newton iteration with load stepping for quasilinear and semilinear forms, streamline upwind stabilization and flux-corrected transport for advection-dominated problems, residual error estimation with Dorfler marking and newest-vertex bisection for adaptivity, the hybridized lowest-order Raviart-Thomas pair and the symmetric interior penalty method, generalized eigenproblems by shift-and-invert Lanczos iteration, the theta and backward differentiation formulas in time, coupled multi-species systems, the stochastic partial differential equation bridge to a Matern field, and multilevel Monte Carlo over a solver hierarchy. The application layer targets biology, ecology and biomedicine, where reaction-diffusion models on irregular domains are the working idiom and the non-Fickian ecological diffusion of Garlick, Powell, Hooten and McFarlane (2011) <doi:10.1007/s11538-010-9612-6> has had no finite element tooling inside R.",
+      "github": "https://github.com/robustecologies/galeRkin",
+      "docs": "https://robustecologies.github.io/galeRkin"
+    },
+    {
+      "include": false,
+      "name": "HiRsch",
+      "title": "Competitive and Cooperative Systems After Hirsch",
+      "version": "0.4.0",
+      "description": "A computational homage to the theory of competitive and cooperative systems of ordinary differential equations developed by Morris W. Hirsch. The package detects the order structure of a vector field, integrates the flow together with its variational equation, certifies Kamke-Mueller monotonicity, measures the balancedness and the compressibility of limit sets, computes carrying simplices of totally competitive Kolmogorov systems, evaluates the divergence and Kupka-Smale criteria that force three-dimensional limit sets to be equilibria or cycles, builds the semi-invariant three-cell attached to a cycle, and tests internal chain transitivity and uniform persistence.",
+      "github": "https://github.com/robustecologies/HiRsch",
+      "docs": "https://robustecologies.github.io/HiRsch"
+    },
+    {
+      "include": false,
+      "name": "HUAP",
+      "title": "Hyers-Ulam and Andronov-Pontryagin Stability of Dynamical Systems",
+      "version": "0.1.0",
+      "description": "Computes the Hyers-Ulam stability constants of linear differential and difference equations on the whole time axis, the complex and real distances of a matrix to the set of non-hyperbolic matrices, and the joint profile that relates both quantities under perturbations of the vector field. Finite pseudo-orbits of maps are shadowed by a Newton iteration on the block-bidiagonal difference operator, with an a posteriori existence condition of Newton-Kantorovich type, and the continuation envelope of the shadowing constant along pseudo-orbits is estimated from finite windows. Classical constructions for functional equations are included: the direct method of Hyers, the Gajda counterexample and counting quasimorphisms of the free group on two generators.",
+      "github": "https://github.com/robustecologies/HUAP",
+      "docs": "https://robustecologies.github.io/HUAP"
+    },
+    {
+      "include": false,
+      "name": "janos",
+      "title": "General-Purpose Simulation Framework for Spatio-Temporal Stochastic Dynamical Systems",
+      "version": "3.5.0",
+      "description": "A unified framework for specifying, simulating and analysing dynamical systems from a single formula-based interface. Covers ordinary, delay and stochastic differential equations; 1D and 2D partial differential equations via the method of lines; discrete maps; jump-diffusion processes; piecewise deterministic Markov processes; continuous-time Markov chains; and the reaction-diffusion master equation on regular grids and arbitrary graphs. Stochastic models support correlated, Levy alpha-stable, fractional Brownian and colored (1/f^beta) noise, Ornstein-Uhlenbeck, dichotomous and trichotomous Markov drivers, white shot noise, matrix-valued diffusion, and either the Ito or the Stratonovich interpretation; one-dimensional partial differential equations accept space-time noise. The analysis layer detects noise-induced transitions, stochastic resonance and coherence resonance and computes mean first-passage times. Model formulas are compiled to C++ on demand and dispatched to a suite of solvers (Dormand-Prince RK4(5), Rosenbrock Rodas3 with symbolic Jacobian generation, method of lines, Gillespie Direct and Next-Reaction, adaptive tau-leaping, hybrid SSA/CLE, Euler-Maruyama, Milstein, and Lewis-Shedler thinning). The analysis layer provides phase and qualitative portraits for ODE, SDE, DDE and PDMP systems; numerical bifurcation continuation with fold and Hopf detection; Lyapunov function construction via eight algebraic and numerical methods with a family-aware advisor dispatching over any model specification; Fokker-Planck stationary densities, quasi-potential landscapes and Kramers escape rates; continuous adjoint sensitivity; quasi-stationary distribution and rare-event probability estimation; multi-level Monte Carlo variance reduction; and ensemble simulation with two-tier C++ OpenMP and R-level parallelism. A model may read the clock, so nonautonomous forcing is available across the flow, delay and map families; for a periodically forced flow the period-T stroboscopic map, its monodromy matrix and the Floquet multipliers locate the driven orbits and classify their stability.",
+      "github": "https://github.com/robustecologies/janos",
+      "docs": "https://robustecologies.github.io/janos"
+    },
+    {
+      "include": false,
+      "name": "kaRma",
+      "title": "Causality Detection for Dynamical Systems",
+      "version": "0.4.0",
+      "description": "A constellation of directional causal inference for multivariate time series. Methods include conditional mutual information, directed information, spectral Granger causality, phase-dynamics and recurrence coupling, and Granger causality in the feature space of a Mercer kernel (Marinazzo, Pellicoro and Stramaglia 2008) <doi:10.1103/PhysRevLett.100.144103>. State-space rungs read direction from the geometry of a delay embedding through convergent cross mapping (Sugihara et al. 2012) <doi:10.1126/science.1227079> and its conditional, multispatial, geographical, kernel and wavelet variants. Liang-Kleeman information flow supplies an estimator whose nil causality is exact for a structural zero (Liang 2014) <doi:10.1103/PhysRevE.90.052150>. The structural rungs reconstruct a network under conditioning by PCMCI and optimal causation entropy (Runge et al. 2019) <doi:10.1126/sciadv.aau4996>, and recover direction from static data by linear non-Gaussian acyclic models, additive noise models and information-geometric inference. The interventional rung computes the information flow of a do-operator on a discrete causal Bayesian network, which is zero whenever no directed path runs from cause to effect (Ay and Polani 2008) <doi:10.1142/S0219525908001465>, and the counterfactual rung estimates the impact of an intervention against a synthetic control. An arbitration panel runs the battery side by side and votes, and every detector reports on a surrogate or analytic null. Performance-critical kernels are implemented in C++ via 'Rcpp' and 'RcppArmadillo' with OpenMP.",
+      "github": "https://github.com/robustecologies/kaRma",
+      "docs": "https://robustecologies.github.io/kaRma"
+    },
+    {
+      "include": false,
+      "name": "koloRo",
+      "title": "Comprehensive color palettes for scientific visualization, accessibility, and geometric art",
+      "version": "0.1.2",
+      "description": "A collection of 282 carefully curated color palettes organized across 16 categories including scientific visualization, colorblind-safe options, authentic Alhambra historical pigments from the Nasrid dynasty, chameleon species coloration patterns based on herpetological literature, natural phenomena, cultural traditions, artistic movements, and film-inspired cinematic color grading. Provides tools for palette visualization, comparison, color manipulation, pattern generation for geometric art, and ggplot2 integration. All palettes are theoretically grounded with references to color science, accessibility standards, natural history, and historical research.",
+      "github": "https://github.com/robustecologies/koloRo",
+      "docs": "https://robustecologies.github.io/koloRo"
+    },
+    {
+      "include": false,
+      "name": "lucifer",
+      "title": "An Exhaustive Environment for Bayesian Inference with C++ Backend and OpenMP Parallelization",
+      "version": "3.26.0",
+      "description": "The next-generation complete refactor of the legendary LaplacesDemon: a beast from another time, another land. An exhaustive environment for Bayesian inference providing 133 algorithms behind a single model interface. 89 probability distribution families, 83 MCMC samplers, 8 variational Bayes methods, 18 Laplace approximation optimizers, 3 iterative quadrature rules, population and sequential Monte Carlo, 4 ABC variants, 6 simulation-based inference methods, and 9 state-space model engines. Computationally intensive operations are now implemented in C++ via Rcpp and RcppArmadillo with OpenMP parallelization. A declarative model specification DSL compiles to native C++ for zero R-overhead sampling. The automated Prescribe/Consort/Arena/Crucible pipeline selects algorithms, diagnoses convergence, and ranks competing fits. Cross-validation, RobustBayes sensitivity analysis, data cloning for identifiability, ProductSpace Bayesian model selection, and a frequentist-Bayesian bridge complement the inference engines. Domain-specific modules cover bayesian stochastic differential equations and interoperability with Stan, JAGS, coda, and the posterior package.",
+      "github": "https://github.com/robustecologies/lucifer",
+      "docs": "https://robustecologies.github.io/lucifer"
+    },
+    {
+      "include": false,
+      "name": "manifoldeR",
+      "title": "Attractors, Delay Embeddings and Manifold Learning for Dynamical Systems",
+      "version": "0.6.0",
+      "description": "Reconstructs the state space of a dynamical system from observed time series by delay embedding (Takens 1981) <doi:10.1007/BFb0091924>, including embeddings of forced systems (Stark 1999) <doi:10.1007/s003329900072> and multivariate generalisations (Deyle and Sugihara 2011) <doi:10.1371/journal.pone.0018295>, and builds on the reconstructed manifold the empirical dynamic modelling toolkit: simplex projection (Sugihara and May 1990) <doi:10.1038/344734a0>, the locally weighted S-map with its Jacobian and delay-state tangent (Sugihara 1994) <doi:10.1098/rsta.1994.0106>, and the cross-map engine of convergent cross mapping (Sugihara et al. 2012) <doi:10.1126/science.1227079>. Further estimators cover observation-error S-maps on replicated censuses, network-scale distance-regularised S-maps, nested-library regime-shift detection, readouts of a fitted Jacobian, dynamic mode decomposition (Schmid 2010) <doi:10.1017/S0022112010001217>, the Hankel alternative view of Koopman analysis (Brunton et al. 2017) <doi:10.1038/s41467-017-00030-8>, data-driven linearization, correlation dimension, persistent homology of the delay attractor, recurrence quantification and neighbour-divergence chaos diagnostics. The measure-theoretic time-delay embedding (Botvinick-Greenhouse et al. 2025) <doi:10.1007/s10955-025-03555-1> learns the full-state reconstruction map and the delay-coordinate dynamics by matching probability measures on balanced cells of the delay trajectory. Set-oriented methods (Dellnitz and Junge 1999) <doi:10.1137/S0036142996313002> cover the attractor of a map, a flow or an observed trajectory by boxes, approximate its Frobenius-Perron operator by Ulam's method or by the infinitesimal generator of the flow, and derive the SRB (physical) measure, its ergodic decomposition, cyclic components, almost-invariant and coherent sets, Lyapunov exponents and dimensions. Weighted transfer operators (Terhesiu and Froyland 2008) <doi:10.1088/0951-7715/21/9/001> and periodic orbits give the topological pressure and equilibrium states of the geometric potential (Ruelle 1976) <doi:10.2307/2373810>, with block entropies, the capacity bound of Young (1981) <doi:10.1017/S0143385700001309>, sample measures of random maps and orbit diagnostics of hyperbolicity. A ridge S-map evaluated at any point, with the analytic derivative of its predictor, turns a reconstruction into a dynamical map with a trust region, so that the set-oriented, periodic-orbit and min-plus methods apply to learned dynamics; the same evaluator gives conformal plausibility contours of forecasts (Cella and Martin 2022) <doi:10.1016/j.ijar.2021.07.013>, an observability field of candidate observables, symbolic analogue forecasts and cross maps on fuzzy symbols, and a sequential kernel test of change in the measure of delay vectors by betting (Shekhar and Ramdas 2024) <doi:10.1109/TIT.2023.3305867>. Compiled kernels use 'Rcpp' and 'RcppArmadillo' with OpenMP, and header-only kernels are exposed to dependent packages through 'LinkingTo'.",
+      "github": "https://github.com/robustecologies/manifoldeR",
+      "docs": "https://robustecologies.github.io/manifoldeR"
+    },
+    {
+      "include": false,
+      "name": "navieRstokes",
+      "title": "2D Incompressible Navier-Stokes Solver with Chorin Projection",
+      "version": "0.3.2",
+      "description": "Provides a comprehensive finite difference method solver for the 2D incompressible Navier-Stokes equations using Chorin's fractional-step projection method for pressure-velocity coupling. The package implements efficient Rcpp/OpenMP parallelized computational kernels for convection, diffusion, and pressure Poisson solvers with both Jacobi and SOR (successive over-relaxation) iterative methods. Features include multiple boundary condition types (Dirichlet, Neumann, periodic), external forcing support, comprehensive diagnostics (mass conservation, CFL monitoring), and built-in visualization functions for velocity fields, vorticity, and pressure distributions. Includes an interactive Shiny dashboard implementing several scenarios for simulating the Navier-Stokes equations.",
+      "github": "https://github.com/robustecologies/navieRstokes",
+      "docs": "https://robustecologies.github.io/navieRstokes"
+    },
+    {
+      "include": false,
+      "name": "nonautonomeR",
+      "title": "Mathematical and Statistical Tools for Building and Analyzing Nonautonomous Dynamical Systems",
+      "version": "0.28.1",
+      "description": "Numerical methods for the Sacker-Sell (dichotomy) spectrum of nonautonomous dynamical systems, for flows and for maps alike. Both reduce to a linear cocycle, whose spectrum is computed by smooth QR factorisation with sliding-window growth extremes following Dieci and Van Vleck (2002) <doi:10.1137/S0036142901392304>. The spectrum contains the Lyapunov exponents but is not determined by them, since it is governed by the Bohl exponents. Simulation is delegated to the 'janos' package, and the benchmarks include the piecewise-constant example of Huels (2010) <doi:10.1137/090754509>, whose spectrum is known in closed form. A Hyers-Ulam family computes the constants of linear differential and difference equations on the whole time axis, which are finite exactly when the matrix is hyperbolic, the complex and real distances of a matrix to the set of non-hyperbolic matrices, and the profile that relates both quantities under perturbations of the vector field. Finite pseudo-orbits of maps are shadowed by a Newton iteration on the block-bidiagonal difference operator with an a posteriori existence condition of Newton-Kantorovich type, and the continuation envelope of the shadowing constant is estimated from finite windows; the direct method of Hyers, the Gajda counterexample and counting quasimorphisms of the free group on two generators complete the family.",
+      "github": "https://github.com/robustecologies/nonautonomeR",
+      "docs": "https://robustecologies.github.io/nonautonomeR"
+    },
+    {
+      "include": false,
+      "name": "oscillatoRs",
+      "title": "Planetary climate oscillation indices and teleconnections from NOAA PSL and CPC",
+      "version": "0.2.0",
+      "description": "Download, process, and visualize 41 planetary climate oscillation indices from authoritative sources including NOAA Physical Sciences Laboratory (PSL) and Climate Prediction Center (CPC). The package includes pre-bundled datasets covering major climate modes: ENSO (SOI, Nino regions, ONI, MEI), Pacific multidecadal variability (PDO, IPO), Atlantic oscillations (AMO, TNA, TSA), polar oscillations (AO, AAO, NAO), Indian Ocean Dipole (DMI), stratospheric dynamics (QBO), and atmospheric teleconnections (PNA, WP, EP/NP). Each index carries its provider, its units and the measured span of the file served, since the registry mixes standardized anomalies with pressures, temperatures, rainfall totals, wind speeds and areas. Provides functions for downloading updated data, creating publication-quality time series visualizations, and computing cross-index correlations.",
+      "github": "https://github.com/robustecologies/oscillatoRs",
+      "docs": "https://robustecologies.github.io/oscillatoRs"
+    },
+    {
+      "include": false,
+      "name": "RElabSkins",
+      "title": "Selectable 'pkgdown' Layouts for the Robust Ecologies Lab",
+      "version": "0.1.0",
+      "description": "A 'pkgdown' template package with six site layouts in the colours and typefaces of the Robust Ecologies Lab: indigo bar, studio shell, blackboard, monograph, phase portrait and ecosystem dock. A package site selects one by name under 'template: params: skin' in its '_pkgdown.yml'; every layout has a day and a night theme behind the light switch.",
+      "github": "https://github.com/robustecologies/RElabSkins",
+      "docs": "https://robustecologies.github.io/RElabSkins"
+    },
+    {
+      "include": false,
+      "name": "RElabverse",
+      "title": "A Dynamical Systems Lab of Robust Mathematics and Robust Statistics for Robust Ecologies",
+      "version": "3.1.0",
+      "description": "Orchestrates the RElab computational ecosystem into a single workflow for the analysis of ecological dynamical systems, from observed multi-species abundances to a probabilistic verdict on community stability. Posterior samples from the 'lucifer' inference engine and trajectories from the 'janos' simulator are used to solve the inverse generalized Lotka-Volterra problem, recovering interaction matrices and growth rates and deriving global attractors, probabilistic transitors, multistability basins and bifurcations. Structural metastability is quantified through a stability constellation combining spectral, pseudospectral, stability-radius, reactivity, random-matrix, eigenvector-perturbation and connective-stability diagnostics, backed by a full matrix-analysis stack of matrix functions, norms, numerical range, eigenvalue localisation and perturbation bounds. Further subsystems cover empirical dynamic modelling and convergent cross mapping, the Lotka-Volterra map and mixed graphical models for time-varying interactions, structural and practical identifiability and sloppiness analysis, sparse identification of nonlinear dynamics, Volterra-Wiener-Korenberg models, local Lyapunov exponents and a chaos battery, recurrence quantification, nonparametric spatial covariance and functional-coefficient autoregression, reservoir computing, synthetic-likelihood, semi-nonparametric and Monte Carlo kernel likelihood, stiff inverse problems, a unified resampling laboratory, missing-data imputation, simulation-based residual diagnostics, and Bayesian dynamic structural equation models for path analysis of multivariate ecological time series with latent constructs, statistical interactions and nonstationarity, nonparametric estimation of state-dependent process noise, and partially specified models that fit delay-differential, differential and difference population models to time series by trajectory matching with unknown model terms represented as shape-constrained penalized splines selected by generalized cross validation. Basin geometry comes from 'SolidAngleR' and multistability and Wada-basin analysis from 'wadaR'. Performance-critical kernels are implemented in C++ via 'Rcpp', 'RcppArmadillo', and 'RcppParallel' with OpenMP.",
+      "github": "https://github.com/robustecologies/RElabverse",
+      "docs": "https://robustecologies.github.io/RElabverse"
+    },
+    {
+      "include": false,
+      "name": "SamkhyaR",
+      "title": "Computational Exploration of the Samkhya Darsana and Its Twenty-Five Tattvas",
+      "version": "0.2.0",
+      "description": "Tools for the enumeration and the causal derivation of classical Samkhya, one of the six orthodox schools of Indian philosophy. Carries the twenty-five principles (tattva) as a documented data object with the structural partition of Samkhyakarika verse 3, the immediate material cause of each principle, and its membership in the internal organ, the elevenfold set and the subtle body. Simulates the branching evolution of Prakrti as verses 22 and 25 state it, in which the eleven organs proceed from the sattvic aspect of ahamkara and the five subtle elements from its tamasic aspect in parallel. Renders the derivation as a Mermaid diagram and through 'ggplot2' methods, and supplies reference objects for the three means of valid knowledge, the eight dispositions of buddhi with the fiftyfold intellectual creation, the eighteen constituents of the subtle body, and the five arguments for the pre-existence of the effect in its cause. Sources are cited to verse throughout, and commentarial positions are distinguished from the text of the karika. See Larson (1979, ISBN 978-81-208-0503-3) and Larson and Bhattacharya (1987) <doi:10.1515/9781400853533>.",
+      "github": "https://github.com/robustecologies/SamkhyaR",
+      "docs": "https://robustecologies.github.io/SamkhyaR"
+    },
+    {
+      "include": false,
+      "name": "SolidAngleR",
+      "title": "Computing Normalized Solid Angles of Polyhedral Cones in Arbitrary Dimensions",
+      "version": "0.7.0",
+      "description": "Comprehensive methods for computing normalized solid angles of polyhedral cones in arbitrary dimensions, including closed formulas for low dimensions, hypergeometric series, tridiagonal series, decomposition methods, multivariate normal integration and spanning tree methods for extreme ray computation. Implements advanced Monte Carlo (MC) approaches using rejection sampling for random point assignments to complex cone intersections, and Rcpp-based novel O(n) MC algorithms for generating uniform random vectors using the Box-Muller/Marsaglia method for complete n-dimensional spheres coverage, and the incomplete beta function plus Givens rotation for full coverage within spherical caps.",
+      "github": "https://github.com/robustecologies/SolidAngleR",
+      "docs": "https://robustecologies.github.io/SolidAngleR"
+    },
+    {
+      "include": false,
+      "name": "symplectoR",
+      "title": "Symplectic and Accelerated-Gradient Optimization via Dissipative Hamiltonian Dynamics",
+      "version": "0.1.0",
+      "description": "Accelerated gradient methods implemented as structure-preserving discretizations of continuous dissipative Hamiltonian systems. Provides the relativistic gradient descent master kernel of Franca et al (2020) <https://arxiv.org/abs/1903.04100>, which subsumes classical momentum and Nesterov acceleration as exact parameter settings; dissipative presymplectic leapfrog integrators with general damping schedules following Franca et al. (2021) <doi:10.1088/1742-5468/abf5d4>; the fully explicit symplectic leapfrog compositions of the polynomial and exponential Bregman subfamilies with gradient momentum restarting and temporal looping following Duruisseaux and Leok (2023) <https://arxiv.org/abs/2207.11460>; the rate-matching three-sequence discretization of Wibisono et al (2016) <https://doi.org/10.1073/pnas.1614734113>; and a classical midpoint Strang split-step Fourier simulation of quantum Hamiltonian descent on finite periodic boxes, following Leng et al (2025) <https://arxiv.org/abs/2503.15878>. An inverse-modeling front end estimates model parameters from data by trajectory matching or likelihood minimization. Performance-critical kernels are implemented in C++ via 'Rcpp' and 'RcppArmadillo' with OpenMP parallelization over multi-start ensembles, parameter sweeps and pseudospectral grids.",
+      "github": "https://github.com/robustecologies/symplectoR",
+      "docs": "https://robustecologies.github.io/symplectoR"
+    },
+    {
+      "include": false,
+      "name": "tuRbulence",
+      "title": "Stochastic chaos and turbulent attractors in dynamical systems",
+      "version": "0.4.0",
+      "description": "Implements stochastic dynamical systems for studying turbulent attractors with Ornstein-Uhlenbeck colored noise forcing, with emphasis on Earth system models and ocean-atmosphere interactions. Includes seven systems across eight integrators: von Karman turbulent flow in the stochastic Duffing oscillator, Lorenz-63 and Lorenz-84, Roessler, Stommel thermohaline circulation, Charney-DeVore atmospheric blocking in a three-mode reduction and in the published six-mode truncation, and the Hasselmann stochastic climate model. Every deterministic drift is advanced by fourth-order Runge-Kutta and every stochastic increment by Euler-Maruyama. Provides attractor reconstruction via delay and peak embedding, largest-Lyapunov-exponent estimation (Wolf and Rosenstein algorithms), minimum embedding dimension via Cao's E1 and E2 statistics, and interactive 3D visualization of chaotic attractors. Streamlined with Rcpp and C++/OpenMP for computational efficiency.",
+      "github": "https://github.com/robustecologies/tuRbulence",
+      "docs": "https://robustecologies.github.io/tuRbulence"
+    },
+    {
+      "include": false,
+      "name": "VerteTIME",
+      "title": "A Curated Repository of World Vertebrate Community Time Series",
+      "version": "1.0.1",
+      "description": "A harmonised compilation of more than 200 vertebrate community time series independently re-curated from peer-reviewed primary literature and grey literature. Each series records annual abundance for two or more co-occurring species at a single site, optionally accompanied by site-specific environmental covariates. The package provides ingestion and validation pipelines, alpha and beta community-diversity metrics, temporal-turnover and nestedness summaries, spatial and timeline visualisations, and multi-format export to CSV, Apache Parquet, SQLite and Frictionless Data Package.",
+      "github": "https://github.com/robustecologies/VerteTIME",
+      "docs": "https://robustecologies.github.io/VerteTIME"
+    },
+    {
+      "include": false,
+      "name": "volumr",
+      "title": "Interactive Volume Rendering of Gridded Three-Dimensional Fields",
+      "version": "0.1.0",
+      "description": "Turns a gridded three-dimensional field into a volume that a browser renders on the GPU by ray marching a pair of 8-bit textures. The field is resampled onto a uniform vertical grid, carried into 8 bits through a monotone transfer whose error is reported against the source, and written as one image per level with a manifest that records the grid, the transfer and a SHA-256 of every input and every output. The payload is served from a directory or carried inside a single HTML file that opens with no server. An 'htmlwidget' exposes the renderer to 'shiny' and to R Markdown, and 'shinyVolumr()' puts the whole workflow in a 'shinydashboard' application that also accepts a field uploaded by the reader. Marine heatwave cumulative intensity in the Mediterranean over the 0 to 250 m layer ships as the case study.",
+      "github": "https://github.com/robustecologies/volumr",
+      "docs": "https://robustecologies.github.io/volumr"
+    },
+    {
+      "include": false,
+      "name": "wadaR",
+      "title": "Wada basins of attraction and bifurcations in chaotic dynamical systems",
+      "version": "0.7.0",
+      "description": "Implements multiple methods for detecting Wada basins of attraction in chaotic dynamical systems. Wada basins are a special type of fractal basins where a single boundary separates three or more basins. The package provides four detection methods: the grid method , the merging method, the saddle-straddle method, and theoretical support for the classical Nusse-Yorke method. Streamlined with high-performance parallelized Rcpp/OpenMP implementations.",
+      "github": "https://github.com/robustecologies/wadaR",
+      "docs": "https://robustecologies.github.io/wadaR"
+    }
+  ]
+}

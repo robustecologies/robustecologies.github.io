@@ -1,0 +1,39 @@
+{
+  "type": "person",
+  "title": "Pablo Almaraz",
+  "pageTitle": "Robust Ecologies Lab",
+  "contacts": [
+    {
+      "label": "E-mail",
+      "href": "mailto:pablo.almaraz@csic.es",
+      "icon": "bi:envelope"
+    },
+    {
+      "label": "ORCID",
+      "href": "https://orcid.org/0000-0003-1416-2695",
+      "icon": "fa-orcid"
+    },
+    {
+      "label": "Google Scholar",
+      "href": "https://scholar.google.es/citations?user=GDFS1v0AAAAJ&hl=es",
+      "icon": "ai-google-scholar"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/palmaraz",
+      "icon": "fa-github"
+    },
+    {
+      "label": "Bluesky",
+      "href": "https://bsky.app/profile/palmaraz.bsky.social",
+      "icon": "ph:butterfly-bold"
+    }
+  ],
+  "portrait": "camaleon2.jpg",
+  "portraitAlt": "Pablo Almaraz",
+  "cv": {
+    "href": "cv.pdf",
+    "label": "Download current CV",
+    "embed": true
+  }
+}

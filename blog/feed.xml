@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Robust Ecologies Lab: Blog</title>
+  <link>https://robustecologies.github.io/blog/</link>
+  <description>Robust Ecologies Lab&#39;s blog</description>
+  <language>en</language>
+  <atom:link href="https://robustecologies.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>Diversification and extinction dynamics buried in the sea floor</title>
+    <link>https://robustecologies.github.io/blog/2025/03/05/diversification-in-the-seaflor/</link>
+    <guid>https://robustecologies.github.io/blog/2025/03/05/diversification-in-the-seaflor/</guid>
+    <pubDate>Wed, 05 Mar 2025 00:00:00 GMT</pubDate>
+    <description>Natural selection, or the non-survival of the non-fit</description>
+    <category>Contingency</category>
+    <category>Diversification</category>
+    <category>Evolution</category>
+    <category>Extinction</category>
+    <category>Foraminifera</category>
+    <category>Natural selection</category>
+    <category>Transiency</category>
+  </item>
+</channel>
+</rss>

@@ -1,0 +1,83 @@
+{
+  "type": "article",
+  "title": "Complex structural effects of two hemispheric climatic oscillators on the regional spatio-temporal expansion of a threatened bird",
+  "pageTitle": "Robust Ecologies Lab",
+  "date": "2004-06-04",
+  "authors": [
+    {
+      "name": "Pablo Almaraz",
+      "url": "http://robustecologies.github.io",
+      "orcid": "0000-0003-1416-2695",
+      "affiliation": "ICMAN-CSIC"
+    },
+    {
+      "name": "Juan A. Amat",
+      "affiliation": "EBD-CSIC"
+    }
+  ],
+  "categories": [
+    "Partial observability",
+    "Structural Equation Modelling",
+    "threatened species",
+    "Stochasticity",
+    "Climatic fluctuations"
+  ],
+  "haiku": [
+    "Blue-billed duck",
+    "escapes extinction,",
+    "to find a small kid"
+  ],
+  "reference": "<a href=\"http://robustecologies.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\">Pablo Almaraz</a>, Juan A. Amat (2004) Complex structural effects of two hemispheric climatic oscillators on the regional spatio-temporal expansion of a threatened bird. <em>Ecology Letters</em> 7: 547–556, <a href=\"https://doi.org/10.1111/j.1461-0248.2004.00612.x\" target=\"_blank\" rel=\"noopener noreferrer\"><code>DOI: 10.1111/j.1461-0248.2004.00612.x</code></a>",
+  "links": [
+    {
+      "name": "Final version",
+      "url": "https://doi.org/10.1111/j.1461-0248.2004.00612.x",
+      "icon": "fa-solid fa-scroll"
+    },
+    {
+      "name": "Add to Zotero",
+      "url": "https://www.zotero.org/save?type=doi&q=https://doi.org/10.1111/j.1461-0248.2004.00612.x",
+      "icon": "fas fa-book"
+    }
+  ],
+  "doi": "10.1111/j.1461-0248.2004.00612.x",
+  "extra": "",
+  "citation": {
+    "journal": "Ecology Letters",
+    "volume": "7",
+    "issue": "7",
+    "pages": "547-556",
+    "year": 2004,
+    "title": "Complex structural effects of two hemispheric climatic oscillators on the regional spatio‐temporal expansion of a threatened bird",
+    "authors": [
+      {
+        "given": "Pablo",
+        "family": "Almaraz"
+      },
+      {
+        "given": "Juan A.",
+        "family": "Amat"
+      }
+    ],
+    "publisher": "Wiley"
+  },
+  "figure": {
+    "label": "Population under two climatic oscillators",
+    "legend": "Live: a logistic population (r = 1) whose carrying capacity k follows two oscillators of periods 3 and 3φ² ≈ 7.85 and their product. Because the ratio of the periods is irrational, the forcing never repeats; the population (amber) trails its carrying capacity (blue) by about 0.6 time units.",
+    "scene": {
+      "system": "x' = r*x*(1 - x/k)\nk' = a1*w1*cos(w1*t) + a2*w2*cos(w2*t) + c*(w1*cos(w1*t)*sin(w2*t) + w2*sin(w1*t)*cos(w2*t))\nparam r = 1\nparam a1 = 0.25\nparam a2 = 0.35\nparam c = 0.15\nparam w1 = 2.0943951023931953\nparam w2 = 0.7999877432428844\ninit x = 1\ninit k = 1\nrange x = [0.4, 1.9]\nrange k = [0.4, 1.9]",
+      "view": {
+        "type": "timeseries",
+        "vars": [
+          "x",
+          "k"
+        ],
+        "window": 40
+      },
+      "dt": 0.01,
+      "style": {
+        "palette": "relab-qualitative"
+      }
+    }
+  }
+}
