@@ -1,6 +1,6 @@
 {
   "type": "notfound",
-  "title": "Let φ(x) ≔ x is a page of this site, and ξ(x) ≔ x is the page you asked for. Then,",
+  "title": "If φ(x) ≔ x is a page of this site, and ξ(x) ≔ x is the page you asked for, then",
   "logic": "¬∃x (φ(x) ∧ ξ(x))",
   "text": "Since no x fulfils both conditions (in other words, <strong>Error 404</strong>), your request has left the state space of this site. Every orbit, however, lies in the basin of attraction of something: write a word below, and the flow will carry you to the pages that lie closest to it.",
   "fixedPoints": [
