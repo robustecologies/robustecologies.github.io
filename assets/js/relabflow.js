@@ -1,5 +1,6 @@
 // RElabFlow 0.1.0. Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab.
-// SPDX-License-Identifier: GPL-3.0-or-later. https://www.gnu.org/licenses/gpl-3.0.html
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Licence text: https://www.gnu.org/licenses/gpl-3.0.html
 // Built from 12 source files by tools/build.mjs; edit the sources, not this file.
 // ---- src/core/rng.js
 // SPDX-License-Identifier: GPL-3.0-or-later

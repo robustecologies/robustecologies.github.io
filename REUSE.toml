@@ -1,0 +1,113 @@
+version = 1
+SPDX-PackageName = "robustecologies.github.io"
+SPDX-PackageSupplier = "Pablo Almaraz <pablo.almaraz@csic.es>"
+SPDX-PackageDownloadLocation = "https://github.com/robustecologies/robustecologies.github.io"
+
+# When several annotations match a file, the last one applies.
+
+# Content: text, figures, images and data of the site.
+[[annotations]]
+path = "**"
+SPDX-FileCopyrightText = "Pablo Almaraz <pablo.almaraz@csic.es>"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Pages and page sources hold text (CC BY 4.0) together with code: inline
+# scripts, live-figure scenes and code shown in posts (GPL-3.0-or-later).
+[[annotations]]
+path = ["**/*.html", "**/page.json", "404.json", "**/body.md"]
+SPDX-FileCopyrightText = "Pablo Almaraz <pablo.almaraz@csic.es>"
+SPDX-License-Identifier = "CC-BY-4.0 AND GPL-3.0-or-later"
+
+# Code: scripts and style sheets written by RElabSite, including the engine of the live figures.
+[[annotations]]
+path = ["assets/js/**", "assets/site.css", "assets/fonts/*.css"]
+SPDX-FileCopyrightText = "2026 Pablo Almaraz, Robust Ecologies Lab"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Fonts.
+[[annotations]]
+path = ["assets/fonts/Jost-*.woff2"]
+SPDX-FileCopyrightText = "2020 The Jost Project Authors (https://github.com/indestructible-type/Jost)"
+SPDX-License-Identifier = "OFL-1.1"
+
+[[annotations]]
+path = ["assets/fonts/LibreFranklin-*.woff2"]
+SPDX-FileCopyrightText = "2020 The Libre Franklin Project Authors (https://github.com/googlefonts/Libre-Franklin)"
+SPDX-License-Identifier = "OFL-1.1"
+
+[[annotations]]
+path = ["assets/fonts/TeXGyrePagella-*.woff2"]
+SPDX-FileCopyrightText = "2006-2018 B. Jackowski, J.M. Nowacki, et al. (on behalf of TeX Users Groups), for the TeX Gyre extensions"
+SPDX-License-Identifier = "LicenseRef-GUST-Font-License"
+
+[[annotations]]
+path = ["assets/fonts/OFL-1.1.txt"]
+SPDX-FileCopyrightText = "2007 SIL International"
+SPDX-License-Identifier = "OFL-1.1"
+
+[[annotations]]
+path = ["assets/fonts/GUST-FONT-LICENSE.txt"]
+SPDX-FileCopyrightText = "2006 GUST e-foundry"
+SPDX-License-Identifier = "LicenseRef-GUST-Font-License"
+
+# Figures of published articles, under the licence of the article.
+[[annotations]]
+path = ["research/articles/almaraz-2014/fevo-02-00054-g001.jpg"]
+SPDX-FileCopyrightText = "2014 Pablo Almaraz, published in Frontiers in Ecology and Evolution, doi:10.3389/fevo.2014.00054"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["research/articles/almaraz-etal-2024/global_attractor.png"]
+SPDX-FileCopyrightText = "2024 The authors, published in Journal of Mathematical Biology, doi:10.1007/s00285-024-02087-8"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["research/articles/almaraz-green-2024/Cusp_diagram_grabs.png"]
+SPDX-FileCopyrightText = "2024 The authors, published in Biological Conservation, doi:10.1016/j.biocon.2024.110466"
+SPDX-License-Identifier = "CC-BY-NC-ND-4.0"
+
+[[annotations]]
+path = ["research/articles/almaraz-amat-2004/Fig2AlmarazAmat2004a.jpeg"]
+SPDX-FileCopyrightText = "Rights holder as stated in Ecology Letters, doi:10.1111/j.1461-0248.2004.00612.x"
+SPDX-License-Identifier = "LicenseRef-Publisher-Terms"
+
+[[annotations]]
+path = ["research/articles/almaraz-etal-2012/almarazetal_Fig3_JAE-2011-00617.R2.png"]
+SPDX-FileCopyrightText = "Rights holder as stated in Journal of Animal Ecology, doi:10.1111/j.1365-2656.2012.01972.x"
+SPDX-License-Identifier = "LicenseRef-Publisher-Terms"
+
+[[annotations]]
+path = ["research/articles/almaraz-etal-2022/Figure_web.png"]
+SPDX-FileCopyrightText = "Rights holder as stated in Ecological Applications, doi:10.1002/eap.2579"
+SPDX-License-Identifier = "LicenseRef-Publisher-Terms"
+
+[[annotations]]
+path = ["research/articles/almaraz-oro-2011/Body size ratio - alpha.png"]
+SPDX-FileCopyrightText = "Rights holder as stated in Ecology, doi:10.1890/11-0181.1"
+SPDX-License-Identifier = "LicenseRef-Publisher-Terms"
+
+[[annotations]]
+path = ["blog/2025/03/05/diversification-in-the-seaflor/img/main_fig_peters_etal.jpg"]
+SPDX-FileCopyrightText = "2013 Springer Nature, from Peters, Kelly and Fraass, Nature, doi:10.1038/nature11815"
+SPDX-License-Identifier = "LicenseRef-Publisher-Terms"
+
+[[annotations]]
+path = ["blog/2025/03/05/diversification-in-the-seaflor/img/nature11851-f1.2.jpg"]
+SPDX-FileCopyrightText = "2013 Springer Nature, from Holland, Nature, doi:10.1038/nature11851"
+SPDX-License-Identifier = "LicenseRef-Publisher-Terms"
+
+# Project sites, separate works under their own licences.
+[[annotations]]
+path = ["projects/sanivult/**"]
+SPDX-FileCopyrightText = "2021 Pablo Almaraz"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["projects/guadalshiftr/**"]
+SPDX-FileCopyrightText = "Pablo Almaraz"
+SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
+
+[[annotations]]
+path = ["projects/*/site_libs/**"]
+SPDX-FileCopyrightText = "The authors of Bootstrap, Font Awesome, highlight.js, jQuery, jQuery UI, tocify and R Markdown, as stated in each file"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Libraries"

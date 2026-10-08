@@ -1,0 +1,5 @@
+These files are third-party libraries bundled by R Markdown with a project
+site: Bootstrap, Font Awesome, highlight.js, jQuery, jQuery UI, tocify and the
+R Markdown helpers. Each library is distributed under the licence stated in
+its own files or at its project home page. They are not licensed under the
+licences of this repository.

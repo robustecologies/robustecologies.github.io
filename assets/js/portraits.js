@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab
 /* Phase portraits for the home hero, played by RElabFlow
    (shared/vendor/relabflow/relabflow.js, a copy of the RElabFlow bundle
    without its embedded source text). One model is drawn at random on each

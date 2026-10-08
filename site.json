@@ -78,9 +78,13 @@
   ],
   "footer": {
     "year": "2026",
-    "holder": "RELab",
-    "license": "CC BY-NC-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    "holder": "Pablo Almaraz",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "codeLicense": "GPL-3.0-or-later",
+    "codeLicenseUrl": "https://www.gnu.org/licenses/gpl-3.0.html",
+    "source": "https://github.com/robustecologies/robustecologies.github.io",
+    "exceptions": "<strong>Exceptions.</strong> Published articles, and the figures reproduced from them, keep the terms of their publishers; follow the DOI of each article. The fonts are under the SIL Open Font License 1.1 and the GUST Font License. The project and package sites state their own licences. Logos and trademarks are not licensed."
   },
   "hero": {
     "models": []

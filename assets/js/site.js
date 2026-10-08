@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab
 /* Behaviour of the lab site: phone menu, live title bands, the RElabFlow
    hero and goal figures, category filters, copy buttons for code and the
    search of the site. Every page reads without it. */
@@ -73,6 +75,18 @@
   document.querySelectorAll('[data-instrument="cusp"]').forEach(function (host) {
     if (V && V.cuspInstrument) V.cuspInstrument(host, { ink: "#eceaf4" });
   });
+
+  // ------------------------------------------------------------ licensing
+  // The panel opens on hover (CSS) and on click or Enter; Escape or a click
+  // elsewhere closes it.
+  const lic = document.querySelector(".lic"), licBtn = lic && lic.querySelector(".lic-btn");
+  if (licBtn) {
+    const setLic = function (open) { lic.classList.toggle("open", open); licBtn.setAttribute("aria-expanded", String(open)); };
+    licBtn.addEventListener("click", function (e) { e.stopPropagation(); setLic(!lic.classList.contains("open")); });
+    lic.querySelector(".lic-panel").addEventListener("click", function (e) { e.stopPropagation(); });
+    document.addEventListener("click", function () { setLic(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && lic.classList.contains("open")) { setLic(false); licBtn.focus(); } });
+  }
 
   // ------------------------------------------------------------ theme
   // The switch moves between the light and dark themes and remembers the choice.

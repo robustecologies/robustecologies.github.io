@@ -9,6 +9,6 @@
   "groupByYear": true,
   "callout": {
     "title": "Copyright",
-    "html": "<p>Except where noted, all content is © Pablo Almaraz and licensed under <a href=\"https://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative Commons</a>.</p>"
+    "html": "<p>Except where noted, text, figures and images are © Pablo Almaraz under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>, and code is under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GPL-3.0-or-later</a>.</p>"
   }
 }

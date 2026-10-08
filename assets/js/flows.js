@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab
 /* Dynamical systems behind every animation of the layout study.
    Loaded as a classic script in the browser (window.Flows) and through
    require() in node for checks/flows_check.mjs. Every system is integrated

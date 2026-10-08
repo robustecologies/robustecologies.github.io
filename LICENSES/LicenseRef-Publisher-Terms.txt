@@ -1,0 +1,4 @@
+This file reproduces a figure from a published article. It is not licensed
+under the licences of this repository. The terms of the publisher of the
+article apply; the DOI of the article is given in the copyright notice of the
+file in REUSE.toml.

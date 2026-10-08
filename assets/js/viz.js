@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab
 /* Canvas renderers used by the layouts. Every animation integrates a system
    from flows.js; nothing is a precomputed video. Animations stop when the
    canvas leaves the viewport and draw a single static frame when the reader

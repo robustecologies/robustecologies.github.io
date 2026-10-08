@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later
+   Copyright (C) 2026 Pablo Almaraz, Robust Ecologies Lab */
 /* Palette and type tokens of the lab: indigo, orange and amber from the logo, in light and dark. */
 @import url("fonts/fonts.css");
 @import url("fonts/pagella.css");
@@ -207,9 +209,20 @@ h2 { font-size: 1.9rem; margin: 0 0 0.8rem; color: var(--brand); }
 
 /* Footer */
 .footer { color: var(--muted); font-family: var(--font-ui); font-size: 0.82rem; }
-.footer-inner { max-width: min(100%, 84rem); margin: 0 auto; padding: 1.6rem 16px; text-align: center; }
-.footer a { color: inherit; }
-.footer a:hover { color: var(--link-hover); }
+.footer-inner { position: relative; max-width: min(100%, 84rem); margin: 0 auto; padding: 1.6rem 16px; text-align: center; }
+.lic-btn { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.lic-btn:hover, .lic.open .lic-btn { color: var(--link-hover); }
+.lic-panel { display: none; position: absolute; z-index: 50; bottom: calc(100% - 1.2rem); left: 50%; transform: translateX(-50%); width: min(30rem, calc(100% - 32px)); padding: 1rem 1.1rem; text-align: left; font-size: 0.84rem; line-height: 1.5; color: var(--ink-2); background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); }
+/* A bridge under the panel keeps the hover while the pointer moves up to it. */
+.lic-panel::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 1.2rem; }
+.lic-panel p { margin: 0 0 0.6rem; }
+.lic-panel p:last-child { margin-bottom: 0; }
+.lic-panel .lic-title { font-family: var(--font-ui); font-weight: 600; font-size: 0.92rem; color: var(--ink); }
+.lic-panel strong { color: var(--ink); }
+.lic-panel a { color: var(--link); }
+.lic-panel a:hover { color: var(--link-hover); }
+.lic.open .lic-panel { display: block; }
+@media (hover: hover) { .lic:hover .lic-panel { display: block; } }
 
 /* Site components beyond the layout study: navigation menus and icons, the
    title band of detail pages, publication boxes, listings, figures, code,
