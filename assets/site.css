@@ -426,6 +426,15 @@ body.home .hero { height: 100vh; flex: 0 0 auto; }
 .mechanism { margin: 0 0 2.2rem; }
 .mech-fig { height: 22rem; border-radius: var(--radius); overflow: hidden; background: #170C3A; }
 .mechanism figcaption { max-width: none; }
+/* The cusp instrument keeps the night palette of the live figures in both themes. */
+.cusp-fig { --ink: #eceaf4; --ink-2: #c9c5d8; --muted: #a19cb6; --line-strong: #463d6b; --surface-2: #241e3b; padding: 0.9rem; border-radius: var(--radius); background: #170C3A; }
+.cusp-canvas { display: block; width: 100%; height: 20rem; }
+.cusp-controls { display: grid; grid-template-columns: auto 1fr auto auto; gap: 0.8rem; align-items: center; margin-top: 0.6rem; font-family: var(--font-ui); font-size: 0.9rem; color: var(--ink-2); }
+.cusp-controls output { font-family: var(--font-mono); color: var(--accent); margin-left: 0.3rem; }
+.cusp-controls input { accent-color: var(--orange); width: 100%; }
+.cusp-controls button { font: 0.85rem var(--font-ui); padding: 0.35rem 0.8rem; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); cursor: pointer; }
+.cusp-controls button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #170C3A; }
+@media (max-width: 560px) { .cusp-controls { grid-template-columns: 1fr 1fr; } .cusp-controls label, .cusp-controls input { grid-column: 1 / -1; } }
 
 /* Software and projects */
 .sw-grid, .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1rem; margin-top: 1.4rem; }

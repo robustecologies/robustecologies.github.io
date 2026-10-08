@@ -69,6 +69,10 @@
     const s = host.querySelector('script[type="application/json"]');
     if (s) play(host, JSON.parse(s.textContent));
   });
+  // The cusp instrument: bifurcation diagram, slider for r and a slow sweep.
+  document.querySelectorAll('[data-instrument="cusp"]').forEach(function (host) {
+    if (V && V.cuspInstrument) V.cuspInstrument(host, { ink: "#eceaf4" });
+  });
 
   // ------------------------------------------------------------ theme
   // The switch moves between the light and dark themes and remembers the choice.

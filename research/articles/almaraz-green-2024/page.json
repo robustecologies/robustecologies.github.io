@@ -74,8 +74,8 @@
     "publisher": "Elsevier BV"
   },
   "figure": {
-    "label": "Fold catastrophe under a slow sweep",
-    "legend": "Live: the fold catastrophe x′ = r + x − x³ under a slow sweep of r between −0.8 and 0.8. The state follows one branch of equilibria until it passes the fold at r = ±0.385, jumps to the other branch, and stays there when r returns, until the opposite fold: hysteresis, the signature of a catastrophic bifurcation.",
+    "label": "Bifurcation diagram of the cusp normal form under a slow sweep",
+    "legend": "Live: cusp normal form dx/dt = r + x − x³. Solid branches are stable, the dashed branch unstable; the folds sit at r = ±2/√27 ≈ ±0.385. Sweeping r, the state stays on its branch past the point at which the other branch appears, loses it at the fold and jumps; at this sweep rate x changes sign at r ≈ ±0.45, a delay set by the finite rate. The return follows the other branch: hysteresis. Catastrophe theory, used in the 2024 study of a threatened bird community, describes regime shifts with this geometry.",
     "scene": {
       "system": "x' = r + a*x - x^3\nparam r = 0 [-0.8, 0.8]\nparam a = 1 [-0.5, 2]\ninit x = -1\nrange x = [-1.6, 1.6]",
       "view": {
@@ -86,6 +86,7 @@
         "speed": 0.005
       },
       "dt": 0.01
-    }
+    },
+    "instrument": "cusp"
   }
 }
