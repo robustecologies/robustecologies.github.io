@@ -25,4 +25,4 @@ The repository holds only the content of this folder. To keep another site under
 
 ## Publishing
 
-RElabSite commits each change to the branch `preview` and pushes it. Merge `preview` into `main` on GitHub to update the site. The README of RElabSite gives all the steps, the folders to keep and the solutions to common problems.
+RElabSite commits each change to the branch `main` and pushes it, and GitHub Pages then updates the site. No pull request or merge is necessary. The README of RElabSite gives all the steps, the folders to keep and the solutions to common problems.

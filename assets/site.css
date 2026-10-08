@@ -206,9 +206,10 @@ h2 { font-size: 1.9rem; margin: 0 0 0.8rem; color: var(--brand); }
 @media (max-width: 760px) { .person { grid-template-columns: 1fr; } .portrait { max-width: 240px; margin: 0 auto; } }
 
 /* Footer */
-.footer { background: #212529; color: #dee2e6; font-family: var(--font-ui); font-size: 0.86rem; }
-.footer-inner { max-width: min(100%, 84rem); margin: 0 auto; padding: 1.2rem 16px; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; justify-content: space-between; }
-.footer a { color: var(--accent); }
+.footer { color: var(--muted); font-family: var(--font-ui); font-size: 0.82rem; }
+.footer-inner { max-width: min(100%, 84rem); margin: 0 auto; padding: 1.6rem 16px; text-align: center; }
+.footer a { color: inherit; }
+.footer a:hover { color: var(--link-hover); }
 
 /* Site components beyond the layout study: navigation menus and icons, the
    title band of detail pages, publication boxes, listings, figures, code,

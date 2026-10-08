@@ -6,7 +6,7 @@
   "goals": [
     {
       "label": "Snapshot attractor",
-      "legend": "Snapshot attractor of a seasonally forced predator and prey (Rosenzweig-MacArthur, ε = 0.8, period 10): 500 populations driven by the same seasons forget where they started and gather on one chaotic set that keeps changing shape.",
+      "legend": "Snapshot attractor of a seasonally forced predator and prey system (Rosenzweig-MacArthur, ε = 0.8, period 10): 500 populations driven by the same seasons forget where they started and gather on one chaotic set that keeps changing shape.",
       "scene": {
         "system": "x' = x*(1 + eps*sin(2*pi*t/T))*(1 - x) - a*x*y/(b + x)\ny' = y*(a*x/(b + x) - d)\nparam a = 1\nparam b = 0.3\nparam d = 0.35\nparam eps = 0.8\nparam T = 10\ninit x = 0.5\ninit y = 0.3\nrange x = [0, 1]\nrange y = [0, 0.8]",
         "view": {
@@ -28,7 +28,7 @@
     },
     {
       "label": "Quasiperiodic torus",
-      "legend": "Predator and prey under weak seasonal forcing (ε = 0.1) with a period of 32.7, 1.62 times the natural cycle of 20.2: orbits wind on an invariant torus, quasiperiodic with rotation number 0.607.",
+      "legend": "Predator and prey system under weak seasonal forcing (ε = 0.1) with a period of 32.7, 1.62 times the natural cycle of 20.2: orbits wind on an invariant torus, quasiperiodic with rotation number 0.607.",
       "scene": {
         "system": "x' = x*(1 + eps*u)*(1 - x) - a*x*y/(b + x)\ny' = y*(a*x/(b + x) - d)\nu' = w*v\nv' = -w*u\nparam a = 1\nparam b = 0.3\nparam d = 0.35\nparam eps = 0.1\nparam w = 0.19214\ninit x = 0.5\ninit y = 0.3\ninit u = 0\ninit v = 1",
         "view": {
@@ -51,7 +51,7 @@
     },
     {
       "label": "Return after pulses",
-      "legend": "Predator and prey below the Hopf point (K = 3 < 3.75): every 120 time units a pulse removes 70 percent of the prey, and the ensemble spirals back to coexistence, its displacement shrinking by a factor e every 40 time units (eigenvalues −0.025 ± 0.435i).",
+      "legend": "Phase portrait of the predator and prey system below the Hopf point (K = 3 < 3.75): every 120 time units a pulse removes 70 percent of the prey, and the ensemble spirals back to coexistence, its displacement shrinking by a factor e every 40 time units (eigenvalues −0.025 ± 0.435i).",
       "scene": {
         "system": "N' = r*N*(1 - N/K) - a*N*P/(1 + a*h*N)\nP' = e*a*N*P/(1 + a*h*N) - m*P\nparam r = 1\nparam K = 3\nparam a = 1\nparam h = 0.4\nparam e = 0.6\nparam m = 0.3\ninit N = 0.625\ninit P = 0.99\nrange N = [0, 3]\nrange P = [0, 1.6]",
         "view": {

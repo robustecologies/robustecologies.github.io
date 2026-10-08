@@ -80,9 +80,7 @@
     "year": "2026",
     "holder": "RELab",
     "license": "CC BY-NC-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-    "pgp": "pgpk.txt",
-    "source": "https://github.com/robustecologies"
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
   },
   "hero": {
     "models": []

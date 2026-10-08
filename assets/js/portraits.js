@@ -43,9 +43,22 @@
     return pick;
   }
 
+  // Caption name: the catalogue name followed by "attractor", with the
+  // wording set by hand where the plain suffix reads badly.
+  const LABEL = {
+    "gilpin": "Gilpin spiral-chaos attractor",
+    "lorenz-96": "Lorenz-96 attractor on five sites",
+    "newton-leipnik": "Newton-Leipnik attractors"
+  };
+
+  function label(m) {
+    if (LABEL[m.id]) return LABEL[m.id];
+    return /attractors?$/i.test(m.name) ? m.name : m.name + " attractor";
+  }
+
   function caption(m) {
     const c = credit(m);
-    return "Live: " + m.name + (c ? " (" + c + ")" : "") + ". " + m.about + (m.scene.view && m.scene.view.projection === "simplex" ? " Click to seed new initial conditions." : " Drag to turn the attractor.");
+    return "Live: " + label(m) + (c ? " (" + c + ")" : "") + ". " + m.about + (m.scene.view && m.scene.view.projection === "simplex" ? " Click to seed new initial conditions." : " Drag to turn the attractor.");
   }
 
   // Play model m in host, with the lab's night theme and no overlay text.
