@@ -11,3 +11,14 @@
   src: url(TeXGyrePagella-regular-latin.woff2) format('woff2');
   unicode-range: U+0020-007E, U+00A0-00FF, U+2018-201F;
 }
+/* The double-struck R (U+211D) and the element sign (U+2208) of the home page
+   title, from TeX Gyre Pagella Math. The file is a subset of
+   texgyrepagella-math.otf, under the same GUST Font License. */
+@font-face {
+  font-family: 'TeX Gyre Pagella';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(TeXGyrePagella-math-symbols.woff2) format('woff2');
+  unicode-range: U+211D, U+2208;
+}
