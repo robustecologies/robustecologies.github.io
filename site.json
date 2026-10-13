@@ -107,7 +107,7 @@
   "analytics": {
     "goatcounter": ""
   },
-  "packagesDir": "../RElabPackages",
+  "packagesDir": "../../RElabPackages",
   "publish": {
     "keep": []
   }
