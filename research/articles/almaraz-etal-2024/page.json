@@ -45,6 +45,12 @@
       "icon": "fa-solid fa-scroll"
     },
     {
+      "name": "Errata",
+      "url": "AKLS2024_errata.pdf",
+      "icon": "fa-solid fa-file-circle-exclamation",
+      "download": true
+    },
+    {
       "name": "Add to Zotero",
       "url": "https://www.zotero.org/save?type=doi&q=https://doi.org/10.1007/s00285-024-02087-8",
       "icon": "fas fa-book"
